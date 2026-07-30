@@ -1,0 +1,72 @@
+作业1: 安装langchain 和 openai-agent，运行 langchain / 02_Model工具调用.py
+    回答如下问题：
+        1、 langchain 工具调用 和 llm function call 有什么区别？
+
+langchain 工具调用 使用 @tool 装饰器来声明工具函数 读取函数信息 
+
+通过 bind_tools 挂载工具 最然后发送给 model
+
+直接使用invoke执行@tool装饰好的函数
+
+
+
+llm function call 则是使用 scheme 格式 声明工具函数的描述、入参出参 ，
+
+传入tools参数
+
+通过映射表 将 model 返回的结果和工具函数对应上 本地执行 
+
+
+
+​        2、 langchain 工具调用 的 速度是受到什么影响？
+
+1. api调用获得调用工具的指令的返回速度
+
+2. 执行工具的执行速度
+
+   
+
+
+
+
+
+作业2: 阅读意图识别 01-intent-classify 代码，梳理源文件的作用，绘制从fastapi 接受请求到
+     到返回结果的流程，绘制流程图（手绘、自然语言表达）。
+
+fastapi公开放四个接口
+
+	1.  /v1/text-cls/regex
+
+接收  请求id、请求文本、分类结果、分类时间、错误msg 实际上只有请求id 和 请求文本
+
+日记记录 id和对应请求文本  然后请求文本 从 分类字典里面 re正则匹配value 命中则为对应的key分类 
+
+没命中分类则为 other （如果请求文本是 list 则 for循环 逐个分类）
+
+
+
+
+
+
+
+	1.  /v1/text-cls/tfidf
+
+jieba分词将原始数据 分词 去停用词 后  把整条文本变成一个向量
+
+接收入参后 将 请求文本使用jiebe进行分词 然后
+
+匹配全部维度 获得最可能的分类
+
+	1.  /v1/text-cls/bert
+BERT 是已训练好的深度学习文本分类模型，依赖训练好的模型权重 训练来源是dataset.csv
+最后通过输入给出分类（12个分类之一）
+
+具体是： Tokenizer 编码输入 然后对于训练过的每个类别进行打分 得到分数最大的类别
+	
+
+
+	1.  /v1/text-cls/gpt
+
+将输入进行tfidf计算和训练文本哪些数据最相似， 将测试数据的最相似10条作为参考
+然后模型根据提示词和样本 输出结果
+few-shot 提示词 + 大模型分类（qwen模型）
