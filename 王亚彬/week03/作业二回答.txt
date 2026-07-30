@@ -1,0 +1,2 @@
+客户端首先向 FastAPI 的分类接口发送包含 request_id 和 request_text 的 POST 请求。FastAPI 使用 Pydantic 校验请求格式，如果格式错误则自动返回 422；校验成功后进入对应的路由函数。
+路由函数记录开始时间并创建统一响应对象，然后根据接口调用正则、TF-IDF、BERT 或 GPT 分类函数。分类成功后将类别写入 classify_result，并把 error_msg 设置为 ok；如果发生异常，则将分类结果置空并记录异常信息。最后计算分类耗时，由 Pydantic 将响应对象序列化为 JSON，再通过 FastAPI 返回客户端。
