@@ -11,7 +11,7 @@ class SentimentAgent(object):
 
         self.model_name = "deepseek-v4-flash"
         self.base_url = "https://api.deepseek.com"
-        self.api_key = "sk-e16dfcaa8c7e43908ae4d922f96c4a8f"
+        self.api_key = "sk-e16dfcxxxx22f96c4a8f"
 
         self.ai_client = OpenAI(api_key=self.api_key, base_url=self.base_url)
 
