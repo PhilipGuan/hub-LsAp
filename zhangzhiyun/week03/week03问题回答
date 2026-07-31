@@ -1,0 +1,66 @@
+
+# 作业1: 安装langchain 和 openai-agent，运行 langchain / 02_Model工具调用.py
+# 回答如下问题：
+
+# 1、 langchain 工具调用 和 llm function call 有什么区别？
+llm function call是模型原生能力，通过将可执行的能力以json格式提供给大模型，由大模型判断将应使用的方法返回，由我自行提供可执行函数选项、我自行交由代码执行，多轮对话需自行重复调用；
+而langchain工具调用为langchain框架实现的编排系统，它将我手动整理tool格式与调用进行了封装，并且实现了与openai类型、claude类型接口的对接，对于调用方无需考虑与多方的对接，在处理用户输入问题时，langchain可内部处理循环调用，将用户的提问与工具的调用结果整合后一次性返回，得到完整的回答
+
+# 2、 langchain 工具调用 的 速度是受到什么影响？
+提供工具的调用时间，如提供一个外部查询工具，在循环调用中，langchain需要先调用大模型执行该方法，拿到该工具的结果，再提交给大模型，期间多次调用大模型执行也同样消耗时间，若工具太多、循环次数增加、调用异常也会增加相应的时间
+
+
+# 作业2: 阅读意图识别 01-intent-classify 代码，梳理源文件的作用，绘制从fastapi 接受请求到返回结果的流程，绘制流程图（手绘、自然语言表达）。
+
+1、main.py，应用入口，启动位置，提供4个接口，实现相同的功能，即分类，不同点在于分类策略
+- /v1/text-cls/regex：正则规则匹配分类
+- /v1/text-cls/tfidf：TF-IDF分类算法、传统机器学习分类
+- /v1/text-cls/bert：BERT微调模型分类
+- /v1/text-cls/gpt：大语言模型分类
+2、logger.py 日志输出工具
+3、fastapi_demp.py fastapi的演示demo
+4、data_schema.py 给main中实现的接口格式化输入输出
+5、config.py 正则的规则、bert分类所用的类别、tfidf分类使用的模型路径、大模型api配置
+6、app.log 运行日志
+7、assets/dataset/dataset.csv：tfidf和bert分类所使用到的训练数据集，prompt中用来检索高相似度样本
+8、assets/dataset/baidu_stopwords.txt：训练用百度停用词表
+9、doc：项目相关文档
+10、model：分类策略代码实现
+11、test：测试数据样例
+12、training_code/train_tfidf.py tfidf模型训练，使用baidu_stopwords.txt训练，训练结果保存到assets/weights/tfidf_ml.pkl
+13、training_code/train_bert.py bert使用assets/models/bert-base-chinese模型训练，训练结果保存到assets/weights/bert.pt
+14、logs目录：bert训练过程中产生的日志
+
+fastapi调用流程：
+1、外部调用fastapi提供的http接口（包括：正则、tfidf、bert、大模型），
+2、Pydantic处理反序列化，校验入参
+3、初始化返回内容
+4、调用接口对应的分类处理代码
+    4.1、正则：
+        按config中定义的REGEX_RULE进行分类处理
+    4.2、tfidf：
+        使用训练好的assets/weights/tfidf_ml.pkl、
+        推理用在线词表http://mirror.coggle.club/stopwords/baidu_stopwords.txt，
+        使用停用词表过滤无用的高频词，剩下的有效词进行分类
+    4.3、bert：
+        torch优先使用gpu，否则使用cpu，使用中文模型
+        bert-base-chinese，加载模型和分词器，
+        model.eval() 设置评估模式，
+        进入循环执行batch，
+        torch.no_grad()设置不计算梯度，
+        to(device)将CPU中的计算结果喂给gpu显存中运行的模型，
+        outputs为当前batch模型处理的结果，
+        logits.detach().cpu().numpy()将结果从GPU取回到CPU内存并转换为numpy数组
+        list(np.argmax(logits, axis=1).flatten())将二维数组转换为一维数组，处理为list
+        [CATEGORY_NAME[x] for x in pred]将数组中的值转换为标签，返回分类结果
+    4.4、prompt：
+        加载训练数据集assets/dataset/dataset.csv，
+        tfidf, _ = load(TFIDF_MODEL_PKL_PATH) 加载assets/weights/tfidf_ml.pkl取出其中的TfidfVectorizer器对象tfidf， _ 丢弃了 LinearSVC 分类器，
+        train_tfidf = tfidf.transform(train_data[0]) 将TfidfVectorizer对象转换为可供读取的向量集
+        np.dot(tfidf_feat[idx], train_tfidf.T)计算当前传入文本与训练数据的相似度
+        ids.toarray()[0].argsort()[::-1][:10]取相似度最高的前10个样本索引
+        通过索引从样本中取出对应的原文和标签，拼接为长字符串，作为示例
+        将传入文本与示例、(list(train_data[1].unique())得到的标签枚举值提交到大模型
+        大模型返回分类结果
+5、处理成功则返回分类结果，处理异常则返回为空+error_msg
+6、序列化数据，接口返回结果
