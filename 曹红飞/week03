@@ -1,0 +1,20 @@
+
+问题1
+langchain tool calling 和 llm function calling 很相似，都是预先定义一些工具函数，传给大模型，大模型根据用户对话返回tool calls, 用户自己遍历tool calls调用对应的函数
+两者区别在于 工具函数绑定到大模型的方式，langchain tool calling用 @tool 描述工具，llm function calling 用json描述，除此以外，langchain有更高层的agent类可以简化调用
+
+影响langchain执行速度有
+1. 模型推理参数，比如温度，上下文长度等
+2. 工具执行时间，比如数据库查询，网页搜索，API调用
+3. 网络延迟，高并发排队和资源争用
+
+
+问题2
+intent-classify接受http rest api，fastapi进行路由匹配，执行对应的业务逻辑
+业务逻辑都是处理客户端请求，处理request_text里面文本进行意图识别，并返回对应的结果给客户端。
+根据请求，采用不同的意图识别方法，regex_rule, tfidf_ml, bert, prompt。
+regex_rule:  通过特定的单词进行匹配，在request_text中搜到意图对应的关键词，如果能找到，就返回这个意图
+tifidf_ml: 文本分割，去除stopwords，进行TF-IDF向量化，输入到传统机器学习模型进行意图识别
+bert: 通过微调后的BERT模型读取输入文本，将其分类到预先定义的意图类别中。
+prompt: 预先有一组文本到意图的数据，进行训练，TF-IDF特征提取，然后针对request_tex转成TF-IDF vector，
+通过相似度在预先训练的数据中动态查找top 10个相似案例，然后将相似案例发送给大模型进行意图堆导
