@@ -1,0 +1,51 @@
+第 1 步
+   客户端用 POST 发送 JSON
+   Content-Type: application/json
+   请求体形如 {request_id, request_text}
+
+第 2 步
+   FastAPI 把 JSON 转成 TextClassifyRequest
+   Pydantic 自动校验字段类型
+
+第 3 步
+   如果字段缺失或类型不对
+   → 直接返回 422 错误
+   如果字段合法
+   → 进入主处理函数
+
+第 4 步
+   logger.info 记录一条请求
+   记录开始时间 start_time
+
+第 5 步
+   构造 TextClassifyResponse 空对象
+   classify_result = ""
+   classify_time  = 0
+   error_msg      = ""
+
+第 6 步
+   根据 URL 决定调用哪种 model_for_xxx
+   regex / tfidf / bert / gpt
+
+第 7 步
+   对应算法在 model/ 目录中执行推理
+   - regex：遍历关键词正则
+   - tfidf：jieba 分词 → 向量化 → predict
+   - bert：tokenizer → 模型 → argmax
+   - gpt：TFIDF 检索 Top-10 → 拼 prompt → 调大模型
+
+第 8 步
+   把结果写回 response.classify_result
+   成功 → error_msg = "ok"
+   失败 → error_msg = traceback.format_exc()
+
+第 9 步
+   计算 classify_time = round(time.time() - start_time, 3)
+
+第 10 步
+   return response
+   FastAPI 自动序列化为 JSON
+
+第 11 步
+   uvicorn 写 access log 和 error log
+   返回给客户端

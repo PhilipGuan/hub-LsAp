@@ -1,0 +1,9 @@
+安装langchain 和 openai-agent，运行 langchain / 02_Model工具调用.py
+    回答如下问题：
+    1、 langchain 工具调用 和 llm function call 有什么区别？
+        langchain对基础llm function call 封装，简化调用过程，不需要写很多格式转换
+
+    2、 langchain 工具调用 的 速度是受到什么影响？
+        大模型接口耗时：模型大小，是否多次调用模型会产生影响
+        上下文 messages 长度，历史消息越长，推理传输越慢
+        bind_tools绑定工具列表数量，绑定越多耗时越长

@@ -1,0 +1,18 @@
+问题一：LangChain 工具调用 与 LLM Function Calling 的区别
+两者并不是替代关系，而是“应用层抽象与封装”与“底层模型固有能力”的关系。
+LLM Function Calling是大模型厂商提供的 API 接口规范，使模型能按 JSON Schema 输出结构化参数。
+LangChain Tool Calling是应用层开发框架，将底层的 Function Calling 与本地代码/第三方服务打通。
+LLM Function Calling模型只决策不执行：仅负责根据 Prompt 输出 JSON 格式的调用指令。
+LangChain Tool Calling框架接管全流程执行：负责将模型返回的 JSON 解析并真正调用 Python/JS 函数，再将结果喂回模型。
+
+问题二：LangChain 工具调用的速度受哪些因素影响？
+模型端响应与生成延迟
+工具本身的执行逻辑与网络
+LangChain 框架本身的序列化与 Pydantic 校验开销
+Agent 执行循环与上下文膨胀
+并行/异步工具调用的配置
+
+总耗时 = LLM 识别与生成 JSON (TTFT + Generation) 
+         + LangChain 中间件序列化/校验开销 
+         + 工具本身逻辑/API 响应时间 (Execution) 
+         + (如在 Agent 循环中) 多轮 Prompt 上下文重新传输时间
