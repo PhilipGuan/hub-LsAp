@@ -1,0 +1,24 @@
+## 问题二：LangChain 工具调用的速度（Latency）是受到什么影响？
+
+LangChain 工具调用的延迟绝不仅仅是“模型跑得快不快”，它是一个长链路的漏斗。
+
+1. 底层大模型的推理延迟 (LLM Inference Latency) —— 大头
+⚬	影响点： 模型本身的大小（如 70B 模型 vs 8B 模型）、当前 API 的服务负载、以及输入 Prompt 的 Token 长度（Context Window 越大，TTFT (Time to First Token) 越长）。
+⚬	不要盲目追求大模型。如果是简单的任务（比如广告文案修改Tool 路由明确），用轻量级模型（如 GPT-4o-mini 或 Llama-3-8B）可以把推理延迟从几秒降到毫秒级。
+
+2. LangChain 框架的“胶水”开销与多轮迭代 (Agent Loop & Abstraction)
+⚬	影响点：
+⚬	框架抽象损耗： LangChain 内部有大量的字符串解析、状态管理和校验逻辑，这会带来微小的计算延迟。
+⚬	多步迭代（Multi-step ReAct）： 如果是一个复杂的 Agent，它可能需要经历：“思考 ‭$\rightarrow$‬ 调用 Tool 1 ‭$\rightarrow$‬ 获取结果 ‭$\rightarrow$‬ 再次思考 ‭$\rightarrow$‬ 调用 Tool 2 ‭$\rightarrow$‬ 最终输出”。每一次工具调用，都意味着多了一次完整的“大模型往返（Round-trip）”，延迟呈几何级数上升。
+⚬	在产品设计中，必须限制 Max Iterations（最大迭代次数），防止 Agent 进入冗余的多步调用。
+
+3. 外部工具/API 的响应速度 (External API/Database Latency)
+⚬	影响点： 模型决定调用工具后，Harness 需要去请求外部系统（例如调用 Keeta 广告数据库、查 Redis、或者调第三方 API）。如果外部接口本身慢（比如没做缓存、SQL 没建索引），整个 AI 链路就会被强行卡住。
+⚬	“木桶效应”。AI 再快，如果查数据库要 3 秒，总延迟就是 3 秒以上。必须对高频调用的 Tool 结果做缓存（Caching）。
+
+4. Schema 的复杂度与参数量 (Serialization & Payload Size)
+⚬	影响点： 如果你注册给 LangChain 的 Tool 非常多（比如几十个工具），或者每个工具的 Schema 嵌套非常深、字段极其繁琐，模型在生成 Tool Calling 指令时，光是解析这些 Schema 描述就要消耗更多的 Token 和计算时间。
+⚬	做工具坚持【按需加载】的原则（Tool Routing/动态挂载）。不要一次性把 50 个工具全丢给模型，而是根据用户的 NLU 意图，每次只动态加载最相关的 3-5 个工具。
+
+5. 网络传输与基础设施瓶颈 (Network & Infrastructure)
+⚬	影响点： 客户端到服务器、服务器到模型 API（如海外模型厂商）、模型服务器到内部数据库的物理网络延迟。
