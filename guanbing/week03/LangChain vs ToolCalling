@@ -1,0 +1,13 @@
+## 问题一：LangChain 工具调用 (Tool Calling) 和 LLM Function Call 有什么区别？
+### 一句话总结：
+LLM Function Call 是模型原生能力，而 LangChain 工具调用上层框架的'胶水封装'。
+
+### LLM Function Call (原生能力)：
+- 大模型厂商提供的原生 API 能力（如 OpenAI 的 tools 接口、Anthropic 的 Tool Use）。模型本身在训练时就优化了对特定 JSON Schema 的输出能力。
+- 强绑定单一模型的原生接口。如果更换底层模型（例如从 OpenAI 换成开源的 Llama），原生 Function Call 的参数格式可能需要适配。
+- 轻量、高效。直接与模型 API 交互，中间商少。
+
+### LangChain 工具调用 (框架层封装)
+- 上层应用框架（如 LangChain）提供的抽象与编排层。它在底层依然调用了各大模型的 Function Call，但外面包了一层统一的类库（如 @tool 装饰器、AgentExecutor）。
+- 模型无关性（Model Agnostic）。LangChain 提供了一套统一的 Tool 抽象接口，让你可以用同一套代码无缝切换底层大模型。
+- 较重、黑盒。LangChain 内部除了调用底层的 Function Call 外，还要处理中间的 Prompt 拼接、历史记忆注入、错误重试流等，封装层较厚。
