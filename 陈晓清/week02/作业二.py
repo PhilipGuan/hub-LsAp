@@ -9,7 +9,7 @@ import json
 from sympy import content
 
 client = OpenAI(
-    api_key="sk-ws-H.EDPMPHI.m56K.xxxxxxxxnU",
+    api_key="sk-ws-H.EDPxxxabuxxxxxxxxnU",
     base_url="https://ws-09qg8sou349yp1mg.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
 )
 
