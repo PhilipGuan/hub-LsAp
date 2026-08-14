@@ -38,7 +38,7 @@ def safe_json_parse(text: str) -> dict | list | None:
             return None
         
 system_prompt = """
-从用户的商品描述中提取人物关系列表，以 JSON 数组格式输出,如果无人物关系，JSON输出为[]。
+从用户描述中提取人物关系列表，以 JSON 数组格式输出,如果无人物关系，JSON输出为[]。
 每个人物关系包含：source（主体对象）、relation（关系）、target（目标对象）。
 
 输入示例：
