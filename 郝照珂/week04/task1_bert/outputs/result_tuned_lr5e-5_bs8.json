@@ -1,0 +1,61 @@
+{
+  "experiment": "tuned_lr5e-5_bs8",
+  "device": "cuda",
+  "samples": 500,
+  "train_samples": 400,
+  "test_samples": 100,
+  "num_labels": 11,
+  "labels": [
+    "Alarm-Update",
+    "Audio-Play",
+    "Calendar-Query",
+    "FilmTele-Play",
+    "HomeAppliance-Control",
+    "Music-Play",
+    "Radio-Listen",
+    "TVProgram-Play",
+    "Travel-Query",
+    "Video-Play",
+    "Weather-Query"
+  ],
+  "seconds": 19.43,
+  "best_accuracy": 0.96,
+  "history": [
+    {
+      "experiment": "tuned_lr5e-5_bs8",
+      "epoch": 1,
+      "learning_rate": 5e-05,
+      "batch_size": 8,
+      "train_loss": 1.433723270893097,
+      "eval_loss": 0.5039257315488962,
+      "accuracy": 0.94
+    },
+    {
+      "experiment": "tuned_lr5e-5_bs8",
+      "epoch": 2,
+      "learning_rate": 5e-05,
+      "batch_size": 8,
+      "train_loss": 0.2581490878760815,
+      "eval_loss": 0.2625963047433358,
+      "accuracy": 0.93
+    },
+    {
+      "experiment": "tuned_lr5e-5_bs8",
+      "epoch": 3,
+      "learning_rate": 5e-05,
+      "batch_size": 8,
+      "train_loss": 0.15580217504873872,
+      "eval_loss": 0.43332946594231403,
+      "accuracy": 0.92
+    },
+    {
+      "experiment": "tuned_lr5e-5_bs8",
+      "epoch": 4,
+      "learning_rate": 5e-05,
+      "batch_size": 8,
+      "train_loss": 0.08206227353774011,
+      "eval_loss": 0.1552816550963773,
+      "accuracy": 0.96
+    }
+  ]
+}
