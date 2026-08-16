@@ -119,14 +119,4 @@ flowchart TD
 
 ---
 
-## 四、GitHub 渲染兼容说明（本次修复点）
 
-本文件已针对 GitHub Mermaid 解析器的严格要求修复以下问题：
-
-1. **移除所有 HTML 标签**：节点内换行用 `<br/>` 在 GitHub 会报 PE 语法错，改用描述性短文本或拆节点
-2. **移除括号和特殊字符**：节点文本中的 `(...)`、`[xxx]`、`{...}` 可能与 Mermaid 语法冲突，全部简化或移除
-3. **移除 emoji**：emoji Unicode 在不同版本 mermaidRenderer 中兼容性不稳定，全部改为纯文字
-4. **节点 id 全用英文字母开头**：避免纯数字或下划线开头被 GitHub 老版本解析器误判
-5. **连线符号统一用标准 ASCII**：箭头统一用 `-->`、注释用 `-- 文本 -->`
-
-如果 GitHub 再次报 Parse Error，可先把 Mermaid 代码粘贴到 https://mermaid.live 实时校验语法后再修改本文件。
