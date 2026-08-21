@@ -1,0 +1,22 @@
+{
+  "model": "BAAI/bge-small-zh-v1.5",
+  "device": "cuda",
+  "query": "我今天很开心",
+  "results": [
+    {
+      "rank": 1,
+      "text": "我今天心情很不错",
+      "cosine_similarity": 0.881396
+    },
+    {
+      "rank": 2,
+      "text": "我喜欢深度学习",
+      "cosine_similarity": 0.441598
+    },
+    {
+      "rank": 3,
+      "text": "我喜欢机器学习",
+      "cosine_similarity": 0.422116
+    }
+  ]
+}
