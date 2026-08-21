@@ -1,0 +1,4 @@
+模型: qwen3:0.6b
+接口: http://localhost:11434/v1/chat/completions
+用户: 你好，请用一句话介绍你自己。
+助手: 我是专注于AI领域的助手，能提供帮助与支持。
