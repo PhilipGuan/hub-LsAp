@@ -1,0 +1,4 @@
+flowchart LR
+    A[12_BERT情感分类_推理Demo.py] --> B["模式1: 交互聊天<br/>(默认，无参数)"]
+    A --> C["模式2: 单条预测<br/>--text '一句话'"]
+    A --> D["模式3: 批量CSV<br/>--csv in.csv [--csv_out out.csv]"]
