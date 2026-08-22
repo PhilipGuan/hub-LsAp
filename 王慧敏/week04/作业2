@@ -1,0 +1,21 @@
+02-driver-emotion-detect/
+├── main.py                      # FastAPI 入口：/v1/emotion-detect/bert 与 /gpt 两个接口
+├── data_schema.py               # 请求/响应 Pydantic 模型
+├── config.py                    # 类别、路径、预警策略、API密钥配置
+├── logger.py                    # 日志配置
+├── requirements.txt
+├── model/
+│   ├── feature_extract.py       # 多模态特征 → 统一文本描述（融合层）
+│   ├── bert_emotion.py          # BERT 微调分类引擎
+│   └── gpt_emotion.py           # GPT Few-shot 分类引擎
+├── perception/
+│   ├── voice_tone.py            # 语音声学特征提取 (librosa)
+│   └── facial_expression.py     # 面部表情识别 (fer/opencv)
+├── alert/
+│   ├── strategy.py              # 情绪 → 预警等级/建议/音频 映射
+│   └── player.py                # 本地播放预警/放松音乐
+├── training_code/train_bert_emotion.py
+├── assets/{dataset,audio,weights,models}/
+├── doc/00~04_*.md
+├── test/data.json
+└── logs/
