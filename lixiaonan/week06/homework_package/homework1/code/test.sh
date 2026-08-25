@@ -1,0 +1,1 @@
+curl -k -u elastic:hu_Gi5_wDqT03BSu+V4e -X POST "https://localhost:9200/_analyze" -H 'Content-Type: application/json' -d '{"analyzer": "ik_smart", "text": "这是一个测试"}'
