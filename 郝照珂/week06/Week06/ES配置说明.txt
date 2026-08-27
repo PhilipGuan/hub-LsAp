@@ -1,0 +1,11 @@
+安装包下载地址：https://www.elastic.co/cn/downloads/elasticsearch
+
+安装后需要修改es的配置文件elasticsearch.yml
+# 添加或修改为以下配置
+xpack.security.enabled: false
+
+# 允许所有网络接口连接
+network.host: 0.0.0.0
+
+中文分词插件下载地址：https://release.infinilabs.com/analysis-ik/stable/
+下载后解压文件夹放在plugins文件夹中
