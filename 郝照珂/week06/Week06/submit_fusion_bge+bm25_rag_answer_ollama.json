@@ -1,0 +1,27 @@
+[
+    {
+        "question": "“前排座椅通风”的相关内容在第几页？",
+        "answer": "资料来源：PDF 第 116 页。",
+        "reference": "page_116"
+    },
+    {
+        "question": "\"关于车辆的儿童安全座椅固定装置，在哪一页可以找到相关内容？\"",
+        "answer": "资料来源：PDF 第 123 页。",
+        "reference": "page_123"
+    },
+    {
+        "question": "“打开前机舱盖”的相关信息在第几页？",
+        "answer": "资料来源：PDF 第 307 页。",
+        "reference": "page_307"
+    },
+    {
+        "question": "“打开前机舱盖”这个操作在哪一页？",
+        "answer": "资料来源：PDF 第 307 页。",
+        "reference": "page_307"
+    },
+    {
+        "question": "“查看行车记录仪视频”这一项内容在第几页？",
+        "answer": "资料来源：PDF 第 275 页。",
+        "reference": "page_275"
+    }
+]

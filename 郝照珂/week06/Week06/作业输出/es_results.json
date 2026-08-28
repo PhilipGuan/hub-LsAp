@@ -1,0 +1,66 @@
+{
+  "elasticsearch": {
+    "version": "8.19.19",
+    "cluster_name": "week06-local-es",
+    "index": "week06_homework_products",
+    "document_count": 4,
+    "vector_dims": 512
+  },
+  "fulltext_search": {
+    "query": "人工智能",
+    "hits": [
+      {
+        "score": 2.7212,
+        "product_id": "C003",
+        "name": "机器学习入门书",
+        "category": "图书",
+        "price": 89.0
+      },
+      {
+        "score": 2.5742,
+        "product_id": "A001",
+        "name": "智能手机",
+        "category": "电子产品",
+        "price": 4999.0
+      }
+    ]
+  },
+  "conditional_filter": {
+    "conditions": "category=电子产品, on_sale=true, price<1000",
+    "hits": [
+      {
+        "score": 0.0,
+        "product_id": "B002",
+        "name": "无线蓝牙耳机",
+        "category": "电子产品",
+        "price": 699.0
+      }
+    ]
+  },
+  "vector_search": {
+    "query": "与 AI 和自然语言技术有关的产品",
+    "hits": [
+      {
+        "score": 0.8216,
+        "product_id": "C003",
+        "name": "机器学习入门书",
+        "category": "图书",
+        "price": 89.0
+      },
+      {
+        "score": 0.7971,
+        "product_id": "A001",
+        "name": "智能手机",
+        "category": "电子产品",
+        "price": 4999.0
+      },
+      {
+        "score": 0.6974,
+        "product_id": "B002",
+        "name": "无线蓝牙耳机",
+        "category": "电子产品",
+        "price": 699.0
+      }
+    ]
+  }
+}

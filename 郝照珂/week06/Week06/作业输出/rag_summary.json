@@ -1,0 +1,111 @@
+[
+  {
+    "step": "01 数据集读取",
+    "status": "PASS",
+    "records": 301,
+    "file": "questions.json",
+    "example_question": "“前排座椅通风”的相关内容在第几页？",
+    "example_reference": ""
+  },
+  {
+    "step": "02 TF-IDF 检索",
+    "status": "PASS",
+    "records": 301,
+    "file": "submit_tfidf_retrieval_top10.json",
+    "example_question": "“前排座椅通风”的相关内容在第几页？",
+    "example_reference": [
+      "page_117",
+      "page_116",
+      "page_115",
+      "page_114",
+      "page_113",
+      "page_52",
+      "page_107",
+      "page_51",
+      "page_53",
+      "page_105"
+    ]
+  },
+  {
+    "step": "03 BM25 检索",
+    "status": "PASS",
+    "records": 301,
+    "file": "submit_bm25_retrieval_top10.json",
+    "example_question": "“前排座椅通风”的相关内容在第几页？",
+    "example_reference": [
+      "page_116",
+      "page_117",
+      "page_115",
+      "page_105",
+      "page_11",
+      "page_271",
+      "page_118",
+      "page_273",
+      "page_55",
+      "page_54"
+    ]
+  },
+  {
+    "step": "04 BGE 页面检索",
+    "status": "PASS",
+    "records": 301,
+    "file": "submit_bge_retrieval_top10.json",
+    "example_question": "“前排座椅通风”的相关内容在第几页？",
+    "example_reference": [
+      "page_116",
+      "page_117",
+      "page_118",
+      "page_252",
+      "page_105",
+      "page_107",
+      "page_27",
+      "page_114",
+      "page_115",
+      "page_119"
+    ]
+  },
+  {
+    "step": "05 BGE 分块检索",
+    "status": "PASS",
+    "records": 301,
+    "file": "submit_bge_sgement_retrieval_top10.json",
+    "example_question": "“前排座椅通风”的相关内容在第几页？",
+    "example_reference": [
+      "page_4",
+      "page_117",
+      "page_116",
+      "page_118",
+      "page_115",
+      "page_107",
+      "page_105",
+      "page_27",
+      "page_123",
+      "page_252"
+    ]
+  },
+  {
+    "step": "06 二阶段重排序",
+    "status": "PASS",
+    "records": 301,
+    "file": "submit_fusion_bge+bm25_rerank_retrieval.json",
+    "example_question": "“前排座椅通风”的相关内容在第几页？",
+    "example_reference": "page_116"
+  },
+  {
+    "step": "07 RRF 多路召回",
+    "status": "PASS",
+    "records": 301,
+    "file": "submit_fusion_bge+bm25_retrieval.json",
+    "example_question": "“前排座椅通风”的相关内容在第几页？",
+    "example_reference": "page_116"
+  },
+  {
+    "step": "08 本地 RAG 问答",
+    "status": "PASS",
+    "records": 5,
+    "file": "submit_fusion_bge+bm25_rag_answer_ollama.json",
+    "example_question": "“前排座椅通风”的相关内容在第几页？",
+    "example_reference": "page_116",
+    "example_answer": "资料来源：PDF 第 116 页。"
+  }
+]
