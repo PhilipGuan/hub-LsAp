@@ -1,0 +1,92 @@
+#作业1：
+# -*- coding: utf-8 -*-
+"""
+bge 文本检索示例（无需 ES）
+- 用 sentence-transformers 加载本地 bge 模型
+- 把 query 和语料都编码成向量，用余弦相似度排序返回最相关文本
+"""
+import os
+from sentence_transformers import SentenceTransformer
+
+# 模型目录（相对本脚本位置，确保路径稳健）
+BASE = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.join(BASE, "BAAI", "bge-small-zh-v1.5")
+
+# 待检索的 query
+QUERY = "我今天很开心"
+
+# 数据库文本（语料）
+CORPUS = [
+    "我喜欢机器学习",
+    "我喜欢深度学习",
+    "我今天心情很不错",
+]
+
+# bge 检索建议：给 query 加指令前缀，能显著提升中文检索效果
+# 注意：只加在 query 上，语料不加
+QUERY_INSTRUCTION = "为这个句子生成表示以用于检索相关文章："
+
+def main():
+    print(f"加载模型: {MODEL_DIR}")
+    model = SentenceTransformer(MODEL_DIR)
+
+    # 编码时 normalize_embeddings=True，使余弦相似度等价于向量内积
+    q_emb = model.encode(QUERY_INSTRUCTION + QUERY, normalize_embeddings=True)
+    c_emb = model.encode(CORPUS, normalize_embeddings=True)
+
+    # 相似度矩阵（已归一化 => 余弦相似度 = 点积）
+    scores = c_emb @ q_emb
+
+    # 按相似度从高到低排序
+    ranked = sorted(zip(CORPUS, scores), key=lambda x: x[1], reverse=True)
+
+    print(f"\nQuery: {QUERY}\n")
+    print("相似度排序结果（从高到低）：")
+    for text, score in ranked:
+        print(f"  {score:.4f}   {text}")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+作业2：
+# -*- coding: utf-8 -*-
+"""
+Ollama + OpenAI SDK 调用示例（本地 qwen3:0.6b）
+前置：本机已安装 Ollama 并拉取模型
+    ollama pull qwen3:0.6b
+    ollama serve   # 或安装后默认已作为服务/托盘运行
+运行：
+    "C:/Users/lixiuzhe/anaconda3/python.exe" ollama_client.py
+"""
+from openai import OpenAI
+
+# 初始化客户端，指向 Ollama 的本地服务（OpenAI 兼容接口）
+client = OpenAI(
+    base_url="http://localhost:11434/v1",  # Ollama API 地址
+    api_key="1111",  # Ollama 默认无需真实 API Key，填任意值即可
+)
+
+try:
+    # 发送请求
+    response = client.chat.completions.create(
+        model="qwen3:0.6b",  # 指定模型
+        messages=[
+            {"role": "system", "content": "你是一个有帮助的助手。"},
+            {"role": "user", "content": "你好"},
+        ],
+        temperature=0.7,  # 控制生成多样性
+        max_tokens=512,   # 最大生成 token 数
+    )
+
+    # 打印结果
+    print(response.choices[0].message.content)
+
+except Exception as e:
+    print("调用失败，请确认：")
+    print("  1) Ollama 已安装且服务在运行（托盘图标 / `ollama serve`）")
+    print("  2) 已执行 `ollama pull qwen3:0.6b` 拉取模型")
+    print("  3) 端口 11434 未被占用或防火墙拦截")
+    print("原始错误：", repr(e))

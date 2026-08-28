@@ -1,0 +1,12 @@
+transformers
+torch
+scikit-learn
+fastapi
+uvicorn
+jieba
+datasets
+joblib
+pandas
+numpy
+pydantic
+pytest

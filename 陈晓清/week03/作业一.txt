@@ -1,0 +1,12 @@
+ LLM Function Call需要自己定义Tools的JSon Schame，然后通过api传参自定义的Tools，大模型返回的是工具调用方式，需要手动解析和执行工具
+
+LangChain本质上是对openAI的上层应用封装，统一接口和简化开发流程。她的工具调用能通过 bind_tools() 绑定工具，并且直接用invoke() 自动执行工具
+，不需要手动解析
+
+LangChain 工具调用 速度影响因素：
+1. 网络延迟
+2. 模型推理时间    ─  模型生成 tool_call 的计算时间
+3. 工具数量        ─  工具越多，上下文越长，推理越慢
+4. 工具描述长度   ─  description 越详细，上下文越大
+5. 工具参数复杂度  ─  参数越多，解析和传输越慢
+6. LangChain 解析  ─  框架内部解析 JSON 的额外开销  
