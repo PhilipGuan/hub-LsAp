@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Apple iPhone 13 Pro Max",
+        "category": "electronics",
+        "price": 1099.0,
+        "embedding": [0.1, 0.2, 0.9]
+    },
+    {
+        "title": "Samsung Galaxy S22 Ultra",
+        "category": "electronics",
+        "price": 1199.0,
+        "embedding": [0.15, 0.25, 0.85]
+    },
+    {
+        "title": "Nike Air Max 270",
+        "category": "shoes",
+        "price": 150.0,
+        "embedding": [0.8, 0.1, 0.1]
+    },
+    {
+        "title": "Adidas Ultraboost 22",
+        "category": "shoes",
+        "price": 180.0,
+        "embedding": [0.75, 0.15, 0.1]
+    },
+    {
+        "title": "Sony WH-1000XM4 Headphones",
+        "category": "electronics",
+        "price": 348.0,
+        "embedding": [0.3, 0.7, 0.0]
+    }
+]
