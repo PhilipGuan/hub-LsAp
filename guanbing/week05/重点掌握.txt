@@ -1,0 +1,15 @@
+重在理解：
+- 激活函数
+- 归一化层
+- BERT进阶
+- GPT预训练
+- RHLF
+
+
+偏向实操：
+- BERT使用
+- GPT_HTTP
+- GPT_OpenAI_API
+- ChatGPT进阶
+- Qwen-Kimi-DeepSeek使用
+- 本地Qwen大模型
