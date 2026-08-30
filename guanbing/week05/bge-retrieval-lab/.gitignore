@@ -1,0 +1,12 @@
+# --- Python 虚拟环境
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# --- 模型 / 缓存（体积大，不入库）
+.cache/
+BAAI/
+
+# --- 系统文件
+.DS_Store
