@@ -1,0 +1,61 @@
+{
+  "experiment": "baseline_lr2e-5_bs16",
+  "device": "cuda",
+  "samples": 500,
+  "train_samples": 400,
+  "test_samples": 100,
+  "num_labels": 11,
+  "labels": [
+    "Alarm-Update",
+    "Audio-Play",
+    "Calendar-Query",
+    "FilmTele-Play",
+    "HomeAppliance-Control",
+    "Music-Play",
+    "Radio-Listen",
+    "TVProgram-Play",
+    "Travel-Query",
+    "Video-Play",
+    "Weather-Query"
+  ],
+  "seconds": 14.86,
+  "best_accuracy": 0.96,
+  "history": [
+    {
+      "experiment": "baseline_lr2e-5_bs16",
+      "epoch": 1,
+      "learning_rate": 2e-05,
+      "batch_size": 16,
+      "train_loss": 2.115694031715393,
+      "eval_loss": 1.5813980613436018,
+      "accuracy": 0.65
+    },
+    {
+      "experiment": "baseline_lr2e-5_bs16",
+      "epoch": 2,
+      "learning_rate": 2e-05,
+      "batch_size": 16,
+      "train_loss": 1.0840901589393617,
+      "eval_loss": 0.6103842684200832,
+      "accuracy": 0.94
+    },
+    {
+      "experiment": "baseline_lr2e-5_bs16",
+      "epoch": 3,
+      "learning_rate": 2e-05,
+      "batch_size": 16,
+      "train_loss": 0.4638610118627548,
+      "eval_loss": 0.31305886592183796,
+      "accuracy": 0.96
+    },
+    {
+      "experiment": "baseline_lr2e-5_bs16",
+      "epoch": 4,
+      "learning_rate": 2e-05,
+      "batch_size": 16,
+      "train_loss": 0.2054217526316643,
+      "eval_loss": 0.20952487151537622,
+      "accuracy": 0.96
+    }
+  ]
+}

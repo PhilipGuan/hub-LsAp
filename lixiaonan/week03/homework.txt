@@ -1,0 +1,32 @@
+
+作业1: 安装langchain 和 openai-agent，运行 langchain / 02_Model工具调用.py
+    回答如下问题：
+        1、 langchain 工具调用 和 llm function call 有什么区别？
+
+        llm function call 是使用大模型原生能力去推理的过程。无额外开销。但对于多工具调用、循环调用等功能需要额外开发、人工维护。
+langchain 工具调用是基于框架封装了llm工具调用、工具协调的能力，开发简单，但是执行会带有框架的额外开销。
+        总的来说，langchain就是封装了 llm function call 大部分功能的一个框架。
+
+        2、 langchain 工具调用 的 速度是受到什么影响？
+        主要速度影响是在模型调用推理上。输入输出token解析、工具执行、工具执行后的信息源拼接也会有一定影响。
+
+作业2: 阅读意图识别 01-intent-classify 代码，梳理源文件的作用，绘制从fastapi 接受请求到
+     到返回结果的流程，绘制流程图（手绘、自然语言表达）。
+
+ 启动阶段：执行 fastapi run main.py。main.py 在 import 阶段会加载 config、data_schema、logger，以及 model/ 下四个推理模块。其中 tfidf_ml.py、bert.py、prompt.py
+  在模块导入时就把模型/权重加载进内存（含本地 BERT 权重、TF-IDF pkl、训练集与停用词），因此服务启动较慢但单次推理快——模型常驻内存，请求时不再重复加载。
+
+  请求阶段：客户端向 /v1/text-cls/{regex|tfidf|bert|gpt} 发 POST 请求，Body 是 {request_id, request_text}。FastAPI 根据路由找到 main.py 中对应的处理函数，并依据
+  data_schema.TextClassifyRequest 自动把 JSON 反序列化成 pydantic 对象并校验类型（request_text 可以是单个字符串或字符串列表）。
+
+  处理阶段：四个接口的处理逻辑高度一致——记录开始时间，预构造一个空的 TextClassifyResponse，打印请求日志，然后在 try 中调用对应的 model_for_*
+  函数进行推理；成功则把结果填入 classify_result 并置 error_msg="ok"，失败则清空结果并把完整异常栈写入 error_msg。模型差异只在 try 内部那一行调用：
+  - regex：正则关键词命中即归类；
+  - tfidf：分词去停用词 → TF-IDF 向量化 → 传统分类器预测；
+  - bert：tokenize → DataLoader → BERT 前向 → argmax 映射到 CATEGORY_NAME；
+  - gpt：TF-IDF 检索训练集 Top10 相似样本作 few-shot → 调用 qwen-plus 返回类别名。
+
+  返回阶段：计算耗时（保留 3 位小数）写入 classify_time，返回 TextClassifyResponse 对象，FastAPI 再将其序列化为 JSON 返回客户端。返回体固定包含
+  request_id、request_text、classify_result、classify_time、error_msg 五个字段，结构统一，便于客户端处理与压测。
+
+

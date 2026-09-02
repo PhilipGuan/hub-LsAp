@@ -1,0 +1,35 @@
+from sentence_transformers import SentenceTransformer
+query = "我今天很开心"
+corpus = [
+    "我喜欢机器学习",
+    "我喜欢深度学习",
+    "我今天心情很不错",
+]
+
+# embeddings = model.encode(sentences) # 正向传播 -》 句子编码 （token的编码 -》 mean pooling）
+# print(embeddings.shape)
+
+# similarities = model.similarity(embeddings, embeddings)
+# print(similarities)
+
+# modelscope download --model BAAI/bge-small-zh-v1.5  --local_dir BAAI/bge-small-zh-v1.5
+# https://huggingface.co/spaces/mteb/leaderboard
+model_path = Path(__file__).resolve().parent / "BAAI/bge-small-zh-v1.5"
+print(f"正在加载模型：{model_path}", flush=True)
+model = SentenceTransformer(str(model_path)) # sentence-bert 微调之后的
+
+# 数据库文本可以提前编码并保存；每次检索时只需要编码用户问题。
+corpus_embeddings = model.encode(corpus, normalize_embeddings=True)
+query_embedding = model.encode([query], normalize_embeddings=True)
+
+# 结果形状为 (1, 3)：一条查询分别与三条数据库文本的余弦相似度。
+similarities = model.similarity(query_embedding, corpus_embeddings)[0]
+ranking = similarities.argsort(descending=True)
+
+print(f"\n待检索文本：{query}")
+print("检索结果：")
+for rank, index in enumerate(ranking.tolist(), start=1):
+    print(f"{rank}. {corpus[index]}（相似度：{similarities[index].item():.4f}）")
+
+best_index = ranking[0].item()
+print(f"\n最匹配文本：{corpus[best_index]}")

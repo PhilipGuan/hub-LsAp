@@ -1,0 +1,63 @@
+"""程序入口：创建 FastAPI app、注册路由、统一异常处理。"""
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+
+from app.api.routes import router
+from app.core.exceptions import IntentError
+from app.schemas.intent import ErrorResponse
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR / "frontend"
+
+app = FastAPI(title="中文意图识别服务", version="1.0.0")
+
+# 开发期允许跨域，便于前端独立打开/联调
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# 挂载单页前端：访问 http://localhost:8000/ui/ 即可使用
+if FRONTEND_DIR.exists():
+    app.mount("/ui", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="ui")
+
+# 业务异常 -> 统一 ErrorResponse
+@app.exception_handler(IntentError)
+def handle_intent_error(request: Request, exc: IntentError):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=ErrorResponse(
+            error_code=exc.error_code, message=exc.message, detail=exc.detail
+        ).model_dump(),
+    )
+
+
+# Pydantic 校验失败（空输入/超长/类型错）-> 统一 ErrorResponse，保持前后端契约一致
+@app.exception_handler(RequestValidationError)
+def handle_validation_error(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=422,
+        content=ErrorResponse(
+            error_code="VALIDATION_ERROR",
+            message="请求参数校验失败",
+            detail=str(exc.errors()),
+        ).model_dump(),
+    )
+
+
+app.include_router(router)
+
+
+@app.get("/")
+def root():
+    return {
+        "service": "intent-recognition",
+        "docs": "/docs",
+        "endpoints": ["/health", "/api/v1/intents", "/api/v1/intent/recognize"],
+    }

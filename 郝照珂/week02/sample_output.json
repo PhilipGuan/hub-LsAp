@@ -1,0 +1,12 @@
+[
+  {
+    "source": "小明",
+    "relation": "爱慕",
+    "target": "小姚"
+  },
+  {
+    "source": "小姚",
+    "relation": "爱慕",
+    "target": "小王"
+  }
+]

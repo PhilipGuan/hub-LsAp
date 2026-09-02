@@ -1,0 +1,9 @@
+ 1、 langchain 工具调用 和 llm function call 有什么区别？
+ langchain 工具调用 比  llm function call 更简洁，更方便
+ llm function call 更底层，提供基础能力
+
+
+ 2、 langchain 工具调用 的 速度是受到什么影响？
+ 受模型的响应能力和模型配置，比如模型处理的问题简易程度，模型配置的是ReAct模式等
+ 还受agent整个工程的复杂度影响，比如需要多轮处理场景
+ 调用的工具自身的响应速度

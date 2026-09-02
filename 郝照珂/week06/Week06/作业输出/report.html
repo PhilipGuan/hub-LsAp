@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第六周作业运行截图</title>
+<style>
+  *{box-sizing:border-box}html{scroll-behavior:smooth;scrollbar-width:none}html::-webkit-scrollbar{display:none}body{margin:0;overflow-x:hidden;background:#08111f;color:#eaf2ff;font-family:"Microsoft YaHei",system-ui,sans-serif}
+  .screen{width:100vw;height:100vh;padding:44px 56px;overflow:hidden;position:relative;background:radial-gradient(circle at 85% 5%,#19335f 0,transparent 34%),linear-gradient(145deg,#08111f,#0d192d 70%)}
+  .screen:after{content:"Week 06 · RAG 工程化实现";position:absolute;right:56px;bottom:24px;color:#7d91b2;font-size:13px;letter-spacing:1px}
+  h1{font-size:34px;margin:0 0 8px}h2{font-size:20px;margin:0;color:#93a9ca;font-weight:500}.accent{color:#5eead4}.ok{color:#7cf8a9}
+  .meta{display:flex;gap:14px;margin:26px 0 22px}.pill{border:1px solid #29415f;background:#102039;border-radius:999px;padding:9px 15px;color:#b8c9e3;font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:rgba(14,28,49,.92);border:1px solid #263e5c;border-radius:15px;padding:20px;box-shadow:0 18px 40px #03091466}
+  .card h3{font-size:19px;margin:0 0 12px;color:#fff}.tag{font-size:12px;color:#5eead4;letter-spacing:.8px;margin-bottom:9px}.query{color:#f8d77e;font-size:15px;margin-bottom:12px}.hit{padding:8px 10px;border-radius:8px;background:#0a1628;margin:7px 0;color:#cfdbec;font-size:14px}.score{color:#7cf8a9}.footer-note{margin-top:20px;color:#9cb0cf;font-size:14px}
+  .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}.step{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:14px;padding:16px 18px;background:#0e1c31;border:1px solid #263e5c;border-radius:13px}.num{font-size:23px;font-weight:700;color:#5eead4}.step-title{font-size:17px;font-weight:600}.step-detail{font-size:13px;color:#93a9ca;margin-top:5px}.count{text-align:right;font-size:13px;color:#aebfd9}.count b{display:block;color:#7cf8a9;font-size:20px}.answer{margin-top:18px;background:#102943;border-left:4px solid #5eead4;border-radius:8px;padding:15px 18px;font-size:15px;color:#dce9f8}.mono{font-family:Consolas,monospace}.loading{color:#f8d77e}
+</style>
+</head>
+<body>
+<section class="screen" id="es">
+  <h1>第六周作业① · <span class="accent">Elasticsearch 三类检索</span></h1>
+  <h2>本地单节点运行 · 全文检索 / 条件过滤 / 语义向量检索</h2>
+  <div class="meta" id="es-meta"><span class="pill loading">等待 Elasticsearch 结果</span></div>
+  <div class="grid" id="es-grid"></div>
+  <div class="footer-note">数据来源：本地 Python 脚本真实写入 Elasticsearch；结果文件：<span class="mono">作业输出/es_results.json</span></div>
+</section>
+
+<section class="screen" id="rag-a">
+  <h1>第六周作业② · <span class="accent">RAG 01–04 运行结果</span></h1>
+  <h2>数据读取 → TF‑IDF → BM25 → BGE 稠密检索</h2>
+  <div class="meta"><span class="pill">知识库：汽车知识手册.pdf</span><span class="pill">354 页</span><span class="pill">问题集：301 条</span><span class="pill ok">全部 PASS</span></div>
+  <div class="steps" id="rag-a-steps"></div>
+  <div class="answer"><b>同一问题的检索示例：</b>“前排座椅通风”的相关内容在第几页？<br>TF‑IDF Top1 → page_117　·　BM25 Top1 → page_116　·　BGE Top1 → page_116</div>
+</section>
+
+<section class="screen" id="rag-b">
+  <h1>第六周作业③ · <span class="accent">RAG 05–08 运行结果</span></h1>
+  <h2>细粒度分块 → 二阶段重排 → RRF 多路召回 → 本地大模型问答</h2>
+  <div class="meta"><span class="pill">BGE 文本块：3743</span><span class="pill">重排/融合：301 条</span><span class="pill">Ollama：qwen3:0.6b</span><span class="pill ok">8/8 PASS</span></div>
+  <div class="steps" id="rag-b-steps"></div>
+  <div class="answer" id="rag-answer"><b>本地 RAG 示例：</b>正在载入结果…</div>
+</section>
+
+<script>
+const selectedView=new URLSearchParams(location.search).get('view');
+if(selectedView){document.querySelectorAll('.screen').forEach(section=>section.style.display=section.id===selectedView?'block':'none');}
+const esc=s=>String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+fetch('rag_summary.json').then(r=>r.json()).then(rows=>{
+  const render=(items,id)=>document.getElementById(id).innerHTML=items.map(x=>`<div class="step"><div class="num">${esc(x.step.slice(0,2))}</div><div><div class="step-title">${esc(x.step.slice(3))}</div><div class="step-detail mono">${esc(x.file)}</div></div><div class="count"><b>${esc(x.status)}</b>${esc(x.records)} 条</div></div>`).join('');
+  render(rows.slice(0,4),'rag-a-steps'); render(rows.slice(4,8),'rag-b-steps');
+  const q=rows[7]; document.getElementById('rag-answer').innerHTML=`<b>本地 RAG 示例：</b>${esc(q.example_question)}<br><span class="accent">检索：${esc(q.example_reference)}</span>　·　<span class="ok">回答：${esc(q.example_answer)}</span>`;
+});
+fetch('es_results.json').then(r=>r.json()).then(data=>{
+  const e=data.elasticsearch; document.getElementById('es-meta').innerHTML=`<span class="pill ok">● 连接成功</span><span class="pill">Elasticsearch ${esc(e.version)}</span><span class="pill">索引：${esc(e.index)}</span><span class="pill">${e.document_count} 文档 · ${e.vector_dims} 维</span>`;
+  const blocks=[['01 · FULL-TEXT','全文检索',data.fulltext_search.query,data.fulltext_search.hits],['02 · FILTER','条件过滤',data.conditional_filter.conditions,data.conditional_filter.hits],['03 · KNN','向量检索',data.vector_search.query,data.vector_search.hits]];
+  document.getElementById('es-grid').innerHTML=blocks.map(([tag,title,q,hits])=>`<div class="card"><div class="tag">${esc(tag)}</div><h3>${esc(title)}</h3><div class="query">Query: ${esc(q)}</div>${hits.map(h=>`<div class="hit"><b>${esc(h.name)}</b><br><span class="score">score ${esc(h.score)}</span> · ¥${esc(h.price)} · ${esc(h.category)}</div>`).join('')}</div>`).join('');
+}).catch(()=>{document.getElementById('es-grid').innerHTML='<div class="card"><h3>Elasticsearch 结果生成中</h3><div class="loading">完成本地服务启动后自动载入。</div></div>'});
+</script>
+</body>
+</html>
