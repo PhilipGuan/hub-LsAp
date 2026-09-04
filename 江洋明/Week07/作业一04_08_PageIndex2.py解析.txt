@@ -1,0 +1,69 @@
+ 1. 初始化客户端（第 1–11 行）
+
+  # pip install -U pageindex
+  import os
+  from pageindex import PageIndexClient
+
+  - import os 没真正用到——脚本里没人读环境变量。注释说"调用环境变量"是误导，PageIndexClient 自己内部读
+  PAGEINDEX_API_KEY。
+  - PageIndexClient 是 pageindex 库的主入口，连到云端 api.pageindex.ai。
+
+  client = PageIndexClient(
+      index_model="deepseek/deepseek-v4-pro",   # 构建tree 使用的模型
+      chat_model="deepseek/deepseek-v4-pro",    # 对话时候 使用的模型
+      storage_path=".pageindex",
+  )
+
+
+ 2. 提交文档建索引（第 14–21 行）
+
+  result = client.submit_document("资料/2404.16130v2-GraphRAG.pdf")
+  doc_id = result["doc_id"]
+  print("doc_id:", doc_id)
+
+  - submit_document() 把 PDF 上传到 PageIndex 云端 → 服务端用 LLM 读 PDF、生成 树状结构索引（不是传统 RAG
+  的向量检索，是"目录树"式检索）。
+  - 每个文档只需跑一次——这是离线步骤，重复跑浪费钱。
+  - 返回一个 doc_id，后面所有操作都靠这个 id——相当于这份文档的句柄
+
+ 3. 查看索引结构（第 24–29 行）
+
+  tree = client.get_document_structure(doc_id)
+  print(tree)
+
+  - 把第 2 步生成的"目录树"打印出来——通常长这样：
+  第1章 引言
+    1.1 背景
+    1.2 贡献
+  第2章 方法
+    2.1 GraphRAG 框架
+    ...
+  - 这一步主要是调试 / 可视化用，确认 PageIndex 真的把文档解析对了。
+
+  ---
+  4. 基于索引问答（第 32–38 行）
+
+  answer = client.chat(
+      "这份文档主要讲了什么？",
+      doc_id=doc_id,
+      reasoning_effort="high",
+  )
+  print(answer)
+
+  - client.chat() = 基于第 2 步索引的问答。流程大致是：
+    a. 拿你的问题
+    b. 从 tree index 里挑出相关的章节
+    c. 把这些章节 + 问题一起塞给 chat_model（即 deepseek-chat）
+    d. 让模型基于原文回答
+  - reasoning_effort="high" 让模型多想一步，回答会更细，但慢且贵。
+  - 这就是 "Tree-based RAG" 的样子——和基于向量检索的 RAG 不一样。
+
+  ---
+  整条数据流
+
+  PDF 上传 ──► PageIndex 云端 ──► 生成树状索引 ──► 存 doc_id
+   │
+              "这份文档主要讲了什么？" ──────────┤
+                                                ▼ PageIndex 选相关章节 ──► deepseek-chat 生成答案
+
+  ---
