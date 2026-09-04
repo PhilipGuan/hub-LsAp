@@ -1,0 +1,63 @@
+(py312) PS G:\BaiduNetdiskDownload\第07周：RAG进阶与改进\Week07\Week07> python 08_PageIndex.py 资料/2404.16130v2-GraphRAG.pdf
+读取 PDF...
+共 26 页
+
+构建 PageIndex...
+
+PageIndex: 
+[0] Page 1-5 GraphRAG：基于图的检索增强生成方法 | 本文介绍了GraphRAG，一种利用LLM构建知识图谱并进行社区检测以生成社区摘要，从而通过map-reduce方式回答全局感知问题的图增强RAG方
+法，其在综合性和多样性上优于传统向量RAG。
+[1] Page 6-10 GraphRAG 全局问题回答与评估方法 | 本文介绍了 GraphRAG 利用层次化社区摘要回答全局问题的方法，并通过生成测试问题及对比评估（涵盖全面性、多样性等标准）验证其效果。
+
+[2] Page 11-15 实验结果与讨论 | 实验表明全局搜索条件在答案全面性和多样性上优于向量RAG，部分条件差异显著，LLM评估与基于声明的指标在多数情况下一致；未来工作将探索混合RAG方案和 
+分层社区摘要。
+[3] Page 16-20 参考文献与实验细节 | 该部分列出了参考文献，并说明了知识图谱实体提取、社区检测、上下文窗口选择及答案比较等实验细节。
+[4] Page 21-25 GraphRAG提示词集合 | 本文档提供了GraphRAG的四种提示词模板（元素实例生成、社区摘要生成、社区答案生成和全局答案生成），分别用于从文档中提取实体与关系、生成社区报
+告、综合多分析师报告回答问题以及基于数据表直接回答。
+[5] Page 26-26 六种条件在四个指标上的配对比较统计 | 使用威尔科克森符号秩检验和霍尔姆-邦费罗尼校正对六种条件在四个指标上的配对比较结果，突出显示显著差异。
+ 
+开始问答，输入 exit 退出
+
+Question > 这篇文章的主要目的
+
+检索节点: [1, 3]
+
+Answer:
+根据原文，这篇文章的主要目的是提出并评估 **GraphRAG**（基于图的检索增强生成）系统，该系统通过构建图索引和社区摘要，旨在解决全局性问题（global sensemaking tasks），即需要理解 
+整个语料库的高层次问题，而不只是检索具体事实。原文在多个部分阐述了这一目的，包括：
+
+- **第6页**：描述了GraphRAG的流程，包括社区检测、社区摘要生成，以及最终回答全局查询的方法，例如：“Here, however, we focus on their utility as part of a graph-based index used for answering global queries.”（第6页）。
+- **第7页**：说明了用于评估全局理解能力的问题生成方法，旨在评估RAG系统在全局理解任务上的有效性（第7页）。
+- **第8页**：定义了评估标准（如全面性、多样性、赋能性）和实验设计，用于比较GraphRAG与其他方法（如向量RAG）在全局理解上的表现（第8页）。
+
+因此，文章的主要目的可概括为：引入GraphRAG方法，通过构建图索引并生成社区摘要，提升大型语料库的全局理解能力，并通过实验展示其在全面性和多样性上优于传统的向量RAG方法（见第10页 
+实验结果，如“Global approaches significantly outperformed conventional vector RAG (SS) in both comprehensiveness and diversity criteria”）。
+
+Question > GraphRAG方法的好处是什么 
+
+检索节点: [0, 1, 2]
+
+Answer:
+根据原文，GraphRAG方法的好处是： 
+ 
+“GraphRAG leads to substantial improvements over a conventional RAG baseline for both the comprehensiveness and diversity of generated answers.”（GraphRAG 在生成回答的全面性 
+和多样性方面，相比传统的 RAG 基线有显著改进。）
+
+（第 1 页）
+
+Question > 显著改进怎么体现
+
+检索节点: [0, 1, 2]
+
+Answer:
+根据原文，关于“显著改进怎么体现”的内容如下：
+
+在**第1页**的摘要（Abstract）中明确指出：对于一类在**1百万 token 范围内**的数据集上的全局意义构建问题（global sensemaking questions），GraphRAG 相较于传统的 RAG 基线（conventional RAG baseline），在生成答案的**全面性（comprehensiveness）**和**多样性（diversity）**方面带来了**实质性改进（substantial improvements）**。
+
+此外，在**第2页**的引言（Introduction）部分也提到：在将 GPT-4 作为 LLM 时，结果显示 GraphRAG **明显优于**向量 RAG（vector RAG）。
+
+总结来说，显著改进主要体现在：
+- **全面性（comprehensiveness）**：答案覆盖问题的所有方面和细节的程度。
+- **多样性（diversity）**：答案提供不同视角和见解的丰富程度。
+
+这些改进是在特定条件下（使用 GPT-4、数据集约 1 百万 token 范围）通过实验验证得出的。
