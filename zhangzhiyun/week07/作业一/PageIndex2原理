@@ -1,0 +1,27 @@
+1、配置读取ds apikey
+
+2、创建PageIndex客户端，脚本配置两个模型：
+index_model：用于分析 PDF、生成文档结构
+chat_model：用于根据文档内容回答问题
+同时将索引结果保存在：.pageindex 目录中。
+
+3. 提交 PDF 文档
+调用 submit_document() 上传或读取 PDF。
+PageIndex 会：
+解析 PDF 页面
+识别标题、章节和内容层次
+为不同部分生成摘要
+建立文档树结构
+返回一个 doc_id
+# doc_id: pi-9c7a9f334fd94dfd94aadfbbd286ebac
+
+4. 获取文档结构
+调用 get_document_structure()，查看 PageIndex 为文档生成的树形索引。
+
+5. 根据问题进行问答
+调用 client.chat()，输入问题和 doc_id。
+PageIndex 会根据文档树：
+判断问题涉及哪些章节；
+定位相关页面；
+读取相关内容；
+让大模型整理并生成答案。

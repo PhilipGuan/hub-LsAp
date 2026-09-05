@@ -1,0 +1,9 @@
+{
+  "id": "pi-39edbe45c2794256b57b78ee41bb939c",
+  "name": "2404.16130v2-GraphRAG_1.pdf",
+  "description": "This document presents GraphRAG, a graph-based retrieval-augmented generation method that builds an LLM-derived entity knowledge graph, partitions it into hierarchical communities, summarizes them bottom-up, and answers global sensemaking queries via map-reduce over those summaries, with evaluation showing improved comprehensiveness and diversity over vector RAG on two ~1M-token corpora using LLM-as-a-judge.",
+  "status": "completed",
+  "createdAt": "2026-09-03T06:01:31.683000",
+  "pageNum": 26,
+  "folderId": null
+}
