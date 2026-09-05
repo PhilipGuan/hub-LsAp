@@ -1,0 +1,15 @@
+# 核心依赖（RAG101 03/05/08/09 系列脚本通吃）
+python-dotenv==1.2.2
+jieba==0.42.1
+rank_bm25==0.2.2
+pdfplumber==0.11.10
+sentence-transformers==6.0.0
+torch==2.13.0
+numpy==2.5.1
+requests==2.34.2
+
+# 可选依赖（下载 BGE/bge-reranker-base 模型到本地时使用，不装也可以自己用 git/modelscope 手动拉）
+modelscope==1.39.1
+
+# PyJWT（如果你需要跑 RAG101_08_RAG问答.py 里已降级的 ask_glm 函数，它用 JWT 签请求；09 默认 DeepSeek/Qwen 不需要，可以不装）
+PyJWT==2.13.0
