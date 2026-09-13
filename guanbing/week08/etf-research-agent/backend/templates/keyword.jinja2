@@ -1,0 +1,17 @@
+# Task：为 ETF（{{ ticker }}）章节「{{ section_title }}」（{{ section_id }}）扩展 Bocha 关键词矩阵
+# Style：{{ style }}
+{% include style_include ignore missing %}
+
+## 输入
+- 已有种子关键词（可能为空）：{{ existing_keywords | tojson }}
+- 章节说明：section_id={{ section_id }}, title={{ section_title }}
+
+## 输出要求（必须纯 JSON，不要 ``` 外包裹）
+{{ expected_output }}
+
+- 关键词必须覆盖：
+  ① ticker / 产品名 / ishares/vanguard 等基金管理人；
+  ② 该章节常见的专业术语（例如 holdings 对应 top10 / 持仓集中度；risk 对应 max drawdown / Sharpe；fundflow 对应资金流入流出）；
+  ③ 至少 1 个中文关键词，1 个时间窗口关键词（如 YTD、近1月、近3月、近1年、近3年）
+- 去重后必须 ≥ 3 个，最多 15 个
+- 关键词不超过 40 字/词

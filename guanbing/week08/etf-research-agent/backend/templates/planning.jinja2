@@ -1,0 +1,26 @@
+# Task：为 ETF（{{ ticker }}）规划调研计划（10 节 × 关键词 × Bocha 查询矩阵）
+# Style：{{ style }} · 合规提醒：所有内容仅限 AI 辅助研究，非投资建议。
+{% include style_include ignore missing %}
+
+## 输入
+- 缺失章节 ID：{{ missing_sections | tojson }}
+- 章节标题映射：{{ section_titles | tojson }}
+- 同类 ETF 矩阵摘要：{{ peer_matrix_summary }}
+- 基金最新结构化档案（如可用）：
+  ```json
+  {{ profile | tojson(indent=2) }}
+  ```
+- 字段时效告警（stale > policy）：
+  {% for w in stale_warnings -%}
+  - {{ w }}
+  {% endfor %}
+
+## 输出要求（必须纯 JSON，不要任何自然语言说明，外面不要 ```）
+{{ expected_output }}
+
+- section_id 必须严格从 missing_sections 中选取，顺序保持不变
+- keywords 建议 4~8 个；包含英文行业术语 + 中文关键词混合
+- bocha_queries 每个 section_id 至少 2 条，最多 5 条；包含"ticker + 关键词 + 2026/年/最新"时间词，优先检索 yahoo/etfdb/morningstar 等官方数据源
+
+## 合规提示
+所有推荐理由 / 风险提示 / 评级标签仅为 LLM 输出，不构成投资邀约。

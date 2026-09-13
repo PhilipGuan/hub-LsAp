@@ -1,0 +1,43 @@
+# -------- env --------
+.env
+.env.*
+!.env.example
+
+# -------- Python --------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+.pytest_cache/
+.coverage
+*.cover
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# -------- 本项目数据 & 产物 --------
+/data/etf_records/*.json
+/data/etf_records/*.html
+/data/etf_records/*.md
+/data/etf_records/*.csv
+/data/etf_records/*.jsonl
+/data/etf_records/R_*/
+/cache/*.json
+/cache/*.pkl
+
+# -------- Brainstorming 临时可视化（不上传 GitHub） --------
+_tmp_*.html
+_tmp_*.py
+_tmp_*.json
+_tmp_*.md
+
+# -------- IDE --------
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo

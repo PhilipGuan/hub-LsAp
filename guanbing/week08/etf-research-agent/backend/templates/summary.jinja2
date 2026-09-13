@@ -1,0 +1,28 @@
+# Task：为 ETF（{{ ticker }}）章节「{{ section_title }}」（{{ section_id }}）写作正文
+# Style：{{ style }} · provider_tag={{ provider_tag }}
+{% include style_include ignore missing %}
+
+## 输入
+### 已有正文（若为第 N 轮迭代改写，可能非空）
+{{ existing_content }}
+
+### Bocha 搜索结果（注意：下面的 snippet/date 可能过时，需要交叉校验最新发布日）
+{% if bocha_results %}
+{% for r in bocha_results %}
+[{{ r.provider }}-{{ r.ref_index }}] 标题：{{ r.title }}
+  URL：{{ r.url }}
+  日期：{{ r.date }}
+  Snippet：{{ r.snippet }}
+{% endfor %}
+{% else %}
+（Bocha 不可用，章节可能退化为 Provider 结构化数据原文整理）
+{% endif %}
+
+## 输出要求（必须纯 JSON，不要 ``` 外包裹）
+{{ expected_output }}
+
+- content 长度：≥ 180 字（analyst） / ≥ 300 字（institutional） / ≥ 150 字（explainer），但不得 > 1500 字
+- 必须有 **≥ 2 处** `[PROV-N]` 引用（上面的 Provider-Index 或 Provider 结构化数据的 [YAH-N]/[ETFDB-N]/[POL-N]/[AV-N] 格式）
+- 写作格式必须用 Markdown 子标题 + 列表 + 要点，不要纯 JSON 行内文字堆
+- 引用中 provider 只允许大写：YAH / ETFDB / POL / AV / BOCHA；ref_index 必须是正整数
+- citations 字段必须把正文中出现过的 [PROV-N] 完整列出（去重），附 source_url / snippet / as_of

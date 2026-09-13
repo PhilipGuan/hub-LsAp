@@ -1,0 +1,28 @@
+# Task：收敛检查 Judge（{{ ticker }}）· 判断研究草稿是否达到可导出状态
+# Style：{{ style }}
+{% include style_include ignore missing %}
+
+## 输入
+- 期望 10 章节 ID：{{ section_ids_expected | tojson }}
+- 已完成章节 ID：{{ filled_ids | tojson }}
+- 缺失章节 ID：{{ missing_ids | tojson }}
+- 字段时效告警：
+  {% for w in stale_warnings -%}
+  - {{ w }}
+  {% endfor %}
+- 草稿片段（含章节/引用/字符数）：
+  ```json
+  {{ draft_preview | tojson(indent=2) }}
+  ```
+
+## 输出要求（必须纯 JSON，不要 ``` 外包裹）
+{{ expected_output }}
+
+- 仅当 missing_sections=[] 且 weak_sections 中 weak 段 ≤ 2 时 converged=true，否则 converged=false
+- rating 必须三选一 bullish / neutral / bearish
+- confidence 规则：
+  ① missing_ids 非空 → 必 low；
+  ② stale_warnings 中含 YTD / sharpe / AUM 任意策略字段 → 至多 medium；
+  ③ 所有 draft 段平均字符 < 180 → low；
+  ④ weak_sections ≥ 3 → low
+- key_drivers + key_risks 合计 ≥ 4 条；每条 8-60 字
