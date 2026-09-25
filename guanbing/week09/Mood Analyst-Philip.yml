@@ -1,0 +1,290 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#E6F4D7'
+  icon_type: emoji
+  mode: advanced-chat
+  name: Mood Analyst-Philip
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.24@9e12eef09973667f0eaf4f082af883167e1de88740b22e71e71488d020c3778a
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1790335416709-source-1790335533610-target
+      source: '1790335416709'
+      sourceHandle: source
+      target: '1790335533610'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1790335533610-1-1790335605325-target
+      source: '1790335533610'
+      sourceHandle: '1'
+      target: '1790335605325'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1790335533610-2-1790335654526-target
+      source: '1790335533610'
+      sourceHandle: '2'
+      target: '1790335654526'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1790335654526-source-1790335899311-target
+      source: '1790335654526'
+      sourceHandle: source
+      target: '1790335899311'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1790335899311-source-1790335973806-target
+      source: '1790335899311'
+      sourceHandle: source
+      target: '1790335973806'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: User Input
+        type: start
+        variables: []
+      height: 73
+      id: '1790335416709'
+      position:
+        x: 73.25905206355696
+        y: 282
+      positionAbsolute:
+        x: 73.25905206355696
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          label: CLASS 1
+          name: Positive & Optimistic
+        - id: '2'
+          label: CLASS 2
+          name: Negative & Pessimistic
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        query_variable_selector:
+        - '1790335416709'
+        - sys.query
+        selected: false
+        title: Question Classifier
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 178
+      id: '1790335533610'
+      position:
+        x: 383.4043641534256
+        y: 282
+      positionAbsolute:
+        x: 383.4043641534256
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: Keep calm and continue your positive attitude!
+        selected: false
+        title: Answer 2
+        type: answer
+        variables: []
+      height: 116
+      id: '1790335605325'
+      position:
+        x: 684
+        y: 282
+      positionAbsolute:
+        x: 684
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 8d1942bc-03a2-48af-b303-dad50e5ddb35
+          role: system
+          text: Give some positive advices based on {{#sys.query#}} to console them.
+        selected: false
+        structured_output_enabled: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1790335654526'
+      position:
+        x: 684
+        y: 437
+      positionAbsolute:
+        x: 684
+        y: 437
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "## Your input：\n   {{query}}\n## Let me help you blow that off!\n\
+          \   {{arg1}}"
+        title: Template
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1790335654526'
+          - text
+          value_type: string
+          variable: arg1
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+      height: 52
+      id: '1790335899311'
+      position:
+        x: 986
+        y: 437
+      positionAbsolute:
+        x: 986
+        y: 437
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1790335899311.output#}}'
+        selected: false
+        title: Answer 2
+        type: answer
+        variables: []
+      height: 103
+      id: '1790335973806'
+      position:
+        x: 1288
+        y: 437
+      positionAbsolute:
+        x: 1288
+        y: 437
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 17.868924186230057
+      y: 135.82077321857588
+      zoom: 0.7240106996549113
+  rag_pipeline_variables: []
