@@ -1,0 +1,12 @@
+# 密钥与环境文件（最高优先级）
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Python 运行时产物
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
