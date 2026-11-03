@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sql-agent-langgraph"
+version = "0.1.0"
+description = "LangGraph 复现的 Chinook SQL Agent（选表 -> 生成 -> 校验 -> 改写 -> 执行 -> 汇总）"
+requires-python = ">=3.10"
+dependencies = [
+    "langgraph>=1.2,<2",
+    "langchain>=1.4",
+    "langchain-openai>=1.6",
+    "sqlalchemy>=2.0",
+]
+
+[project.scripts]
+sql-agent-langgraph = "sql_agent_langgraph.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
