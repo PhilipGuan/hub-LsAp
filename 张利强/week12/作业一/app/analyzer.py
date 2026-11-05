@@ -224,7 +224,7 @@ def _build_payload(image_b64: str, mime: str, repair_hint: str | None) -> dict[s
         "response_format": {"type": "json_object"},
     }
 
-
+# 调用
 def _request_once(
     image_b64: str, mime: str, repair_hint: str | None = None
 ) -> tuple[str, str]:
@@ -239,7 +239,7 @@ def _request_once(
     try:
         with httpx.Client(timeout=settings.request_timeout) as client:
             response = client.post(url, headers=headers, json=payload)
-            # 少数模型不支持 response_format，去掉后重试一次
+            # 少数模型不支持 response_format，去掉response_format后重试一次
             if response.status_code == 400 and "response_format" in response.text:
                 payload.pop("response_format", None)
                 response = client.post(url, headers=headers, json=payload)
@@ -278,14 +278,17 @@ def _short_error(response: httpx.Response) -> str:
     return message[:200] or "未知错误"
 
 
+#
 def analyze_image(data: bytes) -> dict[str, Any]:
     """识别一张楼道照片，返回结构化结果。"""
     # 先校验并压缩：无论真实调用还是演示模式，都保证输入是一张有效图片
     image_bytes, mime = prepare_image(data)
 
+    # 演示模式拦截
     if settings.mock_mode:
         return _mock_result(image_bytes)
 
+    # 鉴权失败拦截
     if not settings.key_configured:
         raise AnalyzerError(
             "尚未配置模型 API Key：请复制 .env.example 为 .env 并填写 DASHSCOPE_API_KEY，"
@@ -297,6 +300,7 @@ def analyze_image(data: bytes) -> dict[str, Any]:
 
     started = time.perf_counter()
     raw_text, finish_reason = _request_once(image_b64, mime)
+    # 处理大模型的“思考模式”
     if not raw_text.strip():
         if finish_reason == "length":
             raise AnalyzerError(
@@ -306,6 +310,7 @@ def analyze_image(data: bytes) -> dict[str, Any]:
             )
         raise AnalyzerError("模型没有返回结果内容，请重试。", 502)
 
+    # 自我修正机制：模型返回的结果可能有问题，先尝试解析，如果解析失败，再给模型一次机会
     try:
         result = normalize_result(_extract_json(raw_text))
     except AnalyzerError as first_error:
@@ -361,7 +366,7 @@ _MOCK_TEMPLATES: dict[str, dict[str, Any]] = {
 }
 _MOCK_ORDER = ("高风险", "中风险", "低风险", "无风险", "非楼道")
 
-
+# 演示模式生成器
 def _mock_result(data: bytes) -> dict[str, Any]:
     digest = hashlib.sha256(data).digest()
     level = _MOCK_ORDER[digest[0] % len(_MOCK_ORDER)]

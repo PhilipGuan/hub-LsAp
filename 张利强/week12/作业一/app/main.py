@@ -20,7 +20,7 @@ from config import BASE_DIR, settings
 
 logger = logging.getLogger("uvicorn.error")
 
-
+# 生命周期管理
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info(
@@ -41,6 +41,7 @@ app = FastAPI(
 )
 
 STATIC_DIR = BASE_DIR / "static"
+# 把 static 文件夹挂载到 /static 路径下，用于提供 CSS、JS、图片等静态资源
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
@@ -70,8 +71,9 @@ async def analyze(file: UploadFile = File(...)):
     ):
         return _error("只支持上传图片文件。", 415)
 
-    data = await file.read()
+    data = await file.read() # 异步读取文件内容
     try:
+        # run_in_threadpool： 把同步的 analyze_image 丢到线程池里执行，这样主线程就能继续处理其他 HTTP 请求，保证了高并发下的性能
         result = await run_in_threadpool(analyze_image, data)
     except AnalyzerError as exc:
         return _error(exc.message, exc.status_code)

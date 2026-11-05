@@ -155,16 +155,16 @@ class summarizeResult(BaseModel):
     summarizeResult: str = Field(description="问题与SQL执行结果信息汇总")
 
 model = ChatOpenAI(
-    model="qwen3.8-max", # 模型的代号
+    model="qwen3.8-max-0902", # 模型的代号
     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-    api_key="sk-30947ac6cb1847228ca594497625d152"
+    api_key="sk-902e3f5b296a41fdaa3e6bc5a342942f"
 )
 
 # table 选择
 select_table_agent = create_agent(
     model=model,
     system_prompt=(
-        "你是一个专业的数据库专家。结合给定的问题，在给定的数据表中选择最合适的一个用来回答问题。"
+        "你是一个专业的数据库专家。结合给定的问题，在给定的数据表中选择最合适的一张或多张用来回答问题。"
         "返回选择的数据表表名。若是找不到合适的数据表，数据表名返回None"
     ),
     response_format=ToolStrategy(SelectedTableName)
@@ -220,6 +220,7 @@ class SQLAgentWorkflow:
     - sql 执行
     - 结果汇总"""
 
+    # 统一的 Agent 调用
     @staticmethod
     async def _run_agent(agent: Any, prompt: str, schema: type[BaseModel]) -> BaseModel:
         '''调用 LangChain agent，返回结构化输出
