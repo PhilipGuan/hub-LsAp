@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: chinook-sql-agent
+Version: 0.1.0
+Summary: SQL agent workflow over the Chinook SQLite database
+Requires-Python: >=3.10
+Requires-Dist: fastapi>=0.110
+Requires-Dist: langchain-core<2,>=1.0
+Requires-Dist: langchain-openai<2,>=1.0
+Requires-Dist: langgraph<2,>=1.0
+Requires-Dist: sqlalchemy>=2.0
+Requires-Dist: uvicorn>=0.27
+Provides-Extra: dev
+Requires-Dist: httpx>=0.27; extra == "dev"
+Requires-Dist: mypy>=1.11; extra == "dev"
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: ruff>=0.6; extra == "dev"
