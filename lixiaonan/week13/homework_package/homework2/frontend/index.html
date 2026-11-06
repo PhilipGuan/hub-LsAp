@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL Agent · 对话查询</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-title">
+      <span class="logo">◆</span>
+      <div>
+        <h1>SQL Agent</h1>
+        <p class="subtitle">自然语言查询 Chinook 数据库 · LangGraph 工作流</p>
+      </div>
+    </div>
+    <div id="health" class="health" title="加载中…">● 连接中</div>
+  </header>
+
+  <main id="chat" class="chat" aria-live="polite">
+    <div class="welcome">
+      <h2>向数据库提问</h2>
+      <p>输入自然语言，Agent 将自动完成：选表 → 生成 SQL → 校验 → 执行 → 汇总。</p>
+      <div class="examples">
+        <button class="example" data-q="数据库里有多少张专辑？">数据库里有多少张专辑？</button>
+        <button class="example" data-q="销量最高的前5首歌曲及其所属专辑名称？">销量最高的前5首歌曲及其所属专辑？</button>
+        <button class="example" data-q="2010年每个月的发票总金额是多少？">2010年每月发票总金额？</button>
+        <button class="example" data-q="今天上海天气怎么样？">今天上海天气怎么样？</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="composer">
+    <textarea id="input" rows="1" placeholder="输入查询问题，Enter 发送，Shift+Enter 换行"></textarea>
+    <button id="send" class="send-btn" title="发送">发送</button>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
