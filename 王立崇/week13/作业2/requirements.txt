@@ -1,0 +1,9 @@
+langgraph
+langchain
+langchain-core
+langchain-openai
+sqlalchemy
+pandas
+tabulate
+fastapi
+uvicorn
