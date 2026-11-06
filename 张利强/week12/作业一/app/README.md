@@ -41,7 +41,7 @@ app/
 ## 快速开始
 
 ```bash
-cd 张利强/week12/作业一/app
+cd 张利强/week12/作业二/app
 
 python3 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate

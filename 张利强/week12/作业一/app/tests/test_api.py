@@ -20,6 +20,7 @@ from analyzer import RISK_LEVELS  # noqa: E402
 from config import settings  # noqa: E402
 
 
+# 在内存中动态生成测试用的图片
 def jpeg_bytes() -> bytes:
     buffer = io.BytesIO()
     Image.new("RGB", (640, 480), (110, 130, 150)).save(buffer, format="JPEG")
