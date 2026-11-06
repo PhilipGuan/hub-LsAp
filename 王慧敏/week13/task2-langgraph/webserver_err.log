@@ -1,0 +1,5 @@
+INFO:     Started server process [12136]
+INFO:     Waiting for application startup.
+2026-11-06 16:54:09 | INFO    | sql_agent.api | stage=startup action=build_workflow
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
