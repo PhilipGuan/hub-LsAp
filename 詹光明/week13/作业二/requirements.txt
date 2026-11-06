@@ -1,0 +1,14 @@
+# week13 作业二：Web 服务（前端无需构建，仅后端依赖）
+fastapi>=0.110
+uvicorn[standard]>=0.30
+
+# 复用 week13/作业一 的 SQL Agent；若已按其 requirements.txt 安装可跳过
+langgraph>=1.0
+langchain-core>=1.0
+langchain-openai>=1.0
+pydantic>=2.0
+SQLAlchemy>=2.0
+python-dotenv>=1.0
+
+# 冒烟测试（fastapi.testclient 依赖）
+httpx>=0.27

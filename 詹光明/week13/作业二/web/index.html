@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Chinook SQL 助手</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5.5" rx="7.5" ry="3"></ellipse>
+            <path d="M4.5 5.5v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6"></path>
+            <path d="M4.5 11.5v7c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-7"></path>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <h1>Chinook 数据助手</h1>
+          <p>自然语言 · SQL · 结果解读</p>
+        </div>
+      </div>
+      <div class="status" id="status" data-state="loading" role="status" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="status-text">连接中…</span>
+      </div>
+    </header>
+
+    <main class="chat" id="chat" aria-live="polite" aria-label="对话记录">
+      <section class="welcome" id="welcome">
+        <p class="welcome-kicker">LangGraph SQL Agent</p>
+        <h2>想查点什么？</h2>
+        <p class="lead">
+          我会先选择相关的表，再生成 SQL、校验并只读执行，最后根据查询结果回答。
+          每一步都会显示在对话里。
+        </p>
+        <div class="examples" id="examples" aria-label="示例问题"></div>
+        <p class="note" id="backend-note" hidden></p>
+      </section>
+    </main>
+
+    <div class="composer-wrap">
+      <form class="composer" id="composer" autocomplete="off">
+        <label class="sr-only" for="question">输入问题</label>
+        <textarea id="question" name="question" rows="1" maxlength="2000"
+                  placeholder="例如：销售额最高的前 5 位艺术家是谁？"></textarea>
+        <button type="submit" class="send" id="send">发送</button>
+        <button type="button" class="stop" id="stop" hidden>停止</button>
+      </form>
+      <p class="foot">
+        每次提问独立查询 · 只读访问 <code id="db-name">chinook.db</code>
+      </p>
+    </div>
+  </div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
