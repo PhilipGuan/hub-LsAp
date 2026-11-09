@@ -1,0 +1,13 @@
+两个工具均已实际调用。以下为验收结果。
+
+**research-check 验收（仅代码检查，未运行测试）：**
+
+- **研究循环**：完整，`engine.py:56-110` 依次执行规划(plan)→检索(search)→读取摘要(read)→提取(extract)→补检判断(judge)→综合报告(report)，`for rnd in range(1, max_rounds+1)` 支持多轮补检，judge 返回新检索词继续下一轮（`engine.py:94-104`）。
+- **引用处理**：`engine.py:17-27` normalize_claim 校验来源编号，存在任一非法编号即整条降为「模型推断（无有效来源）」；Markdown 输出中无来源结论标注【模型推断】（`engine.py:133,136`）。
+- **演示标注**：明确。演示仅限固定主题「RAG 与微调如何选择」（`app.py:32` 拒绝其他主题）；`providers.py:92` 注明固定教学样例、摘要以「教学样例摘要：」开头、reading_method 标「固定教学样例」（`engine.py:80`）、报告自述未实时检索（`providers.py:112`）。
+
+**course_checklist (week=8) 结果**：assignment1 为 Claude Code Skill、Hook、MCP、分屏截图；assignment2 为深度研究助手，流程含 plan→search→extract→judge→report，要求输出结构化报告、来源、过程与置信度。与 REQUIREMENTS.md 及代码实现一致。
+
+说明：本次仅做只读代码检查，未执行 `python -m unittest`，不声称任何测试通过。
+
+RESEARCH_SKILL_COMPLETE

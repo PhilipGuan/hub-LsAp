@@ -1,0 +1,257 @@
+app:
+  description: '如果用户输入的是正向情感，则给用户做一个输出，希望你明天也很开心。
+
+    如果用户输入的一个负面情感，则对用户的困扰进行解答，并输出建议。'
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: csg-情感分析助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.20@83977f8cbc6ccd4a47c3f8a72c454bc42102b20d5b575a2b124d3ebfe92bb226
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1789466762561-source-1789466811212-target
+      selected: false
+      source: '1789466762561'
+      sourceHandle: source
+      target: '1789466811212'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1789466811212-2-llm-target
+      source: '1789466811212'
+      sourceHandle: '2'
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1789466811212-1-17894670225110-target
+      source: '1789466811212'
+      sourceHandle: '1'
+      target: '17894670225110'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 72
+      id: '1789466762561'
+      position:
+        x: 0
+        y: 52.60000000000001
+      positionAbsolute:
+        x: 0
+        y: 52.60000000000001
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.7-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 612fbebc-5c08-4a7c-9aee-37930f468341
+          role: system
+          text: 对用户的困扰进行解答，并输出建议
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: llm
+      position:
+        x: 703
+        y: 179
+      positionAbsolute:
+        x: 703
+        y: 179
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#llm.text#}}'
+        selected: false
+        title: 负面情感回复
+        type: answer
+        variables: []
+      height: 102
+      id: answer
+      position:
+        x: 1044
+        y: 186
+      positionAbsolute:
+        x: 1044
+        y: 186
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        classes:
+        - id: '1'
+          label: CLASS 1
+          name: 正向情感
+        - id: '2'
+          label: CLASS 2
+          name: 负面情感
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.7-flash
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1789466762561'
+        - sys.query
+        selected: false
+        title: 问题分类器
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 177
+      id: '1789466811212'
+      position:
+        x: 342
+        y: 12.100000000000009
+      positionAbsolute:
+        x: 342
+        y: 12.100000000000009
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: 希望你明天也很开心。
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        selected: false
+        title: 正面情感回复
+        type: answer
+        variables: []
+      height: 99
+      id: '17894670225110'
+      position:
+        x: 703
+        y: 0
+      positionAbsolute:
+        x: 703
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 151
+      y: 178
+      zoom: 0.7
+  rag_pipeline_variables: []

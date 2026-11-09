@@ -1,0 +1,2 @@
+作业1，配置claude code ，使用下skill、hook、mcp，分别截图
+作业2，使用vibe coding，自己实现下 综合案例2

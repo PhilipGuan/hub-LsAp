@@ -1,0 +1,138 @@
+version: metrics-v1
+currency: USD
+data_from: "2009-01-01"
+data_until: "2013-12-22"
+
+metrics:
+  - id: revenue
+    label: 销售额
+    synonyms: [销售额, 收入, 营收, 消费金额, 总消费, 消费总额]
+    formula: SUM(invoices.Total)
+    grain: invoice
+    time_field: invoices.InvoiceDate
+    unit: USD
+    country_field: invoices.BillingCountry
+    supports_time_scope: true
+    line_dimensions: []
+    notes: 账单粒度；同一发票只计一次，不能与 invoice_items 明细金额混算。
+  - id: revenue_line
+    label: 销售额（行粒度）
+    synonyms: []
+    formula: SUM(invoice_items.UnitPrice * invoice_items.Quantity)
+    grain: invoice_item
+    time_field: invoices.InvoiceDate
+    unit: USD
+    country_field: invoices.BillingCountry
+    variant_of: revenue
+    supports_time_scope: true
+    line_dimensions: [genres, tracks, artists, albums, media_types]
+    notes: 当维度属于流派/曲目/艺人/专辑/媒体类型时使用；答案标注“行粒度”。
+  - id: sales_volume
+    label: 销量
+    synonyms: [销量, 售出数量, 销售数量, 卖出数量, 卖出的数量]
+    formula: SUM(invoice_items.Quantity)
+    grain: invoice_item
+    time_field: invoices.InvoiceDate
+    unit: 件
+    country_field: invoices.BillingCountry
+    supports_time_scope: true
+    line_dimensions: []
+    notes: 按发票明细行汇总。
+  - id: customer_count
+    label: 客户数
+    synonyms: [客户数, 用户数, 顾客数, 客户数量, 用户数量, 顾客数量, 多少位客户, 多少个客户, 多少客户, 多少名客户, 客户有多少]
+    formula: COUNT(DISTINCT customers.CustomerId)
+    grain: customer
+    time_field: null
+    unit: 人
+    country_field: customers.Country
+    supports_time_scope: false
+    time_variant: customer_count_active
+    line_dimensions: []
+  - id: customer_count_active
+    label: 活跃客户数
+    synonyms: [活跃客户, 活跃客户数, 活跃用户, 活跃用户数, 有消费的客户, 下过单的客户]
+    formula: COUNT(DISTINCT invoices.CustomerId)
+    grain: customer
+    time_field: invoices.InvoiceDate
+    unit: 人
+    country_field: invoices.BillingCountry
+    variant_of: customer_count
+    supports_time_scope: true
+    line_dimensions: []
+    notes: 指定时间范围时，客户数按该范围内有发票的客户统计。
+  - id: track_count
+    label: 歌曲数
+    synonyms: [歌曲数, 曲目数, 歌的数量, 多少首歌曲, 多少首歌, 歌曲有多少首, 有多少首歌曲, 歌曲数量, 曲目数量]
+    formula: COUNT(DISTINCT tracks.TrackId)
+    grain: track
+    time_field: null
+    unit: 首
+    country_field: null
+    supports_time_scope: false
+    time_variant: track_count_sold
+    line_dimensions: []
+    notes: 默认统计曲库中的歌曲数。
+  - id: track_count_sold
+    label: 已售歌曲数
+    synonyms: [已售歌曲数, 售出歌曲数, 已售歌曲数量, 已售曲目数, 售出曲目数]
+    formula: COUNT(DISTINCT invoice_items.TrackId)
+    grain: track
+    time_field: invoices.InvoiceDate
+    unit: 首
+    country_field: invoices.BillingCountry
+    variant_of: track_count
+    supports_time_scope: true
+    line_dimensions: []
+  - id: avg_spend_per_customer
+    label: 人均消费
+    synonyms: [人均消费, 客户人均消费, 每位客户平均消费, 平均每位客户消费]
+    formula: SUM(invoices.Total) / COUNT(DISTINCT invoices.CustomerId)
+    grain: customer
+    time_field: invoices.InvoiceDate
+    unit: USD/人
+    country_field: customers.Country
+    supports_time_scope: true
+    line_dimensions: []
+    notes: 这是人均消费（ARPU），不是客单价（AOV）。
+
+dimensions:
+  - id: country_attribution
+    label: 国家归属
+    rules:
+      - when_metric: revenue
+        field: invoices.BillingCountry
+      - when_metric: revenue_line
+        field: invoices.BillingCountry
+      - when_metric: sales_volume
+        field: invoices.BillingCountry
+      - when_metric: customer_count
+        field: customers.Country
+      - when_metric: customer_count_active
+        field: invoices.BillingCountry
+      - when_metric: avg_spend_per_customer
+        field: customers.Country
+      - when_metric: track_count_sold
+        field: invoices.BillingCountry
+
+undefined_metrics:
+  - mention: 客单价
+    alternatives: [销售额, 人均消费]
+  - mention: AOV
+    alternatives: [销售额, 人均消费]
+  - mention: 平均订单金额
+    alternatives: [销售额, 人均消费]
+  - mention: 利润
+    alternatives: [销售额]
+  - mention: 毛利率
+    alternatives: [销售额]
+  - mention: 净利率
+    alternatives: [销售额]
+  - mention: 复购率
+    alternatives: [客户数, 销售额]
+  - mention: 转化率
+    alternatives: [客户数, 销量]
+  - mention: 留存率
+    alternatives: [客户数]
+  - mention: ROI
+    alternatives: [销售额]

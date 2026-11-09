@@ -1,0 +1,3 @@
+Checking MCP server health…
+
+course_tools: node tools/course-mcp.cjs - ✓ Connected

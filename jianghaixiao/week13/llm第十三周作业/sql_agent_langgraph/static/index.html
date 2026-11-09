@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>LangGraph SQL Agent</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">LG</div>
+        <div>
+          <h1>SQL Agent</h1>
+          <p>LangGraph · Chinook 数据库</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span id="health" class="health-pill">正在连接</span>
+        <button id="new-chat" class="ghost-button" type="button">新对话</button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <section>
+        <p class="eyebrow">工作流</p>
+        <ol class="workflow-list">
+          <li>选择相关数据表</li>
+          <li>生成只读 SQL</li>
+          <li>执行并校验结果</li>
+          <li>失败时自动修复</li>
+          <li>整理自然语言答案</li>
+        </ol>
+      </section>
+      <section>
+        <p class="eyebrow">试试这些问题</p>
+        <div id="examples" class="example-list">
+          <button type="button" class="example-button" data-question="哪个国家的客户消费总额最高？">哪个国家消费总额最高？</button>
+          <button type="button" class="example-button" data-question="每位员工负责的客户数量是多少？">每位员工负责多少客户？</button>
+          <button type="button" class="example-button" data-question="销量最高的 5 位艺术家是谁？">销量最高的艺术家</button>
+          <button type="button" class="example-button" data-question="按音乐类型统计歌曲数量，取前 10 名。">按类型统计歌曲</button>
+        </div>
+      </section>
+      <p class="sidebar-note">Agent 只允许执行 SELECT / WITH 查询，最多返回 100 行。</p>
+    </aside>
+
+    <main class="chat-panel">
+      <div id="messages" class="messages" aria-live="polite">
+        <article class="message assistant">
+          <div class="avatar">AI</div>
+          <div class="message-body">
+            <div class="bubble">
+              你好，我是基于 LangGraph 的 SQL Agent。你可以直接用自然语言询问 Chinook 数据库中的客户、订单、歌曲、艺术家等数据。
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="composer-wrap">
+        <form id="composer" class="composer">
+          <textarea id="question" rows="1" maxlength="4000" placeholder="例如：哪个国家的客户消费总额最高？" aria-label="输入数据库问题"></textarea>
+          <button id="send" class="send-button" type="submit" aria-label="发送">
+            <span>发送</span>
+            <span aria-hidden="true">↑</span>
+          </button>
+        </form>
+        <div class="composer-meta">
+          <span>Enter 发送 · Shift + Enter 换行</span>
+          <span id="status">就绪</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
+
+

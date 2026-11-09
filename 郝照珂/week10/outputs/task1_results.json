@@ -1,0 +1,27 @@
+[
+  {
+    "query_input": "你好，我正在学习人工智能。",
+    "language": "中文",
+    "result": "Hello, I am learning artificial intelligence."
+  },
+  {
+    "query_input": "Hello, I am learning artificial intelligence.",
+    "language": "英语",
+    "result": "你好，我正在学习人工智能。"
+  },
+  {
+    "query_input": "Bonjour, je suis ravi de vous rencontrer.",
+    "language": "法语",
+    "result": "你好，很高兴见到你。"
+  },
+  {
+    "query_input": "今日はいい天気ですね。",
+    "language": "日语",
+    "result": "今天天气真好啊。"
+  },
+  {
+    "query_input": "我正在學習人工智慧，希望每天都有進步。",
+    "language": "中文",
+    "result": "I am learning artificial intelligence, hoping to make progress every day."
+  }
+]

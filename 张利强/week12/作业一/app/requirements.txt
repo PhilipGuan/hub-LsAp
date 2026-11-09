@@ -1,0 +1,9 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27
+pillow>=10.0
+python-dotenv>=1.0
+python-multipart>=0.0.9
+
+# 可选：让 iPhone 的 HEIC 照片也能识别（安装失败不影响 JPEG/PNG）
+pillow-heif>=0.16

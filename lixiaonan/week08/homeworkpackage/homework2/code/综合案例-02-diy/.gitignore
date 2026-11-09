@@ -1,0 +1,11 @@
+# 密钥与本地配置
+.env
+
+# 运行产物
+output/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/

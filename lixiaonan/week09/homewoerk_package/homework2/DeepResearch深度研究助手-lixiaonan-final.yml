@@ -1,0 +1,645 @@
+app:
+  description: 输入研究问题，自动分解子查询、调用博查搜索、网页总结并汇总生成结构化研究报告。
+  icon: 🔍
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: DeepResearch深度研究助手-lixiaonan
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.20@83977f8cbc6ccd4a47c3f8a72c454bc42102b20d5b575a2b124d3ebfe92bb226
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: start_node-source-llm_plan-target
+      source: start_node
+      sourceHandle: source
+      target: llm_plan
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: llm_plan-source-code_parse-target
+      source: llm_plan
+      sourceHandle: source
+      target: code_parse
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: code_parse-source-iteration_research-target
+      source: code_parse
+      sourceHandle: source
+      target: iteration_research
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: iteration_research-source-code_join-target
+      source: iteration_research
+      sourceHandle: source
+      target: code_join
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: code_join-source-llm_report-target
+      source: code_join
+      sourceHandle: source
+      target: llm_report
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: llm_report-source-end_node-target
+      source: llm_report
+      sourceHandle: source
+      target: end_node
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iteration_research
+        sourceType: iteration-start
+        targetType: http-request
+      id: iteration_researchstart-source-http_search-target
+      source: iteration_researchstart
+      sourceHandle: source
+      target: http_search
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iteration_research
+        sourceType: http-request
+        targetType: code
+      id: http_search-source-code_extract-target
+      source: http_search
+      sourceHandle: source
+      target: code_extract
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iteration_research
+        sourceType: code
+        targetType: llm
+      id: code_extract-source-llm_summary-target
+      source: code_extract
+      sourceHandle: source
+      target: llm_summary
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    nodes:
+    - data:
+        desc: 用户输入研究问题
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 研究问题
+          max_length: 2000
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: query
+      height: 137
+      id: start_node
+      position:
+        x: 11.582295980656454
+        y: 259
+      positionAbsolute:
+        x: 11.582295980656454
+        y: 259
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 将研究问题分解为 3-5 个搜索子查询，输出 JSON 数组
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: qwen3.7-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: f2000000-0000-4000-8000-000000000001
+          role: system
+          text: '你是深度研究助手的问题规划器。请把用户的研究问题分解为 3-5 个互补的搜索查询词：
+
+            - 覆盖问题的不同侧面（如：背景与定义、现状与关键数据、对比分析、典型案例、最新进展与趋势）；
+
+            - 每个查询词是简短的中文搜索短语（8-20字），适合搜索引擎检索；
+
+            - 只输出一个 JSON 字符串数组，例如：["新能源汽车 2026 市场规模","新能源汽车 销量数据 2026","新能源汽车 行业趋势分析"]
+
+            - 不要输出任何解释文字，不要输出 markdown 代码块。
+
+            '
+        - id: f2000000-0000-4000-8000-000000000002
+          role: user
+          text: '{{#start_node.query#}}'
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 1000
+        selected: false
+        structured_output: {}
+        structured_output_enabled: false
+        title: 问题分解
+        type: llm
+        vision:
+          enabled: false
+      height: 132
+      id: llm_plan
+      position:
+        x: 360
+        y: 280
+      positionAbsolute:
+        x: 360
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\nimport re\n\ndef main(text: str) -> dict:\n    t = (text\
+          \ or \"\").strip()\n    # 去掉可能存在的 markdown 代码块包裹\n    t = re.sub(r'^```(?:json)?\\\
+          s*', '', t)\n    t = re.sub(r'\\s*```$', '', t).strip()\n    m = re.search(r'\\\
+          [.*\\]', t, re.S)\n    if m:\n        t = m.group(0)\n    try:\n       \
+          \ arr = json.loads(t)\n    except Exception:\n        # 兜底：解析失败则用原始问题整句搜索，保证流程不断\n\
+          \        arr = [(text or \"\").strip()]\n    queries = [str(x).strip() for\
+          \ x in arr if str(x).strip()][:5]\n    if not queries:\n        queries\
+          \ = [\"\"]\n    return {\"queries\": queries}\n"
+        code_language: python3
+        desc: 解析 LLM 输出的 JSON 数组为查询列表（带兜底）
+        outputs:
+          queries:
+            children: null
+            type: array[string]
+        selected: false
+        title: 解析查询
+        type: code
+        variables:
+        - value_selector:
+          - llm_plan
+          - text
+          variable: text
+      height: 96
+      id: code_parse
+      position:
+        x: 664.0348086682786
+        y: 280
+      positionAbsolute:
+        x: 664.0348086682786
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 560
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - code_parse
+        - queries
+        output_selector:
+        - llm_summary
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: iteration_researchstart
+        title: 研究子问题循环
+        type: iteration
+        width: 1200
+      height: 560
+      id: iteration_research
+      position:
+        x: 960
+        y: 140
+      positionAbsolute:
+        x: 960
+        y: 140
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 1200
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: iteration_researchstart
+      parentId: iteration_research
+      position:
+        x: 60
+        y: 97
+      positionAbsolute:
+        x: 1020
+        y: 237
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: bocha-body-json
+            key: sk-3b0d872fc2e046049ee9b0b02437ba77
+            type: text
+            value: '{"query": "{{#iteration_research.item#}}", "summary": true, "count":
+              10}'
+          type: json
+        desc: 调用博查 web-search，query 为当前迭代子查询
+        headers: 'Authorization:Bearer sk-3d2293ad83aa4823a7c7ce8dd5ff8c72
+
+          Content-Type:application/json'
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iteration_research
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          connect: 10
+          max_connect_timeout: 10
+          max_read_timeout: 600
+          max_write_timeout: 600
+          read: 600
+          write: 600
+        title: 博查搜索
+        type: http-request
+        url: https://api.bocha.cn/v1/web-search
+        variables: []
+      height: 181
+      id: http_search
+      parentId: iteration_research
+      position:
+        x: 271.49527430996
+        y: 116.3132780145076
+      positionAbsolute:
+        x: 1231.49527430996
+        y: 256.3132780145076
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "import json\n\ndef main(body: str) -> dict:\n    try:\n        data\
+          \ = json.loads(body)\n    except Exception:\n        return {\"result\"\
+          : \"\"}\n    pages = (data.get(\"data\") or {}).get(\"webPages\", {}).get(\"\
+          value\") or []\n    lines = []\n    for i, p in enumerate(pages[:10], 1):\n\
+          \        name = p.get(\"name\", \"\")\n        url = p.get(\"url\", \"\"\
+          )\n        summary = p.get(\"summary\") or p.get(\"snippet\") or \"\"\n\
+          \        if summary:\n            lines.append(f\"{i}. {name}\\n   链接: {url}\\\
+          n   摘要: {summary}\")\n    return {\"result\": \"\\n\\n\".join(lines) if\
+          \ lines else \"\"}\n"
+        code_language: python3
+        desc: 从博查响应 JSON 中提取 标题/链接/摘要 文本
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iteration_research
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 提取搜索结果
+        type: code
+        variables:
+        - value_selector:
+          - http_search
+          - body
+          variable: body
+      height: 96
+      id: code_extract
+      parentId: iteration_research
+      position:
+        x: 640
+        y: 80
+      positionAbsolute:
+        x: 1600
+        y: 220
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 基于搜索结果生成该子问题的研究小结
+        isInIteration: true
+        isInLoop: false
+        iteration_id: iteration_research
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: qwen3.7-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: f2000000-0000-4000-8000-000000000003
+          role: system
+          text: '你是研究助理。针对给定的子问题，从网页搜索结果中提取有效信息并形成一段客观小结。
+
+
+            要求：
+
+            1. 优先使用搜索结果中的 summary 字段，其次 snippet；
+
+            2. 提炼与子问题直接相关的事实、数据、观点，保留关键数字与结论；
+
+            3. 在小结末尾列出2-3条主要来源（标题 + URL）；
+
+            4. 用中文输出，150-250字；
+
+            5. 若搜索结果与子问题无关或为空，只输出：未找到与该子问题相关的有效信息。
+
+            '
+        - id: f2000000-0000-4000-8000-000000000004
+          role: user
+          text: '子问题：{{#iteration_research.item#}}
+
+
+            搜索结果：
+
+            {{#code_extract.result#}}
+
+            '
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 1000
+        selected: false
+        structured_output: {}
+        structured_output_enabled: false
+        title: 网页小结
+        type: llm
+        vision:
+          enabled: false
+      height: 116
+      id: llm_summary
+      parentId: iteration_research
+      position:
+        x: 942
+        y: 136.4873213559007
+      positionAbsolute:
+        x: 1902
+        y: 276.4873213559007
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "def main(summaries: list) -> dict:\n    parts = []\n    idx = 0\n \
+          \   for s in summaries or []:\n        s = str(s or \"\").strip()\n    \
+          \    if not s:\n            continue\n        idx += 1\n        parts.append(f\"\
+          【子课题 {idx}】\\n{s}\")\n    if not parts:\n        parts = [\"（未获得任何有效研究小结）\"\
+          ]\n    return {\"report_input\": \"\\n\\n\".join(parts)}\n"
+        code_language: python3
+        desc: 将迭代输出的小结数组拼接为报告输入
+        outputs:
+          report_input:
+            children: null
+            type: string
+        selected: false
+        title: 汇总拼接
+        type: code
+        variables:
+        - value_selector:
+          - iteration_research
+          - output
+          variable: summaries
+      height: 80
+      id: code_join
+      position:
+        x: 2235.9651913317216
+        y: 140
+      positionAbsolute:
+        x: 2235.9651913317216
+        y: 140
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 基于全部研究小结生成结构化研究报告
+        model:
+          completion_params:
+            temperature: 0.4
+          mode: chat
+          name: qwen3.7-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: f2000000-0000-4000-8000-000000000005
+          role: system
+          text: '你是一名资深研究员。请基于提供的各子课题研究小结，撰写一份结构化研究报告。
+
+
+            报告使用 Markdown 格式，包含以下部分：
+
+            ## 一、研究背景 —— 简述研究问题及其价值（2-3句）
+
+            ## 二、关键发现 —— 按3-5个要点归纳各子课题的核心信息
+
+            ## 三、综合分析 —— 交叉对比各来源信息，指出共识、分歧与信息缺口
+
+            ## 四、结论与建议 —— 给出明确结论和后续行动建议
+
+            ## 五、参考来源 —— 列出小结中出现的来源标题与URL
+
+
+            要求：
+
+            - 语言客观、信息密度高，总长度800-1200字；
+
+            - 不得编造小结之外的事实，来源不足处如实说明；
+
+            - 使用中文。
+
+            '
+        - id: f2000000-0000-4000-8000-000000000006
+          role: user
+          text: '研究问题：{{#start_node.query#}}
+
+
+            各子课题研究小结：
+
+            {{#code_join.report_input#}}
+
+            '
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 1000
+        selected: false
+        structured_output: {}
+        structured_output_enabled: false
+        title: 报告生成
+        type: llm
+        vision:
+          enabled: false
+      height: 116
+      id: llm_report
+      position:
+        x: 2533.947786997582
+        y: 140
+      positionAbsolute:
+        x: 2533.947786997582
+        y: 140
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: 输出最终研究报告
+        outputs:
+        - value_selector:
+          - llm_report
+          - text
+          value_type: string
+          variable: report
+        selected: false
+        title: 结束
+        type: end
+      height: 116
+      id: end_node
+      position:
+        x: 2846.052213002418
+        y: 140
+      positionAbsolute:
+        x: 2846.052213002418
+        y: 140
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -349.742843672949
+      y: 277.82638418748
+      zoom: 0.415344504498242
+  rag_pipeline_variables: []

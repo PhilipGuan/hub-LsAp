@@ -1,0 +1,1459 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: 作业二_deepresearch_gyz
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: seekerliu/bocha:0.0.1@7d2dbad3f9d2652300d73bb8d91337e925f3c0daf9e0a9e285e060fb9dd7aadb
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.21@d467c6df6876dc5e70ad0b10c14631656ebbc904347eadf48e95b4fca7eda001
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.24@9e12eef09973667f0eaf4f082af883167e1de88740b22e71e71488d020c3778a
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1789485519642-source-1789485751676-target
+      selected: false
+      source: '1789485519642'
+      sourceHandle: source
+      target: '1789485751676'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1789485751676-source-1789485932193-target
+      source: '1789485751676'
+      sourceHandle: source
+      target: '1789485932193'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: 1789485932193-source-1789486505625-target
+      source: '1789485932193'
+      sourceHandle: source
+      target: '1789486505625'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789486505625'
+        sourceType: iteration-start
+        targetType: tool
+      id: 1789486505625start-source-1789486690441-target
+      source: 1789486505625start
+      sourceHandle: source
+      target: '1789486690441'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1789486505625-source-1789487284124-target
+      source: '1789486505625'
+      sourceHandle: source
+      target: '1789487284124'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1789487776226-source-1789487871204-target
+      source: '1789487776226'
+      sourceHandle: source
+      target: '1789487871204'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1789571589848-source-1789487776226-target
+      source: '1789571589848'
+      sourceHandle: source
+      target: '1789487776226'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789486505625'
+        sourceType: llm
+        targetType: code
+      id: 1789487024174-source-1789571820543-target
+      source: '1789487024174'
+      sourceHandle: source
+      target: '1789571820543'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1789487284124-source-1789573173737-target
+      source: '1789487284124'
+      sourceHandle: source
+      target: '1789573173737'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1789573173737-source-1789573363112-target
+      source: '1789573173737'
+      sourceHandle: source
+      target: '1789573363112'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1789573363112-source-1789573488488-target
+      source: '1789573363112'
+      sourceHandle: source
+      target: '1789573488488'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: variable-aggregator
+      id: 1789573488488-true-1789573776140-target
+      source: '1789573488488'
+      sourceHandle: 'true'
+      target: '1789573776140'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: variable-aggregator
+        targetType: code
+      id: 1789573776140-source-1789571589848-target
+      source: '1789573776140'
+      sourceHandle: source
+      target: '1789571589848'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '17895739491030'
+        sourceType: iteration-start
+        targetType: tool
+      id: 1789573949103start-source-1789573949103017895739491030-target
+      source: 1789573949103start
+      sourceHandle: source
+      target: '1789573949103017895739491030'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '17895739491030'
+        sourceType: llm
+        targetType: code
+      id: 1789573949103017895739491031-source-1789573949103017895739491032-target
+      source: '1789573949103017895739491031'
+      sourceHandle: source
+      target: '1789573949103017895739491032'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: iteration
+      id: 1789573488488-false-17895739491030-target
+      source: '1789573488488'
+      sourceHandle: 'false'
+      target: '17895739491030'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 17895739491030-source-17895739705290-target
+      source: '17895739491030'
+      sourceHandle: source
+      target: '17895739705290'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: variable-aggregator
+      id: 17895739705290-source-1789573776140-target
+      source: '17895739705290'
+      sourceHandle: source
+      target: '1789573776140'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789486505625'
+        sourceType: tool
+        targetType: code
+      id: 1789486690441-source-1789649019032-target
+      source: '1789486690441'
+      sourceHandle: source
+      target: '1789649019032'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789486505625'
+        sourceType: code
+        targetType: llm
+      id: 1789649019032-source-1789487024174-target
+      source: '1789649019032'
+      sourceHandle: source
+      target: '1789487024174'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '17895739491030'
+        sourceType: tool
+        targetType: code
+      id: 1789573949103017895739491030-source-1789649205022-target
+      source: '1789573949103017895739491030'
+      sourceHandle: source
+      target: '1789649205022'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '17895739491030'
+        sourceType: code
+        targetType: llm
+      id: 1789649205022-source-1789573949103017895739491031-target
+      source: '1789649205022'
+      sourceHandle: source
+      target: '1789573949103017895739491031'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    nodes:
+    - data:
+        desc: 研究主题
+        selected: false
+        title: 输入主题
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 研究主题
+          max_length: 256
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: topic
+      height: 137
+      id: '1789485519642'
+      position:
+        x: 201
+        y: 238.3609841784542
+      positionAbsolute:
+        x: 201
+        y: 238.3609841784542
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 关键词规划
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 7933c70d-fab6-45bf-a7c1-1405348c5980
+          role: system
+          text: "你是「深度研究助手」中的关键词规划员。你的职责是把一个研究主题拆解成若干可直接检索的关键词，供搜索引擎检索。\n\n  ## 要求\n\
+            \  - 生成 3-5 个关键词，覆盖主题的不同子角度（概念、行业/市场、代表产品与对比、技术/数据、趋势/结论等）。\n  - 每个关键词应当具体、可检索，能返回与该子角度直接相关的结果，可包含年份或具体实体以聚焦。\n\
+            \  - 关键词彼此区分度要高，不要互相重复或只是同一语义的换说法。\n\n  ## 输出\n  只输出一个 JSON 对象，用 ```json\
+            \ ... ``` 代码块包裹，格式如下：\n  {\"keywords\": [\"关键词1\", \"关键词2\", \"关键词3\"\
+            ]}\n  不要输出 JSON 以外的任何解释文字。"
+        - id: 101fa104-14a3-4861-b36c-dd1706c7dd96
+          role: user
+          text: 研究主题：{{#1789485519642.topic#}}
+        selected: false
+        title: 关键词规划
+        type: llm
+        vision:
+          enabled: false
+      height: 116
+      id: '1789485751676'
+      position:
+        x: 201
+        y: 412
+      positionAbsolute:
+        x: 201
+        y: 412
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\nimport re\n\n\ndef main(text: str) -> dict:\n    # 去掉推理模型输出的思考块\n\
+          \    text = re.sub(r\"<think>.*?</think>\", \"\", text, flags=re.S)\n  \
+          \  text = text.replace(\"<!--dify-deepseek-reasoning-->\", \"\")\n\n   \
+          \ # 优先提取 ```json ... ``` 代码块\n    m = re.search(r\"```json\\s*(.*?)```\"\
+          , text, re.S)\n    raw = (m.group(1) if m else text).strip()\n\n    kws\
+          \ = []\n    try:\n        data = json.loads(raw)\n        kws = data.get(\"\
+          keywords\", []) if isinstance(data, dict) else []\n    except Exception:\n\
+          \        # 解析不到 JSON 时，按行兜底\n        kws = [l.strip(\" -•*\\\"'，,\") for\
+          \ l in raw.split(\"\\n\")]\n        kws = [k for k in kws if k and not k.startswith(\"\
+          {\")]\n\n    kws = [str(k).strip() for k in kws if str(k).strip()]\n   \
+          \ return {\"keywords\": kws}"
+        code_language: python3
+        desc: 解析关键词
+        outputs:
+          keywords:
+            children: null
+            type: array[string]
+        selected: false
+        title: 解析关键词
+        type: code
+        variables:
+        - value_selector:
+          - '1789485751676'
+          - text
+          value_type: string
+          variable: text
+      height: 80
+      id: '1789485932193'
+      position:
+        x: 201
+        y: 549.0829525353627
+      positionAbsolute:
+        x: 201
+        y: 549.0829525353627
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 295
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1789485932193'
+        - keywords
+        output_selector:
+        - '1789571820543'
+        - block
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1789486505625start
+        title: 关键词迭代
+        type: iteration
+        width: 990
+      height: 295
+      id: '1789486505625'
+      position:
+        x: 104.264251502344
+        y: 672.0314331330209
+      positionAbsolute:
+        x: 104.264251502344
+        y: 672.0314331330209
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 990
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1789486505625start
+      parentId: '1789486505625'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 128.264251502344
+        y: 740.0314331330209
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        desc: 搜索资料文档
+        isInIteration: true
+        isInLoop: false
+        is_team_authorization: true
+        iteration_id: '1789486505625'
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The keywords or phrases to search
+            ja_JP: 検索キーワードまたはフレーズ
+            pt_BR: As palavras-chave ou frases para pesquisar
+            zh_Hans: 搜索关键词或语句
+          input_schema: null
+          label:
+            en_US: query
+            ja_JP: query
+            pt_BR: query
+            zh_Hans: query
+          llm_description: 搜索关键词或语句
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: noLimit
+          form: llm
+          human_description:
+            en_US: The time range for the search results. Available options noLimit,
+              oneYear, oneMonth, oneWeek, oneDay. Default is noLimit
+            ja_JP: 検索結果の時間範囲。利用可能なオプションは noLimit, oneYear, oneMonth, oneWeek, oneDay
+              です。デフォルトは noLimit です
+            pt_BR: O intervalo de tempo para os resultados da pesquisa. Opções disponíveis
+              noLimit, oneYear, oneMonth, oneWeek, oneDay. O padrão é noLimit
+            zh_Hans: 搜索的时间范围，可选值为 noLimit, oneYear, oneMonth, oneWeek, oneDay。默认为
+              noLimit
+          input_schema: null
+          label:
+            en_US: freshness
+            ja_JP: freshness
+            pt_BR: freshness
+            zh_Hans: freshness
+          llm_description: 搜索的时间范围，可选值为 noLimit, oneYear, oneMonth, oneWeek, oneDay。默认为
+            noLimit
+          max: null
+          min: null
+          name: freshness
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 10
+          form: llm
+          human_description:
+            en_US: Number of search results to retrieve (1-10), default is 10
+            ja_JP: 検索結果の数(1-10)、デフォルトは10
+            pt_BR: Número de resultados de pesquisa para recuperar (1-10), padrão
+              é 10
+            zh_Hans: 搜索结果的数量(1-10)，默认为10
+          input_schema: null
+          label:
+            en_US: count
+            ja_JP: count
+            pt_BR: count
+            zh_Hans: count
+          llm_description: 搜索结果的数量(1-10)，默认为10
+          max: 10
+          min: 1
+          name: count
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        params:
+          count: ''
+          freshness: ''
+          query: ''
+        plugin_id: seekerliu/bocha
+        plugin_unique_identifier: seekerliu/bocha:0.0.1@7d2dbad3f9d2652300d73bb8d91337e925f3c0daf9e0a9e285e060fb9dd7aadb
+        provider_icon: /console/api/workspaces/current/plugin/icon?tenant_id=b6a5f03a-421d-42be-a9fe-965cf6fd2c12&filename=6fc9b088775e6989b928672f2d8aeb764bdfd017127d04ed71fea55089c5aa74.svg
+        provider_id: seekerliu/bocha/bocha
+        provider_name: seekerliu/bocha/bocha
+        provider_show_name: 博查
+        provider_type: builtin
+        selected: false
+        title: 博查搜索资料
+        tool_configurations: {}
+        tool_description: 从博查搜索全网信息和网页链接，返回结果包括网页标题、网页URL、网页摘要、网站名称、网站图标、发布时间、图片链接等
+        tool_label: Bocha Web Search
+        tool_name: BochaWebSearch
+        tool_node_version: '2'
+        tool_parameters:
+          count:
+            type: constant
+            value: 10
+          freshness:
+            type: mixed
+            value: noLimit
+          query:
+            type: mixed
+            value: '{{#1789486505625.item#}}'
+        type: tool
+      height: 80
+      id: '1789486690441'
+      parentId: '1789486505625'
+      position:
+        x: 130.8352244772833
+        y: 68
+      positionAbsolute:
+        x: 235.0994759796273
+        y: 740.0314331330209
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 对一次搜索进行资料总结
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789486505625'
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 15cd933c-bac2-4cfd-9d65-69f05bbfa8cb
+          role: system
+          text: "你是「深度研究助手」中的资料阅读员。下面是针对某个关键词的一次搜索结果。请阅读这些结果，把它们综合成一段可直接写进研究报告正文的文字。\n\
+            \n  ## 要求\n  - 综合成一段连贯文字（1-3 个自然段，500-900 字），作为该关键词在报告正文中的段落。\n  - 写成报告语言（客观、正式、信息密集），而不是列举要点或列表。\n\
+            \  - 只基于输入的摘要内容写，不要编造数字或观点；正文里不要出现 URL。\n  - 若结果与主题无关或为空，输出一段简短说明（如\"\
+            针对该关键词未检索到有效资料。\"）。\n\n  ## 输出\n  直接输出这段正文文字本身，不要任何前后缀、不要代码块、不要 JSON。"
+        - id: af039ad2-4a5f-44f8-810b-712029bfaf69
+          role: user
+          text: '研究主题：{{#1789485519642.topic#}}
+
+            本次关键词：{{#1789486505625.item#}}
+
+
+            搜索结果：
+
+            {{#1789649019032.text#}}'
+        selected: false
+        title: 资料总结
+        type: llm
+        vision:
+          enabled: false
+      height: 116
+      id: '1789487024174'
+      parentId: '1789486505625'
+      position:
+        x: 554.2887584538524
+        y: 65
+      positionAbsolute:
+        x: 658.5530099561964
+        y: 737.0314331330209
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "import re\n\ndef main(drafts: list) -> dict:\n      blocks = [b.strip()\
+          \ for b in (drafts or []) if b and b.strip()]\n      material = \"\\n\\\
+          n\".join(blocks)\n\n      # 正则抽出所有 [标题](URL)，按 URL 去重\n      pairs = re.findall(r\"\
+          - \\[(.*?)\\]\\((https?://[^\\s)]+)\\)\", material)\n      seen, sources\
+          \ = set(), []\n      for title, url in pairs:\n          if url not in seen:\n\
+          \              seen.add(url)\n              sources.append(f\"- {title}：{url}\"\
+          )\n\n      return {\n          \"material\": material,\n          \"sources\"\
+          : \"\\n\".join(sources),\n          \"source_count\": len(sources),\n  \
+          \    }"
+        code_language: python3
+        outputs:
+          material:
+            children: null
+            type: string
+          source_count:
+            children: null
+            type: number
+          sources:
+            children: null
+            type: string
+        selected: false
+        title: 汇总资料
+        type: code
+        variables:
+        - value_selector:
+          - '1789486505625'
+          - output
+          value_type: array[string]
+          variable: drafts
+      height: 52
+      id: '1789487284124'
+      position:
+        x: 158.0255728763554
+        y: 1027.804475020363
+      positionAbsolute:
+        x: 158.0255728763554
+        y: 1027.804475020363
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ae93685f-dca9-41da-883c-d5e9d2be2b32
+          role: system
+          text: " 你是「深度研究助手」中的首席研究员。请基于给定的研究素材，撰写一份结构化研究报告。\n  包含：标题、摘要（200-400字）、分节正文、关键结论（4-6条）、遗留问题。\n\
+            \  语言正式、客观、面向专业读者；不编造素材里没有的信息。\n  - USER：\n  研究主题：{{#1789485519642.topic#}}\n\
+            \n  研究素材：\n {{#1789573776140.output#}}\n\n  请输出完整的研究报告（Markdown 格式）。"
+        - id: a72296cd-dff0-472f-8d00-6727b352eb3c
+          role: user
+          text: "置信度说明：\n  {{#1789571589848.confidence#}}\n在报告最后附上这段置信度说明。"
+        selected: false
+        title: 报告生成
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1789487776226'
+      position:
+        x: 236.14023104489013
+        y: 1826.0026624821253
+      positionAbsolute:
+        x: 236.14023104489013
+        y: 1826.0026624821253
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1789487776226'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 输出
+        type: end
+      height: 88
+      id: '1789487871204'
+      position:
+        x: 236.14023104489013
+        y: 1941.3297802505115
+      positionAbsolute:
+        x: 236.14023104489013
+        y: 1941.3297802505115
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import re\nfrom datetime import date\n\ndef main(material: str) ->\
+          \ dict:\n    # 从正文里的 markdown 链接 [标题](URL) 中抽出去重后的来源数\n    urls = set(re.findall(r\"\
+          \\((https?://[^\\s)]+)\\)\", material or \"\"))\n    n = len(urls)\n\n \
+          \   if n >= 12:\n        overall = \"高\"\n    elif n >= 5:\n        overall\
+          \ = \"中\"\n    else:\n        overall = \"低\"\n\n    note = (\n        f\"\
+          本报告共引用 {n} 个来源，综合置信度：{overall}。\\n\"\n        f\"检索时间：{date.today().isoformat()}。\\\
+          n\"\n        f\"未关联任何来源的结论为模型推测，报告中已单独标注。\"\n    )\n    return {\"confidence\"\
+          : note}"
+        code_language: python3
+        outputs:
+          confidence:
+            children: null
+            type: string
+        selected: false
+        title: 置信度
+        type: code
+        variables:
+        - value_selector:
+          - '1789573776140'
+          - output
+          value_type: string
+          variable: material
+      height: 52
+      id: '1789571589848'
+      position:
+        x: 231.59308134535888
+        y: 1735.1332415677668
+      positionAbsolute:
+        x: 231.59308134535888
+        y: 1735.1332415677668
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\n\n\ndef main(summary: str, raw) -> dict:\n    if isinstance(raw,\
+          \ str):\n        try:\n            raw = json.loads(raw)\n        except\
+          \ Exception:\n            raw = []\n\n    # 博查插件结构：[{\"image\": [...], \"\
+          webpage\": [...]}, ...]\n    pages = []\n    if isinstance(raw, list):\n\
+          \        for group in raw:\n            if isinstance(group, dict) and isinstance(group.get(\"\
+          webpage\"), list):\n                pages.extend(group[\"webpage\"])\n \
+          \   elif isinstance(raw, dict):\n        # 兼容旧结构 {data:{webPages:{value:[...]}}}\n\
+          \        node = raw.get(\"data\") or raw\n        if isinstance(node, dict):\n\
+          \            node = node.get(\"webPages\") or node\n            if isinstance(node,\
+          \ dict):\n                node = node.get(\"value\") or []\n        pages\
+          \ = node if isinstance(node, list) else []\n\n    lines = []\n    for p\
+          \ in pages:\n        if not isinstance(p, dict):\n            continue\n\
+          \        url = (p.get(\"url\") or \"\").strip()\n        title = (p.get(\"\
+          name\") or p.get(\"title\") or \"\").strip()\n        if url:\n        \
+          \    lines.append(f\"- [{title}]({url})\")\n\n    block = (summary or \"\
+          \").strip()\n    if lines:\n        block += \"\\n\\n【本段来源】\\n\" + \"\\\
+          n\".join(lines)\n    return {\"block\": block}"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789486505625'
+        outputs:
+          block:
+            children: null
+            type: string
+        selected: false
+        title: 正文+来源
+        type: code
+        variables:
+        - value_selector:
+          - '1789487024174'
+          - text
+          value_type: string
+          variable: summary
+        - value_selector:
+          - '1789486690441'
+          - json
+          value_type: array[object]
+          variable: raw
+      height: 52
+      id: '1789571820543'
+      parentId: '1789486505625'
+      position:
+        x: 704.717101802813
+        y: 205.93020755244618
+      positionAbsolute:
+        x: 808.981353305157
+        y: 877.961640685467
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: deepseek-v4.1-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 80de98a5-5d23-4fab-8831-a8fde8eb4b35
+          role: system
+          text: " 你是「深度研究助手」中的研究进度评估员。你要评估目前已累积的报告正文草稿是否足够撰写一份深度研究报告，不足时给出补充检索的关键词。\n\
+            \n  ## 评估要点\n  - 覆盖面：草稿是否覆盖了主题的主要子角度（概念、市场/产品、对比、数据、趋势等）？有没有整块空白？\n  -\
+            \ 充分度：主要论点是否都有足够信息支撑、来源数量是否可观？\n  - 质量控制：草稿是否过短、空洞、偏差明显？\n\n  ## 输出\n\
+            \  只输出一个 JSON 对象，用 ```json ... ``` 代码块包裹：\n  {\"sufficient\": true或false,\
+            \ \"reason\": \"简要说明\", \"new_keywords\": [\"补充关键词1\", \"补充关键词2\"]}\n\
+            \  - 已足够：sufficient 为 true，new_keywords 留空数组。\n  - 不足：sufficient 为 false，给出\
+            \ 2-3 个与已检索关键词不重复的新关键词。\n  - 不要吹毛求疵无止境补检：主要角度已覆盖、足以成文，就判为足够。\n  - USER：\n\
+            \  研究主题：{{#1789485519642.topic#}}\n\n  已检索关键词：{{#1789485932193.keywords#}}\n\
+            \n  当前正文草稿：\n  {{#1789487284124.material#}}\n\n  来源数量：{{#1789487284124.source_count#}}\n"
+        selected: false
+        title: 进度评估
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1789573173737'
+      position:
+        x: 455.4784231768243
+        y: 1011.1315927887487
+      positionAbsolute:
+        x: 455.4784231768243
+        y: 1011.1315927887487
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\nimport re\n\n\ndef main(text: str) -> dict:\n    text\
+          \ = re.sub(r\"<think>.*?</think>\", \"\", text, flags=re.S)\n    m = re.search(r\"\
+          ```json\\s*(.*?)```\", text, re.S)\n    raw = (m.group(1) if m else text).strip()\n\
+          \n    sufficient, kws = True, []\n    try:\n        data = json.loads(raw)\n\
+          \        sufficient = bool(data.get(\"sufficient\"))\n        kws = data.get(\"\
+          new_keywords\") or []\n    except Exception:\n        sufficient = True\
+          \  # 解析失败就当足够，避免流程跑挂\n\n    kws = [str(k).strip() for k in kws if str(k).strip()]\n\
+          \    return {\"sufficient\": \"true\" if sufficient else \"false\", \"new_keywords\"\
+          : kws}"
+        code_language: python3
+        outputs:
+          new_keywords:
+            children: null
+            type: array[string]
+          sufficient:
+            children: null
+            type: string
+        selected: false
+        title: 解析判断
+        type: code
+        variables:
+        - value_selector:
+          - '1789573173737'
+          - text
+          value_type: string
+          variable: text
+      height: 52
+      id: '1789573363112'
+      position:
+        x: 786.277037940522
+        y: 1035.383057852915
+      positionAbsolute:
+        x: 786.277037940522
+        y: 1035.383057852915
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: c5db7417-e0ed-4180-b22e-ca8c43534481
+            value: 'true'
+            varType: string
+            variable_selector:
+            - '1789573363112'
+            - sufficient
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 124
+      id: '1789573488488'
+      position:
+        x: 14.845612334371936
+        y: 1209.6904630016106
+      positionAbsolute:
+        x: 14.845612334371936
+        y: 1209.6904630016106
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        output_type: string
+        selected: false
+        title: 变量聚合器
+        type: variable-aggregator
+        variables:
+        - - '17895739705290'
+          - material
+        - - '1789487284124'
+          - material
+      height: 134
+      id: '1789573776140'
+      position:
+        x: 231.59308134535888
+        y: 1569.920135818133
+      positionAbsolute:
+        x: 231.59308134535888
+        y: 1569.920135818133
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 295
+        isInIteration: false
+        isInLoop: false
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1789573363112'
+        - new_keywords
+        output_selector:
+        - '1789573949103017895739491032'
+        - block
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1789573949103start
+        title: 关键词迭代 -2
+        type: iteration
+        width: 990
+      height: 295
+      id: '17895739491030'
+      position:
+        x: 331.6303747350448
+        y: 1145.5194971952214
+      positionAbsolute:
+        x: 331.6303747350448
+        y: 1145.5194971952214
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 990
+      zIndex: 1
+    - data:
+        desc: 搜索资料文档
+        isInIteration: true
+        isInLoop: false
+        is_team_authorization: true
+        iteration_id: '17895739491030'
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The keywords or phrases to search
+            ja_JP: 検索キーワードまたはフレーズ
+            pt_BR: As palavras-chave ou frases para pesquisar
+            zh_Hans: 搜索关键词或语句
+          input_schema: null
+          label:
+            en_US: query
+            ja_JP: query
+            pt_BR: query
+            zh_Hans: query
+          llm_description: 搜索关键词或语句
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: noLimit
+          form: llm
+          human_description:
+            en_US: The time range for the search results. Available options noLimit,
+              oneYear, oneMonth, oneWeek, oneDay. Default is noLimit
+            ja_JP: 検索結果の時間範囲。利用可能なオプションは noLimit, oneYear, oneMonth, oneWeek, oneDay
+              です。デフォルトは noLimit です
+            pt_BR: O intervalo de tempo para os resultados da pesquisa. Opções disponíveis
+              noLimit, oneYear, oneMonth, oneWeek, oneDay. O padrão é noLimit
+            zh_Hans: 搜索的时间范围，可选值为 noLimit, oneYear, oneMonth, oneWeek, oneDay。默认为
+              noLimit
+          input_schema: null
+          label:
+            en_US: freshness
+            ja_JP: freshness
+            pt_BR: freshness
+            zh_Hans: freshness
+          llm_description: 搜索的时间范围，可选值为 noLimit, oneYear, oneMonth, oneWeek, oneDay。默认为
+            noLimit
+          max: null
+          min: null
+          name: freshness
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 10
+          form: llm
+          human_description:
+            en_US: Number of search results to retrieve (1-10), default is 10
+            ja_JP: 検索結果の数(1-10)、デフォルトは10
+            pt_BR: Número de resultados de pesquisa para recuperar (1-10), padrão
+              é 10
+            zh_Hans: 搜索结果的数量(1-10)，默认为10
+          input_schema: null
+          label:
+            en_US: count
+            ja_JP: count
+            pt_BR: count
+            zh_Hans: count
+          llm_description: 搜索结果的数量(1-10)，默认为10
+          max: 10
+          min: 1
+          name: count
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        params:
+          count: ''
+          freshness: ''
+          query: ''
+        plugin_id: seekerliu/bocha
+        plugin_unique_identifier: seekerliu/bocha:0.0.1@7d2dbad3f9d2652300d73bb8d91337e925f3c0daf9e0a9e285e060fb9dd7aadb
+        provider_icon: /console/api/workspaces/current/plugin/icon?tenant_id=b6a5f03a-421d-42be-a9fe-965cf6fd2c12&filename=6fc9b088775e6989b928672f2d8aeb764bdfd017127d04ed71fea55089c5aa74.svg
+        provider_id: seekerliu/bocha/bocha
+        provider_name: seekerliu/bocha/bocha
+        provider_show_name: 博查
+        provider_type: builtin
+        selected: false
+        title: 博查搜索资料 -2
+        tool_configurations: {}
+        tool_description: 从博查搜索全网信息和网页链接，返回结果包括网页标题、网页URL、网页摘要、网站名称、网站图标、发布时间、图片链接等
+        tool_label: Bocha Web Search
+        tool_name: BochaWebSearch
+        tool_node_version: '2'
+        tool_parameters:
+          count:
+            type: constant
+            value: 10
+          freshness:
+            type: mixed
+            value: noLimit
+          query:
+            type: mixed
+            value: '{{#17895739491030.item#}}'
+        type: tool
+      height: 80
+      id: '1789573949103017895739491030'
+      parentId: '17895739491030'
+      position:
+        x: 132.3509410437938
+        y: 68
+      positionAbsolute:
+        x: 463.9813157788386
+        y: 1213.5194971952214
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 对一次搜索进行资料总结
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '17895739491030'
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 15cd933c-bac2-4cfd-9d65-69f05bbfa8cb
+          role: system
+          text: "你是「深度研究助手」中的资料阅读员。下面是针对某个关键词的一次搜索结果。请阅读这些结果，把它们综合成一段可直接写进研究报告正文的文字。\n\
+            \n  ## 要求\n  - 综合成一段连贯文字（1-3 个自然段，500-900 字），作为该关键词在报告正文中的段落。\n  - 写成报告语言（客观、正式、信息密集），而不是列举要点或列表。\n\
+            \  - 只基于输入的摘要内容写，不要编造数字或观点；正文里不要出现 URL。\n  - 若结果与主题无关或为空，输出一段简短说明（如\"\
+            针对该关键词未检索到有效资料。\"）。\n\n  ## 输出\n  直接输出这段正文文字本身，不要任何前后缀、不要代码块、不要 JSON。"
+        - id: af039ad2-4a5f-44f8-810b-712029bfaf69
+          role: user
+          text: '研究主题：{{#1789485519642.topic#}}
+
+            本次关键词：{{#17895739491030.item#}}
+
+
+            搜索结果：
+
+            {{#1789649205022.text#}}'
+        selected: false
+        title: 资料总结 -2
+        type: llm
+        vision:
+          enabled: false
+      height: 116
+      id: '1789573949103017895739491031'
+      parentId: '17895739491030'
+      position:
+        x: 430
+        y: 68
+      positionAbsolute:
+        x: 761.6303747350448
+        y: 1213.5194971952214
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "import json\n\n\ndef main(summary: str, raw) -> dict:\n    if isinstance(raw,\
+          \ str):\n        try:\n            raw = json.loads(raw)\n        except\
+          \ Exception:\n            raw = []\n\n    # 兼容多种返回结构：\n    # 直接是列表 / {data:{webPages:{value:[...]}}}\
+          \ / {webPages:{value:[...]}}\n    pages = raw if isinstance(raw, list) else\
+          \ []\n    if isinstance(raw, dict):\n        node = raw.get(\"data\") or\
+          \ raw\n        if isinstance(node, dict):\n            node = node.get(\"\
+          webPages\") or node\n            if isinstance(node, dict):\n          \
+          \      node = node.get(\"value\") or []\n        pages = node if isinstance(node,\
+          \ list) else []\n\n    lines = []\n    for p in pages:\n        if not isinstance(p,\
+          \ dict):\n            continue\n        url = (p.get(\"url\") or \"\").strip()\n\
+          \        title = (p.get(\"name\") or p.get(\"title\") or \"\").strip()\n\
+          \        if url:\n            lines.append(f\"- [{title}]({url})\")\n\n\
+          \    block = (summary or \"\").strip()\n    if lines:\n        block +=\
+          \ \"\\n\\n【本段来源】\\n\" + \"\\n\".join(lines)\n    return {\"block\": block}"
+        code_language: python3
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '17895739491030'
+        outputs:
+          block:
+            children: null
+            type: string
+        selected: false
+        title: 正文+来源 -2
+        type: code
+        variables:
+        - value_selector:
+          - '1789573949103017895739491031'
+          - text
+          value_type: string
+          variable: summary
+        - value_selector:
+          - '1789573949103017895739491030'
+          - json
+          value_type: array[object]
+          variable: raw
+      height: 52
+      id: '1789573949103017895739491032'
+      parentId: '17895739491030'
+      position:
+        x: 732
+        y: 68
+      positionAbsolute:
+        x: 1063.6303747350448
+        y: 1213.5194971952214
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1789573949103start
+      parentId: '17895739491030'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 355.6303747350448
+        y: 1213.5194971952214
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        code: "import re\n\n\ndef main(drafts: list, drafts2: list) -> dict:\n   \
+          \ parts = [b.strip() for b in (drafts or []) if b and b.strip()]\n    parts2\
+          \ = [b.strip() for b in (drafts2 or []) if b and b.strip()]\n    material\
+          \ = \"\\n\\n\".join(parts + parts2)\n\n    pairs = re.findall(r\"- \\[(.*?)\\\
+          ]\\((https?://[^\\s)]+)\\)\", material)\n    seen, sources = set(), []\n\
+          \    for title, url in pairs:\n        if url not in seen:\n           \
+          \ seen.add(url)\n            sources.append(f\"- {title}：{url}\")\n\n  \
+          \  return {\"material\": material, \"sources\": \"\\n\".join(sources),\n\
+          \            \"source_count\": len(sources)}"
+        code_language: python3
+        desc: ''
+        isInIteration: false
+        isInLoop: false
+        outputs:
+          material:
+            children: null
+            type: string
+          source_count:
+            children: null
+            type: number
+          sources:
+            children: null
+            type: string
+        selected: false
+        title: 汇总资料 -2
+        type: code
+        variables:
+        - value_selector:
+          - '1789486505625'
+          - output
+          value_type: array[string]
+          variable: drafts
+        - value_selector:
+          - '17895739491030'
+          - output
+          value_type: array[string]
+          variable: drafts2
+      height: 52
+      id: '17895739705290'
+      position:
+        x: 231.59308134535888
+        y: 1478.9771418275088
+      positionAbsolute:
+        x: 231.59308134535888
+        y: 1478.9771418275088
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\n\n\ndef main(raw) -> dict:\n    if isinstance(raw, str):\n\
+          \        try:\n            raw = json.loads(raw)\n        except Exception:\n\
+          \            raw = []\n\n    # 博查插件结构：[{\"image\": [...], \"webpage\": [...360]},\
+          \ ...]\n    pages = []\n    if isinstance(raw, list):\n        for group\
+          \ in raw:\n            if isinstance(group, dict) and isinstance(group.get(\"\
+          webpage\"), list):\n                pages.extend(group[\"webpage\"])\n\n\
+          \    lines = []\n    for i, p in enumerate(pages, 1):\n        if not isinstance(p,\
+          \ dict):\n            continue\n        name = (p.get(\"name\") or \"\"\
+          ).strip()\n        url = (p.get(\"url\") or \"\").strip()\n        date\
+          \ = (p.get(\"datePublished\") or \"\")[:10]\n        content = (p.get(\"\
+          summary\") or p.get(\"snippet\") or \"\").strip()\n        lines.append(f\"\
+          {i}. 标题：{name}\\n   网址：{url}\\n   时间：{date}\\n   内容：{content}\")\n\n   \
+          \ return {\"text\": \"\\n\\n\".join(lines) if lines else \"（本次搜索无结果）\"}"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789486505625'
+        outputs:
+          text:
+            children: null
+            type: string
+        selected: false
+        title: 搜索整理
+        type: code
+        variables:
+        - value_selector:
+          - '1789486690441'
+          - json
+          value_type: array[object]
+          variable: raw
+      height: 52
+      id: '1789649019032'
+      parentId: '1789486505625'
+      position:
+        x: 273.8811936494292
+        y: 166.91848703911535
+      positionAbsolute:
+        x: 378.1454451517732
+        y: 838.9499201721362
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "import json\n\n\ndef main(raw) -> dict:\n    if isinstance(raw, str):\n\
+          \        try:\n            raw = json.loads(raw)\n        except Exception:\n\
+          \            raw = []\n\n    # 博查插件结构：[{\"image\": [...], \"webpage\": [...360]},\
+          \ ...]\n    pages = []\n    if isinstance(raw, list):\n        for group\
+          \ in raw:\n            if isinstance(group, dict) and isinstance(group.get(\"\
+          webpage\"), list):\n                pages.extend(group[\"webpage\"])\n\n\
+          \    lines = []\n    for i, p in enumerate(pages, 1):\n        if not isinstance(p,\
+          \ dict):\n            continue\n        name = (p.get(\"name\") or \"\"\
+          ).strip()\n        url = (p.get(\"url\") or \"\").strip()\n        date\
+          \ = (p.get(\"datePublished\") or \"\")[:10]\n        content = (p.get(\"\
+          summary\") or p.get(\"snippet\") or \"\").strip()\n        lines.append(f\"\
+          {i}. 标题：{name}\\n   网址：{url}\\n   时间：{date}\\n   内容：{content}\")\n\n   \
+          \ return {\"text\": \"\\n\\n\".join(lines) if lines else \"（本次搜索无结果）\"}"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '17895739491030'
+        outputs:
+          text:
+            children: null
+            type: string
+        selected: false
+        title: 搜索整理-2
+        type: code
+        variables:
+        - value_selector:
+          - '1789573949103017895739491030'
+          - json
+          value_type: array[object]
+          variable: raw
+      height: 52
+      id: '1789649205022'
+      parentId: '17895739491030'
+      position:
+        x: 120.79382043187888
+        y: 186.62280240375048
+      positionAbsolute:
+        x: 452.4241951669237
+        y: 1332.142299598972
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    viewport:
+      x: 148.62174894117584
+      y: 8.667372445849708
+      zoom: 0.5743491774985179
+  rag_pipeline_variables: []

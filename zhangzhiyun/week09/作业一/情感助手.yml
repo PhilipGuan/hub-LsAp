@@ -1,0 +1,432 @@
+app:
+  description: 基于 DeepSeek-V4.1-Flash 优化的多维度情感分析与干预助手
+  icon: 🐱
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 情感助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.24@9e12eef09973667f0eaf4f082af883167e1de88740b22e71e71488d020c3778a
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload: {}
+    opening_statement: 你好，我是你的专属树洞。今天过得怎么样？无论好坏，我都在这里听你说。
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: edge_branch_to_crisis_ans
+      source: condition_branch
+      sourceHandle: case_crisis
+      target: ans_crisis
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: edge_branch_to_neg_llm
+      source: condition_branch
+      sourceHandle: case_negative
+      target: llm_negative
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: edge_branch_to_neu_llm
+      source: condition_branch
+      sourceHandle: case_neutral
+      target: llm_neutral
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: edge_branch_to_pos_llm
+      source: condition_branch
+      sourceHandle: case_positive
+      target: llm_positive
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: edge_classifier_to_branch
+      source: llm_classifier
+      sourceHandle: source
+      target: condition_branch
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: edge_neg_llm_to_ans
+      source: llm_negative
+      sourceHandle: source
+      target: ans_negative
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: edge_neu_llm_to_ans
+      source: llm_neutral
+      sourceHandle: source
+      target: ans_neutral
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: edge_pos_llm_to_ans
+      source: llm_positive
+      sourceHandle: source
+      target: ans_positive
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: edge_start_to_classifier
+      source: start_node
+      sourceHandle: source
+      target: llm_classifier
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        answer: 我察觉到你现在可能正处于非常痛苦和艰难的时刻。我非常关心你的安全，但作为一个人工智能，我无法提供你现在最需要的专业医疗援助。请你立刻拨打希望24小时热线（400-161-9995）或者联系身边信任的人，他们可以给你真正的帮助。你绝不是一个人在面对这些。
+        selected: false
+        title: 危机干预直出
+        type: answer
+      height: 211
+      id: ans_crisis
+      position:
+        x: 1025.8270659113045
+        y: 512.9936895436625
+      positionAbsolute:
+        x: 1025.8270659113045
+        y: 512.9936895436625
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#llm_negative.text#}}'
+        selected: false
+        title: 输出负向回复
+        type: answer
+      height: 101
+      id: ans_negative
+      position:
+        x: 1348.8742652309088
+        y: 363.58951419661486
+      positionAbsolute:
+        x: 1348.8742652309088
+        y: 363.58951419661486
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#llm_neutral.text#}}'
+        selected: false
+        title: 输出中性回复
+        type: answer
+      height: 101
+      id: ans_neutral
+      position:
+        x: 1348.8742652309088
+        y: 778.9543137430173
+      positionAbsolute:
+        x: 1348.8742652309088
+        y: 778.9543137430173
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#llm_positive.text#}}'
+        selected: false
+        title: 输出正向回复
+        type: answer
+      height: 101
+      id: ans_positive
+      position:
+        x: 1348.8742652309088
+        y: 221.60256741289555
+      positionAbsolute:
+        x: 1348.8742652309088
+        y: 221.60256741289555
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: case_positive
+          conditions:
+          - comparison_operator: contains
+            value: 正向
+            varType: string
+            variable_selector:
+            - llm_classifier
+            - text
+          logical_operator: and
+        - case_id: case_negative
+          conditions:
+          - comparison_operator: contains
+            value: 负向
+            varType: string
+            variable_selector:
+            - llm_classifier
+            - text
+          logical_operator: and
+        - case_id: case_crisis
+          conditions:
+          - comparison_operator: contains
+            value: 危机
+            varType: string
+            variable_selector:
+            - llm_classifier
+            - text
+          logical_operator: and
+        - case_id: case_neutral
+          conditions:
+          - comparison_operator: contains
+            value: 中性
+            varType: string
+            variable_selector:
+            - llm_classifier
+            - text
+          logical_operator: and
+        selected: false
+        title: 情绪分流引擎
+        type: if-else
+      height: 267
+      id: condition_branch
+      position:
+        x: 680
+        y: 282
+      positionAbsolute:
+        x: 680
+        y: 282
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        model_selector: null
+        prompt_template:
+        - id: 2bde2281-460e-4c2f-b88b-fbbb71696c84
+          role: system
+          text: 你是高精度的情感分类器。阅读用户的输入：{{#sys.query#}}。请严格将其归类为以下四种标签之一，且【只输出标签名称，绝对不要输出任何其他解释或标点】：正向、负向、危机、中性。定义如下：1.
+            正向（开心、期待、分享喜悦）；2. 负向（疲惫、抱怨、焦虑、难过）；3. 危机（表达自我伤害、极度绝望等危险信号）；4. 中性（日常询问、无明显情绪波动）。
+        selected: false
+        title: 情感分类器
+        type: llm
+      height: 87
+      id: llm_classifier
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        model_selector: null
+        prompt_template:
+        - id: 83b8b72f-9c39-40f1-8dab-88bcb01f86f3
+          role: system
+          text: 你是一个温暖、充满同理心的倾听者。用户现在情绪较为低落或疲惫：{{#sys.query#}}。请先接纳并认可用户的情绪（例如“我能感觉到你现在很辛苦”），提供温和、顺从且无压力的陪伴感。不要急于解决问题，绝对不要使用生硬的说教或长篇大论的“爹味”分析，语言要像朋友一样自然柔软。字数控制在
+            80 字以内。
+        selected: true
+        title: 温和安抚
+        type: llm
+      height: 87
+      id: llm_negative
+      position:
+        x: 1025.8270659113045
+        y: 363.58951419661486
+      positionAbsolute:
+        x: 1025.8270659113045
+        y: 363.58951419661486
+      selected: true
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.6
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        model_selector: null
+        prompt_template:
+        - id: 1828c0d7-0b27-4a6e-814e-30826b353f0d
+          role: system
+          text: 你是一个友好的生活助手。针对用户的日常对话或问题：{{#sys.query#}}，请用礼貌、自然的口吻进行简单的回应或解答。
+        selected: false
+        title: 日常交流
+        type: llm
+      height: 87
+      id: llm_neutral
+      position:
+        x: 1025.8270659113045
+        y: 778.9543137430173
+      positionAbsolute:
+        x: 1025.8270659113045
+        y: 778.9543137430173
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.8
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        model_selector: null
+        prompt_template:
+        - id: 82860cae-2e92-4d58-83c5-b8107dd236ec
+          role: system
+          text: 用户分享了积极的情绪或事件：{{#sys.query#}}。请作为一个热情的朋友，与用户产生共鸣，分享他/她的喜悦。回复要简短、自然、带有鼓励性，字数控制在
+            40 字以内。
+        selected: false
+        title: 喜悦共鸣
+        type: llm
+      height: 87
+      id: llm_positive
+      position:
+        x: 1025.8270659113045
+        y: 221.60256741289555
+      positionAbsolute:
+        x: 1025.8270659113045
+        y: 221.60256741289555
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 72
+      id: start_node
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -19.760886495335342
+      y: -22.9053603329156
+      zoom: 0.809022915869075
+  rag_pipeline_variables: []

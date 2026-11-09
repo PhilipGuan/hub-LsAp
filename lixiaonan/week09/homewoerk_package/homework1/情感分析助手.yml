@@ -1,0 +1,362 @@
+# ==============================================================
+# Dify DSL 草稿 —— 情感分析助手（Chatflow）
+# 对应文档：homework1_开发文档.md
+#
+# 导入方法：Dify 工作台 → 创建应用 → 「导入 DSL 文件」→ 选择本文件
+# 注意：
+#   1. 草稿默认模型为 openai / gpt-4o-mini。若导入后节点提示
+#      「模型供应商缺失 / 未配置」，请在每个 LLM 节点中重新选择
+#      你实例中已配置的对话模型（提示词会完整保留）。
+#   2. DSL 版本 0.1.5，新版 Dify 导入时若提示版本差异，选择
+#      「继续导入」即可。
+# ==============================================================
+app:
+  description: 根据用户输入的情感倾向自动分流：正向情绪输出祝福，负面情绪共情解答并给出建议。
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 情感分析助手
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      enabled: false
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+          - local_file
+          - remote_url
+    opening_statement: 你好！我是你的情感分析助手 🤗 把今天的心情或发生的事告诉我吧，我会认真倾听。
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      configs: []
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+      - data:
+          isInIteration: false
+          sourceType: start
+          targetType: llm
+        id: edge-start-sentiment
+        source: start_node
+        sourceHandle: source
+        target: llm_sentiment
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          sourceType: llm
+          targetType: if-else
+        id: edge-sentiment-ifelse
+        source: llm_sentiment
+        sourceHandle: source
+        target: if_else
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          sourceType: if-else
+          targetType: llm
+        id: edge-ifelse-positive
+        source: if_else
+        sourceHandle: 'true'
+        target: llm_positive
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          sourceType: if-else
+          targetType: llm
+        id: edge-ifelse-negative
+        source: if_else
+        sourceHandle: 'false'
+        target: llm_negative
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          sourceType: llm
+          targetType: answer
+        id: edge-positive-answer
+        source: llm_positive
+        sourceHandle: source
+        target: answer_positive
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          sourceType: llm
+          targetType: answer
+        id: edge-negative-answer
+        source: llm_negative
+        sourceHandle: source
+        target: answer_negative
+        targetHandle: target
+        type: custom
+        zIndex: 0
+    nodes:
+      - data:
+          desc: 接收用户输入（sys.query）
+          selected: false
+          title: 开始
+          type: start
+          variables: []
+        height: 90
+        id: start_node
+        position:
+          x: 60
+          y: 300
+        positionAbsolute:
+          x: 60
+          y: 300
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: 判断情感倾向，只输出「正向」或「负面」
+          memory:
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: false
+              size: 10
+          model:
+            completion_params:
+              temperature: 0.1
+            mode: chat
+            name: gpt-4o-mini
+            provider: openai
+          prompt_template:
+            - id: f1000000-0000-4000-8000-000000000001
+              role: system
+              text: |
+                你是一个情感分析器。请判断用户输入文本的情感倾向：
+                - 如果整体情绪是开心、满意、积极、期待、感激等，输出：正向
+                - 如果整体情绪是难过、焦虑、愤怒、委屈、迷茫、失落、压力、抱怨等，输出：负面
+                只输出「正向」或「负面」两个词之一，不要输出任何其他内容，不要加标点。
+            - id: f1000000-0000-4000-8000-000000000002
+              role: user
+              text: '{{#sys.query#}}'
+          selected: false
+          title: 情感分析
+          type: llm
+          variables: []
+          vision:
+            enabled: false
+        height: 200
+        id: llm_sentiment
+        position:
+          x: 360
+          y: 290
+        positionAbsolute:
+          x: 360
+          y: 290
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          cases:
+            - case_id: 'true'
+              conditions:
+                - comparison_operator: contains
+                  id: d1000000-0000-4000-8000-000000000001
+                  value: 正向
+                  varType: variable
+                  variable_selector:
+                    - llm_sentiment
+                    - text
+              id: 'true'
+              logical_operator: and
+          desc: 按情感分析结果分流：正向走上方分支，其余走下方分支
+          selected: false
+          title: 条件分支
+          type: if-else
+        height: 126
+        id: if_else
+        position:
+          x: 660
+          y: 290
+        positionAbsolute:
+          x: 660
+          y: 290
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: IF 分支：正向情绪的祝福与鼓励
+          memory:
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: false
+              size: 10
+          model:
+            completion_params:
+              temperature: 0.7
+            mode: chat
+            name: gpt-4o-mini
+            provider: openai
+          prompt_template:
+            - id: f1000000-0000-4000-8000-000000000003
+              role: system
+              text: |
+                你是一个温暖活泼的陪伴助手。用户刚才表达了正向的情绪，请：
+                1. 简短回应用户的分享（1-2句，可结合用户原话）；
+                2. 给出一句真诚的祝福或鼓励；
+                3. 最后一行必须单独输出：希望你明天也很开心！
+                回复保持简洁友好，使用中文，不超过80字。
+            - id: f1000000-0000-4000-8000-000000000004
+              role: user
+              text: 用户的输入：{{#sys.query#}}
+          selected: false
+          title: 正向回应
+          type: llm
+          variables: []
+          vision:
+            enabled: false
+        height: 240
+        id: llm_positive
+        position:
+          x: 960
+          y: 130
+        positionAbsolute:
+          x: 960
+          y: 130
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          context:
+            enabled: false
+            variable_selector: []
+          desc: ELSE 分支：共情安抚 + 问题解答 + 行动建议
+          memory:
+            role_prefix:
+              assistant: ''
+              user: ''
+            window:
+              enabled: false
+              size: 10
+          model:
+            completion_params:
+              temperature: 0.5
+            mode: chat
+            name: gpt-4o-mini
+            provider: openai
+          prompt_template:
+            - id: f1000000-0000-4000-8000-000000000005
+              role: system
+              text: |
+                你是一位有同理心的情绪疏导顾问。用户刚才表达了负面情绪，请严格按以下结构回复：
+
+                1.【共情安抚】先接纳并肯定用户的情绪，用温暖的语言安抚（1-2句）；
+                2.【问题解答】针对用户描述的具体困扰，分析可能的原因并给出解答；
+                3.【行动建议】给出2-3条具体、可立即执行的建议，用列表呈现。
+
+                要求：
+                - 语气真诚、不说教、不敷衍；
+                - 用中文回复，总长度控制在200字以内；
+                - 如用户情绪疑似涉及严重心理危机，温和建议寻求专业心理咨询帮助。
+            - id: f1000000-0000-4000-8000-000000000006
+              role: user
+              text: 用户的输入：{{#sys.query#}}
+          selected: false
+          title: 负面解答与建议
+          type: llm
+          variables: []
+          vision:
+            enabled: false
+        height: 280
+        id: llm_negative
+        position:
+          x: 960
+          y: 430
+        positionAbsolute:
+          x: 960
+          y: 430
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          answer: '{{#llm_positive.text#}}'
+          desc: 输出正向回应内容
+          selected: false
+          title: 回复-正向
+          type: answer
+          variables: []
+        height: 105
+        id: answer_positive
+        position:
+          x: 1260
+          y: 150
+        positionAbsolute:
+          x: 1260
+          y: 150
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+      - data:
+          answer: '{{#llm_negative.text#}}'
+          desc: 输出负面解答与建议内容
+          selected: false
+          title: 回复-负面
+          type: answer
+          variables: []
+        height: 105
+        id: answer_negative
+        position:
+          x: 1260
+          y: 450
+        positionAbsolute:
+          x: 1260
+          y: 450
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 244
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.5

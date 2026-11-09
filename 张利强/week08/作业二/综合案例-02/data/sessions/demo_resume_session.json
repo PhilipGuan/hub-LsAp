@@ -1,0 +1,124 @@
+{
+  "topic": "机器学习研究",
+  "round": 4,
+  "sub_questions": [
+    {
+      "id": "q01",
+      "question": "什么是机器学习？",
+      "keywords": [
+        "机器学习",
+        "ML"
+      ]
+    },
+    {
+      "id": "q02",
+      "question": "机器学习应用场景",
+      "keywords": [
+        "应用",
+        "场景"
+      ]
+    }
+  ],
+  "search_results": [
+    {
+      "id": "1",
+      "title": "机器学习入门",
+      "url": "https://example.com/ml1",
+      "query": "什么是机器学习？"
+    },
+    {
+      "id": "2",
+      "title": "机器学习应用",
+      "url": "https://example.com/ml2",
+      "query": "机器学习应用场景"
+    },
+    {
+      "id": "2-1",
+      "title": "进展 2",
+      "url": "https://example.com/progress2",
+      "query": "机器学习最新进展 2"
+    },
+    {
+      "id": "2-2",
+      "title": "趋势 2",
+      "url": "https://example.com/trend2",
+      "query": "机器学习技术趋势 2"
+    },
+    {
+      "id": "3-1",
+      "title": "进展 3",
+      "url": "https://example.com/progress3",
+      "query": "机器学习最新进展 3"
+    },
+    {
+      "id": "3-2",
+      "title": "趋势 3",
+      "url": "https://example.com/trend3",
+      "query": "机器学习技术趋势 3"
+    },
+    {
+      "id": "4-1",
+      "title": "进展 4",
+      "url": "https://example.com/progress4",
+      "query": "机器学习最新进展 4"
+    },
+    {
+      "id": "4-2",
+      "title": "趋势 4",
+      "url": "https://example.com/trend4",
+      "query": "机器学习技术趋势 4"
+    }
+  ],
+  "contents": [
+    {
+      "id": "1",
+      "title": "机器学习入门内容",
+      "url": "https://example.com/ml1",
+      "content": "机器学习是AI的分支..."
+    },
+    {
+      "id": "2",
+      "title": "机器学习应用内容",
+      "url": "https://example.com/ml2",
+      "content": "机器学习应用于图像识别..."
+    },
+    {
+      "id": "2-1",
+      "title": "进展内容 2",
+      "url": "https://example.com/progress2",
+      "content": "这是第2轮的进展内容..."
+    },
+    {
+      "id": "2-2",
+      "title": "趋势内容 2",
+      "url": "https://example.com/trend2",
+      "content": "这是第2轮的趋势内容..."
+    },
+    {
+      "id": "3-1",
+      "title": "进展内容 3",
+      "url": "https://example.com/progress3",
+      "content": "这是第3轮的进展内容..."
+    },
+    {
+      "id": "3-2",
+      "title": "趋势内容 3",
+      "url": "https://example.com/trend3",
+      "content": "这是第3轮的趋势内容..."
+    },
+    {
+      "id": "4-1",
+      "title": "进展内容 4",
+      "url": "https://example.com/progress4",
+      "content": "这是第4轮的进展内容..."
+    },
+    {
+      "id": "4-2",
+      "title": "趋势内容 4",
+      "url": "https://example.com/trend4",
+      "content": "这是第4轮的趋势内容..."
+    }
+  ],
+  "timestamp": "1789115945",
+  "status": "in_progress"
+}

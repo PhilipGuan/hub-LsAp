@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chinook SQL Agent · 对话查询</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🎤</span>
+      <div class="title">
+        <h1>Chinook SQL Agent</h1>
+        <p>用自然语言查询专辑 / 艺术家 / 员工 / 销量数据库</p>
+      </div>
+    </div>
+    <div class="status" id="status" data-state="loading">
+      <span class="dot"></span><span class="status-text">连接中…</span>
+    </div>
+  </header>
+
+  <main class="chat" id="chat" aria-live="polite">
+    <!-- 欢迎消息 + 示例问题由 JS 注入 -->
+  </main>
+
+  <footer class="composer">
+    <form id="composer-form" autocomplete="off">
+      <textarea
+        id="input"
+        rows="1"
+        placeholder="输入要查询的问题，例如：总共有多少张专辑？"
+        aria-label="查询问题"
+      ></textarea>
+      <button type="submit" id="send" disabled>发送</button>
+    </form>
+    <p class="hint">Enter 发送 · Shift+Enter 换行 · 每条问题独立查询</p>
+  </footer>
+
+  <template id="tpl-user">
+    <article class="msg msg-user">
+      <div class="bubble"><p></p></div>
+    </article>
+  </template>
+
+  <template id="tpl-assistant">
+    <article class="msg msg-assistant">
+      <div class="avatar">🤖</div>
+      <div class="bubble">
+        <div class="answer"></div>
+        <details class="meta">
+          <summary>查询详情</summary>
+          <div class="meta-body"></div>
+        </details>
+      </div>
+    </article>
+  </template>
+
+  <script src="/app.js"></script>
+</body>
+</html>

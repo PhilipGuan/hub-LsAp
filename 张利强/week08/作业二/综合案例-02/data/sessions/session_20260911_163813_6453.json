@@ -1,0 +1,40 @@
+{
+  "topic": "测试主题",
+  "round": 2,
+  "sub_questions": [
+    {
+      "id": "q01",
+      "question": "测试问题1",
+      "keywords": [
+        "关键词1",
+        "关键词2"
+      ],
+      "priority": 3
+    },
+    {
+      "id": "q02",
+      "question": "测试问题2",
+      "keywords": [
+        "关键词3"
+      ],
+      "priority": 5
+    }
+  ],
+  "search_results": [
+    {
+      "id": "1",
+      "title": "测试结果1",
+      "url": "https://example.com/1",
+      "query": "测试查询"
+    }
+  ],
+  "contents": [
+    {
+      "id": "1",
+      "title": "测试内容1",
+      "url": "https://example.com/1",
+      "content": "这是测试内容"
+    }
+  ],
+  "timestamp": "1789115893"
+}

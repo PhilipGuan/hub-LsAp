@@ -1,0 +1,617 @@
+{
+  "status": "success",
+  "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+  "result": {
+    "columns": [
+      "customer_count"
+    ],
+    "rows": [
+      [
+        59
+      ]
+    ],
+    "truncated": false
+  },
+  "answer": "共有59位客户。",
+  "evidence": [
+    "customer_count=59"
+  ],
+  "caveats": [],
+  "trace": [
+    {
+      "stage": "database_parse",
+      "schema": {
+        "albums": {
+          "columns": [
+            {
+              "name": "AlbumId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "Title",
+              "type": "NVARCHAR(160)",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "ArtistId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [
+            {
+              "from": "ArtistId",
+              "table": "artists",
+              "to": "ArtistId"
+            }
+          ],
+          "row_count": 347
+        },
+        "artists": {
+          "columns": [
+            {
+              "name": "ArtistId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "Name",
+              "type": "NVARCHAR(120)",
+              "not_null": false,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [],
+          "row_count": 275
+        },
+        "customers": {
+          "columns": [
+            {
+              "name": "CustomerId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "FirstName",
+              "type": "NVARCHAR(40)",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "LastName",
+              "type": "NVARCHAR(20)",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "Company",
+              "type": "NVARCHAR(80)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Address",
+              "type": "NVARCHAR(70)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "City",
+              "type": "NVARCHAR(40)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "State",
+              "type": "NVARCHAR(40)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Country",
+              "type": "NVARCHAR(40)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "PostalCode",
+              "type": "NVARCHAR(10)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Phone",
+              "type": "NVARCHAR(24)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Fax",
+              "type": "NVARCHAR(24)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Email",
+              "type": "NVARCHAR(60)",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "SupportRepId",
+              "type": "INTEGER",
+              "not_null": false,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [
+            {
+              "from": "SupportRepId",
+              "table": "employees",
+              "to": "EmployeeId"
+            }
+          ],
+          "row_count": 59
+        },
+        "employees": {
+          "columns": [
+            {
+              "name": "EmployeeId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "LastName",
+              "type": "NVARCHAR(20)",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "FirstName",
+              "type": "NVARCHAR(20)",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "Title",
+              "type": "NVARCHAR(30)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "ReportsTo",
+              "type": "INTEGER",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "BirthDate",
+              "type": "DATETIME",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "HireDate",
+              "type": "DATETIME",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Address",
+              "type": "NVARCHAR(70)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "City",
+              "type": "NVARCHAR(40)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "State",
+              "type": "NVARCHAR(40)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Country",
+              "type": "NVARCHAR(40)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "PostalCode",
+              "type": "NVARCHAR(10)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Phone",
+              "type": "NVARCHAR(24)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Fax",
+              "type": "NVARCHAR(24)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Email",
+              "type": "NVARCHAR(60)",
+              "not_null": false,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [
+            {
+              "from": "ReportsTo",
+              "table": "employees",
+              "to": "EmployeeId"
+            }
+          ],
+          "row_count": 8
+        },
+        "genres": {
+          "columns": [
+            {
+              "name": "GenreId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "Name",
+              "type": "NVARCHAR(120)",
+              "not_null": false,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [],
+          "row_count": 25
+        },
+        "invoice_items": {
+          "columns": [
+            {
+              "name": "InvoiceLineId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "InvoiceId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "TrackId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "UnitPrice",
+              "type": "NUMERIC(10,2)",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "Quantity",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [
+            {
+              "from": "TrackId",
+              "table": "tracks",
+              "to": "TrackId"
+            },
+            {
+              "from": "InvoiceId",
+              "table": "invoices",
+              "to": "InvoiceId"
+            }
+          ],
+          "row_count": 2240
+        },
+        "invoices": {
+          "columns": [
+            {
+              "name": "InvoiceId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "CustomerId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "InvoiceDate",
+              "type": "DATETIME",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "BillingAddress",
+              "type": "NVARCHAR(70)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "BillingCity",
+              "type": "NVARCHAR(40)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "BillingState",
+              "type": "NVARCHAR(40)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "BillingCountry",
+              "type": "NVARCHAR(40)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "BillingPostalCode",
+              "type": "NVARCHAR(10)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Total",
+              "type": "NUMERIC(10,2)",
+              "not_null": true,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [
+            {
+              "from": "CustomerId",
+              "table": "customers",
+              "to": "CustomerId"
+            }
+          ],
+          "row_count": 412
+        },
+        "media_types": {
+          "columns": [
+            {
+              "name": "MediaTypeId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "Name",
+              "type": "NVARCHAR(120)",
+              "not_null": false,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [],
+          "row_count": 5
+        },
+        "playlist_track": {
+          "columns": [
+            {
+              "name": "PlaylistId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "TrackId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 2
+            }
+          ],
+          "foreign_keys": [
+            {
+              "from": "TrackId",
+              "table": "tracks",
+              "to": "TrackId"
+            },
+            {
+              "from": "PlaylistId",
+              "table": "playlists",
+              "to": "PlaylistId"
+            }
+          ],
+          "row_count": 8715
+        },
+        "playlists": {
+          "columns": [
+            {
+              "name": "PlaylistId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "Name",
+              "type": "NVARCHAR(120)",
+              "not_null": false,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [],
+          "row_count": 18
+        },
+        "tracks": {
+          "columns": [
+            {
+              "name": "TrackId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 1
+            },
+            {
+              "name": "Name",
+              "type": "NVARCHAR(200)",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "AlbumId",
+              "type": "INTEGER",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "MediaTypeId",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "GenreId",
+              "type": "INTEGER",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Composer",
+              "type": "NVARCHAR(220)",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "Milliseconds",
+              "type": "INTEGER",
+              "not_null": true,
+              "pk_order": 0
+            },
+            {
+              "name": "Bytes",
+              "type": "INTEGER",
+              "not_null": false,
+              "pk_order": 0
+            },
+            {
+              "name": "UnitPrice",
+              "type": "NUMERIC(10,2)",
+              "not_null": true,
+              "pk_order": 0
+            }
+          ],
+          "foreign_keys": [
+            {
+              "from": "MediaTypeId",
+              "table": "media_types",
+              "to": "MediaTypeId"
+            },
+            {
+              "from": "GenreId",
+              "table": "genres",
+              "to": "GenreId"
+            },
+            {
+              "from": "AlbumId",
+              "table": "albums",
+              "to": "AlbumId"
+            }
+          ],
+          "row_count": 3503
+        }
+      }
+    },
+    {
+      "stage": "table_select",
+      "output": {
+        "tables": [
+          "customers"
+        ],
+        "reason": "统计客户数",
+        "needs_clarification": false,
+        "clarification_question": ""
+      }
+    },
+    {
+      "stage": "sql_generate",
+      "output": {
+        "sql": "SELECT COUNT(Missing) FROM customers",
+        "cannot_fix": false,
+        "explanation": ""
+      }
+    },
+    {
+      "stage": "sql_validate",
+      "ok": false,
+      "error": "no such column: Missing"
+    },
+    {
+      "stage": "sql_rewrite",
+      "output": {
+        "sql": "SELECT COUNT(*) AS customer_count FROM customers",
+        "cannot_fix": false,
+        "explanation": ""
+      }
+    },
+    {
+      "stage": "sql_validate",
+      "ok": true,
+      "plan": {
+        "columns": [
+          "id",
+          "parent",
+          "notused",
+          "detail"
+        ],
+        "rows": [
+          [
+            4,
+            0,
+            0,
+            "SCAN customers USING COVERING INDEX IFK_CustomerSupportRepId"
+          ]
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "stage": "sql_execute",
+      "result": {
+        "columns": [
+          "customer_count"
+        ],
+        "rows": [
+          [
+            59
+          ]
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "stage": "result_summary",
+      "output": {
+        "answer": "共有59位客户。",
+        "evidence": [
+          "customer_count=59"
+        ],
+        "caveats": []
+      }
+    }
+  ],
+  "mode": "offline_fake_model"
+}

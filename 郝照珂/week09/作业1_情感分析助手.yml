@@ -1,0 +1,251 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: Week09-情感分析助手-HZ
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.68@ba61c5eccb814be7364117c0bec3710a51e09b20f31e37243e747a00f9377969
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1789615599356-source-1789615620483-target
+      source: '1789615599356'
+      sourceHandle: source
+      target: '1789615620483'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1789615620483-1-1789615649971-target
+      source: '1789615620483'
+      sourceHandle: '1'
+      target: '1789615649971'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1789615620483-2-1789615664531-target
+      source: '1789615620483'
+      sourceHandle: '2'
+      target: '1789615664531'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1789615664531-source-1789615730875-target
+      source: '1789615664531'
+      sourceHandle: source
+      target: '1789615730875'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 72
+      id: '1789615599356'
+      position:
+        x: 86
+        y: 281
+      positionAbsolute:
+        x: 86
+        y: 281
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          label: CLASS 1
+          name: 正向情感：开心、满足、感谢、期待、成就感；整体积极且没有寻求解决的明显困扰。
+        - id: '2'
+          label: CLASS 2
+          name: 负向情感或需要支持：难过、焦虑、愤怒、失落、挫败、压力。注意否定和反讽：“一点也不开心”“真开心，又加班”属于此类。混合情绪中存在明显困扰时优先此类。中性或不明确时也进入此类温和询问。
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: week09-hz-deepseek-flash
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+        query_variable_selector:
+        - '1789615599356'
+        - sys.query
+        selected: false
+        title: 情感分类器
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 177
+      id: '1789615620483'
+      position:
+        x: 361
+        y: 272
+      positionAbsolute:
+        x: 361
+        y: 272
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: 希望你明天也很开心。
+        selected: false
+        title: 正向祝福
+        type: answer
+        variables: []
+      height: 99
+      id: '1789615649971'
+      position:
+        x: 849
+        y: 272
+      positionAbsolute:
+        x: 849
+        y: 272
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: week09-hz-deepseek-flash
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+        prompt_template:
+        - id: daaf96c3-1288-4607-bc70-0739c39aabf8
+          role: system
+          text: '你是一位温和、务实的情绪支持助手。先用一两句话准确回应用户的具体感受，再梳理困扰，最后给出2至3条可执行的建议。建议必须与用户的问题相关，避免空泛鼓励、责备或编造经历。信息不足时在结尾提出一个简短问题。不要进行医学诊断。回答控制在350字以内。
+
+
+            你是一个情感助手，请求用户情感给出建议
+
+
+            {{#sys.query#}}'
+        selected: false
+        title: 困扰分析与行动建议
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1789615664531'
+      position:
+        x: 605
+        y: 567
+      positionAbsolute:
+        x: 605
+        y: 567
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1789615664531.text#}}'
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 102
+      id: '1789615730875'
+      position:
+        x: 929
+        y: 567
+      positionAbsolute:
+        x: 929
+        y: 567
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: -689.5
+      y: 53
+      zoom: 1
+  rag_pipeline_variables: []

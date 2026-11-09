@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>楼道消防隐患识别</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>🔥 楼道消防隐患识别</h1>
+    <p class="subtitle">拍照或上传图片，实时判断楼道消防安全隐患与危险程度</p>
+  </header>
+
+  <main class="app-main">
+    <!-- 操作按钮 -->
+    <section class="actions">
+      <button id="btn-camera" class="btn btn-primary">📷 拍照识别</button>
+      <button id="btn-upload" class="btn btn-secondary">🖼️ 上传图片</button>
+      <input id="file-input" type="file" accept="image/*" hidden />
+    </section>
+
+    <!-- 相机预览 -->
+    <section id="camera-panel" class="panel camera-panel" hidden>
+      <div class="camera-wrap">
+        <video id="video" playsinline autoplay muted></video>
+        <div class="camera-tip" id="camera-tip">摄像头开启中…</div>
+      </div>
+      <div class="camera-controls">
+        <button id="btn-capture" class="btn btn-capture">📸 拍照</button>
+        <button id="btn-switch" class="btn btn-ghost">🔄 切换镜头</button>
+        <button id="btn-close-camera" class="btn btn-ghost">✕ 关闭</button>
+      </div>
+    </section>
+
+    <!-- 图片预览 -->
+    <section id="preview-panel" class="panel preview-panel" hidden>
+      <div class="preview-wrap">
+        <img id="preview-img" alt="待识别图片" />
+      </div>
+      <div class="preview-controls">
+        <button id="btn-analyze" class="btn btn-primary">🔍 开始识别</button>
+        <button id="btn-reset" class="btn btn-ghost">重新选择</button>
+      </div>
+    </section>
+
+    <!-- 结果展示 -->
+    <section id="result-panel" class="panel result-panel" hidden>
+      <div id="result-badge" class="result-badge">—</div>
+      <h2 id="result-level" class="result-level"></h2>
+      <p id="result-summary" class="result-summary"></p>
+      <div id="result-reason" class="result-reason"></div>
+    </section>
+
+    <!-- 状态提示 -->
+    <section id="status" class="status" hidden></section>
+
+    <!-- 错误提示 -->
+    <section id="error" class="error" hidden></section>
+  </main>
+
+  <footer class="app-footer">
+    <p>风险等级：<span class="tag high">高风险</span><span class="tag medium">中风险</span><span class="tag low">低风险</span><span class="tag none">无风险</span><span class="tag nc">非楼道</span></p>
+    <p class="note">提示：手机调用摄像头需通过 HTTPS 或 localhost 访问；若摄像头无法开启，请用「上传图片」。</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

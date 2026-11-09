@@ -1,0 +1,244 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: jerry_deepresearch
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.21@d467c6df6876dc5e70ad0b10c14631656ebbc904347eadf48e95b4fca7eda001
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1789512301130-source-1789512350665-target
+      source: '1789512301130'
+      sourceHandle: source
+      target: '1789512350665'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1789512350665-source-1789513330101-target
+      source: '1789512350665'
+      sourceHandle: source
+      target: '1789513330101'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1789513330101-source-1789513879203-target
+      source: '1789513330101'
+      sourceHandle: source
+      target: '1789513879203'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 72
+      id: '1789512301130'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nimport requests\nimport json\n\ndef main(user_query):\n    url =\
+          \ \"https://api.bocha.cn/v1/web-search\"\n    headers = {\n        \"Authorization\"\
+          : \"Bearer sk-3d2293ad83aa4823a7c7ce8dd5ff8c72\",\n        \"Content-Type\"\
+          : \"application/json\"\n    }\n    payload = {\n        \"query\": user_query,\n\
+          \        \"summary\": True,\n        \"count\": 10\n    }\n    resp = requests.post(url,\
+          \ headers=headers, json=payload, timeout=30)\n    resp.raise_for_status()\n\
+          \    resp_json_str = resp.text\n\n    def extract_summary_list(json_str:\
+          \ str) -> list:\n        data = json.loads(json_str)\n        web_items\
+          \ = data[\"data\"][\"webPages\"][\"value\"]\n        summary_arr = [item.get(\"\
+          summary\", \"\") for item in web_items]\n        return summary_arr\n\n\
+          \    summaries = extract_summary_list(resp_json_str)\n    return {\"summaries\"\
+          : summaries}\n\n"
+        code_language: python3
+        outputs:
+          summaries:
+            children: null
+            type: array[string]
+        selected: false
+        title: bocha_search
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: user_query
+      height: 51
+      id: '1789512350665'
+      position:
+        x: 381
+        y: 283
+      positionAbsolute:
+        x: 381
+        y: 283
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1789512350665'
+          - summaries
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen-max
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables:
+          - value_selector:
+            - '1789512350665'
+            - summaries
+            variable: summaries
+          - value_selector:
+            - sys
+            - query
+            variable: query
+        prompt_template:
+        - edition_type: jinja2
+          id: e86fd5f8-1652-4d3d-b83d-d1858fa49896
+          jinja2_text: "下面是搜索得到的参考资料：\r\n{% for item in summaries %}\r\n- {{ item\
+            \ }}\r\n{% endfor %}\r\n\r\n用户问题：{{ query }}\r\n基于上面的参考资料回答用户问题，如果资料不足，如实说明。\r\
+            \n"
+          role: system
+          text: '参考资料JSON数组：
+
+            {{#1789512350665.summaries#}}
+
+
+            用户问题：{{#sys.query#}}
+
+            根据参考资料回答问题。
+
+            '
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1789513330101'
+      position:
+        x: 683
+        y: 283
+      positionAbsolute:
+        x: 683
+        y: 283
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1789513330101.text#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 102
+      id: '1789513879203'
+      position:
+        x: 985
+        y: 283
+      positionAbsolute:
+        x: 985
+        y: 283
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -234.83333333333348
+      y: 133.0555555555555
+      zoom: 0.6944444444444445
+  rag_pipeline_variables: []

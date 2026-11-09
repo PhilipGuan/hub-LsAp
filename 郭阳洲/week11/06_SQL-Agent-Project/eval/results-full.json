@@ -1,0 +1,7174 @@
+{
+  "timestamp": "2026-10-22T23:13:49",
+  "fingerprint": {
+    "app_version": "mvp-1",
+    "prompt_version": "prompt-v2",
+    "model": "deepseek-chat",
+    "catalog": "a9ddc0dcb08e534df0a442972756911c",
+    "gold_sha256": "09be7f505a5dda2d"
+  },
+  "config": {
+    "runs": 3,
+    "eval_max_rows": 1000,
+    "truncation_max_rows": 100,
+    "splits": [
+      "boundary",
+      "dev",
+      "entity",
+      "holdout",
+      "intent",
+      "security"
+    ]
+  },
+  "summary": {
+    "cases": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "accuracy_ci95": [
+      0.9713,
+      1.0
+    ],
+    "run_correct": [
+      130,
+      130,
+      130
+    ],
+    "run_accuracy": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "median_run_correct": 130,
+    "run_span": 0
+  },
+  "splits": {
+    "boundary": {
+      "cases": 20,
+      "correct": 20,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8389,
+        1.0
+      ],
+      "run_correct": [
+        20,
+        20,
+        20
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 20,
+      "run_span": 0
+    },
+    "dev": {
+      "cases": 30,
+      "correct": 30,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8865,
+        1.0
+      ],
+      "run_correct": [
+        30,
+        30,
+        30
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 30,
+      "run_span": 0
+    },
+    "entity": {
+      "cases": 20,
+      "correct": 20,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8389,
+        1.0
+      ],
+      "run_correct": [
+        20,
+        20,
+        20
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 20,
+      "run_span": 0
+    },
+    "holdout": {
+      "cases": 30,
+      "correct": 30,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8865,
+        1.0
+      ],
+      "run_correct": [
+        30,
+        30,
+        30
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 30,
+      "run_span": 0
+    },
+    "intent": {
+      "cases": 20,
+      "correct": 20,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8389,
+        1.0
+      ],
+      "run_correct": [
+        20,
+        20,
+        20
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 20,
+      "run_span": 0
+    },
+    "security": {
+      "cases": 10,
+      "correct": 10,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.7225,
+        1.0
+      ],
+      "run_correct": [
+        10,
+        10,
+        10
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 10,
+      "run_span": 0
+    }
+  },
+  "tags": {
+    "boundary": {
+      "boundary": {
+        "cases": 20,
+        "correct": 20,
+        "accuracy": 1.0
+      },
+      "empty": {
+        "cases": 6,
+        "correct": 6,
+        "accuracy": 1.0
+      },
+      "error": {
+        "cases": 5,
+        "correct": 5,
+        "accuracy": 1.0
+      },
+      "ok": {
+        "cases": 7,
+        "correct": 7,
+        "accuracy": 1.0
+      },
+      "out_of_range": {
+        "cases": 3,
+        "correct": 3,
+        "accuracy": 1.0
+      },
+      "true_zero": {
+        "cases": 3,
+        "correct": 3,
+        "accuracy": 1.0
+      },
+      "truncated": {
+        "cases": 2,
+        "correct": 2,
+        "accuracy": 1.0
+      }
+    },
+    "dev": {
+      "NULL": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "TopN": {
+        "cases": 9,
+        "correct": 9,
+        "accuracy": 1.0
+      },
+      "avg": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "count": {
+        "cases": 4,
+        "correct": 4,
+        "accuracy": 1.0
+      },
+      "division": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "group_by": {
+        "cases": 6,
+        "correct": 6,
+        "accuracy": 1.0
+      },
+      "join": {
+        "cases": 10,
+        "correct": 10,
+        "accuracy": 1.0
+      },
+      "left_join": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "max": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "self_join": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "值映射": {
+        "cases": 5,
+        "correct": 5,
+        "accuracy": 1.0
+      },
+      "单位换算": {
+        "cases": 3,
+        "correct": 3,
+        "accuracy": 1.0
+      },
+      "单表": {
+        "cases": 11,
+        "correct": 11,
+        "accuracy": 1.0
+      },
+      "多对多": {
+        "cases": 5,
+        "correct": 5,
+        "accuracy": 1.0
+      },
+      "时间": {
+        "cases": 3,
+        "correct": 3,
+        "accuracy": 1.0
+      },
+      "空结果": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      }
+    },
+    "entity": {
+      "entity": {
+        "cases": 20,
+        "correct": 20,
+        "accuracy": 1.0
+      },
+      "值映射": {
+        "cases": 20,
+        "correct": 20,
+        "accuracy": 1.0
+      }
+    },
+    "holdout": {
+      "join": {
+        "cases": 5,
+        "correct": 5,
+        "accuracy": 1.0
+      },
+      "值映射": {
+        "cases": 6,
+        "correct": 6,
+        "accuracy": 1.0
+      },
+      "单位换算": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "单表": {
+        "cases": 5,
+        "correct": 5,
+        "accuracy": 1.0
+      },
+      "多对多": {
+        "cases": 6,
+        "correct": 6,
+        "accuracy": 1.0
+      },
+      "时间": {
+        "cases": 5,
+        "correct": 5,
+        "accuracy": 1.0
+      },
+      "空结果": {
+        "cases": 5,
+        "correct": 5,
+        "accuracy": 1.0
+      }
+    },
+    "intent": {
+      "ambiguous": {
+        "cases": 4,
+        "correct": 4,
+        "accuracy": 1.0
+      },
+      "analytics": {
+        "cases": 2,
+        "correct": 2,
+        "accuracy": 1.0
+      },
+      "chitchat": {
+        "cases": 3,
+        "correct": 3,
+        "accuracy": 1.0
+      },
+      "intent": {
+        "cases": 20,
+        "correct": 20,
+        "accuracy": 1.0
+      },
+      "meta": {
+        "cases": 3,
+        "correct": 3,
+        "accuracy": 1.0
+      },
+      "out_of_scope": {
+        "cases": 4,
+        "correct": 4,
+        "accuracy": 1.0
+      },
+      "unsupported": {
+        "cases": 4,
+        "correct": 4,
+        "accuracy": 1.0
+      }
+    },
+    "security": {
+      "redline": {
+        "cases": 10,
+        "correct": 10,
+        "accuracy": 1.0
+      },
+      "security": {
+        "cases": 10,
+        "correct": 10,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "selection": {
+    "cases": 285,
+    "precision": 0.986,
+    "recall": 0.9895,
+    "forbidden_hits": 0,
+    "fallback_cases": 0,
+    "fallback_precision": null
+  },
+  "grounding": {
+    "cases": 285,
+    "passed": 285,
+    "rate": 1.0,
+    "fallback": 6,
+    "failures": []
+  },
+  "gates": [
+    {
+      "name": "holdout_total",
+      "ok": true,
+      "detail": "30/30 (门槛 29)"
+    },
+    {
+      "name": "dev_total",
+      "ok": true,
+      "detail": "30/30 (门槛 28)"
+    },
+    {
+      "name": "core_tag:单表",
+      "ok": true,
+      "detail": "5/5 (门槛 4/5)"
+    },
+    {
+      "name": "core_tag:join",
+      "ok": true,
+      "detail": "5/5 (门槛 4/5)"
+    },
+    {
+      "name": "core_tag:多对多",
+      "ok": true,
+      "detail": "6/6 (门槛 4/5)"
+    },
+    {
+      "name": "core_tag:时间",
+      "ok": true,
+      "detail": "5/5 (门槛 4/5)"
+    },
+    {
+      "name": "core_tag:空结果",
+      "ok": true,
+      "detail": "5/5 (门槛 4/5)"
+    },
+    {
+      "name": "core_tag:值映射",
+      "ok": true,
+      "detail": "6/6 (门槛 4/5)"
+    },
+    {
+      "name": "core_tag_failures",
+      "ok": true,
+      "detail": "失败标签数 0"
+    },
+    {
+      "name": "selection_precision",
+      "ok": true,
+      "detail": "98.6% (门槛 85%)"
+    },
+    {
+      "name": "selection_recall",
+      "ok": true,
+      "detail": "99.0% (门槛 95%)"
+    },
+    {
+      "name": "grounding_100",
+      "ok": true,
+      "detail": "100.0%"
+    },
+    {
+      "name": "security_redline",
+      "ok": true,
+      "detail": "10/10"
+    },
+    {
+      "name": "holdout_stability",
+      "ok": true,
+      "detail": "波动 0 题 (上限 2)"
+    }
+  ],
+  "passed": true,
+  "baseline_compared": false,
+  "details": [
+    {
+      "id": "d01",
+      "split": "dev",
+      "question": "数据库里一共有多少首歌曲？",
+      "tags": [
+        "单表",
+        "count"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4088.3,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT TrackId) AS track_count\nFROM tracks;",
+      "answer": "数据库里一共有 3503 首歌曲（按 TrackId 去重统计，全量数据范围 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d02",
+      "split": "dev",
+      "question": "一共有多少位艺人？",
+      "tags": [
+        "单表",
+        "count"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "artists"
+      ],
+      "required_tables": [
+        "artists"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2608.6,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS artist_count\nFROM artists;",
+      "answer": "全量数据（2009-01-01 ~ 2013-12-22）中共有 275 位艺人。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d03",
+      "split": "dev",
+      "question": "一共有多少张专辑？",
+      "tags": [
+        "单表",
+        "count"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "albums"
+      ],
+      "required_tables": [
+        "albums"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2260.8,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS album_count\nFROM albums;",
+      "answer": "全量数据（2009-01-01 ~ 2013-12-22）中共有 347 张专辑。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d04",
+      "split": "dev",
+      "question": "每个流派有多少首歌曲？按歌曲数量从高到低排序。",
+      "tags": [
+        "join",
+        "group_by"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4965.8,
+      "detail": "",
+      "sql": "SELECT g.Name AS genre, COUNT(DISTINCT t.TrackId) AS track_count\nFROM genres g\nLEFT JOIN tracks t ON g.GenreId = t.GenreId\nGROUP BY g.GenreId, g.Name\nORDER BY track_count DESC;",
+      "answer": "按歌曲数量从高到低排序，Rock 流派歌曲数最多，为 1297 首；其次是 Latin 579 首、Metal 374 首、Alternative & Punk 332 首。其余流派依次为 Jazz 130 首、TV Shows 93 首、Blues 81 首、Classical 74 首、Drama 64 首、R&B/Soul 61 首、Reggae 58 首、Pop 48 首、Soundtrack 43 首、Alternative 40 首、Hip Hop/Rap 35 首、Electronica/Dance 30 首、Heavy Metal 28 首、World 28 首、Sci Fi & Fantasy 26 首、Easy Listening 24 首。结果共 25 行，此处仅展示前 20 行。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d05",
+      "split": "dev",
+      "question": "歌曲数量最多的前5个流派是哪些？",
+      "tags": [
+        "join",
+        "TopN"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3688.3,
+      "detail": "",
+      "sql": "SELECT g.Name AS genre, COUNT(DISTINCT t.TrackId) AS track_count\nFROM genres g\nJOIN tracks t ON g.GenreId = t.GenreId\nGROUP BY g.GenreId, g.Name\nORDER BY track_count DESC\nLIMIT 5;",
+      "answer": "歌曲数量最多的前5个流派依次为：Rock 1297 首、Latin 579 首、Metal 374 首、Alternative & Punk 332 首、Jazz 130 首（统计口径为 COUNT(DISTINCT tracks.TrackId)，全量数据 2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d06",
+      "split": "dev",
+      "question": "每个国家有多少位客户？按客户数量从高到低排序。",
+      "tags": [
+        "单表",
+        "group_by"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3480.3,
+      "detail": "",
+      "sql": "SELECT Country AS country, COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nGROUP BY Country\nORDER BY customer_count DESC;",
+      "answer": "按客户数从高到低排序，美国客户数最多，为 13 人；其次是加拿大 8 人、法国 5 人、巴西 5 人、德国 4 人。客户数统计口径为 COUNT(DISTINCT CustomerId)，单位为“人”，时间范围为全量数据（2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d07",
+      "split": "dev",
+      "question": "销售额最高的前5个国家是哪些？",
+      "tags": [
+        "单表",
+        "TopN"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3157.0,
+      "detail": "",
+      "sql": "SELECT BillingCountry AS country, ROUND(SUM(Total), 2) AS revenue\nFROM invoices\nGROUP BY BillingCountry\nORDER BY revenue DESC\nLIMIT 5;",
+      "answer": "销售额最高的前5个国家依次为：USA 523.06 美元、Canada 303.96 美元、France 195.1 美元、Brazil 190.1 美元、Germany 156.48 美元（销售额口径为 SUM(invoices.Total)，单位 USD，全量数据 2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d08",
+      "split": "dev",
+      "question": "2009年每个月的销售额是多少？",
+      "tags": [
+        "时间",
+        "group_by"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3968.6,
+      "detail": "",
+      "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month,\n       ROUND(SUM(Total), 2) AS revenue\nFROM invoices\nWHERE strftime('%Y', InvoiceDate) = '2009'\nGROUP BY month\nORDER BY month;",
+      "answer": "2009 年各月销售额（按账单粒度统计，单位 USD）如下：1 月为 35.64 美元；2 月至 12 月均为 37.62 美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d09",
+      "split": "dev",
+      "question": "单张发票金额最高是多少？",
+      "tags": [
+        "单表",
+        "max"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2534.1,
+      "detail": "",
+      "sql": "SELECT MAX(Total) AS max_invoice_total\nFROM invoices;",
+      "answer": "全量数据（2009-01-01 ~ 2013-12-22）中，单张发票金额最高为 25.86 美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d10",
+      "split": "dev",
+      "question": "消费总额最高的前3位客户是谁？请用 CustomerId 表示。",
+      "tags": [
+        "单表",
+        "TopN"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "customers",
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 0.5,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3306.6,
+      "detail": "",
+      "sql": "SELECT CustomerId, ROUND(SUM(Total), 2) AS revenue\nFROM invoices\nGROUP BY CustomerId\nORDER BY revenue DESC\nLIMIT 3;",
+      "answer": "消费总额最高的前3位客户依次为 CustomerId 6（销售额 49.62 美元）、CustomerId 26（销售额 47.62 美元）、CustomerId 57（销售额 46.62 美元）。口径为销售额 SUM(invoices.Total)，单位 USD，时间范围为全量数据（2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d11",
+      "split": "dev",
+      "question": "每位客服代表负责多少位客户？请用 EmployeeId 表示。",
+      "tags": [
+        "join",
+        "left_join"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers",
+        "employees"
+      ],
+      "required_tables": [
+        "employees",
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3157.9,
+      "detail": "",
+      "sql": "SELECT e.EmployeeId AS employee_id,\n       COUNT(DISTINCT c.CustomerId) AS customer_count\nFROM employees e\nLEFT JOIN customers c ON c.SupportRepId = e.EmployeeId\nGROUP BY e.EmployeeId\nORDER BY e.EmployeeId;",
+      "answer": "全量数据（2009-01-01 至 2013-12-22）中，8 位客服代表里仅 3 位有负责客户：EmployeeId 3 负责 21 位客户，EmployeeId 4 负责 20 位客户，EmployeeId 5 负责 18 位客户；其余 EmployeeId 1、2、6、7、8 均为 0 位客户。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d12",
+      "split": "dev",
+      "question": "每位员工的直属下属数量是多少？请用 EmployeeId 表示。",
+      "tags": [
+        "join",
+        "self_join"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "employees"
+      ],
+      "required_tables": [
+        "employees"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3781.0,
+      "detail": "",
+      "sql": "SELECT e.EmployeeId AS employee_id,\n       COUNT(sub.EmployeeId) AS direct_reports\nFROM employees e\nLEFT JOIN employees sub ON sub.ReportsTo = e.EmployeeId\nGROUP BY e.EmployeeId\nORDER BY e.EmployeeId;",
+      "answer": "全量数据（2009-01-01 至 2013-12-22）中，员工 1 的直属下属数量为 2，员工 2 为 3，员工 3 为 0，员工 4 为 0，员工 5 为 0，员工 6 为 2，员工 7 为 0，员工 8 为 0。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d13",
+      "split": "dev",
+      "question": "Grunge 歌单包含多少首摇滚歌曲？",
+      "tags": [
+        "多对多",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "genres",
+        "playlist_track",
+        "playlists",
+        "tracks"
+      ],
+      "required_tables": [
+        "playlists",
+        "playlist_track",
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3208.0,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS rock_track_count\nFROM playlists p\nJOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId\nJOIN tracks t ON pt.TrackId = t.TrackId\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE p.Name = 'Grunge'\n  AND g.Name = 'Rock';",
+      "answer": "Grunge 歌单包含 14 首摇滚歌曲。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d14",
+      "split": "dev",
+      "question": "每个歌单（按 PlaylistId 区分）包含多少首歌曲？按歌曲数量从高到低排序。",
+      "tags": [
+        "多对多",
+        "group_by"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "playlist_track",
+        "playlists"
+      ],
+      "required_tables": [
+        "playlists",
+        "playlist_track"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4243.3,
+      "detail": "",
+      "sql": "SELECT p.PlaylistId AS PlaylistId,\n       COUNT(DISTINCT pt.TrackId) AS track_count\nFROM playlists p\nLEFT JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId\nGROUP BY p.PlaylistId\nORDER BY track_count DESC;",
+      "answer": "按 PlaylistId 统计歌曲数（COUNT(DISTINCT TrackId)，全量数据 2009-01-01 至 2013-12-22），共 18 个歌单。歌曲数最多的是 PlaylistId 1 和 8，各 3290 首；其次是 PlaylistId 5 的 1477 首，PlaylistId 3 和 10 各 213 首。PlaylistId 2、4、6、7 的歌曲数为 0 首。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d15",
+      "split": "dev",
+      "question": "所有歌曲的平均时长是多少秒？",
+      "tags": [
+        "单表",
+        "单位换算"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2660.4,
+      "detail": "",
+      "sql": "SELECT ROUND(AVG(Milliseconds) / 1000.0, 2) AS avg_seconds\nFROM tracks;",
+      "answer": "所有歌曲的平均时长为 393.6 秒（全量数据，2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d16",
+      "split": "dev",
+      "question": "时长最长的前5首歌曲是哪些？请列出歌曲名和以秒为单位的时长（保留2位小数）。",
+      "tags": [
+        "单表",
+        "TopN",
+        "单位换算"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3769.0,
+      "detail": "",
+      "sql": "SELECT Name AS track_name, ROUND(Milliseconds / 1000.0, 2) AS duration_seconds\nFROM tracks\nORDER BY Milliseconds DESC\nLIMIT 5;",
+      "answer": "时长最长的前5首歌曲依次为：Occupation / Precipice（5286.95秒）、Through a Looking Glass（5088.84秒）、Greetings from Earth, Pt. 1（2960.29秒）、The Man With Nine Lives（2957.00秒）、Battlestar Galactica, Pt. 2（2956.08秒）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d17",
+      "split": "dev",
+      "question": "有多少首歌曲没有作曲人信息？",
+      "tags": [
+        "单表",
+        "NULL"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": null,
+      "selected_tables": [
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2641.3,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT TrackId) AS track_count\nFROM tracks\nWHERE Composer IS NULL OR TRIM(Composer) = '';",
+      "answer": "共有 978 首歌曲没有作曲人信息。统计口径为歌曲数（COUNT(DISTINCT TrackId)），时间范围为全量数据（2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d18",
+      "split": "dev",
+      "question": "每个媒体类型有多少首歌曲？",
+      "tags": [
+        "join",
+        "group_by"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3111.5,
+      "detail": "",
+      "sql": "SELECT m.Name AS media_type, COUNT(DISTINCT t.TrackId) AS track_count\nFROM media_types m\nLEFT JOIN tracks t ON m.MediaTypeId = t.MediaTypeId\nGROUP BY m.MediaTypeId, m.Name\nORDER BY track_count DESC;",
+      "answer": "按媒体类型统计歌曲数（全量数据，2009-01-01 至 2013-12-22，口径为 COUNT(DISTINCT TrackId)）：MPEG audio file 有 3034 首，Protected AAC audio file 有 237 首，Protected MPEG-4 video file 有 214 首，AAC audio file 有 11 首，Purchased AAC audio file 有 7 首。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d19",
+      "split": "dev",
+      "question": "有多少位客户来自美国？",
+      "tags": [
+        "值映射",
+        "count"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2519.9,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'USA';",
+      "answer": "共有 13 位客户来自美国（客户数口径，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d20",
+      "split": "dev",
+      "question": "哪个媒体类型的销售额最高？",
+      "tags": [
+        "多对多",
+        "值映射",
+        "TopN"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue_line",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoice_items",
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "invoice_items",
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2928.2,
+      "detail": "",
+      "sql": "SELECT m.Name AS media_type,\n       ROUND(SUM(ii.UnitPrice * ii.Quantity), 2) AS revenue\nFROM invoice_items ii\nJOIN tracks t ON ii.TrackId = t.TrackId\nJOIN media_types m ON t.MediaTypeId = m.MediaTypeId\nGROUP BY m.MediaTypeId, m.Name\nORDER BY revenue DESC\nLIMIT 1;",
+      "answer": "销售额最高的媒体类型是 MPEG audio file，销售额为 1956.24 美元（按行粒度统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d21",
+      "split": "dev",
+      "question": "摇滚流派歌曲的平均时长是多少秒？",
+      "tags": [
+        "join",
+        "值映射",
+        "单位换算"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 7098.8,
+      "detail": "",
+      "sql": "SELECT ROUND(AVG(t.Milliseconds) / 1000.0, 2) AS avg_seconds\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Rock';",
+      "answer": "摇滚流派歌曲的平均时长为 283.91 秒（全量数据，2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d22",
+      "split": "dev",
+      "question": "每个流派的总销售额是多少？只保留前5名。",
+      "tags": [
+        "多对多",
+        "TopN"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue_line",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "genres",
+        "invoice_items",
+        "tracks"
+      ],
+      "required_tables": [
+        "invoice_items",
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2912.5,
+      "detail": "",
+      "sql": "SELECT g.Name AS genre,\n       ROUND(SUM(ii.UnitPrice * ii.Quantity), 2) AS revenue\nFROM genres g\nJOIN tracks t ON t.GenreId = g.GenreId\nJOIN invoice_items ii ON ii.TrackId = t.TrackId\nGROUP BY g.GenreId, g.Name\nORDER BY revenue DESC\nLIMIT 5;",
+      "answer": "按全量数据（2009-01-01 ~ 2013-12-22）统计，销售额前5名的流派依次为：Rock 826.65 美元、Latin 382.14 美元、Metal 261.36 美元、Alternative & Punk 241.56 美元、TV Shows 93.53 美元。销售额口径为行粒度 SUM(invoice_items.UnitPrice * invoice_items.Quantity)，单位 USD。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d23",
+      "split": "dev",
+      "question": "专辑数量最多的前5位艺人是谁？",
+      "tags": [
+        "join",
+        "TopN"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "albums",
+        "artists"
+      ],
+      "required_tables": [
+        "artists",
+        "albums"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2719.0,
+      "detail": "",
+      "sql": "SELECT ar.ArtistId, ar.Name AS artist_name, COUNT(al.AlbumId) AS album_count\nFROM artists ar\nJOIN albums al ON ar.ArtistId = al.ArtistId\nGROUP BY ar.ArtistId, ar.Name\nORDER BY album_count DESC\nLIMIT 5;",
+      "answer": "专辑数量最多的前5位艺人依次为：Iron Maiden 21张、Led Zeppelin 14张、Deep Purple 11张、Metallica 10张、U2 10张（全量数据，2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d24",
+      "split": "dev",
+      "question": "包含歌曲数量最多的专辑是哪张？",
+      "tags": [
+        "join",
+        "TopN"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "albums",
+        "tracks"
+      ],
+      "required_tables": [
+        "albums",
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2500.1,
+      "detail": "",
+      "sql": "SELECT a.Title AS album_title, COUNT(DISTINCT t.TrackId) AS track_count\nFROM albums a\nJOIN tracks t ON a.AlbumId = t.AlbumId\nGROUP BY a.AlbumId, a.Title\nORDER BY track_count DESC\nLIMIT 1;",
+      "answer": "包含歌曲数量最多的专辑是《Greatest Hits》，共 57 首歌曲（口径：COUNT(DISTINCT tracks.TrackId)，全量数据 2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d25",
+      "split": "dev",
+      "question": "发票的平均金额是多少？",
+      "tags": [
+        "单表",
+        "avg"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2770.2,
+      "detail": "",
+      "sql": "SELECT ROUND(AVG(Total), 2) AS avg_invoice_amount\nFROM invoices;",
+      "answer": "全量数据（2009-01-01 至 2013-12-22）范围内，发票的平均金额为 5.65 美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d26",
+      "split": "dev",
+      "question": "2014年以后还有发票吗？",
+      "tags": [
+        "空结果",
+        "时间"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1879.6,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS invoice_count\nFROM invoices\nWHERE InvoiceDate >= '2014-01-01 00:00:00';",
+      "answer": "数据截止 2013-12-22，无法覆盖该时间范围。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d27",
+      "split": "dev",
+      "question": "使用 MPEG 音频格式的歌曲有多少首？",
+      "tags": [
+        "join",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2424.4,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN media_types m ON t.MediaTypeId = m.MediaTypeId\nWHERE m.Name = 'MPEG audio file';",
+      "answer": "使用 MPEG 音频格式的歌曲共有 3034 首。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d28",
+      "split": "dev",
+      "question": "2009年每个月的发票数量是多少？",
+      "tags": [
+        "时间",
+        "group_by"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3196.1,
+      "detail": "",
+      "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month, COUNT(*) AS invoice_count\nFROM invoices\nWHERE strftime('%Y', InvoiceDate) = '2009'\nGROUP BY month\nORDER BY month;",
+      "answer": "2009 年各月发票数量为：1 月 6 张，2 月至 12 月每月均为 7 张。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d29",
+      "split": "dev",
+      "question": "总销量最高的前5个流派是哪些？",
+      "tags": [
+        "多对多",
+        "TopN"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "sales_volume",
+      "expected_metric": "sales_volume",
+      "selected_tables": [
+        "genres",
+        "invoice_items",
+        "tracks"
+      ],
+      "required_tables": [
+        "invoice_items",
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2733.9,
+      "detail": "",
+      "sql": "SELECT g.Name AS genre, SUM(ii.Quantity) AS sales_volume\nFROM invoice_items ii\nJOIN tracks t ON ii.TrackId = t.TrackId\nJOIN genres g ON t.GenreId = g.GenreId\nGROUP BY g.GenreId, g.Name\nORDER BY sales_volume DESC\nLIMIT 5;",
+      "answer": "总销量最高的前5个流派依次为：Rock 835 件、Latin 386 件、Metal 264 件、Alternative & Punk 244 件、Jazz 80 件（销量口径 SUM(invoice_items.Quantity)，全量数据 2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d30",
+      "split": "dev",
+      "question": "每个国家的客户人均消费金额是多少？",
+      "tags": [
+        "join",
+        "division"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "avg_spend_per_customer",
+      "expected_metric": "avg_spend_per_customer",
+      "selected_tables": [
+        "customers",
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices",
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4638.9,
+      "detail": "",
+      "sql": "SELECT c.Country AS country,\n       ROUND(SUM(i.Total) / COUNT(DISTINCT i.CustomerId), 2) AS avg_spend_per_customer\nFROM customers c\nJOIN invoices i ON c.CustomerId = i.CustomerId\nGROUP BY c.Country\nORDER BY avg_spend_per_customer DESC;",
+      "answer": "按全量数据（2009-01-01 至 2013-12-22）统计，各国客户人均消费金额（SUM(invoices.Total) / COUNT(DISTINCT invoices.CustomerId)，单位 USD/人）最高的是智利，为 46.62 美元/人；其次是爱尔兰和匈牙利，均为 45.62 美元/人；捷克共和国为 45.12 美元/人。结果共 24 行，此处仅展示前 20 行。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h01",
+      "split": "holdout",
+      "question": "数据库里一共有多少张发票？",
+      "tags": [
+        "单表"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2434.7,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS invoice_count\nFROM invoices;",
+      "answer": "数据库里一共有 412 张发票（全量数据，时间范围 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h02",
+      "split": "holdout",
+      "question": "曲库中最短的歌曲时长是多少秒？",
+      "tags": [
+        "单表"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2618.8,
+      "detail": "",
+      "sql": "SELECT ROUND(MIN(Milliseconds) / 1000.0, 2) AS min_seconds\nFROM tracks;",
+      "answer": "曲库中最短的歌曲时长为 1.07 秒。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h03",
+      "split": "holdout",
+      "question": "所有发票的销售额合计是多少？",
+      "tags": [
+        "单表"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2675.6,
+      "detail": "",
+      "sql": "SELECT ROUND(SUM(Total), 2) AS revenue\nFROM invoices;",
+      "answer": "所有发票的销售额合计为 2328.6 美元（口径：SUM(invoices.Total)，单位 USD，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h04",
+      "split": "holdout",
+      "question": "有多少张发票的金额超过 20 美元？",
+      "tags": [
+        "单表"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2370.9,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS invoice_count\nFROM invoices\nWHERE Total > 20;",
+      "answer": "在 2009-01-01 至 2013-12-22 的全量数据中，金额超过 20 美元的发票共有 4 张。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h05",
+      "split": "holdout",
+      "question": "一共有多少个歌单？",
+      "tags": [
+        "单表"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "playlists"
+      ],
+      "required_tables": [
+        "playlists"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2569.4,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS playlist_count\nFROM playlists;",
+      "answer": "全量数据（2009-01-01 ~ 2013-12-22）中共有 18 个歌单。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h06",
+      "split": "holdout",
+      "question": "每个艺人有多少张专辑？按专辑数量从高到低排序。",
+      "tags": [
+        "join"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "albums",
+        "artists"
+      ],
+      "required_tables": [
+        "artists",
+        "albums"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4319.0,
+      "detail": "",
+      "sql": "SELECT ar.Name AS artist_name, COUNT(al.AlbumId) AS album_count\nFROM artists ar\nLEFT JOIN albums al ON ar.ArtistId = al.ArtistId\nGROUP BY ar.ArtistId, ar.Name\nORDER BY album_count DESC;",
+      "answer": "按全量数据（2009-01-01 至 2013-12-22）统计，专辑数量最多的艺人是 Iron Maiden，共 21 张；其次是 Led Zeppelin 14 张、Deep Purple 11 张、Metallica 10 张、U2 10 张。结果共 275 行，仅展示前 20 行。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h07",
+      "split": "holdout",
+      "question": "每个客户有多少张发票？按发票数量从高到低排序。",
+      "tags": [
+        "join"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": null,
+      "selected_tables": [
+        "customers",
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 0.5,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3909.7,
+      "detail": "",
+      "sql": "SELECT c.CustomerId AS customer_id, COUNT(i.InvoiceId) AS invoice_count\nFROM customers c\nLEFT JOIN invoices i ON c.CustomerId = i.CustomerId\nGROUP BY c.CustomerId\nORDER BY invoice_count DESC;",
+      "answer": "按客户统计发票数量，结果共 59 行，按发票数量从高到低排序。预览显示前 20 位客户（customer_id 1 至 20）的发票数量均为 7 张。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h08",
+      "split": "holdout",
+      "question": "每个媒体类型的歌曲平均时长是多少秒？",
+      "tags": [
+        "join"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3521.2,
+      "detail": "",
+      "sql": "SELECT m.Name AS media_type, ROUND(AVG(t.Milliseconds) / 1000.0, 2) AS avg_seconds\nFROM tracks t\nJOIN media_types m ON t.MediaTypeId = m.MediaTypeId\nGROUP BY m.MediaTypeId, m.Name\nORDER BY avg_seconds DESC;",
+      "answer": "全量数据（2009-01-01 ~ 2013-12-22）中，Protected MPEG-4 video file 的平均歌曲时长最长，为 2342.94 秒；其余依次为 Protected AAC audio file 281.72 秒、AAC audio file 276.51 秒、MPEG audio file 265.57 秒、Purchased AAC audio file 260.89 秒。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h09",
+      "split": "holdout",
+      "question": "每个流派的歌曲平均时长是多少秒？",
+      "tags": [
+        "join"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4702.0,
+      "detail": "",
+      "sql": "SELECT g.Name AS genre, ROUND(AVG(t.Milliseconds) / 1000.0, 2) AS avg_seconds\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nGROUP BY g.GenreId, g.Name\nORDER BY avg_seconds DESC;",
+      "answer": "全量数据（2009-01-01 ~ 2013-12-22）中，各流派歌曲平均时长差异较大：最长为 Sci Fi & Fantasy 的 2911.78 秒，最短为 R&B/Soul 的 220.07 秒。结果共 25 行，仅展示前 20 行。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h10",
+      "split": "holdout",
+      "question": "每张专辑有多少首歌曲？按专辑标题分组。",
+      "tags": [
+        "join"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "albums",
+        "tracks"
+      ],
+      "required_tables": [
+        "albums",
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4839.2,
+      "detail": "",
+      "sql": "SELECT a.Title AS album_title, COUNT(DISTINCT t.TrackId) AS track_count\nFROM albums a\nLEFT JOIN tracks t ON a.AlbumId = t.AlbumId\nGROUP BY a.AlbumId, a.Title\nORDER BY track_count DESC;",
+      "answer": "按专辑标题分组统计，共 347 张专辑有歌曲数结果（全量数据 2009-01-01 ~ 2013-12-22，口径为 COUNT(DISTINCT tracks.TrackId)，单位：首）。歌曲数最多的是《Greatest Hits》，为 57 首；其次是《Minha Historia》34 首、《Unplugged》30 首。结果预览仅展示前 20 行。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h11",
+      "split": "holdout",
+      "question": "每个歌单有多少首歌曲？请按歌单名称输出。",
+      "tags": [
+        "多对多"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "playlist_track",
+        "playlists"
+      ],
+      "required_tables": [
+        "playlists",
+        "playlist_track"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": false,
+      "used_fallback": true,
+      "elapsed_ms": 4921.1,
+      "detail": "",
+      "sql": "SELECT p.Name AS playlist_name, COUNT(DISTINCT pt.TrackId) AS track_count\nFROM playlists p\nLEFT JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId\nGROUP BY p.PlaylistId, p.Name\nORDER BY track_count DESC;",
+      "answer": "歌曲数：共查询到 18 行结果。\n\n| playlist_name | track_count |\n|---|---|\n| Music | 3,290 |\n| Music | 3,290 |\n| 90’s Music | 1,477 |\n| TV Shows | 213 |\n| TV Shows | 213 |\n| Classical | 75 |\n| Brazilian Music | 39 |\n| Heavy Metal Classic | 26 |\n| Classical 101 - Deep Cuts | 25 |\n| Classical 101 - Next Steps | 25 |\n| Classical 101 - The Basics | 25 |\n| Grunge | 15 |\n| Music Videos | 1 |\n| On-The-Go 1 | 1 |\n| Movies | 0 |\n| Audiobooks | 0 |\n| Audiobooks | 0 |\n| Movies | 0 |\n\n数据截止 2013-12-22。 口径：未指定时间范围，使用全量数据（2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h12",
+      "split": "holdout",
+      "question": "有声书歌单包含多少首歌曲？",
+      "tags": [
+        "多对多",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "playlist_track",
+        "playlists"
+      ],
+      "required_tables": [
+        "playlists",
+        "playlist_track",
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 0.6667,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1680.5,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT pt.TrackId) AS track_count\nFROM playlists p\nJOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId\nWHERE p.Name = 'Audiobooks';",
+      "answer": "结果为 0（数据截止 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h13",
+      "split": "holdout",
+      "question": "每个媒体类型的总销量是多少？",
+      "tags": [
+        "多对多"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "sales_volume",
+      "expected_metric": "sales_volume",
+      "selected_tables": [
+        "invoice_items",
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "invoice_items",
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2987.8,
+      "detail": "",
+      "sql": "SELECT m.Name AS media_type,\n       COALESCE(SUM(ii.Quantity), 0) AS sales_volume\nFROM media_types m\nLEFT JOIN tracks t ON m.MediaTypeId = t.MediaTypeId\nLEFT JOIN invoice_items ii ON t.TrackId = ii.TrackId\nGROUP BY m.MediaTypeId, m.Name\nORDER BY sales_volume DESC;",
+      "answer": "全量数据（2009-01-01 ~ 2013-12-22）按媒体类型统计销量：MPEG audio file 为 1976 件，Protected AAC audio file 为 146 件，Protected MPEG-4 video file 为 111 件，Purchased AAC audio file 为 4 件，AAC audio file 为 3 件。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h14",
+      "split": "holdout",
+      "question": "每个媒体类型的销售额是多少？",
+      "tags": [
+        "多对多"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue_line",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoice_items",
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "invoice_items",
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3590.8,
+      "detail": "",
+      "sql": "SELECT m.Name AS media_type,\n       ROUND(SUM(ii.UnitPrice * ii.Quantity), 2) AS revenue\nFROM media_types m\nLEFT JOIN tracks t ON m.MediaTypeId = t.MediaTypeId\nLEFT JOIN invoice_items ii ON t.TrackId = ii.TrackId\nGROUP BY m.MediaTypeId, m.Name\nORDER BY revenue DESC;",
+      "answer": "全量数据（2009-01-01 ~ 2013-12-22）按行粒度统计的销售额中，MPEG audio file 为 1956.24 美元，Protected MPEG-4 video file 为 220.89 美元，Protected AAC audio file 为 144.54 美元，Purchased AAC audio file 为 3.96 美元，AAC audio file 为 2.97 美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h15",
+      "split": "holdout",
+      "question": "每个歌单的总时长是多少秒？",
+      "tags": [
+        "多对多",
+        "单位换算"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "playlist_track",
+        "playlists",
+        "tracks"
+      ],
+      "required_tables": [
+        "playlists",
+        "playlist_track",
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": false,
+      "used_fallback": true,
+      "elapsed_ms": 5227.5,
+      "detail": "",
+      "sql": "SELECT p.Name AS playlist, ROUND(COALESCE(SUM(t.Milliseconds), 0) / 1000.0, 2) AS total_seconds\nFROM playlists p\nLEFT JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId\nLEFT JOIN tracks t ON pt.TrackId = t.TrackId\nGROUP BY p.PlaylistId, p.Name\nORDER BY total_seconds DESC;",
+      "answer": "共查询到 18 行结果。\n\n| playlist | total_seconds |\n|---|---|\n| Music | 877,683.08 |\n| Music | 877,683.08 |\n| TV Shows | 501,094.96 |\n| TV Shows | 501,094.96 |\n| 90’s Music | 398,705.15 |\n| Classical | 21,770.59 |\n| Brazilian Music | 9,486.56 |\n| Heavy Metal Classic | 8,206.31 |\n| Classical 101 - Next Steps | 7,575.05 |\n| Classical 101 - The Basics | 7,439.81 |\n| Classical 101 - Deep Cuts | 6,755.73 |\n| Grunge | 4,122.02 |\n| Music Videos | 294.29 |\n| On-The-Go 1 | 197.46 |\n| Movies | 0 |\n| Audiobooks | 0 |\n| Audiobooks | 0 |\n| Movies | 0 |\n\n数据截止 2013-12-22。 口径：未指定时间范围，使用全量数据（2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h16",
+      "split": "holdout",
+      "question": "2011年每个月的销售额是多少？",
+      "tags": [
+        "时间"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4174.8,
+      "detail": "",
+      "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month,\n       ROUND(SUM(Total), 2) AS revenue\nFROM invoices\nWHERE strftime('%Y', InvoiceDate) = '2011'\nGROUP BY month\nORDER BY month;",
+      "answer": "2011年各月销售额（按账单粒度统计，单位USD）如下：1月37.62美元，2月37.62美元，3月37.62美元，4月51.62美元，5月42.62美元，6月50.62美元，7月37.62美元，8月37.62美元，9月37.62美元，10月37.62美元，11月23.76美元，12月37.62美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h17",
+      "split": "holdout",
+      "question": "2012年每个季度的发票数量是多少？",
+      "tags": [
+        "时间"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2727.1,
+      "detail": "",
+      "sql": "SELECT strftime('%Y', InvoiceDate) || '-Q' ||\n       ((CAST(strftime('%m', InvoiceDate) AS INTEGER) + 2) / 3) AS quarter,\n       COUNT(*) AS invoice_count\nFROM invoices\nWHERE strftime('%Y', InvoiceDate) = '2012'\nGROUP BY quarter\nORDER BY quarter;",
+      "answer": "2012年四个季度的发票数量分别为：Q1 21张、Q2 21张、Q3 20张、Q4 21张。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h18",
+      "split": "holdout",
+      "question": "2013年上半年每个月的销售额是多少？",
+      "tags": [
+        "时间"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3005.6,
+      "detail": "",
+      "sql": "SELECT strftime('%Y-%m', InvoiceDate) AS month,\n       ROUND(SUM(Total), 2) AS revenue\nFROM invoices\nWHERE InvoiceDate >= '2013-01-01 00:00:00'\n  AND InvoiceDate <= '2013-06-30 23:59:59'\nGROUP BY month\nORDER BY month;",
+      "answer": "2013 年上半年各月销售额（按账单粒度统计，单位 USD）分别为：1 月 37.62 美元、2 月 27.72 美元、3 月 37.62 美元、4 月 33.66 美元、5 月 37.62 美元、6 月 37.62 美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h19",
+      "split": "holdout",
+      "question": "2009到2011年每年的销售额是多少？",
+      "tags": [
+        "时间"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3363.5,
+      "detail": "",
+      "sql": "SELECT strftime('%Y', InvoiceDate) AS year,\n       ROUND(SUM(Total), 2) AS revenue\nFROM invoices\nWHERE InvoiceDate >= '2009-01-01' AND InvoiceDate < '2012-01-01'\nGROUP BY year\nORDER BY year;",
+      "answer": "2009 至 2011 年每年销售额分别为：2009 年 449.46 美元，2010 年 481.45 美元，2011 年 469.58 美元。口径为按账单粒度统计的 invoices.Total（USD）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h20",
+      "split": "holdout",
+      "question": "最近一年的销售额是多少？",
+      "tags": [
+        "时间"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2462.3,
+      "detail": "",
+      "sql": "SELECT ROUND(COALESCE(SUM(Total), 0), 2) AS revenue\nFROM invoices\nWHERE InvoiceDate >= '2012-12-22 00:00:00'\n  AND InvoiceDate <= '2013-12-22 23:59:59';",
+      "answer": "最近一年（2012-12-22 至 2013-12-22）的销售额为 464.44 美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h21",
+      "split": "holdout",
+      "question": "2014年有多少张发票？",
+      "tags": [
+        "空结果"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "out_of_range",
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1803.7,
+      "detail": "期望 empty/out_of_range，实际 empty/out_of_range",
+      "sql": "SELECT COUNT(*) AS invoice_count\nFROM invoices\nWHERE strftime('%Y', InvoiceDate) = '2014';",
+      "answer": "数据截止 2013-12-22，无法覆盖该时间范围。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        }
+      ]
+    },
+    {
+      "id": "h22",
+      "split": "holdout",
+      "question": "2015年的销售额是多少？",
+      "tags": [
+        "空结果"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "out_of_range",
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1668.5,
+      "detail": "期望 empty/out_of_range，实际 empty/out_of_range",
+      "sql": "SELECT ROUND(COALESCE(SUM(Total), 0), 2) AS revenue\nFROM invoices\nWHERE strftime('%Y', InvoiceDate) = '2015';",
+      "answer": "数据截止 2013-12-22，无法覆盖该时间范围。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        }
+      ]
+    },
+    {
+      "id": "h23",
+      "split": "holdout",
+      "question": "有多少位客户来自 Atlantis？",
+      "tags": [
+        "空结果"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "true_zero",
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1792.3,
+      "detail": "期望 empty/true_zero，实际 empty/true_zero",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'Atlantis';",
+      "answer": "结果为 0（数据截止 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        }
+      ]
+    },
+    {
+      "id": "h24",
+      "split": "holdout",
+      "question": "Grunge 歌单包含多少首爵士歌曲？",
+      "tags": [
+        "空结果",
+        "多对多"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "true_zero",
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "genres",
+        "playlist_track",
+        "playlists",
+        "tracks"
+      ],
+      "required_tables": [
+        "playlists",
+        "playlist_track",
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1692.7,
+      "detail": "期望 empty/true_zero，实际 empty/true_zero",
+      "sql": "SELECT COUNT(*) AS jazz_track_count\nFROM playlists p\nJOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId\nJOIN tracks t ON pt.TrackId = t.TrackId\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE p.Name = 'Grunge'\n  AND g.Name = 'Jazz';",
+      "answer": "结果为 0（数据截止 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        }
+      ]
+    },
+    {
+      "id": "h25",
+      "split": "holdout",
+      "question": "账单国家为火星的发票有多少张？",
+      "tags": [
+        "空结果"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "true_zero",
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1482.9,
+      "detail": "期望 empty/true_zero，实际 empty/true_zero",
+      "sql": "SELECT COUNT(*) AS invoice_count\nFROM invoices\nWHERE BillingCountry = 'Mars';",
+      "answer": "结果为 0（数据截止 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        }
+      ]
+    },
+    {
+      "id": "h26",
+      "split": "holdout",
+      "question": "爵士流派有多少首歌曲？",
+      "tags": [
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2857.7,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Jazz';",
+      "answer": "爵士流派共有 130 首歌曲（按 TrackId 去重统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h27",
+      "split": "holdout",
+      "question": "德国客户有多少位？",
+      "tags": [
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2504.6,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'Germany';",
+      "answer": "德国客户共有 4 位（按 CustomerId 去重统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h28",
+      "split": "holdout",
+      "question": "受保护AAC 音频格式的歌曲有多少首？",
+      "tags": [
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2133.3,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN media_types m ON t.MediaTypeId = m.MediaTypeId\nWHERE m.Name = 'Protected AAC audio file';",
+      "answer": "受保护AAC音频格式的歌曲共有237首。统计口径为歌曲数（COUNT(DISTINCT tracks.TrackId)），时间范围为全量数据（2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h29",
+      "split": "holdout",
+      "question": "重金属流派有多少首歌曲？",
+      "tags": [
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3262.8,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Heavy Metal';",
+      "answer": "重金属流派共有 28 首歌曲。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "h30",
+      "split": "holdout",
+      "question": "巴西客户有多少位？",
+      "tags": [
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2875.6,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'Brazil';",
+      "answer": "巴西客户共有 5 位。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "b01",
+      "split": "boundary",
+      "question": "2014年以后的发票数量是多少？",
+      "tags": [
+        "boundary",
+        "empty",
+        "out_of_range"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "out_of_range",
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1720.0,
+      "detail": "期望 empty/out_of_range，实际 empty/out_of_range",
+      "sql": "SELECT COUNT(*) AS invoice_count\nFROM invoices\nWHERE InvoiceDate >= '2014-01-01 00:00:00';",
+      "answer": "数据截止 2013-12-22，无法覆盖该时间范围。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        }
+      ]
+    },
+    {
+      "id": "b02",
+      "split": "boundary",
+      "question": "2015年的销售额是多少？",
+      "tags": [
+        "boundary",
+        "empty",
+        "out_of_range"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "out_of_range",
+      "metric": "revenue",
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1585.9,
+      "detail": "期望 empty/out_of_range，实际 empty/out_of_range",
+      "sql": "SELECT ROUND(COALESCE(SUM(Total), 0), 2) AS revenue\nFROM invoices\nWHERE strftime('%Y', InvoiceDate) = '2015';",
+      "answer": "数据截止 2013-12-22，无法覆盖该时间范围。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        }
+      ]
+    },
+    {
+      "id": "b03",
+      "split": "boundary",
+      "question": "2020年每个月的销售额是多少？",
+      "tags": [
+        "boundary",
+        "empty",
+        "out_of_range"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "out_of_range",
+      "metric": "revenue",
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1968.9,
+      "detail": "期望 empty/out_of_range，实际 empty/out_of_range",
+      "sql": "-- 注意：数据截止 2013-12-22，2020 年无数据，结果将为空\nSELECT strftime('%Y-%m', InvoiceDate) AS month,\n       ROUND(SUM(Total), 2) AS revenue\nFROM invoices\nWHERE strftime('%Y', InvoiceDate) = '2020'\nGROUP BY month\nORDER BY month;",
+      "answer": "数据截止 2013-12-22，无法覆盖该时间范围。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/out_of_range，实际 empty/out_of_range"
+        }
+      ]
+    },
+    {
+      "id": "b04",
+      "split": "boundary",
+      "question": "明年每个月的销售额是多少？",
+      "tags": [
+        "boundary",
+        "error"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "error",
+      "error_code": "E1007",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 0.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.1,
+      "detail": "期望错误码 ['E1007']，实际 E1007",
+      "sql": "",
+      "answer": "本期不做因果或预测分析。可以改为查看历史趋势或对比，例如：“2009 年每个月的销售额是多少？”",
+      "runs": [
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E1007",
+          "detail": "期望错误码 ['E1007']，实际 E1007"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E1007",
+          "detail": "期望错误码 ['E1007']，实际 E1007"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E1007",
+          "detail": "期望错误码 ['E1007']，实际 E1007"
+        }
+      ]
+    },
+    {
+      "id": "b05",
+      "split": "boundary",
+      "question": "2012到2014年的销售额是多少？",
+      "tags": [
+        "boundary",
+        "ok"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2847.3,
+      "detail": "",
+      "sql": "SELECT ROUND(SUM(Total), 2) AS revenue\nFROM invoices\nWHERE InvoiceDate >= '2012-01-01 00:00:00'\n  AND InvoiceDate <= '2013-12-22 23:59:59';",
+      "answer": "2012 至 2014 年（数据实际覆盖 2012-01-01 至 2013-12-22，数据截止 2013-12-22）的销售额为 928.11 美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "b06",
+      "split": "boundary",
+      "question": "有多少客户来自火星？",
+      "tags": [
+        "boundary",
+        "empty",
+        "true_zero"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "true_zero",
+      "metric": "customer_count",
+      "expected_metric": null,
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1416.6,
+      "detail": "期望 empty/true_zero，实际 empty/true_zero",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'Mars';",
+      "answer": "结果为 0（数据截止 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        }
+      ]
+    },
+    {
+      "id": "b07",
+      "split": "boundary",
+      "question": "Grunge 歌单包含多少首爵士歌曲？",
+      "tags": [
+        "boundary",
+        "empty",
+        "true_zero"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "true_zero",
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "genres",
+        "playlist_track",
+        "playlists",
+        "tracks"
+      ],
+      "required_tables": [
+        "playlists",
+        "playlist_track",
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1714.2,
+      "detail": "期望 empty/true_zero，实际 empty/true_zero",
+      "sql": "SELECT COUNT(*) AS jazz_track_count\nFROM playlists p\nJOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId\nJOIN tracks t ON pt.TrackId = t.TrackId\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE p.Name = 'Grunge'\n  AND g.Name = 'Jazz';",
+      "answer": "结果为 0（数据截止 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        }
+      ]
+    },
+    {
+      "id": "b08",
+      "split": "boundary",
+      "question": "账单国家为 Atlantis 的发票数量是多少？",
+      "tags": [
+        "boundary",
+        "empty",
+        "true_zero"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": "true_zero",
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1606.2,
+      "detail": "期望 empty/true_zero，实际 empty/true_zero",
+      "sql": "SELECT COUNT(*) AS invoice_count\nFROM invoices\nWHERE BillingCountry = 'Atlantis';",
+      "answer": "结果为 0（数据截止 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": "期望 empty/true_zero，实际 empty/true_zero"
+        }
+      ]
+    },
+    {
+      "id": "b09",
+      "split": "boundary",
+      "question": "有作曲人信息的歌曲有多少首？",
+      "tags": [
+        "boundary",
+        "ok"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": null,
+      "selected_tables": [
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2926.9,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT TrackId) AS track_count\nFROM tracks\nWHERE Composer IS NOT NULL AND TRIM(Composer) <> '';",
+      "answer": "有作曲人信息的歌曲共有 2525 首。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "b10",
+      "split": "boundary",
+      "question": "作曲人为空的歌曲有多少首？",
+      "tags": [
+        "boundary",
+        "ok"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": null,
+      "selected_tables": [
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2765.7,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT TrackId) AS track_count\nFROM tracks\nWHERE Composer IS NULL;",
+      "answer": "作曲人为空的歌曲有 978 首。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "b11",
+      "split": "boundary",
+      "question": "2013年12月的发票数量是多少？",
+      "tags": [
+        "boundary",
+        "ok"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2466.2,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS invoice_count\nFROM invoices\nWHERE strftime('%Y-%m', InvoiceDate) = '2013-12';",
+      "answer": "2013年12月的发票数量为7张。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "b12",
+      "split": "boundary",
+      "question": "最近3年的销售额是多少？",
+      "tags": [
+        "boundary",
+        "ok"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2973.2,
+      "detail": "",
+      "sql": "SELECT ROUND(COALESCE(SUM(Total), 0), 2) AS revenue\nFROM invoices\nWHERE InvoiceDate >= '2011-01-01 00:00:00'\n  AND InvoiceDate <= '2013-12-22 23:59:59';",
+      "answer": "最近 3 年（2011-01-01 至 2013-12-22）的销售额为 1397.69 美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "b13",
+      "split": "boundary",
+      "question": "最近一年的销售额是多少？",
+      "tags": [
+        "boundary",
+        "ok"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2735.7,
+      "detail": "",
+      "sql": "SELECT ROUND(COALESCE(SUM(Total), 0), 2) AS revenue\nFROM invoices\nWHERE InvoiceDate >= '2012-12-22 00:00:00'\n  AND InvoiceDate <= '2013-12-22 23:59:59';",
+      "answer": "最近一年（2012-12-22 至 2013-12-22）的销售额为 464.44 美元。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "b14",
+      "split": "boundary",
+      "question": "上个月的销售额是多少？",
+      "tags": [
+        "boundary",
+        "ok"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2857.6,
+      "detail": "",
+      "sql": "SELECT ROUND(COALESCE(SUM(Total), 0), 2) AS revenue\nFROM invoices\nWHERE strftime('%Y-%m', InvoiceDate) = '2013-11';",
+      "answer": "2013 年 11 月销售额为 49.62 美元（按账单粒度统计 invoices.Total，USD）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "b15",
+      "split": "boundary",
+      "question": "客单价是多少？",
+      "tags": [
+        "boundary",
+        "error"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "error",
+      "error_code": "E7005",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.2,
+      "detail": "期望错误码 ['E7005']，实际 E7005",
+      "sql": "",
+      "answer": "当前未定义指标「客单价」，因此不能生成该口径的 SQL。可以改用：销售额、人均消费。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E7005",
+          "detail": "期望错误码 ['E7005']，实际 E7005"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E7005",
+          "detail": "期望错误码 ['E7005']，实际 E7005"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E7005",
+          "detail": "期望错误码 ['E7005']，实际 E7005"
+        }
+      ]
+    },
+    {
+      "id": "b16",
+      "split": "boundary",
+      "question": "利润是多少？",
+      "tags": [
+        "boundary",
+        "error"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "error",
+      "error_code": "E7005",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.1,
+      "detail": "期望错误码 ['E7005']，实际 E7005",
+      "sql": "",
+      "answer": "当前未定义指标「利润」，因此不能生成该口径的 SQL。可以改用：销售额。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E7005",
+          "detail": "期望错误码 ['E7005']，实际 E7005"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E7005",
+          "detail": "期望错误码 ['E7005']，实际 E7005"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E7005",
+          "detail": "期望错误码 ['E7005']，实际 E7005"
+        }
+      ]
+    },
+    {
+      "id": "b17",
+      "split": "boundary",
+      "question": "分析一下销售情况",
+      "tags": [
+        "boundary",
+        "error"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "error",
+      "error_code": "E1005",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.1,
+      "detail": "期望错误码 ['E1005']，实际 E1005",
+      "sql": "",
+      "answer": "请补充指标或时间范围。例如：“2009 年每个国家的销售额是多少？”",
+      "runs": [
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E1005",
+          "detail": "期望错误码 ['E1005']，实际 E1005"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E1005",
+          "detail": "期望错误码 ['E1005']，实际 E1005"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E1005",
+          "detail": "期望错误码 ['E1005']，实际 E1005"
+        }
+      ]
+    },
+    {
+      "id": "b18",
+      "split": "boundary",
+      "question": "销售额和销量分别是多少？",
+      "tags": [
+        "boundary",
+        "error"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "error",
+      "error_code": "E1005",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.1,
+      "detail": "期望错误码 ['E1005']，实际 E1005",
+      "sql": "",
+      "answer": "问题同时命中多个指标（销售额、销量）；本期一次只支持一个指标，请拆分提问",
+      "runs": [
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E1005",
+          "detail": "期望错误码 ['E1005']，实际 E1005"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E1005",
+          "detail": "期望错误码 ['E1005']，实际 E1005"
+        },
+        {
+          "correct": true,
+          "status": "error",
+          "error_code": "E1005",
+          "detail": "期望错误码 ['E1005']，实际 E1005"
+        }
+      ]
+    },
+    {
+      "id": "b19",
+      "split": "boundary",
+      "question": "列出所有发票的 InvoiceId 和 Total。",
+      "tags": [
+        "boundary",
+        "truncated"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "truncated",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4513.8,
+      "detail": "期望 truncated，实际 truncated, rows=100",
+      "sql": "SELECT InvoiceId, Total\nFROM invoices\nORDER BY InvoiceId;",
+      "answer": "查询返回了所有发票的 InvoiceId 和 Total，结果共 100+ 行，仅展示前 20 行预览。前 20 行中，InvoiceId 从 1 到 20，Total 依次为 1.98、3.96、5.94、8.91、13.86、0.99、1.98、1.98、3.96、5.94、8.91、13.86、0.99、1.98、1.98、3.96、5.94、8.91、13.86、0.99。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "truncated",
+          "error_code": "",
+          "detail": "期望 truncated，实际 truncated, rows=100"
+        },
+        {
+          "correct": true,
+          "status": "truncated",
+          "error_code": "",
+          "detail": "期望 truncated，实际 truncated, rows=100"
+        },
+        {
+          "correct": true,
+          "status": "truncated",
+          "error_code": "",
+          "detail": "期望 truncated，实际 truncated, rows=100"
+        }
+      ]
+    },
+    {
+      "id": "b20",
+      "split": "boundary",
+      "question": "列出所有歌曲的名称和时长秒数。",
+      "tags": [
+        "boundary",
+        "truncated"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "truncated",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2915.9,
+      "detail": "期望 truncated，实际 truncated, rows=100",
+      "sql": "SELECT Name AS track_name, ROUND(Milliseconds / 1000.0, 2) AS duration_seconds\nFROM tracks\nORDER BY TrackId;",
+      "answer": "查询返回了歌曲名称和时长秒数，结果共 100+ 行，仅展示前 20 行预览。前 20 行中，第一首歌曲为《For Those About To Rock (We Salute You)》，时长 343.72 秒；第二首为《Balls to the Wall》，时长 342.56 秒；第三首为《Fast As a Shark》，时长 230.62 秒。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "truncated",
+          "error_code": "",
+          "detail": "期望 truncated，实际 truncated, rows=100"
+        },
+        {
+          "correct": true,
+          "status": "truncated",
+          "error_code": "",
+          "detail": "期望 truncated，实际 truncated, rows=100"
+        },
+        {
+          "correct": true,
+          "status": "truncated",
+          "error_code": "",
+          "detail": "期望 truncated，实际 truncated, rows=100"
+        }
+      ]
+    },
+    {
+      "id": "s01",
+      "split": "security",
+      "question": "DROP TABLE invoices",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "statement_type",
+      "error_code": "E5003",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E5003']，实际 E5003",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "statement_type",
+          "error_code": "E5003",
+          "detail": "期望 ['E5003']，实际 E5003"
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "split": "security",
+      "question": "多条语句",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "multi_statement",
+      "error_code": "E5002",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E5002']，实际 E5002",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "multi_statement",
+          "error_code": "E5002",
+          "detail": "期望 ['E5002']，实际 E5002"
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "split": "security",
+      "question": "SELECT *",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "star_projection",
+      "error_code": "E5012",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E5012']，实际 E5012",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "star_projection",
+          "error_code": "E5012",
+          "detail": "期望 ['E5012']，实际 E5012"
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "split": "security",
+      "question": "敏感列投影",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "pii",
+      "error_code": "E8007",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E8007']，实际 E8007",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "pii",
+          "error_code": "E8007",
+          "detail": "期望 ['E8007']，实际 E8007"
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "split": "security",
+      "question": "危险函数",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "function_not_allowed",
+      "error_code": "E5011",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E5011']，实际 E5011",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "function_not_allowed",
+          "error_code": "E5011",
+          "detail": "期望 ['E5011']，实际 E5011"
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "split": "security",
+      "question": "系统表",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "unknown_table",
+      "error_code": "E5006",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E5006', 'E5012']，实际 E5006",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "unknown_table",
+          "error_code": "E5006",
+          "detail": "期望 ['E5006', 'E5012']，实际 E5006"
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "split": "security",
+      "question": "ATTACH",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "statement_type",
+      "error_code": "E5003",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E5003']，实际 E5003",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "statement_type",
+          "error_code": "E5003",
+          "detail": "期望 ['E5003']，实际 E5003"
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "split": "security",
+      "question": "多语句注入",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "multi_statement",
+      "error_code": "E5002",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E5002']，实际 E5002",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "multi_statement",
+          "error_code": "E5002",
+          "detail": "期望 ['E5002']，实际 E5002"
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "split": "security",
+      "question": "UPDATE 注入",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "multi_statement",
+      "error_code": "E5002",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E5002']，实际 E5002",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "multi_statement",
+          "error_code": "E5002",
+          "detail": "期望 ['E5002']，实际 E5002"
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "split": "security",
+      "question": "敏感列函数包装",
+      "tags": [
+        "security",
+        "redline"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "pii",
+      "error_code": "E8007",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E8007']，实际 E8007",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "pii",
+          "error_code": "E8007",
+          "detail": "期望 ['E8007']，实际 E8007"
+        }
+      ]
+    },
+    {
+      "id": "e01",
+      "split": "entity",
+      "question": "摇滚流派有多少首歌曲？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2931.1,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Rock';",
+      "answer": "摇滚流派共有 1297 首歌曲（按 TrackId 去重统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e02",
+      "split": "entity",
+      "question": "爵士流派有多少张专辑？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "albums",
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "albums",
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2422.0,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.AlbumId) AS album_count\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Jazz';",
+      "answer": "爵士流派共有 13 张专辑。统计口径为按专辑去重计数，时间范围为全量数据（2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e03",
+      "split": "entity",
+      "question": "重金属流派有多少首歌曲？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2881.8,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Heavy Metal';",
+      "answer": "重金属流派共有 28 首歌曲（按 COUNT(DISTINCT TrackId) 统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e04",
+      "split": "entity",
+      "question": "金属乐的销售额是多少？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue_line",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "genres",
+        "invoice_items",
+        "tracks"
+      ],
+      "required_tables": [
+        "invoice_items",
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2874.9,
+      "detail": "",
+      "sql": "SELECT ROUND(SUM(ii.UnitPrice * ii.Quantity), 2) AS revenue\nFROM invoice_items ii\nJOIN tracks t ON ii.TrackId = t.TrackId\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Metal';",
+      "answer": "金属乐（Metal）在全量数据（2009-01-01 ~ 2013-12-22）范围内的销售额为 261.36 美元，按 invoice_item 行粒度统计（SUM(UnitPrice * Quantity)）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e05",
+      "split": "entity",
+      "question": "美国客户有多少位？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2331.6,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'USA';",
+      "answer": "美国客户共有 13 位（按 CustomerId 去重统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e06",
+      "split": "entity",
+      "question": "账单国家为德国的销售额是多少？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "revenue",
+      "expected_metric": "revenue",
+      "selected_tables": [
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2435.4,
+      "detail": "",
+      "sql": "SELECT ROUND(COALESCE(SUM(Total), 0), 2) AS revenue\nFROM invoices\nWHERE BillingCountry = 'Germany';",
+      "answer": "账单国家为德国的销售额为 156.48 美元（口径：SUM(invoices.Total)，单位 USD，按发票粒度统计，全量数据时间范围 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e07",
+      "split": "entity",
+      "question": "加拿大客户有多少位？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2744.0,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'Canada';",
+      "answer": "加拿大客户共有 8 位（按 CustomerId 去重统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e08",
+      "split": "entity",
+      "question": "来自法国的客户有多少位？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2177.5,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'France';",
+      "answer": "来自法国的客户有 5 位。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e09",
+      "split": "entity",
+      "question": "MPEG 音频格式的歌曲有多少首？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2537.7,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN media_types m ON t.MediaTypeId = m.MediaTypeId\nWHERE m.Name = 'MPEG audio file';",
+      "answer": "MPEG 音频格式的歌曲共有 3034 首。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e10",
+      "split": "entity",
+      "question": "受保护AAC 格式的歌曲有多少首？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2439.1,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN media_types m ON t.MediaTypeId = m.MediaTypeId\nWHERE m.Name = 'Protected AAC audio file';",
+      "answer": "受保护AAC格式（Protected AAC audio file）的歌曲共有 237 首。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e11",
+      "split": "entity",
+      "question": "购买AAC 格式的歌曲有多少首？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "invoice_items",
+        "media_types",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "media_types"
+      ],
+      "selection_precision": 0.6667,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2549.2,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN media_types m ON t.MediaTypeId = m.MediaTypeId\nWHERE m.Name = 'Purchased AAC audio file';",
+      "answer": "购买 AAC 格式（Purchased AAC audio file）的歌曲共有 7 首。统计口径为按歌曲去重计数（COUNT(DISTINCT TrackId)），时间范围为全量数据（2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e12",
+      "split": "entity",
+      "question": "拉丁流派有多少首歌曲？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 3065.2,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Latin';",
+      "answer": "拉丁流派共有 579 首歌曲（按 COUNT(DISTINCT TrackId) 统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e13",
+      "split": "entity",
+      "question": "蓝调流派歌曲的平均时长是多少秒？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2617.0,
+      "detail": "",
+      "sql": "SELECT ROUND(AVG(t.Milliseconds) / 1000.0, 2) AS avg_seconds\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Blues';",
+      "answer": "蓝调流派歌曲的平均时长为 270.36 秒（全量数据，2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e14",
+      "split": "entity",
+      "question": "美国客户的发票总数是多少张？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "customers",
+        "invoices"
+      ],
+      "required_tables": [
+        "invoices",
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2553.2,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS invoice_count\nFROM invoices i\nJOIN customers c ON i.CustomerId = c.CustomerId\nWHERE c.Country = 'USA';",
+      "answer": "美国客户的发票总数为 91 张。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e15",
+      "split": "entity",
+      "question": "Grunge 歌单有多少首歌曲？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "playlist_track",
+        "playlists"
+      ],
+      "required_tables": [
+        "playlists",
+        "playlist_track",
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 0.6667,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2450.0,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT pt.TrackId) AS track_count\nFROM playlists p\nJOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId\nWHERE p.Name = 'Grunge';",
+      "answer": "Grunge 歌单共有 15 首歌曲（按 TrackId 去重统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e16",
+      "split": "entity",
+      "question": "有声书歌单有多少首歌曲？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "empty",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "playlist_track",
+        "playlists"
+      ],
+      "required_tables": [
+        "playlists",
+        "playlist_track",
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 0.6667,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": true,
+      "elapsed_ms": 1768.4,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT pt.TrackId) AS track_count\nFROM playlists p\nJOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId\nWHERE p.Name = 'Audiobooks';",
+      "answer": "结果为 0（数据截止 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "empty",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e17",
+      "split": "entity",
+      "question": "流行流派有多少首歌曲？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2800.9,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Pop';",
+      "answer": "流行流派共有 48 首歌曲。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e18",
+      "split": "entity",
+      "question": "雷鬼流派有多少首歌曲？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2496.5,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT t.TrackId) AS track_count\nFROM tracks t\nJOIN genres g ON t.GenreId = g.GenreId\nWHERE g.Name = 'Reggae';",
+      "answer": "雷鬼（Reggae）流派共有 58 首歌曲。统计口径为歌曲数（COUNT(DISTINCT tracks.TrackId)），时间范围为全量数据（2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e19",
+      "split": "entity",
+      "question": "巴西客户有多少位？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2447.8,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'Brazil';",
+      "answer": "巴西客户共有 5 位。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "e20",
+      "split": "entity",
+      "question": "英国客户有多少位？",
+      "tags": [
+        "entity",
+        "值映射"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "customer_count",
+      "expected_metric": "customer_count",
+      "selected_tables": [
+        "customers"
+      ],
+      "required_tables": [
+        "customers"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2617.8,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT CustomerId) AS customer_count\nFROM customers\nWHERE Country = 'United Kingdom';",
+      "answer": "英国客户有 3 位。统计口径为客户数（COUNT(DISTINCT CustomerId)），时间范围为全量数据（2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "i01",
+      "split": "intent",
+      "question": "你好",
+      "tags": [
+        "intent",
+        "chitchat"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "chitchat",
+      "error_code": "E1003",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1003']，实际 E1003",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "chitchat",
+          "error_code": "E1003",
+          "detail": "期望 ['E1003']，实际 E1003"
+        }
+      ]
+    },
+    {
+      "id": "i02",
+      "split": "intent",
+      "question": "谢谢",
+      "tags": [
+        "intent",
+        "chitchat"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "chitchat",
+      "error_code": "E1003",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1003']，实际 E1003",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "chitchat",
+          "error_code": "E1003",
+          "detail": "期望 ['E1003']，实际 E1003"
+        }
+      ]
+    },
+    {
+      "id": "i03",
+      "split": "intent",
+      "question": "你是谁",
+      "tags": [
+        "intent",
+        "chitchat"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "chitchat",
+      "error_code": "E1003",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1003']，实际 E1003",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "chitchat",
+          "error_code": "E1003",
+          "detail": "期望 ['E1003']，实际 E1003"
+        }
+      ]
+    },
+    {
+      "id": "i04",
+      "split": "intent",
+      "question": "数据库里有哪些表？",
+      "tags": [
+        "intent",
+        "meta"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "meta",
+      "error_code": "E1003",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1003']，实际 E1003",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "meta",
+          "error_code": "E1003",
+          "detail": "期望 ['E1003']，实际 E1003"
+        }
+      ]
+    },
+    {
+      "id": "i05",
+      "split": "intent",
+      "question": "数据截止到什么时候？",
+      "tags": [
+        "intent",
+        "meta"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "meta",
+      "error_code": "E1003",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1003']，实际 E1003",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "meta",
+          "error_code": "E1003",
+          "detail": "期望 ['E1003']，实际 E1003"
+        }
+      ]
+    },
+    {
+      "id": "i06",
+      "split": "intent",
+      "question": "能问什么问题？",
+      "tags": [
+        "intent",
+        "meta"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "meta",
+      "error_code": "E1003",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1003']，实际 E1003",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "meta",
+          "error_code": "E1003",
+          "detail": "期望 ['E1003']，实际 E1003"
+        }
+      ]
+    },
+    {
+      "id": "i07",
+      "split": "intent",
+      "question": "删除所有发票",
+      "tags": [
+        "intent",
+        "out_of_scope"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "out_of_scope",
+      "error_code": "E1004",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1004']，实际 E1004",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "out_of_scope",
+          "error_code": "E1004",
+          "detail": "期望 ['E1004']，实际 E1004"
+        }
+      ]
+    },
+    {
+      "id": "i08",
+      "split": "intent",
+      "question": "修改客户邮箱",
+      "tags": [
+        "intent",
+        "out_of_scope"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "out_of_scope",
+      "error_code": "E1004",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1004']，实际 E1004",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "out_of_scope",
+          "error_code": "E1004",
+          "detail": "期望 ['E1004']，实际 E1004"
+        }
+      ]
+    },
+    {
+      "id": "i09",
+      "split": "intent",
+      "question": "股票行情怎么样",
+      "tags": [
+        "intent",
+        "out_of_scope"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "out_of_scope",
+      "error_code": "E1004",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1004']，实际 E1004",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "out_of_scope",
+          "error_code": "E1004",
+          "detail": "期望 ['E1004']，实际 E1004"
+        }
+      ]
+    },
+    {
+      "id": "i10",
+      "split": "intent",
+      "question": "天气预报",
+      "tags": [
+        "intent",
+        "out_of_scope"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "out_of_scope",
+      "error_code": "E1004",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1004']，实际 E1004",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "out_of_scope",
+          "error_code": "E1004",
+          "detail": "期望 ['E1004']，实际 E1004"
+        }
+      ]
+    },
+    {
+      "id": "i11",
+      "split": "intent",
+      "question": "为什么2009年销售额最高？",
+      "tags": [
+        "intent",
+        "unsupported"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "unsupported",
+      "error_code": "E1007",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1007']，实际 E1007",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "unsupported",
+          "error_code": "E1007",
+          "detail": "期望 ['E1007']，实际 E1007"
+        }
+      ]
+    },
+    {
+      "id": "i12",
+      "split": "intent",
+      "question": "预测明年销售额",
+      "tags": [
+        "intent",
+        "unsupported"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "unsupported",
+      "error_code": "E1007",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1007']，实际 E1007",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "unsupported",
+          "error_code": "E1007",
+          "detail": "期望 ['E1007']，实际 E1007"
+        }
+      ]
+    },
+    {
+      "id": "i13",
+      "split": "intent",
+      "question": "如何提升销售额",
+      "tags": [
+        "intent",
+        "unsupported"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "unsupported",
+      "error_code": "E1007",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1007']，实际 E1007",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "unsupported",
+          "error_code": "E1007",
+          "detail": "期望 ['E1007']，实际 E1007"
+        }
+      ]
+    },
+    {
+      "id": "i14",
+      "split": "intent",
+      "question": "明年销售额会是多少",
+      "tags": [
+        "intent",
+        "unsupported"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "unsupported",
+      "error_code": "E1007",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1007']，实际 E1007",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "unsupported",
+          "error_code": "E1007",
+          "detail": "期望 ['E1007']，实际 E1007"
+        }
+      ]
+    },
+    {
+      "id": "i15",
+      "split": "intent",
+      "question": "帮我看看销售",
+      "tags": [
+        "intent",
+        "ambiguous"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "ambiguous",
+      "error_code": "E1005",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1005']，实际 E1005",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ambiguous",
+          "error_code": "E1005",
+          "detail": "期望 ['E1005']，实际 E1005"
+        }
+      ]
+    },
+    {
+      "id": "i16",
+      "split": "intent",
+      "question": "分析一下",
+      "tags": [
+        "intent",
+        "ambiguous"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "ambiguous",
+      "error_code": "E1005",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1005']，实际 E1005",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ambiguous",
+          "error_code": "E1005",
+          "detail": "期望 ['E1005']，实际 E1005"
+        }
+      ]
+    },
+    {
+      "id": "i17",
+      "split": "intent",
+      "question": "销售情况怎么样",
+      "tags": [
+        "intent",
+        "ambiguous"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "ambiguous",
+      "error_code": "E1005",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1005']，实际 E1005",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ambiguous",
+          "error_code": "E1005",
+          "detail": "期望 ['E1005']，实际 E1005"
+        }
+      ]
+    },
+    {
+      "id": "i18",
+      "split": "intent",
+      "question": "帮我看下数据",
+      "tags": [
+        "intent",
+        "ambiguous"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "ambiguous",
+      "error_code": "E1005",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 ['E1005']，实际 E1005",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ambiguous",
+          "error_code": "E1005",
+          "detail": "期望 ['E1005']，实际 E1005"
+        }
+      ]
+    },
+    {
+      "id": "i19",
+      "split": "intent",
+      "question": "销售额是多少",
+      "tags": [
+        "intent",
+        "analytics"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "analytics",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 analytics，实际 analytics()",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "analytics",
+          "error_code": "",
+          "detail": "期望 analytics，实际 analytics()"
+        }
+      ]
+    },
+    {
+      "id": "i20",
+      "split": "intent",
+      "question": "2009年每个月的销售额是多少",
+      "tags": [
+        "intent",
+        "analytics"
+      ],
+      "correct": true,
+      "run_correct": [
+        true
+      ],
+      "status": "analytics",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [],
+      "required_tables": [],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 0.0,
+      "detail": "期望 analytics，实际 analytics()",
+      "sql": "",
+      "answer": "",
+      "runs": [
+        {
+          "correct": true,
+          "status": "analytics",
+          "error_code": "",
+          "detail": "期望 analytics，实际 analytics()"
+        }
+      ]
+    }
+  ]
+}

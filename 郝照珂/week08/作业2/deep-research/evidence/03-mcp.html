@@ -1,0 +1,59 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>03 / MCP · 本地课程工具</title><style>
+*{box-sizing:border-box}body{margin:0;background:#eef2f0;color:#243e35;font-family:'Segoe UI','Microsoft YaHei',sans-serif;padding:40px 48px}.top{color:#6b8a7b;font-size:12px;letter-spacing:2px}h1{font-size:30px;margin:14px 0 10px}p{font-size:13px;line-height:1.8;color:#63776a}.meta{background:#deebe2;padding:12px 18px;font-size:12px;border-left:3px solid #58846c;margin:22px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}section{background:white;border:1px solid #dce5dd;border-radius:9px;padding:20px;min-width:0}h2{font-size:14px;margin:0 0 15px}pre{font:12px/1.7 Consolas,'Microsoft YaHei',monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}footer{font:10px/1.8 Consolas,sans-serif;color:#7d8f80;margin-top:22px}strong{color:#276547}</style><div class="top">WEEK 08 / CLAUDE CODE / EXECUTION EVIDENCE</div><h1>03 / MCP · 本地课程工具</h1><p>Claude Code 通过 stdio 连接本地 MCP 服务，实际调用 course_checklist(week=8)。</p><div class="meta"><strong>真实运行日志视图</strong> · Claude Code 2.1.162 (Claude Code) · 模型 deepseek-v4-pro[1m]<br>会话 1dc1e67e-6e5c-43a3-9597-b9d1243a9176</div><div class="grid"><section><h2>.mcp.json 与连接状态</h2><pre>{
+  &quot;mcpServers&quot;: {
+    &quot;course_tools&quot;: {
+      &quot;type&quot;: &quot;stdio&quot;,
+      &quot;command&quot;: &quot;node&quot;,
+      &quot;args&quot;: [&quot;tools/course-mcp.cjs&quot;]
+    }
+  }
+}
+
+
+初始化连接状态：
+[
+  {
+    &quot;name&quot;: &quot;course_tools&quot;,
+    &quot;status&quot;: &quot;connected&quot;
+  }
+]
+
+实际工具调用：
+{
+  &quot;type&quot;: &quot;tool_use&quot;,
+  &quot;id&quot;: &quot;call_01_1xoDXnfdsSVS2m8UNndZ6118&quot;,
+  &quot;name&quot;: &quot;mcp__course_tools__course_checklist&quot;,
+  &quot;input&quot;: {
+    &quot;week&quot;: 8
+  }
+}</pre></section><section><h2>evidence/mcp-calls.jsonl · 服务端实际返回</h2><pre>{
+  &quot;time&quot;: &quot;2026-09-11T08:32:32.538Z&quot;,
+  &quot;tool&quot;: &quot;course_checklist&quot;,
+  &quot;arguments&quot;: {
+    &quot;week&quot;: 8
+  },
+  &quot;result&quot;: {
+    &quot;week&quot;: 8,
+    &quot;assignment1&quot;: [
+      &quot;Claude Code Skill&quot;,
+      &quot;Hook&quot;,
+      &quot;MCP&quot;,
+      &quot;Separate screenshots&quot;
+    ],
+    &quot;assignment2&quot;: &quot;Deep Research Assistant&quot;,
+    &quot;pipeline&quot;: [
+      &quot;plan&quot;,
+      &quot;search&quot;,
+      &quot;extract&quot;,
+      &quot;judge&quot;,
+      &quot;report&quot;
+    ],
+    &quot;required_outputs&quot;: [
+      &quot;structured_report&quot;,
+      &quot;sources&quot;,
+      &quot;process&quot;,
+      &quot;confidence&quot;
+    ],
+    &quot;marker&quot;: &quot;WEEK08_MCP_OK&quot;
+  }
+}</pre></section></div><footer>浏览器对实际 CLI 日志的可读视图截图；不是 Claude Code 原生终端界面。原始日志随作业提交。<br>claude-session.jsonl SHA-256: 72bf76e6a955667a5763f8f36bdb41b7b056a652fd0a6ded89c89ef6459c6bbc</footer></html>

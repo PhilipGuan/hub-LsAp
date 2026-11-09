@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f6f9">
+<title>楼道消防隐患识别</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --text: #101828;
+    --muted: #667085;
+    --line: #e4e7ec;
+    --brand: #1d4ed8;
+    --high: #d92d20;    --high-bg: #fee4e2;
+    --medium: #dc6803;  --medium-bg: #fef0c7;
+    --low: #a16207;     --low-bg: #fef7c3;
+    --none: #067647;    --none-bg: #dcfae6;
+    --gray: #475467;    --gray-bg: #eef0f3;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    color: var(--text);
+    background:
+      radial-gradient(900px 420px at 8% -12%, #dbeafe 0%, transparent 62%),
+      radial-gradient(700px 360px at 105% 0%, #fce7f3 0%, transparent 55%),
+      var(--bg);
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .app {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px 16px calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .topbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 4px 16px;
+  }
+  h1 { margin: 0 0 4px; font-size: 20px; letter-spacing: .5px; }
+  .sub { margin: 0; font-size: 13px; color: var(--muted); }
+  .pill {
+    flex: none;
+    padding: 6px 11px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--muted);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .pill.ok { color: #067647; background: #ecfdf3; border-color: #abefc6; }
+  .pill.warn { color: #b54708; background: #fffaeb; border-color: #fedf89; }
+  .pill.err { color: #b42318; background: #fef3f2; border-color: #fecdca; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(16, 24, 40, .06);
+    overflow: hidden;
+  }
+  .stage { padding: 14px; }
+
+  .viewport {
+    position: relative;
+    height: clamp(320px, 58vh, 560px);
+    border-radius: 16px;
+    background: #0b1220;
+    overflow: hidden;
+  }
+  #video { width: 100%; height: 100%; object-fit: cover; background: #000; }
+  #preview { width: 100%; height: 100%; object-fit: contain; background: #000; }
+
+  .camera-hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .analyzing {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #fff;
+    background: rgba(11, 18, 32, .62);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .analyzing-text { margin: 0; font-size: 15px; }
+  .elapsed { margin: 0; font-size: 13px; color: #cbd5e1; font-variant-numeric: tabular-nums; }
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(255, 255, 255, .3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .notice {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .notice.info { color: #175cd3; background: #eff8ff; border: 1px solid #b2ddff; }
+  .notice.error { color: #b42318; background: #fef3f2; border: 1px solid #fecdca; }
+
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 18px 4px 6px;
+  }
+  .side { display: flex; }
+  .side.right { justify-content: flex-end; }
+  .shutter {
+    width: 78px;
+    height: 78px;
+    padding: 6px;
+    border: 4px solid #101828;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+  }
+  .shutter::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #101828;
+    transition: transform .12s ease;
+  }
+  .shutter:active::after { transform: scale(.86); }
+  .shutter:disabled { opacity: .35; cursor: not-allowed; }
+
+  .ghost {
+    padding: 10px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: #344054;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .ghost:hover { border-color: #cbd5e1; }
+  .primary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 999px;
+    background: #101828;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .primary:active { transform: scale(.98); }
+
+  .actions { display: flex; justify-content: center; padding: 18px 4px 8px; }
+  .hint {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+  }
+  .link-btn {
+    display: block;
+    margin: 8px auto 0;
+    padding: 4px;
+    border: none;
+    background: none;
+    color: var(--brand);
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .result-section {
+    margin-top: 16px;
+    padding: 18px;
+    animation: rise .25s ease-out;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .result-card { --rc: var(--gray); --rbg: var(--gray-bg); border-left: 6px solid var(--rc); padding-left: 14px; }
+  .r-high { --rc: var(--high); --rbg: var(--high-bg); }
+  .r-medium { --rc: var(--medium); --rbg: var(--medium-bg); }
+  .r-low { --rc: var(--low); --rbg: var(--low-bg); }
+  .r-none { --rc: var(--none); --rbg: var(--none-bg); }
+  .r-not-hallway { --rc: var(--gray); --rbg: var(--gray-bg); }
+  .r-unknown { --rc: var(--gray); --rbg: var(--gray-bg); }
+
+  .risk-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .risk-level { font-size: 28px; font-weight: 800; letter-spacing: 1px; color: var(--rc); }
+  .risk-hint { margin: 6px 0 0; color: var(--gray); font-size: 13px; line-height: 1.6; }
+  .meta { flex: none; padding-top: 6px; color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .chips li {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--rbg);
+    color: var(--rc);
+    font-size: 13px;
+  }
+  .reason { margin: 14px 0 0; color: #344054; font-size: 14px; line-height: 1.7; }
+
+  details { margin-top: 16px; font-size: 12px; color: var(--muted); }
+  summary { cursor: pointer; }
+  pre {
+    margin: 10px 0 0;
+    padding: 12px;
+    max-height: 200px;
+    overflow: auto;
+    border-radius: 10px;
+    background: #0b1220;
+    color: #d0d5dd;
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .footnote {
+    margin: 18px 6px 0;
+    color: #98a2b3;
+    font-size: 12px;
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  @media (max-width: 380px) {
+    .ghost { padding: 9px 12px; font-size: 13px; }
+    .shutter { width: 68px; height: 68px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div>
+      <h1>楼道消防隐患识别</h1>
+      <p class="sub">拍照上传 · AI 判断楼道消防风险</p>
+    </div>
+    <span id="statusPill" class="pill">连接中…</span>
+  </header>
+
+  <section class="card stage">
+    <div class="viewport">
+      <video id="video" playsinline muted autoplay></video>
+      <img id="preview" alt="待识别的照片" hidden>
+      <div id="cameraHint" class="camera-hint">正在打开摄像头…</div>
+      <div id="analyzing" class="analyzing" hidden aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="analyzing-text">正在识别楼道风险…</p>
+        <p id="elapsed" class="elapsed">0.0s</p>
+      </div>
+    </div>
+
+    <div id="insecureNotice" class="notice info" hidden></div>
+    <div id="errorBox" class="notice error" role="alert" hidden></div>
+
+    <div id="controls" class="controls">
+      <div class="side">
+        <button id="galleryBtn" class="ghost" type="button">相册上传</button>
+      </div>
+      <button id="captureBtn" class="shutter" type="button" aria-label="拍照"></button>
+      <div class="side right">
+        <button id="switchBtn" class="ghost" type="button" hidden>翻转镜头</button>
+      </div>
+    </div>
+
+    <div id="actions" class="actions" hidden>
+      <button id="retakeBtn" class="primary" type="button">重新拍摄 / 上传</button>
+    </div>
+
+    <p id="captureHint" class="hint">对准楼道，轻触快门拍照</p>
+    <button id="nativeCameraBtn" class="link-btn" type="button" hidden>用系统相机拍摄</button>
+
+    <input id="fileInput" type="file" accept="image/*" hidden>
+    <input id="nativeCameraInput" type="file" accept="image/*" capture="environment" hidden>
+  </section>
+
+  <section id="resultSection" class="card result-section" hidden aria-live="polite">
+    <div id="resultCard" class="result-card r-unknown">
+      <div class="risk-row">
+        <div>
+          <span id="riskLevel" class="risk-level">—</span>
+          <p id="riskHint" class="risk-hint"></p>
+        </div>
+        <span id="riskMeta" class="meta"></span>
+      </div>
+      <ul id="hazardList" class="chips" hidden></ul>
+      <p id="reason" class="reason"></p>
+      <details id="rawDetails" hidden>
+        <summary>模型原始输出</summary>
+        <pre id="rawOutput"></pre>
+      </details>
+    </div>
+  </section>
+
+  <p class="footnote">
+    识别结果仅供辅助参考，请以现场实际情况为准。照片上传至你部署的后端，默认留档在 data/uploads/。
+  </p>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  const API_BASE = (new URLSearchParams(location.search).get('api') || '').replace(/\/+$/, '');
+  const MAX_UPLOAD_BYTES = 20 * 1024 * 1024;
+  const MAX_CAPTURE_SIDE = 2048;
+
+  const $ = (id) => document.getElementById(id);
+  const video = $('video');
+  const preview = $('preview');
+  const cameraHint = $('cameraHint');
+  const analyzing = $('analyzing');
+  const elapsedEl = $('elapsed');
+  const controls = $('controls');
+  const actions = $('actions');
+  const captureHint = $('captureHint');
+  const statusPill = $('statusPill');
+  const errorBox = $('errorBox');
+  const insecureNotice = $('insecureNotice');
+  const resultSection = $('resultSection');
+  const resultCard = $('resultCard');
+  const riskLevel = $('riskLevel');
+  const riskHint = $('riskHint');
+  const riskMeta = $('riskMeta');
+  const hazardList = $('hazardList');
+  const reasonEl = $('reason');
+  const rawDetails = $('rawDetails');
+  const rawOutput = $('rawOutput');
+  const captureBtn = $('captureBtn');
+  const switchBtn = $('switchBtn');
+  const galleryBtn = $('galleryBtn');
+  const retakeBtn = $('retakeBtn');
+  const fileInput = $('fileInput');
+  const nativeCameraBtn = $('nativeCameraBtn');
+  const nativeCameraInput = $('nativeCameraInput');
+
+  const LEVELS = {
+    high: { hint: '存在电动车、电瓶、飞线充电等起火风险，请立即处理', cls: 'r-high' },
+    medium: { hint: '堆放物量大或可燃，影响通行且可能加速火势蔓延', cls: 'r-medium' },
+    low: { hint: '有少量楼道堆物，建议及时清理保持通道畅通', cls: 'r-low' },
+    none: { hint: '楼道整洁，未发现明显消防隐患', cls: 'r-none' },
+    not_hallway: { hint: '图片与楼道场景无关，请对着楼道拍照', cls: 'r-not-hallway' },
+    unknown: { hint: '模型输出异常，请重试或换一张更清晰的图片', cls: 'r-unknown' }
+  };
+
+  let stream = null;
+  let facing = 'environment';
+  let busy = false;
+  let previewUrl = null;
+  let elapsedTimer = null;
+  let healthTimer = null;
+
+  function setPill(text, cls) {
+    statusPill.textContent = text;
+    statusPill.className = 'pill' + (cls ? ' ' + cls : '');
+  }
+
+  function showError(message) {
+    errorBox.textContent = message;
+    errorBox.hidden = false;
+    errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function clearError() {
+    errorBox.hidden = true;
+    errorBox.textContent = '';
+  }
+
+  function setCameraHint(text) {
+    cameraHint.textContent = text;
+    cameraHint.hidden = false;
+  }
+
+  /* ---------------- 摄像头 ---------------- */
+
+  function stopCamera() {
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+      stream = null;
+    }
+    video.srcObject = null;
+    captureBtn.disabled = true;
+  }
+
+  async function startCamera() {
+    if (busy) return;
+    preview.hidden = true;
+    video.hidden = false;
+
+    if (!window.isSecureContext) {
+      captureBtn.disabled = true;
+      nativeCameraBtn.hidden = false;
+      setCameraHint('当前页面不是 HTTPS，浏览器禁止网页调用摄像头。请使用「相册上传」或「系统相机拍摄」，也可通过 localhost / HTTPS 访问。');
+      return;
+    }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      captureBtn.disabled = true;
+      nativeCameraBtn.hidden = false;
+      setCameraHint('当前浏览器不支持摄像头调用，请使用「相册上传」。');
+      return;
+    }
+
+    setCameraHint('正在打开摄像头…');
+    stopCamera();
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          facingMode: { ideal: facing },
+          width: { ideal: 1920 },
+          height: { ideal: 1080 }
+        }
+      });
+      video.srcObject = stream;
+      await video.play().catch(() => {});
+      cameraHint.hidden = true;
+      nativeCameraBtn.hidden = true;
+      captureBtn.disabled = false;
+      clearError();
+      await refreshSwitchButton();
+    } catch (err) {
+      captureBtn.disabled = true;
+      nativeCameraBtn.hidden = false;
+      setCameraHint(cameraErrorMessage(err));
+    }
+  }
+
+  function cameraErrorMessage(err) {
+    const name = err && err.name;
+    if (name === 'NotAllowedError' || name === 'SecurityError') {
+      return '摄像头权限被拒绝，请在浏览器设置中允许后重试，或使用「相册上传」。';
+    }
+    if (name === 'NotFoundError' || name === 'OverconstrainedError') {
+      return '没有找到可用的摄像头，请使用「相册上传」。';
+    }
+    if (name === 'NotReadableError') {
+      return '摄像头正被其他应用占用，请关闭后重试，或使用「相册上传」。';
+    }
+    return '无法打开摄像头' + (err && err.message ? '：' + err.message : '') + '，可改用「相册上传」。';
+  }
+
+  async function refreshSwitchButton() {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      switchBtn.hidden = devices.filter((d) => d.kind === 'videoinput').length < 2;
+    } catch {
+      switchBtn.hidden = true;
+    }
+  }
+
+  function captureFrame() {
+    return new Promise((resolve) => {
+      const width = video.videoWidth;
+      const height = video.videoHeight;
+      if (!width || !height) {
+        resolve(null);
+        return;
+      }
+      const scale = Math.min(1, MAX_CAPTURE_SIDE / Math.max(width, height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(width * scale);
+      canvas.height = Math.round(height * scale);
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => resolve(blob), 'image/jpeg', 0.9);
+    });
+  }
+
+  /* ---------------- 上传与识别 ---------------- */
+
+  async function handleImage(file) {
+    if (busy || !file) return;
+    if (!file.type || !file.type.startsWith('image/')) {
+      showError('请选择图片文件。');
+      return;
+    }
+    if (file.size > MAX_UPLOAD_BYTES) {
+      showError('图片超过 20MB，请压缩后再上传。');
+      return;
+    }
+
+    clearError();
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    previewUrl = URL.createObjectURL(file);
+    preview.src = previewUrl;
+    preview.hidden = false;
+    video.hidden = true;
+    cameraHint.hidden = true;
+    resultSection.hidden = true;
+    controls.hidden = true;
+    actions.hidden = true;
+    captureHint.hidden = true;
+    nativeCameraBtn.hidden = true;
+
+    await analyzeImage(file);
+  }
+
+  async function analyzeImage(file) {
+    busy = true;
+    analyzing.hidden = false;
+    startElapsed();
+
+    const form = new FormData();
+    form.append('file', file, file.name || 'photo.jpg');
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 300000);
+
+    try {
+      const response = await fetch(API_BASE + '/api/analyze', {
+        method: 'POST',
+        body: form,
+        signal: controller.signal
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.detail || ('请求失败（HTTP ' + response.status + '）'));
+      }
+      renderResult(data);
+    } catch (err) {
+      if (err && err.name === 'AbortError') {
+        showError('识别超时，请稍后重试。');
+      } else {
+        showError((err && err.message) || '网络异常，无法完成识别。');
+      }
+      actions.hidden = false;
+    } finally {
+      clearTimeout(timeout);
+      stopElapsed();
+      analyzing.hidden = true;
+      busy = false;
+    }
+  }
+
+  function startElapsed() {
+    const startedAt = performance.now();
+    elapsedEl.textContent = '0.0s';
+    elapsedTimer = setInterval(() => {
+      elapsedEl.textContent = ((performance.now() - startedAt) / 1000).toFixed(1) + 's';
+    }, 100);
+  }
+
+  function stopElapsed() {
+    if (elapsedTimer) {
+      clearInterval(elapsedTimer);
+      elapsedTimer = null;
+    }
+  }
+
+  function renderResult(data) {
+    const info = LEVELS[data.risk_code] || LEVELS.unknown;
+    resultCard.className = 'result-card ' + info.cls;
+    riskLevel.textContent = data.risk_level || '无法判断';
+    riskHint.textContent = info.hint;
+
+    const seconds = typeof data.elapsed_ms === 'number'
+      ? (data.elapsed_ms / 1000).toFixed(1) + ' 秒'
+      : '';
+    const model = data.model ? ' · ' + data.model : '';
+    riskMeta.textContent = seconds + model;
+
+    hazardList.innerHTML = '';
+    const hazards = Array.isArray(data.hazards) ? data.hazards : [];
+    hazardList.hidden = hazards.length === 0;
+    hazards.forEach((hazard) => {
+      const item = document.createElement('li');
+      item.textContent = hazard;
+      hazardList.appendChild(item);
+    });
+
+    reasonEl.textContent = data.reason || '模型未给出判断依据。';
+    rawOutput.textContent = data.raw_output || '';
+    rawDetails.hidden = !data.raw_output;
+
+    resultSection.hidden = false;
+    actions.hidden = false;
+    resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function resetView() {
+    clearError();
+    stopElapsed();
+    analyzing.hidden = true;
+    resultSection.hidden = true;
+    actions.hidden = true;
+    controls.hidden = false;
+    captureHint.hidden = false;
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+      previewUrl = null;
+    }
+    preview.hidden = true;
+    preview.removeAttribute('src');
+    video.hidden = false;
+    startCamera();
+  }
+
+  /* ---------------- 健康检查 ---------------- */
+
+  async function pollHealth() {
+    try {
+      const response = await fetch(API_BASE + '/api/health', { cache: 'no-store' });
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const health = await response.json();
+      if (health.ready) {
+        setPill('模型就绪', 'ok');
+        stopHealthPolling();
+      } else if (health.status === 'error') {
+        setPill('模型异常', 'err');
+        showError('模型加载失败：' + (health.load_error || '请查看服务端日志'));
+        stopHealthPolling();
+      } else if (health.status === 'idle') {
+        setPill('服务就绪', 'ok');
+        stopHealthPolling();
+      } else {
+        setPill('模型加载中…', 'warn');
+      }
+    } catch {
+      setPill('后端未连接', 'err');
+    }
+  }
+
+  function startHealthPolling() {
+    pollHealth();
+    healthTimer = setInterval(pollHealth, 3000);
+  }
+
+  function stopHealthPolling() {
+    if (healthTimer) {
+      clearInterval(healthTimer);
+      healthTimer = null;
+    }
+  }
+
+  /* ---------------- 事件绑定 ---------------- */
+
+  captureBtn.addEventListener('click', async () => {
+    if (busy || !stream) return;
+    const blob = await captureFrame();
+    if (!blob) {
+      showError('画面还没有准备好，请稍后重试。');
+      return;
+    }
+    const file = new File([blob], 'photo-' + Date.now() + '.jpg', { type: 'image/jpeg' });
+    stopCamera();
+    await handleImage(file);
+  });
+
+  switchBtn.addEventListener('click', () => {
+    if (busy) return;
+    facing = facing === 'environment' ? 'user' : 'environment';
+    startCamera();
+  });
+
+  galleryBtn.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files && fileInput.files[0];
+    fileInput.value = '';
+    if (file) handleImage(file);
+  });
+
+  nativeCameraBtn.addEventListener('click', () => nativeCameraInput.click());
+  nativeCameraInput.addEventListener('change', () => {
+    const file = nativeCameraInput.files && nativeCameraInput.files[0];
+    nativeCameraInput.value = '';
+    if (file) handleImage(file);
+  });
+
+  retakeBtn.addEventListener('click', () => {
+    if (!busy) resetView();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopCamera();
+    } else if (!busy && preview.hidden) {
+      startCamera();
+    }
+  });
+  window.addEventListener('pagehide', stopCamera);
+
+  /* ---------------- 启动 ---------------- */
+
+  if (!window.isSecureContext) {
+    insecureNotice.hidden = false;
+    insecureNotice.textContent =
+      '提示：浏览器仅在 HTTPS 或 localhost 下允许网页调用摄像头。当前可使用「相册上传」或「系统相机拍摄」；' +
+      '手机通过局域网 IP 访问时，请参考 README 为服务配置 HTTPS。';
+  }
+  if (location.protocol === 'file:') {
+    insecureNotice.hidden = false;
+    insecureNotice.textContent += ' 当前以本地文件方式打开，接口地址需用 ?api=http://localhost:8000 指定。';
+  }
+
+  startHealthPolling();
+  startCamera();
+})();
+</script>
+</body>
+</html>

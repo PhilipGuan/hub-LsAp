@@ -1,0 +1,11 @@
+# Streamlit 配置：开启 HTTPS（让手机浏览器允许调用摄像头）
+# 证书为本机自签名，浏览器首次访问会提示"不安全"，点"高级 → 继续访问"即可。
+
+[server]
+port = 8443
+sslCertFile = "certs/cert.pem"
+sslKeyFile = "certs/key.pem"
+address = "0.0.0.0"
+
+[browser]
+gatherUsageStats = false

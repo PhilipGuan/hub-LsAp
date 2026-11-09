@@ -1,0 +1,345 @@
+{
+  "version": 1,
+  "timestamp": "2026-10-22T23:16:06",
+  "fingerprint": {
+    "app_version": "mvp-1",
+    "prompt_version": "prompt-v2",
+    "model": "deepseek-chat",
+    "catalog": "a9ddc0dcb08e534df0a442972756911c",
+    "gold_sha256": "09be7f505a5dda2d"
+  },
+  "summary": {
+    "cases": 130,
+    "correct": 130,
+    "accuracy": 1.0,
+    "accuracy_ci95": [
+      0.9713,
+      1.0
+    ],
+    "run_correct": [
+      130,
+      130,
+      130
+    ],
+    "run_accuracy": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "median_run_correct": 130,
+    "run_span": 0
+  },
+  "splits": {
+    "boundary": {
+      "cases": 20,
+      "correct": 20,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8389,
+        1.0
+      ],
+      "run_correct": [
+        20,
+        20,
+        20
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 20,
+      "run_span": 0
+    },
+    "dev": {
+      "cases": 30,
+      "correct": 30,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8865,
+        1.0
+      ],
+      "run_correct": [
+        30,
+        30,
+        30
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 30,
+      "run_span": 0
+    },
+    "entity": {
+      "cases": 20,
+      "correct": 20,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8389,
+        1.0
+      ],
+      "run_correct": [
+        20,
+        20,
+        20
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 20,
+      "run_span": 0
+    },
+    "holdout": {
+      "cases": 30,
+      "correct": 30,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8865,
+        1.0
+      ],
+      "run_correct": [
+        30,
+        30,
+        30
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 30,
+      "run_span": 0
+    },
+    "intent": {
+      "cases": 20,
+      "correct": 20,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.8389,
+        1.0
+      ],
+      "run_correct": [
+        20,
+        20,
+        20
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 20,
+      "run_span": 0
+    },
+    "security": {
+      "cases": 10,
+      "correct": 10,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.7225,
+        1.0
+      ],
+      "run_correct": [
+        10,
+        10,
+        10
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 10,
+      "run_span": 0
+    }
+  },
+  "selection": {
+    "cases": 285,
+    "precision": 0.986,
+    "recall": 0.9895,
+    "forbidden_hits": 0,
+    "fallback_cases": 0,
+    "fallback_precision": null
+  },
+  "grounding": {
+    "cases": 285,
+    "passed": 285,
+    "rate": 1.0,
+    "fallback": 6,
+    "failures": []
+  },
+  "holdout_tags": {
+    "join": {
+      "cases": 5,
+      "correct": 5,
+      "accuracy": 1.0
+    },
+    "值映射": {
+      "cases": 6,
+      "correct": 6,
+      "accuracy": 1.0
+    },
+    "单位换算": {
+      "cases": 1,
+      "correct": 1,
+      "accuracy": 1.0
+    },
+    "单表": {
+      "cases": 5,
+      "correct": 5,
+      "accuracy": 1.0
+    },
+    "多对多": {
+      "cases": 6,
+      "correct": 6,
+      "accuracy": 1.0
+    },
+    "时间": {
+      "cases": 5,
+      "correct": 5,
+      "accuracy": 1.0
+    },
+    "空结果": {
+      "cases": 5,
+      "correct": 5,
+      "accuracy": 1.0
+    }
+  },
+  "case_correct": {
+    "d01": true,
+    "d02": true,
+    "d03": true,
+    "d04": true,
+    "d05": true,
+    "d06": true,
+    "d07": true,
+    "d08": true,
+    "d09": true,
+    "d10": true,
+    "d11": true,
+    "d12": true,
+    "d13": true,
+    "d14": true,
+    "d15": true,
+    "d16": true,
+    "d17": true,
+    "d18": true,
+    "d19": true,
+    "d20": true,
+    "d21": true,
+    "d22": true,
+    "d23": true,
+    "d24": true,
+    "d25": true,
+    "d26": true,
+    "d27": true,
+    "d28": true,
+    "d29": true,
+    "d30": true,
+    "h01": true,
+    "h02": true,
+    "h03": true,
+    "h04": true,
+    "h05": true,
+    "h06": true,
+    "h07": true,
+    "h08": true,
+    "h09": true,
+    "h10": true,
+    "h11": true,
+    "h12": true,
+    "h13": true,
+    "h14": true,
+    "h15": true,
+    "h16": true,
+    "h17": true,
+    "h18": true,
+    "h19": true,
+    "h20": true,
+    "h21": true,
+    "h22": true,
+    "h23": true,
+    "h24": true,
+    "h25": true,
+    "h26": true,
+    "h27": true,
+    "h28": true,
+    "h29": true,
+    "h30": true,
+    "b01": true,
+    "b02": true,
+    "b03": true,
+    "b04": true,
+    "b05": true,
+    "b06": true,
+    "b07": true,
+    "b08": true,
+    "b09": true,
+    "b10": true,
+    "b11": true,
+    "b12": true,
+    "b13": true,
+    "b14": true,
+    "b15": true,
+    "b16": true,
+    "b17": true,
+    "b18": true,
+    "b19": true,
+    "b20": true,
+    "s01": true,
+    "s02": true,
+    "s03": true,
+    "s04": true,
+    "s05": true,
+    "s06": true,
+    "s07": true,
+    "s08": true,
+    "s09": true,
+    "s10": true,
+    "e01": true,
+    "e02": true,
+    "e03": true,
+    "e04": true,
+    "e05": true,
+    "e06": true,
+    "e07": true,
+    "e08": true,
+    "e09": true,
+    "e10": true,
+    "e11": true,
+    "e12": true,
+    "e13": true,
+    "e14": true,
+    "e15": true,
+    "e16": true,
+    "e17": true,
+    "e18": true,
+    "e19": true,
+    "e20": true,
+    "i01": true,
+    "i02": true,
+    "i03": true,
+    "i04": true,
+    "i05": true,
+    "i06": true,
+    "i07": true,
+    "i08": true,
+    "i09": true,
+    "i10": true,
+    "i11": true,
+    "i12": true,
+    "i13": true,
+    "i14": true,
+    "i15": true,
+    "i16": true,
+    "i17": true,
+    "i18": true,
+    "i19": true,
+    "i20": true
+  },
+  "passed": true
+}

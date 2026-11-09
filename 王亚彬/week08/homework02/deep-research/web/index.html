@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深度研究助手</title>
+<style>
+  :root{--bg:#f7f8fa;--card:#fff;--bd:#e5e7eb;--tx:#1f2328;--mu:#6b7280;--pr:#2563eb;--ok:#16a34a;--wn:#d97706}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.7 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 20px 80px}
+  h1{font-size:24px;margin:0 0 4px}
+  .sub{color:var(--mu);font-size:13px;margin-bottom:24px}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:20px;margin-bottom:16px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  input[type=text]{flex:1;min-width:240px;padding:11px 14px;border:1px solid var(--bd);border-radius:8px;font-size:15px;outline:none}
+  input[type=text]:focus{border-color:var(--pr)}
+  button{padding:11px 22px;background:var(--pr);color:#fff;border:0;border-radius:8px;font-size:15px;cursor:pointer}
+  button:disabled{background:#9ca3af;cursor:not-allowed}
+  .opts{margin-top:12px;font-size:13px;color:var(--mu);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .opts label{display:flex;align-items:center;gap:5px;cursor:pointer}
+  input[type=number]{width:64px;padding:5px 8px;border:1px solid var(--bd);border-radius:6px}
+  .status{padding:14px 16px;border-radius:8px;background:#eff6ff;border:1px solid #bfdbfe;font-size:14px;margin-bottom:16px}
+  .bar{height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden;margin-top:10px}
+  .bar>i{display:block;height:100%;background:var(--pr);width:0;transition:width .4s}
+  .tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;background:#e5e7eb;color:#374151}
+  .tag.running{background:#dbeafe;color:#1e40af}
+  .tag.completed{background:#dcfce7;color:#166534}
+  .tag.failed{background:#fee2e2;color:#991b1b}
+  h2{font-size:19px;margin:28px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+  h3{font-size:16px;margin:20px 0 8px}
+  p{margin:8px 0}
+  ul{padding-left:22px;margin:8px 0}
+  li{margin:4px 0}
+  a{color:var(--pr);word-break:break-all}
+  .src{padding:10px 0;border-bottom:1px dashed var(--bd);font-size:14px}
+  .src:last-child{border:0}
+  .meta{color:var(--mu);font-size:12px}
+  pre{background:#f3f4f6;padding:12px;border-radius:8px;overflow-x:auto;font-size:13px}
+  .err{background:#fee2e2;border:1px solid #fecaca;color:#991b1b;padding:14px;border-radius:8px}
+  .hide{display:none}
+  .hist{font-size:13px}
+  .hist a{text-decoration:none}
+  .hist li{margin:6px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>深度研究助手</h1>
+  <div class="sub">输入一个研究主题 → 自动规划、多轮检索、阅读抽取、判断补检 → 产出带来源引用的研究报告</div>
+
+  <div class="card">
+    <div class="row">
+      <input type="text" id="topic" placeholder="例如：2026年国内新能源车企竞争格局" value="">
+      <button id="go">开始研究</button>
+    </div>
+    <div class="opts">
+      <label>最大轮次 <input type="number" id="rounds" value="3" min="1" max="6"></label>
+      <label><input type="checkbox" id="full"> 抓取网页正文（更慢、更准）</label>
+      <span id="health"></span>
+    </div>
+  </div>
+
+  <div id="statusBox" class="status hide">
+    <div><span id="stage">准备中…</span> <span id="tag" class="tag">pending</span></div>
+    <div class="meta" id="detail"></div>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+
+  <div id="errBox" class="err hide"></div>
+  <div id="report"></div>
+
+  <div class="card hide" id="histBox">
+    <h3 style="margin-top:0">历史研究</h3>
+    <ul class="hist" id="hist"></ul>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+function md(text){
+  const out=[];
+  const lines=(text||'').split('\n');
+  let inUl=false,inOl=false;
+  const close=()=>{if(inUl){out.push('</ul>');inUl=false}if(inOl){out.push('</ol>');inOl=false}};
+  for(let raw of lines){
+    const line=raw.replace(/\s+$/,'');
+    let h=line.match(/^(#{1,4})\s+(.*)/);
+    if(h){close();const lv=h[1].length+1;out.push(`<h${lv}>${inl(h[2])}</h${lv}>`);continue}
+    if(!line.trim()){close();continue}
+    let m=line.match(/^\s*[-*]\s+(.*)/);
+    if(m){if(!inUl){close();out.push('<ul>');inUl=true}out.push(`<li>${inl(m[1])}</li>`);continue}
+    m=line.match(/^\s*(\d+)[.、]\s+(.*)/);
+    if(m){if(!inOl){close();out.push('<ol>');inOl=true}out.push(`<li>${inl(m[2])}</li>`);continue}
+    close();out.push(`<p>${inl(line)}</p>`);
+  }
+  close();
+  return out.join('');
+}
+function inl(s){
+  return esc(s)
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/\[(\d+)\]/g,'<sup class="tag">[$1]</sup>')
+    .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+}
+
+let timer=null;
+async function poll(id){
+  const r=await fetch('/api/research/'+id);
+  const d=await r.json();
+  $('tag').textContent=d.status;
+  $('tag').className='tag '+d.status;
+  $('stage').textContent={pending:'排队中',running:'研究中',completed:'已完成',failed:'失败'}[d.status]||d.status;
+  $('bar').style.width=(d.progress||0)+'%';
+  const steps=(d.report&&d.report.process)||[];
+  $('detail').textContent=`轮次 ${d.rounds_used||0} · 关键词 ${(d.keywords_used||[]).length} 个 · 来源 ${d.pages_read?d.pages_read.length:0} 条`+(steps.length?` · ${steps[steps.length-1].action}：${steps[steps.length-1].detail.slice(0,60)}`:'');
+  if(d.status==='completed'){clearTimeout(timer);render(d.report);loadHist()}
+  else if(d.status==='failed'){clearTimeout(timer);$('errBox').textContent='研究失败：'+(d.error||'未知错误');$('errBox').classList.remove('hide')}
+  else timer=setTimeout(()=>poll(id),2000);
+}
+
+function render(rep){
+  if(!rep)return;
+  let h=`<div class="card"><h2 style="margin-top:0">${esc(rep.topic)}</h2>`;
+  h+=`<p class="meta">检索 ${rep.rounds_used} 轮 · 引用 ${rep.sources.length} 条来源 · 耗时 ${rep.elapsed_sec||0}s</p>`;
+  h+=`<h2>摘要</h2><p>${inl(rep.summary)}</p>`;
+  for(const s of rep.sections){h+=`<h2>${esc(s.heading)}</h2>${md(s.content)}`}
+  if(rep.key_findings&&rep.key_findings.length){h+='<h2>关键结论</h2><ol>'+rep.key_findings.map(k=>`<li>${inl(k)}</li>`).join('')+'</ol>'}
+  if(rep.open_questions&&rep.open_questions.length){h+='<h2>遗留问题</h2><ul>'+rep.open_questions.map(q=>`<li>${inl(q)}</li>`).join('')+'</ul>'}
+  const c=rep.confidence||{};
+  h+=`<h2>置信度说明</h2><ul>
+    <li>等级：<strong>${esc(c.level||'-')}</strong></li>
+    <li>依据：${esc(c.reason||'-')}</li>
+    <li>来源数：${c.source_count||0} · 检索轮次：${c.rounds_used||0}</li>
+    ${c.cutoff_note?`<li>信息截止：${esc(c.cutoff_note)}</li>`:''}
+  </ul>`;
+  h+='<h2>来源列表</h2>';
+  rep.sources.forEach((s,i)=>{h+=`<div class="src"><div>${i+1}. <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title||s.url)}</a></div><div class="meta">${esc(s.site_name||'未知来源')}</div></div>`});
+  h+=`<p style="margin-top:18px"><a href="/api/research/${rep.topic?window.curId:''}/markdown">下载 Markdown</a></p>`;
+  h+='</div>';
+
+  if(rep.process&&rep.process.length){
+    h+='<div class="card"><h2 style="margin-top:0">研究过程</h2><ul class="meta">';
+    for(const p of rep.process)h+=`<li>第${p.round}轮 · ${esc(p.action)}：${esc(p.detail)}</li>`;
+    h+='</ul></div>';
+  }
+  $('report').innerHTML=h;
+}
+
+$('go').onclick=async()=>{
+  const topic=$('topic').value.trim();
+  if(!topic){$('topic').focus();return}
+  $('go').disabled=true;$('errBox').classList.add('hide');$('report').innerHTML='';
+  $('statusBox').classList.remove('hide');$('bar').style.width='2%';
+  const r=await fetch('/api/research',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({topic,max_rounds:+$('rounds').value||0,fetch_full:$('full').checked})});
+  const d=await r.json();
+  window.curId=d.research_id;
+  poll(d.research_id);
+  $('go').disabled=false;
+};
+
+async function loadHist(){
+  const r=await fetch('/api/research?limit=8');
+  const d=await r.json();
+  if(!d.items||!d.items.length)return;
+  $('histBox').classList.remove('hide');
+  $('hist').innerHTML=d.items.map(i=>`<li><a href="#" onclick="open_('${i.id}');return false">${esc(i.topic)}</a> <span class="tag ${i.status}">${i.status}</span></li>`).join('');
+}
+function open_(id){
+  window.curId=id;
+  $('statusBox').classList.remove('hide');$('report').innerHTML='';
+  fetch('/api/research/'+id).then(r=>r.json()).then(d=>{if(d.report)render(d.report)});
+}
+
+fetch('/api/health').then(r=>r.json()).then(d=>{
+  $('health').innerHTML=(d.llm_ready?'✓ LLM 已配置':'✗ 缺 DEEPSEEK_API_KEY')+' · '+(d.search_ready?'✓ 搜索已配置':'✗ 缺 BOCHA_API_KEY');
+});
+loadHist();
+</script>
+</body>
+</html>

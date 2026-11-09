@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>楼道消防风险识别</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>楼道消防风险识别</h1>
+      <p class="intro">拍一张楼道照片，查看风险等级与判断依据。</p>
+    </header>
+    <section class="card" aria-labelledby="input-title">
+      <h2 id="input-title">选择一张照片</h2>
+      <p class="hint" id="file-hint">支持 JPEG、PNG、WebP，最大 10 MB。不支持 HEIC。</p>
+      <div class="inputs">
+        <div class="file-field">
+          <label for="camera">拍照</label>
+          <input id="camera" type="file" accept="image/*" capture="environment" aria-describedby="file-hint">
+        </div>
+        <div class="file-field">
+          <label for="upload">上传图片 / 从相册选择</label>
+          <input id="upload" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" aria-describedby="file-hint">
+        </div>
+      </div>
+      <p class="hint">拍照入口取决于手机浏览器；无法打开时，可先用系统相机拍照再上传。</p>
+      <figure id="preview-area" hidden>
+        <img id="preview" alt="当前待分析的照片">
+        <figcaption id="file-name"></figcaption>
+      </figure>
+      <div class="actions">
+        <button id="analyze" disabled>开始分析</button>
+        <button id="clear" class="secondary" disabled>清除照片</button>
+      </div>
+      <p id="status" role="status" aria-live="polite"></p>
+    </section>
+    <section id="result" class="card result" aria-labelledby="result-title" aria-live="polite" hidden>
+      <h2 id="result-title">识别结果</h2>
+      <p id="risk-level" class="badge"></p>
+      <h3>判断依据</h3>
+      <p id="reason"></p>
+    </section>
+  </main>
+</body>
+</html>

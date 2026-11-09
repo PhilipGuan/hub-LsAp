@@ -1,0 +1,501 @@
+app:
+  description: '作业1: 使用dify 搭建一个情感分析助手， 如果用户输入的是正向情感，则给用户做一个输出，希望你明天也很开心。
+
+    如果用户输入的一个负面情感，则对用户的困扰进行解答，并输出建议。需要使用chatflow 搭建，并运行截图，提交最终dsl。 - jhx'
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 作业1-情感分析助手-jhx
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.24@9e12eef09973667f0eaf4f082af883167e1de88740b22e71e71488d020c3778a
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.21@d467c6df6876dc5e70ad0b10c14631656ebbc904347eadf48e95b4fca7eda001
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1789484708671-source-1789484899689-target
+      source: '1789484708671'
+      sourceHandle: source
+      target: '1789484899689'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1789484899689-1-1789485254985-target
+      source: '1789484899689'
+      sourceHandle: '1'
+      target: '1789485254985'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1789484899689-2-1789485257877-target
+      source: '1789484899689'
+      sourceHandle: '2'
+      target: '1789485257877'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1789484899689-1789485050017-1789485260609-target
+      source: '1789484899689'
+      sourceHandle: '1789485050017'
+      target: '1789485260609'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1789485254985-source-1789486537105-target
+      source: '1789485254985'
+      sourceHandle: source
+      target: '1789486537105'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1789485257877-source-1789486548564-target
+      source: '1789485257877'
+      sourceHandle: source
+      target: '1789486548564'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1789485260609-source-1789486557405-target
+      source: '1789485260609'
+      sourceHandle: source
+      target: '1789486557405'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 72
+      id: '1789484708671'
+      position:
+        x: 24
+        y: 314
+      positionAbsolute:
+        x: 24
+        y: 314
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          label: 正向情感
+          name: '定义：
+
+            文本对某人、某事、某物表达积极态度或积极情绪，包括喜欢、满意、赞美、感谢、支持、期待、感动、认可、推荐等。
+
+            常见主题/场景：
+
+            好评、夸奖、感谢、推荐、复购、祝福、鼓励、满意、惊喜、期待、支持、认同。
+
+            判定信号：
+
+            很好、喜欢、满意、谢谢、赞、推荐、期待、棒、暖心、给力、爱了、不错、优秀、感动、支持。
+
+            示例：
+
+            “这家店服务很好，下次还来。”
+
+            “谢谢你的帮助，真的很暖心。”
+
+            “虽然等了很久，但结果很满意。”
+
+            → 主导是正向，归正向。
+
+            边界规则：
+
+            反讽不算正向：“真是太好了，又加班到凌晨。”实际是负向。
+
+            混合情感看主导：正负都有但正向明显更强，归正向。
+
+            纯事实不一定正向：“发货很快”如果只是陈述，可能中性；如果表达满意，则正向。'
+        - id: '2'
+          label: 负向情感
+          name: '定义：
+
+            文本表达消极态度或消极情绪，包括不满、愤怒、失望、焦虑、悲伤、厌恶、批评、嘲讽、痛苦、投诉等。
+
+            常见主题/场景：
+
+            差评、吐槽、投诉、维权、退款、抱怨、批评、愤怒、失望、焦虑、崩溃、无语、避雷。
+
+            判定信号：
+
+            差、烂、恶心、失望、无语、崩溃、投诉、退款、再也不、垃圾、坑、服了、气死、难受、避雷。
+
+            示例：
+
+            “太差了，客服一直不回复。”
+
+            “很失望，不会再买。”
+
+            “真是服了，又出问题。”
+
+            边界规则：
+
+            反讽按真实情感判：“真棒，又坏了。”→ 负向。
+
+            疑问可能中性，也可能负向：“为什么还没到？”如果只是询问，中性；如果明显抱怨，负向。
+
+            混合情感看主导：负向明显更强，归负向。'
+        - id: '1789485050017'
+          label: 其他或中性
+          name: '定义：
+
+            没有明显情感倾向，或情感极弱、无法判断、正负混合且无主导、与情感评价无关的内容。
+
+            常见主题/场景：
+
+            事实陈述、知识问答、操作指令、一般疑问、客观描述、时间地点数字、无评价、混合无主导、无法判断、与情感无关。
+
+            判定信号：
+
+            是、有、在、时间、地点、数字、步骤、请问、如何、是否、客观描述，无明显褒贬。
+
+            示例：
+
+            “手机重量 200 克。”
+
+            “明天几点开会？”
+
+            “我收到了快递。”
+
+            “既不好也不坏。”
+
+            “A 比 B 重 10 克。”
+
+            边界规则：
+
+            正负混合且强度相当：归“其他或中性”。
+
+            情感很弱：“还行”“一般”可归中性，也可按业务规则归弱正向，但必须统一。
+
+            无法判断、信息不足：归“其他或中性”。'
+        instruction: '只判断用户当前表达的整体情感，不回答用户问题。
+
+          正向、负向、其他或中性三选一。
+
+          只输出类别名称。'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3.7-flash
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1789484708671'
+        - sys.query
+        selected: false
+        title: 问题分类器
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 219
+      id: '1789484899689'
+      position:
+        x: 0
+        y: 466
+      positionAbsolute:
+        x: 0
+        y: 466
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4.1-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - edition_type: basic
+          id: c01d770c-34ec-4626-83f8-0263a46b1b6f
+          role: system
+          text: '你是情绪支持助手。用户表达了正向情感。
+
+            请用温暖、自然的一句话回应，并且必须包含：
+
+            希望你明天也很开心。'
+        - id: 10efda49-da9b-42e8-ad15-1b798dc3bd1d
+          role: user
+          text: '{{#sys.query#}}'
+        reasoning_format: separated
+        selected: false
+        title: 正向模型
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1789485254985'
+      position:
+        x: 301
+        y: 466
+      positionAbsolute:
+        x: 301
+        y: 466
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: be4dea00-28cb-4014-bca1-5a6aa7ad2da5
+          role: system
+          text: '你是情绪支持助手。用户现在有困扰。
+
+            先共情，说明你理解他的感受；再给出 2-4 条具体、可执行的建议；
+
+            不要做医学诊断，也不要承诺问题一定解决。最后给一句鼓励。'
+        - id: a6e31498-7aa8-41d8-914d-302c8fc284bf
+          role: user
+          text: '{{#sys.query#}}'
+        reasoning_format: separated
+        selected: false
+        title: 负向模型
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1789485257877'
+      position:
+        x: 301
+        y: 592
+      positionAbsolute:
+        x: 301
+        y: 592
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params:
+            temperature: 0.7
+            thinking: false
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: d0767b44-3875-4b2e-89f8-e9b846413517
+          role: system
+          text: '你是情绪支持助手。用户表达的是中性、信息不足或情感不明确的输入。
+
+            请不要强行判断用户开心或难过。
+
+            先用一句话复述你理解到的内容，再温和地询问：
+
+            用户希望获得情绪支持、具体问题建议，还是普通信息回答。
+
+            语气自然、简短，不要过度热情。'
+        - id: 903554b7-2d00-4474-83a4-0f9a0ec91bda
+          role: user
+          text: '{{#sys.query#}}'
+        reasoning_format: separated
+        selected: false
+        title: 其他或者中性模型
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1789485260609'
+      position:
+        x: 301
+        y: 718
+      positionAbsolute:
+        x: 301
+        y: 718
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1789485254985.text#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 102
+      id: '1789486537105'
+      position:
+        x: 602
+        y: 466
+      positionAbsolute:
+        x: 602
+        y: 466
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1789485257877.text#}}'
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 102
+      id: '1789486548564'
+      position:
+        x: 602
+        y: 592
+      positionAbsolute:
+        x: 602
+        y: 592
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1789485260609.text#}}'
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 102
+      id: '1789486557405'
+      position:
+        x: 602
+        y: 718
+      positionAbsolute:
+        x: 602
+        y: 718
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 251.32776723329175
+      y: 26.90720506520671
+      zoom: 0.6597539553864473
+  rag_pipeline_variables: []

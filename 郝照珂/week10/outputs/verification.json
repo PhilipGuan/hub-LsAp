@@ -1,0 +1,12 @@
+{
+  "verified_at": "2026-10-15T22:38:07.543984+08:00",
+  "model": "deepseek-chat",
+  "translation_cases": 5,
+  "called_tools": [
+    "calculate_bmi",
+    "convert_temperature",
+    "text_statistics"
+  ],
+  "status": "passed",
+  "note": "真实模型API及独立stdio MCP服务；译文质量需要人工复核。"
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!-- layui 2.13.9，静态资源已随项目打包，见 /static/vendor/layui/LICENSE。 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Chinook 数据查询台</title>
+  <link rel="icon" href="/static/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/vendor/layui/css/layui.css">
+  <link rel="stylesheet" href="/static/assets/app.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+            <ellipse cx="12" cy="5.5" rx="7.5" ry="3"></ellipse>
+            <path d="M4.5 5.5v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6"></path>
+            <path d="M4.5 11.5v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6"></path>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>Chinook</strong>
+          <small>数据查询台</small>
+        </span>
+      </div>
+
+      <div class="sidebar-body">
+        <p class="side-caption">工作台</p>
+        <nav class="side-nav" aria-label="主导航">
+          <a class="side-link is-active" href="#workspace" title="智能问数">
+            <i class="layui-icon layui-icon-console" aria-hidden="true"></i>
+            <span>智能问数</span>
+          </a>
+          <a class="side-link" href="#schema-panel" id="link-schema" title="数据概览">
+            <i class="layui-icon layui-icon-table" aria-hidden="true"></i>
+            <span>数据概览</span>
+          </a>
+        </nav>
+
+        <p class="side-caption">常用问题</p>
+        <div class="example-list" id="example-list">
+          <span class="side-placeholder">正在加载…</span>
+        </div>
+      </div>
+
+      <div class="sidebar-foot">
+        <span class="dot dot-wait" id="server-dot" aria-hidden="true"></span>
+        <span id="server-text">正在连接服务</span>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="crumb">数据分析 <span>/</span> <strong>智能问数</strong></div>
+        <div class="topbar-right">
+          <span class="model-badge" id="model-badge" title="当前使用的主模型">-</span>
+          <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" id="btn-settings">
+            <i class="layui-icon layui-icon-set" aria-hidden="true"></i>
+            <span>接口设置</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="content" id="workspace">
+        <section class="workbench" aria-label="查询工作区">
+          <div class="card query-card">
+            <div class="card-head">
+              <div>
+                <h1>发起查询</h1>
+                <p>输入业务问题，系统自动完成选表、SQL 生成、校验与只读执行。</p>
+              </div>
+              <span class="db-chip" title="当前数据库">
+                <i class="layui-icon layui-icon-release" aria-hidden="true"></i>
+                <span id="db-file">chinook.db</span>
+              </span>
+            </div>
+
+            <form class="query-form" id="query-form" autocomplete="off">
+              <label class="sr-only" for="question">查询问题</label>
+              <textarea id="question" class="layui-textarea query-input" maxlength="2000"
+                placeholder="例如：每个流派分别有多少首歌曲？"></textarea>
+              <div class="query-foot">
+                <span class="hint"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> 提交，仅执行只读 SELECT</span>
+                <button type="submit" class="layui-btn btn-brand" id="btn-query">
+                  <i class="layui-icon layui-icon-search" aria-hidden="true"></i>
+                  <span>开始查询</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="feed" id="feed" aria-live="polite">
+            <div class="empty-state" id="empty-state">
+              <span class="empty-icon" aria-hidden="true">
+                <i class="layui-icon layui-icon-console"></i>
+              </span>
+              <h3>还没有查询记录</h3>
+              <p>从左侧常用问题开始，或直接描述你想了解的数据。</p>
+              <div class="empty-actions" id="empty-actions"></div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="rail" aria-label="数据库信息">
+          <div class="card" id="schema-panel">
+            <div class="card-head slim">
+              <h2>数据库概览</h2>
+              <span class="muted" id="table-count">-</span>
+            </div>
+            <div class="table-list" id="table-list">
+              <p class="rail-placeholder">正在加载表结构…</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head slim">
+              <h2>本次会话</h2>
+            </div>
+            <dl class="stat-grid">
+              <div><dt>查询次数</dt><dd id="stat-total">0</dd></div>
+              <div><dt>成功</dt><dd id="stat-success">0</dd></div>
+              <div><dt>平均耗时</dt><dd id="stat-elapsed">-</dd></div>
+            </dl>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-mask" id="drawer-mask" hidden></div>
+  <aside class="drawer" id="settings-drawer" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="drawer-title">
+    <div class="drawer-head">
+      <div>
+        <h2 id="drawer-title">接口设置</h2>
+        <p>仅作用于当前浏览器标签页，可覆盖服务端默认配置。</p>
+      </div>
+      <button type="button" class="icon-btn" id="btn-close-drawer" aria-label="关闭设置">
+        <i class="layui-icon layui-icon-close"></i>
+      </button>
+    </div>
+
+    <form class="drawer-body" id="settings-form" autocomplete="off">
+      <div class="field">
+        <label for="input-base-url">大模型接口地址</label>
+        <input class="layui-input" id="input-base-url" type="text" spellcheck="false"
+          placeholder="https://api.deepseek.com">
+        <p class="field-hint" id="base-url-hint">留空使用服务端默认端点。</p>
+      </div>
+
+      <div class="field">
+        <label for="input-api-key">API Key</label>
+        <input class="layui-input key-input" id="input-api-key" type="password" spellcheck="false"
+          autocomplete="new-password" placeholder="留空使用服务端环境变量">
+        <p class="field-hint">密钥以星号显示，只保存在当前标签页，不会写入日志。</p>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="input-model">主模型</label>
+          <input class="layui-input" id="input-model" type="text" spellcheck="false" placeholder="服务端默认">
+        </div>
+        <div class="field">
+          <label for="input-summary-model">汇总模型</label>
+          <input class="layui-input" id="input-summary-model" type="text" spellcheck="false" placeholder="服务端默认">
+        </div>
+      </div>
+
+      <div class="drawer-tip" id="key-status">正在读取服务端配置…</div>
+
+      <div class="drawer-actions">
+        <button type="button" class="layui-btn layui-btn-primary" id="btn-reset-settings">恢复默认</button>
+        <button type="submit" class="layui-btn btn-brand" id="btn-save-settings">保存设置</button>
+      </div>
+    </form>
+  </aside>
+
+  <script src="/static/vendor/layui/layui.js"></script>
+  <script src="/static/assets/app.js"></script>
+</body>
+</html>

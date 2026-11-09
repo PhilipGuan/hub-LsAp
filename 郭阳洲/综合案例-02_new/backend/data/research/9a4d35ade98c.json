@@ -1,0 +1,702 @@
+{
+  "research_id": "9a4d35ade98c",
+  "topic": "2026 年主流 Agent 框架对比",
+  "status": "completed",
+  "created_at": "2026-09-10T14:51:51.736809Z",
+  "updated_at": "2026-09-10T14:53:48.957816Z",
+  "error": null,
+  "report": {
+    "title": "2026 年主流 Agent 框架对比研究：格局、能力与选型依据",
+    "summary": "本报告梳理 2026 年主流 AI Agent 开发框架的整体格局、能力差异与选型依据，研究覆盖五个方面：框架总体版图与评测方法、多智能体框架横向对比、MCP 协议与多智能体编排、生产落地中的可靠性与成本争议、企业级平台与选型趋势。核心发现包括：框架数量口径已从 2024 年的「四大金刚」扩展为 2026 年的「八大」乃至「十一大」，业界对「主流」尚无统一定义，评测维度也因生态（如 Java）与评测者口径而异；LangGraph、CrewAI、AutoGen 构成多智能体选型的核心三角，各来源在架构、易用性与协作模式上给出不同倾向，未形成共识结论；LangChain 仍被视为生态最完善的基础框架。MCP 协议自 2024 年 11 月由 Anthropic 推出后，正从接口规范走向框架化与平台化。市场层面，Markets & Markets 预计 AI Agent 市场规模将从 2024 年 50 亿美元增至 2030 年 470 亿美元，年均复合增长率 44.8%，但企业级市场的规模与增速口径存在明显分歧。生产侧，稳定性、安全、成本与可解释性构成四大挑战，可靠性工程与规模化交付能力正取代模型能力本身，成为选型的关键变量。",
+    "sections": [
+      {
+        "heading": "2026 主流 Agent 框架 对比评测",
+        "body": "2026年，AI Agent已从概念热词转变为实际的生产力工具，围绕其开发框架的选型与评测也成为工程实践中的核心议题。从公开的框架梳理来看，主流框架的数量与格局在两年间发生了明显变化：2024年被称为\"四大金刚\"的LangChain、LlamaIndex、AutoGen与CrewAI，到2026年已被扩展进十一大框架的版图；与此同时，亦有梳理以\"八大主流框架\"为范围展开选型分析。这种数量与覆盖范围上的分歧本身说明，业界对\"主流\"的界定尚未形成统一标准，不同评测者所依据的口径并不一致。\n\n在对比方法上，各类评测普遍尝试建立多维度的评估体系。针对Java生态的评测从企业级特性、生态成熟度、功能丰富度、易用性及扩展性五个维度，对六款主流Java Agent框架进行横向比较；范围更广的框架梳理则关注各框架的基本思想、技术风格、定位、成熟度与关注度，并将业界背书纳入考量，涉及的框架包括LangGraph、PydanticAI等。在编排能力方面，LangChain被视为生态最为完善的基础框架，提供模块化组件以支持工具集成、记忆管理和多Agent协作，这一判断在2025年的框架评述中已被提出。框架层面的竞争也伴随着配套技术路线的演进，2026年的开发实践讨论已将MCP协议与主流框架并列解析，反映出框架能力与协议标准正在同步走向成熟。\n\n选型之外，应用落地同样被纳入评测视野。相关梳理覆盖从核心概念到实际部署建议的完整链条，并将Agent定义为能够自主感知环境、规划决策并执行多步任务的AI系统；选型讨论则进一步延伸到技术原理与行业应用的对应关系，试图回答如何选择最适合自身需求的开发工具这一问题。\n\n市场层面的预测为框架竞争提供了背景。据Markets & Markets测算，AI Agent市场规模将从2024年的50亿美元增长至2030年的470亿美元，年均复合增长率达44.8%。这一增速意味着，框架的成熟度、生态完整性与企业级适配能力将持续成为选型的关键变量；而不同来源在框架数量、评测维度与覆盖范围上的差异，也提示使用者需结合自身技术栈与部署场景作出判断，而非依赖单一榜单或单一年度的梳理结论。",
+        "conclusions": []
+      },
+      {
+        "heading": "LangGraph CrewAI AutoGen 对比 2026",
+        "body": "2026年，围绕多智能体系统的框架选型讨论明显集中在 LangGraph、CrewAI 与 AutoGen 三者之间。多份发布于2026年的技术对比材料均将这三个框架视为当前最受关注的 AI Agent 框架，并指出其各有侧重。其中一类对比从架构设计、上手难度与适用场景三个维度展开，同时梳理了三者的开发者、首次发布时间、GitHub Stars 与核心理念等基本信息；另一类对比则将其置于五个框架的横向实测之中，除 LangGraph、CrewAI、AutoGen 外还纳入了 LangChain 与 Mastra，以多维度实测结果作为选型依据，并提出借助此类对比可提升选型效率。\n\n关于框架的来源与定位，有一份论文相关页面给出简要标注：AutoGen 由 Microsoft 于2023年发布，CrewAI 同样于2023年出现，LangGraph 则由 LangChain 于2024年推出；同一页面还把 AgentScope（清华大学，2024）列为同类框架之一。在技术定位上，有选型资料将 LangChain 与 LangGraph 描述为 AI 应用的“底层开发框架”，认为它们为开发者提供模块化组件与设计模式，因而对使用者的编程能力要求较强。在协作模式方面，一份课程问答材料对 AutoGen 与 LangGraph 进行了对比，指出 AutoGen 采用基于多角色对话的自然协作模式，智能体在“群聊”环境中通过对话完成交互，AutoGen 与 LangGraph 的对照分析也因此成为多个材料反复提及的内容。\n\n在应用驱动层面，有对比文章指出，2026年 AI Agent 已从概念走向大规模应用，GPT-4.5、Claude 4.5 等大模型能力的提升，使开发者更需要高效的框架来构建多 Agent 协作系统。围绕具体落地场景，也有材料以“三天内搭建多 Agent 客服系统”为例，讨论在 LangGraph 与 CrewAI 之间如何取舍，并强调选错框架可能导致学习投入与团队需求不匹配。此外，LangGraph 与 CrewAI 在多智能体编排上的关键差异，也被单独作为问题提出并加以讨论。\n\n整体来看，现有材料在对比维度、纳入框架的范围与侧重场景上存在差异，但均把 LangGraph、CrewAI 与 AutoGen 视为2026年多智能体框架选型的核心选项，并倾向于从架构设计、易用性、协作模式以及与实际场景的匹配度等角度给出建议。对于三者之中“谁更优”，各来源并未形成统一结论，而是依据自身的测试维度与目标场景给出了不同的选择倾向。",
+        "conclusions": []
+      },
+      {
+        "heading": "Agent 框架 多智能体编排 MCP 协议",
+        "body": "大语言模型与智能体技术的结合，被视为当前人工智能应用落地的重要方向，而 MCP（Model Context Protocol，模型上下文协议）在其中承担了关键的连接角色。该协议由 Anthropic 公司于 2024 年 11 月推出，属于开放标准协议，核心目标是通过建立统一的接口规范，解决 AI 应用与外部能力对接的问题。在此基础上，智能体通常被理解为能够自主执行复杂任务的智能实体，一般基于大语言模型构建，配备相应指令与工具，可独立完成网络搜索、文件处理等多步骤任务，而 MCP 则为这类智能体提供了调用外部工具的通用通道。\n\n围绕 MCP 已经出现多种面向智能体开发的框架。其中 mcp-agent 被描述为使用模型上下文协议构建代理的简单、可组合框架，其设计灵感来自 Anthropic 面向 AI 应用开发者发布的基础更新，即将模型上下文协议确立为一种标准化接口，使各类软件能够以统一方式向 AI 应用暴露能力。多份材料以“五分钟上手 MCP-Agent 多智能体协作”为切入点介绍该框架，说明多智能体协作能力是其受到关注的主要特性之一。\n\n在多智能体编排层面，Agent-MCP 被定位为专为 AI 开发者设计的多智能体编排框架，针对传统 AI 开发中上下文混乱与单线程瓶颈等问题，实现多 Agent 并行开发，并通过持久化知识图谱确保项目上下文不丢失，同时提供实时可视化协作功能。另有研究以基于 MCP 架构的多智能体协同系统设计与实现为题，指出随着大语言模型与自主智能体技术的快速发展，如何高效调度多个异构智能体，已经成为构建复杂任务系统的关键问题。这一判断与前述框架所针对的痛点基本一致，即编排效率与上下文管理是 MCP 类方案的核心议题。\n\n从工具调用机制看，基础形态的 Agent 往往将全部工具定义并运行于同一进程之内，例如以四个工具模块配合 ReAct 循环手写编程智能体的做法即属此类；MCP 协议的意义在于让 Agent 能够跨进程调用工具，从而突破单进程环境的限制。在平台侧，腾讯云于 2025 年 4 月 14 日宣布其智能体开发平台升级支持 MCP 协议，用户在搭建应用时可以调用平台精选的 MCP 插件，也可以插入自定义 MCP 插件，其知识引擎平台已精选多款 MCP 服务。\n\n总体而言，MCP 正从一份协议规范逐步走向框架化与平台化落地，多智能体编排则是其最主要的应用方向之一。",
+        "conclusions": []
+      },
+      {
+        "heading": "Agent 框架 生产落地 可靠性 成本 争议",
+        "body": "围绕 Agent 框架的讨论，已从概念热度转向生产落地的现实检验。行业报告显示，几乎所有大型科技公司以及快速崛起的创业公司都在积极布局 Agent 产品，但技术突破的关键并不在于单点创新，而在于能否实现规模化落地并建立可信赖的产品体系。企业实践中的普遍反馈是，Agent 在技术演示环节表现流畅，交付到企业客户手中却出现明显断层，真正拉开差距的往往不是模型智商，而是工程化与体系化能力。\n\n就落地障碍而言，稳定性、安全、成本与可解释性被视为四大核心挑战，对应的常见做法包括增加超时机制、引入权限控制、以更小模型压低成本以及完善日志记录。可靠性被反复强调为核心命题，从 Demo 到生产之间存在鸿沟，需要可落地的架构方案与实现模式来界定其边界。技术层面，主流 Agent 多基于大语言模型搭建，在复杂场景中模型能力短板显现，长上下文等问题构成模型与工程的双重羁绊；企业侧则存在体系缺失与多重卡点，集中表现为不稳定、不安全、难管理。成本压力推动部分团队转向小模型与更严格的工程控制，而早期基于自动化流程构建的传统数字员工同样存在诸多局限。\n\n对于行业所处阶段，目前存在不同判断。一种观点认为，2026 年模型能力已越过某个门槛，模型输出达到相对稳定的工程可用状态，Agent 产品设计不再像一年前那样高度依赖基础模型的迭代，工程师的重心随之发生转移。另一种来自一线实践的声音则对铺天盖地的自主智能体热潮保持清醒，有开发者在开发、DevOps 和数据运维等领域亲手构建过十二个以上真正投入生产的 Agent 系统，并对其可靠性持保留态度。综合来看，Agent 框架的竞争焦点正由模型能力本身，转向可靠性工程、成本控制与规模化交付能力，能否在生产环境中持续稳定运行，已成为衡量其价值的实际标准。",
+        "conclusions": []
+      },
+      {
+        "heading": "企业级 Agent 平台 选型 趋势 2026",
+        "body": "2026年，企业级 AI Agent 正从技术概念验证阶段迈入规模化落地的关键期，被普遍视为当前企业数字化转型中确定性较高的投入方向。Gartner 预测，到2026年底，全球40%的企业应用将内置任务型 Agent，这一判断在多份行业梳理中被反复引用。市场数据则存在不同口径：有资料称2025年全球企业级智能体市场规模将达3.3万亿美元，2023至2027年复合增长率高达120%，中国2025年应用市场规模突破232亿元；也有资料同样给出2025年全球规模已达3.3万亿美元的数值，但将年复合增长率表述为28%的高位，并强调中国市场增速领跑、企业级 AI 相关投入跑出加速度。两种说法在增速上差异明显，选型时对市场规模与增速数据需审慎对待。\n\n在平台定位与选型维度上，相关梳理普遍围绕价值体系、主流分类、技术趋势与选型指南四条主线展开，并出现以排名和实用指南形式呈现的选型参考。Data Agent 被视为其中重要分支，2026年企业级 Data Agent 开发平台已从技术验证阶段全面进入规模化商业落地周期，以自然语言交互、自动化数据处理、智能决策辅助为核心，贯通数据治理、分析与应用全链路；围绕该类平台已形成按五大类主流产品划分的解析，以及从权威维度评估出发的产品整理。面向企业决策者、技术架构师与产品负责人的技术栈与垂直选型指南，则强调全栈覆盖与高信息密度，指向技术栈适配与垂直场景落地。开发者视角的推荐中，蚂蚁数科 Agentar 被列为全栈标杆类的优选对象。与此同时，OpenAI 推出企业级 Agent 服务，被解读为 AI 应用进入新阶段，有望推动自动化流程与数据分析等场景，并进一步带动企业级 Agent 从概念验证走向规模化部署。综合来看，2026年的选型讨论已从单一功能比对，转向对平台价值、分类归属、技术栈适配、厂商可定制化能力与服务商资质的综合权衡，可定制化厂商与 Data Agent 平台的选择成为企业落地过程中的关注重点。",
+        "conclusions": []
+      }
+    ],
+    "key_conclusions": [
+      {
+        "text": "2026 年主流框架版图较 2024 年明显扩大：当年的「四大金刚」（LangChain、LlamaIndex、AutoGen、CrewAI）已被扩展进十一大框架的梳理范围，同时也有以「八大主流框架」为口径的选型分析，说明业界对「主流」的界定尚未统一；评测方法上已出现面向 Java 生态、从企业级特性、生态成熟度、功能丰富度、易用性及扩展性五个维度对六款主流框架的横向比较。",
+        "sources": [
+          {
+            "url": "https://blog.csdn.net/qcx23/article/details/161533823",
+            "title": "【系统学AI】11 Agent开发框架选型(2026版):最新的11大框架地图“-CSDN博客"
+          },
+          {
+            "url": "https://juejin.cn/post/7627327134639390760",
+            "title": "2026 年 AI Agent 框架选型:8 大主流框架,看完这篇就够了2026 年 AI Agent 框架选型:8 大 - 掘金"
+          },
+          {
+            "url": "https://blog.csdn.net/wenzhangli/article/details/160145705",
+            "title": "Java Agent 开源框架全景对比:2026年选型指南与客观评测_java agent框架-CSDN博客"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "LangGraph、CrewAI 与 AutoGen 被 2026 年的多份对比材料视为最受关注的三个框架，对比维度集中在架构设计、上手难度与适用场景，并有材料将 LangChain 与 Mastra 一并纳入五框架实测；在协作模式上，AutoGen 采用基于多角色对话的自然协作模式，智能体在「群聊」环境中通过对话完成交互，与 LangGraph 形成对照。各来源未就「谁更优」给出统一结论，而是依据自身测试维度与目标场景给出不同选择倾向。",
+        "sources": [
+          {
+            "url": "https://blog.csdn.net/2401_86326742/article/details/159888195",
+            "title": "AutoGen vs CrewAI vs LangGraph:2026年 Agent 框架怎么选?_2026agent最新开发框架比较-CSDN博客"
+          },
+          {
+            "url": "https://juejin.cn/post/7626210940011790390",
+            "title": "2026 Agent 框架终极对比!LangGraph、CrewAI、AutoGen 5 维实测,这样选型效率翻倍 - 掘金"
+          },
+          {
+            "url": "https://www.cnblogs.com/leonPersevere/p/19601057",
+            "title": "hello_agent_ch6_answer - Leon_LL - 博客园"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "在框架来源与定位上，有论文页面标注 AutoGen 由 Microsoft 于 2023 年发布、CrewAI 同样出现于 2023 年、LangGraph 由 LangChain 于 2024 年推出，并将 AgentScope（清华大学，2024）列为同类框架；选型资料则将 LangChain 与 LangGraph 描述为 AI 应用的「底层开发框架」，提供模块化组件与设计模式，对使用者的编程能力要求较强。",
+        "sources": [
+          {
+            "url": "https://hub.baai.ac.cn/paper/77d983f4-f1e3-4a1f-b94c-80e83fa4acc9",
+            "title": "MASFactory: A Graph-centric Framework for Orchestrating LLM-Based Multi-Agent Systems with Vibe Graphing - 智源社区论文"
+          },
+          {
+            "url": "https://www.cnblogs.com/pass-ion/p/19482714",
+            "title": "技术选型 - wangssd - 博客园"
+          },
+          {
+            "url": "https://m.blog.csdn.net/Jailman/article/details/146064966",
+            "title": "2025年主流AI agent编排框架"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "MCP（Model Context Protocol，模型上下文协议）由 Anthropic 于 2024 年 11 月推出，属开放标准协议，目标是通过统一接口规范解决 AI 应用与外部能力对接问题；其意义在于让 Agent 能够跨进程调用工具，突破工具全部定义并运行于同一进程内的限制。围绕该协议已出现 mcp-agent、Agent-MCP 等面向多智能体协作与编排的框架，平台侧腾讯云亦于 2025 年 4 月 14 日宣布其智能体开发平台升级支持 MCP 协议。",
+        "sources": [
+          {
+            "url": "https://download.csdn.net/blog/column/12343638/146427598",
+            "title": "AI Agent中的MCP详解_搭建本地gpt-CSDN专栏"
+          },
+          {
+            "url": "https://cloud.tencent.com/developer/article/2514267",
+            "title": "三步搭建MCP Agent,腾讯云智能体开发平台上线MCP插件-腾讯云开发者社区-腾讯云"
+          },
+          {
+            "url": "https://www.jdon.com/78336.html",
+            "title": "mcp-agent：开源智能体构建框架"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "市场预测方面，据 Markets & Markets 测算，AI Agent 市场规模将从 2024 年的 50 亿美元增长至 2030 年的 470 亿美元，年均复合增长率 44.8%；企业级侧的预测则称 Gartner 预计到 2026 年底全球 40% 的企业应用将内置任务型 Agent。但企业级市场规模数据存在不同口径：有资料称 2025 年全球规模达 3.3 万亿美元、2023—2027 年复合增长率 120%，另有资料同样给出 3.3 万亿美元但将复合增长率表述为 28%，选型时需审慎对待。",
+        "sources": [
+          {
+            "url": "https://m.blog.csdn.net/wyj20082004/article/details/145095673",
+            "title": "26个开源Agent开发框架调研总结（2）"
+          },
+          {
+            "url": "https://juejin.cn/post/7662865139536838707",
+            "title": "一文读懂:企业级 AI Agent 平台(价值、分类、趋势、如何选)企业级 AI Agent 在 2026 年正从技术概 - 掘金"
+          },
+          {
+            "url": "https://news.zol.com.cn/1165/11659768.html",
+            "title": "2026年企业级智能体开发平台推荐:优选全栈标杆蚂蚁数科Agentar_业界资讯-中关村在线"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "生产落地层面，稳定性、安全、成本与可解释性被视为四大核心挑战，常见应对方式是增加超时机制、引入权限控制、以更小模型压低成本以及完善日志记录；Agent 在演示环节表现流畅、交付到企业客户却出现断层，真正拉开差距的往往不是模型智商而是工程化与体系化能力。因此框架竞争焦点正由模型能力本身转向可靠性工程、成本控制与规模化交付能力。",
+        "sources": [
+          {
+            "url": "https://blog.csdn.net/Python_cocola/article/details/161462056",
+            "title": "面试官:Agent 落地会遇到哪些坑?-CSDN博客"
+          },
+          {
+            "url": "https://juejin.cn/post/7650030764784861220",
+            "title": "重塑企业级 Agent 的可靠性边界目录 一、引言:为什么 Agent 可靠性是核心命题 二、Agent 可靠性威胁模型 - 掘金"
+          },
+          {
+            "url": "https://www.woshipm.com/ai/6404011.html",
+            "title": "企业 Agent 落地为什么这么难?一文讲透问题与破局思路 | 人人都是产品经理"
+          }
+        ],
+        "is_model_inference": false
+      }
+    ],
+    "open_questions": [
+      "各界对「主流框架」的数量与界定（八大、十一大或其他口径）仍不统一，是否需要一套可复现、公开的基准测试与统一评测维度？",
+      "LangGraph、CrewAI、AutoGen 在真实生产负载下的可靠性、延迟与成本表现，目前缺乏同口径的横向实测数据。",
+      "MCP 协议走向框架化与平台化后，跨厂商插件生态的互操作性、权限与安全模型应如何统一？",
+      "企业级 Agent 市场规模与增速存在 3.3 万亿美元下 120% 与 28% 两种说法，差异来源与权威统计口径有待核验。",
+      "长上下文、多智能体并行编排中的上下文管理与单线程瓶颈，是否有可复用的标准化工程解决方案？"
+    ]
+  },
+  "report_html": "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>2026 年主流 Agent 框架对比研究：格局、能力与选型依据</title>\n<style>\n  :root {\n    --ink: #1f2430;\n    --ink-soft: #4b5563;\n    --line: #e5e7eb;\n    --accent: #3b5bdb;\n    --accent-soft: #eef1fb;\n    --panel: #f7f8fa;\n  }\n  * { box-sizing: border-box; }\n  html { -webkit-text-size-adjust: 100%; }\n  body {\n    margin: 0;\n    padding: 40px 16px 64px;\n    background: #f2f3f5;\n    color: var(--ink);\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Helvetica Neue\", Arial, sans-serif;\n    font-size: 16px;\n    line-height: 1.85;\n  }\n  .page {\n    max-width: 860px;\n    margin: 0 auto;\n    padding: 52px 56px 44px;\n    background: #ffffff;\n    border: 1px solid var(--line);\n    border-radius: 10px;\n    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);\n  }\n  h1 {\n    font-size: 28px;\n    line-height: 1.45;\n    letter-spacing: 0.2px;\n    margin: 0 0 8px;\n    padding-bottom: 20px;\n    border-bottom: 3px solid var(--accent);\n    font-weight: 700;\n  }\n  h2 {\n    font-size: 20px;\n    line-height: 1.5;\n    margin: 44px 0 14px;\n    padding-left: 12px;\n    border-left: 4px solid var(--accent);\n    font-weight: 600;\n  }\n  h2:first-of-type { margin-top: 36px; }\n  p { margin: 0 0 1em; }\n  .summary {\n    background: var(--panel);\n    border: 1px solid var(--line);\n    border-radius: 8px;\n    padding: 20px 24px;\n    margin: 24px 0 8px;\n    color: var(--ink-soft);\n    font-size: 15px;\n    line-height: 1.9;\n  }\n  .summary p { margin: 0; }\n  .summary-label {\n    display: block;\n    font-size: 13px;\n    font-weight: 700;\n    letter-spacing: 1.5px;\n    color: var(--accent);\n    margin-bottom: 6px;\n  }\n  .section-body p { margin-bottom: 1.1em; }\n  .section-body p:last-child { margin-bottom: 0; }\n\n  /* 小节结论 */\n  .section-conclusions {\n    margin: 20px 0 0;\n    padding: 18px 22px;\n    background: var(--panel);\n    border-left: 3px solid var(--accent);\n    border-radius: 0 6px 6px 0;\n  }\n  .subsection-title {\n    font-size: 14px;\n    font-weight: 700;\n    color: var(--accent);\n    letter-spacing: 0.6px;\n    margin: 0 0 10px;\n  }\n  .section-conclusions ul { margin: 0; padding-left: 20px; }\n  .section-conclusions li { margin-bottom: 8px; color: var(--ink-soft); }\n  .section-conclusions li:last-child { margin-bottom: 0; }\n\n  /* 关键结论 */\n  .key-list { list-style: none; counter-reset: kc; margin: 0; padding: 0; }\n  .key-list > li {\n    counter-increment: kc;\n    position: relative;\n    padding: 18px 22px 16px 52px;\n    margin-bottom: 14px;\n    background: var(--accent-soft);\n    border: 1px solid #dfe4f7;\n    border-radius: 8px;\n  }\n  .key-list > li::before {\n    content: counter(kc);\n    position: absolute;\n    left: 18px;\n    top: 18px;\n    width: 22px;\n    height: 22px;\n    line-height: 22px;\n    text-align: center;\n    font-size: 13px;\n    font-weight: 700;\n    color: #ffffff;\n    background: var(--accent);\n    border-radius: 50%;\n  }\n  .key-text { margin: 0; }\n  .key-sources {\n    margin: 10px 0 0;\n    padding-top: 10px;\n    border-top: 1px dashed #c9d2f0;\n    font-size: 13.5px;\n    line-height: 1.9;\n    color: var(--ink-soft);\n  }\n  .key-sources .src-label { color: #6b7280; }\n  .src-item { display: inline-block; margin-right: 12px; }\n\n  .tag {\n    display: inline-block;\n    margin-left: 6px;\n    padding: 0 7px;\n    font-size: 12px;\n    line-height: 19px;\n    color: #8a5300;\n    background: #fff4dd;\n    border: 1px solid #f0d29a;\n    border-radius: 3px;\n    vertical-align: 2px;\n    white-space: nowrap;\n  }\n\n  /* 遗留问题 */\n  .questions { margin: 0; padding-left: 22px; }\n  .questions li { margin-bottom: 10px; color: var(--ink-soft); }\n  .questions li:last-child { margin-bottom: 0; }\n\n  /* 来源列表 */\n  .refs { list-style: none; counter-reset: ref; margin: 0; padding: 0; font-size: 14.5px; }\n  .refs li {\n    counter-increment: ref;\n    position: relative;\n    padding: 9px 0 9px 44px;\n    border-bottom: 1px solid #f0f1f3;\n    line-height: 1.75;\n    word-break: break-word;\n  }\n  .refs li:last-child { border-bottom: none; }\n  .refs li::before {\n    content: \"[\" counter(ref) \"]\";\n    position: absolute;\n    left: 0;\n    top: 9px;\n    width: 36px;\n    color: var(--accent);\n    font-weight: 700;\n    font-size: 13px;\n  }\n  .site {\n    display: inline-block;\n    margin-left: 6px;\n    color: #8b93a3;\n    font-size: 12.5px;\n  }\n\n  a { color: var(--accent); text-decoration: none; }\n  a:hover { text-decoration: underline; }\n  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }\n\n  footer {\n    margin-top: 48px;\n    padding-top: 18px;\n    border-top: 1px solid var(--line);\n    font-size: 13.5px;\n    color: #8b93a3;\n    text-align: center;\n  }\n\n  @media (max-width: 640px) {\n    body { padding: 20px 10px 40px; font-size: 15.5px; }\n    .page { padding: 28px 20px 30px; border-radius: 8px; }\n    h1 { font-size: 22px; }\n    h2 { font-size: 18px; margin-top: 34px; }\n    .key-list > li { padding: 16px 16px 14px 44px; }\n    .key-list > li::before { left: 14px; top: 16px; }\n    .summary { padding: 16px 16px; }\n  }\n</style>\n</head>\n<body>\n<div class=\"page\">\n\n  <h1>2026 年主流 Agent 框架对比研究：格局、能力与选型依据</h1>\n\n  <section class=\"summary\">\n    <span class=\"summary-label\">摘要</span>\n    <p>本报告梳理 2026 年主流 AI Agent 开发框架的整体格局、能力差异与选型依据，研究覆盖五个方面：框架总体版图与评测方法、多智能体框架横向对比、MCP 协议与多智能体编排、生产落地中的可靠性与成本争议、企业级平台与选型趋势。核心发现包括：框架数量口径已从 2024 年的「四大金刚」扩展为 2026 年的「八大」乃至「十一大」，业界对「主流」尚无统一定义，评测维度也因生态（如 Java）与评测者口径而异；LangGraph、CrewAI、AutoGen 构成多智能体选型的核心三角，各来源在架构、易用性与协作模式上给出不同倾向，未形成共识结论；LangChain 仍被视为生态最完善的基础框架。MCP 协议自 2024 年 11 月由 Anthropic 推出后，正从接口规范走向框架化与平台化。市场层面，Markets &amp; Markets 预计 AI Agent 市场规模将从 2024 年 50 亿美元增至 2030 年 470 亿美元，年均复合增长率 44.8%，但企业级市场的规模与增速口径存在明显分歧。生产侧，稳定性、安全、成本与可解释性构成四大挑战，可靠性工程与规模化交付能力正取代模型能力本身，成为选型的关键变量。</p>\n  </section>\n\n  <h2>2026 主流 Agent 框架 对比评测</h2>\n  <div class=\"section-body\">\n    <p>2026年，AI Agent已从概念热词转变为实际的生产力工具，围绕其开发框架的选型与评测也成为工程实践中的核心议题。从公开的框架梳理来看，主流框架的数量与格局在两年间发生了明显变化：2024年被称为\"四大金刚\"的LangChain、LlamaIndex、AutoGen与CrewAI，到2026年已被扩展进十一大框架的版图；与此同时，亦有梳理以\"八大主流框架\"为范围展开选型分析。这种数量与覆盖范围上的分歧本身说明，业界对\"主流\"的界定尚未形成统一标准，不同评测者所依据的口径并不一致。</p>\n    <p>在对比方法上，各类评测普遍尝试建立多维度的评估体系。针对Java生态的评测从企业级特性、生态成熟度、功能丰富度、易用性及扩展性五个维度，对六款主流Java Agent框架进行横向比较；范围更广的框架梳理则关注各框架的基本思想、技术风格、定位、成熟度与关注度，并将业界背书纳入考量，涉及的框架包括LangGraph、PydanticAI等。在编排能力方面，LangChain被视为生态最为完善的基础框架，提供模块化组件以支持工具集成、记忆管理和多Agent协作，这一判断在2025年的框架评述中已被提出。框架层面的竞争也伴随着配套技术路线的演进，2026年的开发实践讨论已将MCP协议与主流框架并列解析，反映出框架能力与协议标准正在同步走向成熟。</p>\n    <p>选型之外，应用落地同样被纳入评测视野。相关梳理覆盖从核心概念到实际部署建议的完整链条，并将Agent定义为能够自主感知环境、规划决策并执行多步任务的AI系统；选型讨论则进一步延伸到技术原理与行业应用的对应关系，试图回答如何选择最适合自身需求的开发工具这一问题。</p>\n    <p>市场层面的预测为框架竞争提供了背景。据Markets &amp; Markets测算，AI Agent市场规模将从2024年的50亿美元增长至2030年的470亿美元，年均复合增长率达44.8%。这一增速意味着，框架的成熟度、生态完整性与企业级适配能力将持续成为选型的关键变量；而不同来源在框架数量、评测维度与覆盖范围上的差异，也提示使用者需结合自身技术栈与部署场景作出判断，而非依赖单一榜单或单一年度的梳理结论。</p>\n  </div>\n\n  <h2>LangGraph CrewAI AutoGen 对比 2026</h2>\n  <div class=\"section-body\">\n    <p>2026年，围绕多智能体系统的框架选型讨论明显集中在 LangGraph、CrewAI 与 AutoGen 三者之间。多份发布于2026年的技术对比材料均将这三个框架视为当前最受关注的 AI Agent 框架，并指出其各有侧重。其中一类对比从架构设计、上手难度与适用场景三个维度展开，同时梳理了三者的开发者、首次发布时间、GitHub Stars 与核心理念等基本信息；另一类对比则将其置于五个框架的横向实测之中，除 LangGraph、CrewAI、AutoGen 外还纳入了 LangChain 与 Mastra，以多维度实测结果作为选型依据，并提出借助此类对比可提升选型效率。</p>\n    <p>关于框架的来源与定位，有一份论文相关页面给出简要标注：AutoGen 由 Microsoft 于2023年发布，CrewAI 同样于2023年出现，LangGraph 则由 LangChain 于2024年推出；同一页面还把 AgentScope（清华大学，2024）列为同类框架之一。在技术定位上，有选型资料将 LangChain 与 LangGraph 描述为 AI 应用的“底层开发框架”，认为它们为开发者提供模块化组件与设计模式，因而对使用者的编程能力要求较强。在协作模式方面，一份课程问答材料对 AutoGen 与 LangGraph 进行了对比，指出 AutoGen 采用基于多角色对话的自然协作模式，智能体在“群聊”环境中通过对话完成交互，AutoGen 与 LangGraph 的对照分析也因此成为多个材料反复提及的内容。</p>\n    <p>在应用驱动层面，有对比文章指出，2026年 AI Agent 已从概念走向大规模应用，GPT-4.5、Claude 4.5 等大模型能力的提升，使开发者更需要高效的框架来构建多 Agent 协作系统。围绕具体落地场景，也有材料以“三天内搭建多 Agent 客服系统”为例，讨论在 LangGraph 与 CrewAI 之间如何取舍，并强调选错框架可能导致学习投入与团队需求不匹配。此外，LangGraph 与 CrewAI 在多智能体编排上的关键差异，也被单独作为问题提出并加以讨论。</p>\n    <p>整体来看，现有材料在对比维度、纳入框架的范围与侧重场景上存在差异，但均把 LangGraph、CrewAI 与 AutoGen 视为2026年多智能体框架选型的核心选项，并倾向于从架构设计、易用性、协作模式以及与实际场景的匹配度等角度给出建议。对于三者之中“谁更优”，各来源并未形成统一结论，而是依据自身的测试维度与目标场景给出了不同的选择倾向。</p>\n  </div>\n\n  <h2>Agent 框架 多智能体编排 MCP 协议</h2>\n  <div class=\"section-body\">\n    <p>大语言模型与智能体技术的结合，被视为当前人工智能应用落地的重要方向，而 MCP（Model Context Protocol，模型上下文协议）在其中承担了关键的连接角色。该协议由 Anthropic 公司于 2024 年 11 月推出，属于开放标准协议，核心目标是通过建立统一的接口规范，解决 AI 应用与外部能力对接的问题。在此基础上，智能体通常被理解为能够自主执行复杂任务的智能实体，一般基于大语言模型构建，配备相应指令与工具，可独立完成网络搜索、文件处理等多步骤任务，而 MCP 则为这类智能体提供了调用外部工具的通用通道。</p>\n    <p>围绕 MCP 已经出现多种面向智能体开发的框架。其中 mcp-agent 被描述为使用模型上下文协议构建代理的简单、可组合框架，其设计灵感来自 Anthropic 面向 AI 应用开发者发布的基础更新，即将模型上下文协议确立为一种标准化接口，使各类软件能够以统一方式向 AI 应用暴露能力。多份材料以“五分钟上手 MCP-Agent 多智能体协作”为切入点介绍该框架，说明多智能体协作能力是其受到关注的主要特性之一。</p>\n    <p>在多智能体编排层面，Agent-MCP 被定位为专为 AI 开发者设计的多智能体编排框架，针对传统 AI 开发中上下文混乱与单线程瓶颈等问题，实现多 Agent 并行开发，并通过持久化知识图谱确保项目上下文不丢失，同时提供实时可视化协作功能。另有研究以基于 MCP 架构的多智能体协同系统设计与实现为题，指出随着大语言模型与自主智能体技术的快速发展，如何高效调度多个异构智能体，已经成为构建复杂任务系统的关键问题。这一判断与前述框架所针对的痛点基本一致，即编排效率与上下文管理是 MCP 类方案的核心议题。</p>\n    <p>从工具调用机制看，基础形态的 Agent 往往将全部工具定义并运行于同一进程之内，例如以四个工具模块配合 ReAct 循环手写编程智能体的做法即属此类；MCP 协议的意义在于让 Agent 能够跨进程调用工具，从而突破单进程环境的限制。在平台侧，腾讯云于 2025 年 4 月 14 日宣布其智能体开发平台升级支持 MCP 协议，用户在搭建应用时可以调用平台精选的 MCP 插件，也可以插入自定义 MCP 插件，其知识引擎平台已精选多款 MCP 服务。</p>\n    <p>总体而言，MCP 正从一份协议规范逐步走向框架化与平台化落地，多智能体编排则是其最主要的应用方向之一。</p>\n  </div>\n\n  <h2>Agent 框架 生产落地 可靠性 成本 争议</h2>\n  <div class=\"section-body\">\n    <p>围绕 Agent 框架的讨论，已从概念热度转向生产落地的现实检验。行业报告显示，几乎所有大型科技公司以及快速崛起的创业公司都在积极布局 Agent 产品，但技术突破的关键并不在于单点创新，而在于能否实现规模化落地并建立可信赖的产品体系。企业实践中的普遍反馈是，Agent 在技术演示环节表现流畅，交付到企业客户手中却出现明显断层，真正拉开差距的往往不是模型智商，而是工程化与体系化能力。</p>\n    <p>就落地障碍而言，稳定性、安全、成本与可解释性被视为四大核心挑战，对应的常见做法包括增加超时机制、引入权限控制、以更小模型压低成本以及完善日志记录。可靠性被反复强调为核心命题，从 Demo 到生产之间存在鸿沟，需要可落地的架构方案与实现模式来界定其边界。技术层面，主流 Agent 多基于大语言模型搭建，在复杂场景中模型能力短板显现，长上下文等问题构成模型与工程的双重羁绊；企业侧则存在体系缺失与多重卡点，集中表现为不稳定、不安全、难管理。成本压力推动部分团队转向小模型与更严格的工程控制，而早期基于自动化流程构建的传统数字员工同样存在诸多局限。</p>\n    <p>对于行业所处阶段，目前存在不同判断。一种观点认为，2026 年模型能力已越过某个门槛，模型输出达到相对稳定的工程可用状态，Agent 产品设计不再像一年前那样高度依赖基础模型的迭代，工程师的重心随之发生转移。另一种来自一线实践的声音则对铺天盖地的自主智能体热潮保持清醒，有开发者在开发、DevOps 和数据运维等领域亲手构建过十二个以上真正投入生产的 Agent 系统，并对其可靠性持保留态度。综合来看，Agent 框架的竞争焦点正由模型能力本身，转向可靠性工程、成本控制与规模化交付能力，能否在生产环境中持续稳定运行，已成为衡量其价值的实际标准。</p>\n  </div>\n\n  <h2>企业级 Agent 平台 选型 趋势 2026</h2>\n  <div class=\"section-body\">\n    <p>2026年，企业级 AI Agent 正从技术概念验证阶段迈入规模化落地的关键期，被普遍视为当前企业数字化转型中确定性较高的投入方向。Gartner 预测，到2026年底，全球40%的企业应用将内置任务型 Agent，这一判断在多份行业梳理中被反复引用。市场数据则存在不同口径：有资料称2025年全球企业级智能体市场规模将达3.3万亿美元，2023至2027年复合增长率高达120%，中国2025年应用市场规模突破232亿元；也有资料同样给出2025年全球规模已达3.3万亿美元的数值，但将年复合增长率表述为28%的高位，并强调中国市场增速领跑、企业级 AI 相关投入跑出加速度。两种说法在增速上差异明显，选型时对市场规模与增速数据需审慎对待。</p>\n    <p>在平台定位与选型维度上，相关梳理普遍围绕价值体系、主流分类、技术趋势与选型指南四条主线展开，并出现以排名和实用指南形式呈现的选型参考。Data Agent 被视为其中重要分支，2026年企业级 Data Agent 开发平台已从技术验证阶段全面进入规模化商业落地周期，以自然语言交互、自动化数据处理、智能决策辅助为核心，贯通数据治理、分析与应用全链路；围绕该类平台已形成按五大类主流产品划分的解析，以及从权威维度评估出发的产品整理。面向企业决策者、技术架构师与产品负责人的技术栈与垂直选型指南，则强调全栈覆盖与高信息密度，指向技术栈适配与垂直场景落地。开发者视角的推荐中，蚂蚁数科 Agentar 被列为全栈标杆类的优选对象。与此同时，OpenAI 推出企业级 Agent 服务，被解读为 AI 应用进入新阶段，有望推动自动化流程与数据分析等场景，并进一步带动企业级 Agent 从概念验证走向规模化部署。综合来看，2026年的选型讨论已从单一功能比对，转向对平台价值、分类归属、技术栈适配、厂商可定制化能力与服务商资质的综合权衡，可定制化厂商与 Data Agent 平台的选择成为企业落地过程中的关注重点。</p>\n  </div>\n\n  <h2>关键结论</h2>\n  <ol class=\"key-list\">\n    <li>\n      <p class=\"key-text\">2026 年主流框架版图较 2024 年明显扩大：当年的「四大金刚」（LangChain、LlamaIndex、AutoGen、CrewAI）已被扩展进十一大框架的梳理范围，同时也有以「八大主流框架」为口径的选型分析，说明业界对「主流」的界定尚未统一；评测方法上已出现面向 Java 生态、从企业级特性、生态成熟度、功能丰富度、易用性及扩展性五个维度对六款主流框架的横向比较。</p>\n      <p class=\"key-sources\"><span class=\"src-label\">来源：</span><span class=\"src-item\">[1] <a href=\"https://blog.csdn.net/qcx23/article/details/161533823\" target=\"_blank\" rel=\"noopener\">【系统学AI】11 Agent开发框架选型(2026版):最新的11大框架地图“-CSDN博客</a></span><span class=\"src-item\">[2] <a href=\"https://juejin.cn/post/7627327134639390760\" target=\"_blank\" rel=\"noopener\">2026 年 AI Agent 框架选型:8 大主流框架,看完这篇就够了2026 年 AI Agent 框架选型:8 大 - 掘金</a></span><span class=\"src-item\">[3] <a href=\"https://blog.csdn.net/wenzhangli/article/details/160145705\" target=\"_blank\" rel=\"noopener\">Java Agent 开源框架全景对比:2026年选型指南与客观评测_java agent框架-CSDN博客</a></span></p>\n    </li>\n    <li>\n      <p class=\"key-text\">LangGraph、CrewAI 与 AutoGen 被 2026 年的多份对比材料视为最受关注的三个框架，对比维度集中在架构设计、上手难度与适用场景，并有材料将 LangChain 与 Mastra 一并纳入五框架实测；在协作模式上，AutoGen 采用基于多角色对话的自然协作模式，智能体在「群聊」环境中通过对话完成交互，与 LangGraph 形成对照。各来源未就「谁更优」给出统一结论，而是依据自身测试维度与目标场景给出不同选择倾向。</p>\n      <p class=\"key-sources\"><span class=\"src-label\">来源：</span><span class=\"src-item\">[4] <a href=\"https://blog.csdn.net/2401_86326742/article/details/159888195\" target=\"_blank\" rel=\"noopener\">AutoGen vs CrewAI vs LangGraph:2026年 Agent 框架怎么选?_2026agent最新开发框架比较-CSDN博客</a></span><span class=\"src-item\">[5] <a href=\"https://juejin.cn/post/7626210940011790390\" target=\"_blank\" rel=\"noopener\">2026 Agent 框架终极对比!LangGraph、CrewAI、AutoGen 5 维实测,这样选型效率翻倍 - 掘金</a></span><span class=\"src-item\">[6] <a href=\"https://www.cnblogs.com/leonPersevere/p/19601057\" target=\"_blank\" rel=\"noopener\">hello_agent_ch6_answer - Leon_LL - 博客园</a></span></p>\n    </li>\n    <li>\n      <p class=\"key-text\">在框架来源与定位上，有论文页面标注 AutoGen 由 Microsoft 于 2023 年发布、CrewAI 同样出现于 2023 年、LangGraph 由 LangChain 于 2024 年推出，并将 AgentScope（清华大学，2024）列为同类框架；选型资料则将 LangChain 与 LangGraph 描述为 AI 应用的「底层开发框架」，提供模块化组件与设计模式，对使用者的编程能力要求较强。</p>\n      <p class=\"key-sources\"><span class=\"src-label\">来源：</span><span class=\"src-item\">[7] <a href=\"https://hub.baai.ac.cn/paper/77d983f4-f1e3-4a1f-b94c-80e83fa4acc9\" target=\"_blank\" rel=\"noopener\">MASFactory: A Graph-centric Framework for Orchestrating LLM-Based Multi-Agent Systems with Vibe Graphing - 智源社区论文</a></span><span class=\"src-item\">[8] <a href=\"https://www.cnblogs.com/pass-ion/p/19482714\" target=\"_blank\" rel=\"noopener\">技术选型 - wangssd - 博客园</a></span><span class=\"src-item\">[9] <a href=\"https://m.blog.csdn.net/Jailman/article/details/146064966\" target=\"_blank\" rel=\"noopener\">2025年主流AI agent编排框架</a></span></p>\n    </li>\n    <li>\n      <p class=\"key-text\">MCP（Model Context Protocol，模型上下文协议）由 Anthropic 于 2024 年 11 月推出，属开放标准协议，目标是通过统一接口规范解决 AI 应用与外部能力对接问题；其意义在于让 Agent 能够跨进程调用工具，突破工具全部定义并运行于同一进程内的限制。围绕该协议已出现 mcp-agent、Agent-MCP 等面向多智能体协作与编排的框架，平台侧腾讯云亦于 2025 年 4 月 14 日宣布其智能体开发平台升级支持 MCP 协议。</p>\n      <p class=\"key-sources\"><span class=\"src-label\">来源：</span><span class=\"src-item\">[10] <a href=\"https://download.csdn.net/blog/column/12343638/146427598\" target=\"_blank\" rel=\"noopener\">AI Agent中的MCP详解_搭建本地gpt-CSDN专栏</a></span><span class=\"src-item\">[11] <a href=\"https://cloud.tencent.com/developer/article/2514267\" target=\"_blank\" rel=\"noopener\">三步搭建MCP Agent,腾讯云智能体开发平台上线MCP插件-腾讯云开发者社区-腾讯云</a></span><span class=\"src-item\">[12] <a href=\"https://www.jdon.com/78336.html\" target=\"_blank\" rel=\"noopener\">mcp-agent：开源智能体构建框架</a></span></p>\n    </li>\n    <li>\n      <p class=\"key-text\">市场预测方面，据 Markets &amp; Markets 测算，AI Agent 市场规模将从 2024 年的 50 亿美元增长至 2030 年的 470 亿美元，年均复合增长率 44.8%；企业级侧的预测则称 Gartner 预计到 2026 年底全球 40% 的企业应用将内置任务型 Agent。但企业级市场规模数据存在不同口径：有资料称 2025 年全球规模达 3.3 万亿美元、2023—2027 年复合增长率 120%，另有资料同样给出 3.3 万亿美元但将复合增长率表述为 28%，选型时需审慎对待。</p>\n      <p class=\"key-sources\"><span class=\"src-label\">来源：</span><span class=\"src-item\">[13] <a href=\"https://m.blog.csdn.net/wyj20082004/article/details/145095673\" target=\"_blank\" rel=\"noopener\">26个开源Agent开发框架调研总结（2）</a></span><span class=\"src-item\">[14] <a href=\"https://juejin.cn/post/7662865139536838707\" target=\"_blank\" rel=\"noopener\">一文读懂:企业级 AI Agent 平台(价值、分类、趋势、如何选)企业级 AI Agent 在 2026 年正从技术概 - 掘金</a></span><span class=\"src-item\">[15] <a href=\"https://news.zol.com.cn/1165/11659768.html\" target=\"_blank\" rel=\"noopener\">2026年企业级智能体开发平台推荐:优选全栈标杆蚂蚁数科Agentar_业界资讯-中关村在线</a></span></p>\n    </li>\n    <li>\n      <p class=\"key-text\">生产落地层面，稳定性、安全、成本与可解释性被视为四大核心挑战，常见应对方式是增加超时机制、引入权限控制、以更小模型压低成本以及完善日志记录；Agent 在演示环节表现流畅、交付到企业客户却出现断层，真正拉开差距的往往不是模型智商而是工程化与体系化能力。因此框架竞争焦点正由模型能力本身转向可靠性工程、成本控制与规模化交付能力。</p>\n      <p class=\"key-sources\"><span class=\"src-label\">来源：</span><span class=\"src-item\">[16] <a href=\"https://blog.csdn.net/Python_cocola/article/details/161462056\" target=\"_blank\" rel=\"noopener\">面试官:Agent 落地会遇到哪些坑?-CSDN博客</a></span><span class=\"src-item\">[17] <a href=\"https://juejin.cn/post/7650030764784861220\" target=\"_blank\" rel=\"noopener\">重塑企业级 Agent 的可靠性边界目录 一、引言:为什么 Agent 可靠性是核心命题 二、Agent 可靠性威胁模型 - 掘金</a></span><span class=\"src-item\">[18] <a href=\"https://www.woshipm.com/ai/6404011.html\" target=\"_blank\" rel=\"noopener\">企业 Agent 落地为什么这么难?一文讲透问题与破局思路 | 人人都是产品经理</a></span></p>\n    </li>\n  </ol>\n\n  <h2>遗留问题</h2>\n  <ul class=\"questions\">\n    <li>各界对「主流框架」的数量与界定（八大、十一大或其他口径）仍不统一，是否需要一套可复现、公开的基准测试与统一评测维度？</li>\n    <li>LangGraph、CrewAI、AutoGen 在真实生产负载下的可靠性、延迟与成本表现，目前缺乏同口径的横向实测数据。</li>\n    <li>MCP 协议走向框架化与平台化后，跨厂商插件生态的互操作性、权限与安全模型应如何统一？</li>\n    <li>企业级 Agent 市场规模与增速存在 3.3 万亿美元下 120% 与 28% 两种说法，差异来源与权威统计口径有待核验。</li>\n    <li>长上下文、多智能体并行编排中的上下文管理与单线程瓶颈，是否有可复用的标准化工程解决方案？</li>\n  </ul>\n\n  <h2>来源列表</h2>\n  <ol class=\"refs\">\n    <li><a href=\"https://blog.csdn.net/qcx23/article/details/161533823\" target=\"_blank\" rel=\"noopener\">【系统学AI】11 Agent开发框架选型(2026版):最新的11大框架地图“-CSDN博客</a><span class=\"site\">blog.csdn.net</span></li>\n    <li><a href=\"https://juejin.cn/post/7627327134639390760\" target=\"_blank\" rel=\"noopener\">2026 年 AI Agent 框架选型:8 大主流框架,看完这篇就够了2026 年 AI Agent 框架选型:8 大 - 掘金</a><span class=\"site\">juejin.cn</span></li>\n    <li><a href=\"https://blog.csdn.net/wenzhangli/article/details/160145705\" target=\"_blank\" rel=\"noopener\">Java Agent 开源框架全景对比:2026年选型指南与客观评测_java agent框架-CSDN博客</a><span class=\"site\">blog.csdn.net</span></li>\n    <li><a href=\"https://blog.csdn.net/2401_86326742/article/details/159888195\" target=\"_blank\" rel=\"noopener\">AutoGen vs CrewAI vs LangGraph:2026年 Agent 框架怎么选?_2026agent最新开发框架比较-CSDN博客</a><span class=\"site\">blog.csdn.net</span></li>\n    <li><a href=\"https://juejin.cn/post/7626210940011790390\" target=\"_blank\" rel=\"noopener\">2026 Agent 框架终极对比!LangGraph、CrewAI、AutoGen 5 维实测,这样选型效率翻倍 - 掘金</a><span class=\"site\">juejin.cn</span></li>\n    <li><a href=\"https://www.cnblogs.com/leonPersevere/p/19601057\" target=\"_blank\" rel=\"noopener\">hello_agent_ch6_answer - Leon_LL - 博客园</a><span class=\"site\">cnblogs.com</span></li>\n    <li><a href=\"https://hub.baai.ac.cn/paper/77d983f4-f1e3-4a1f-b94c-80e83fa4acc9\" target=\"_blank\" rel=\"noopener\">MASFactory: A Graph-centric Framework for Orchestrating LLM-Based Multi-Agent Systems with Vibe Graphing - 智源社区论文</a><span class=\"site\">hub.baai.ac.cn</span></li>\n    <li><a href=\"https://www.cnblogs.com/pass-ion/p/19482714\" target=\"_blank\" rel=\"noopener\">技术选型 - wangssd - 博客园</a><span class=\"site\">cnblogs.com</span></li>\n    <li><a href=\"https://m.blog.csdn.net/Jailman/article/details/146064966\" target=\"_blank\" rel=\"noopener\">2025年主流AI agent编排框架</a><span class=\"site\">m.blog.csdn.net</span></li>\n    <li><a href=\"https://download.csdn.net/blog/column/12343638/146427598\" target=\"_blank\" rel=\"noopener\">AI Agent中的MCP详解_搭建本地gpt-CSDN专栏</a><span class=\"site\">download.csdn.net</span></li>\n    <li><a href=\"https://cloud.tencent.com/developer/article/2514267\" target=\"_blank\" rel=\"noopener\">三步搭建MCP Agent,腾讯云智能体开发平台上线MCP插件-腾讯云开发者社区-腾讯云</a><span class=\"site\">cloud.tencent.com</span></li>\n    <li><a href=\"https://www.jdon.com/78336.html\" target=\"_blank\" rel=\"noopener\">mcp-agent：开源智能体构建框架</a><span class=\"site\">jdon.com</span></li>\n    <li><a href=\"https://m.blog.csdn.net/wyj20082004/article/details/145095673\" target=\"_blank\" rel=\"noopener\">26个开源Agent开发框架调研总结（2）</a><span class=\"site\">m.blog.csdn.net</span></li>\n    <li><a href=\"https://juejin.cn/post/7662865139536838707\" target=\"_blank\" rel=\"noopener\">一文读懂:企业级 AI Agent 平台(价值、分类、趋势、如何选)企业级 AI Agent 在 2026 年正从技术概 - 掘金</a><span class=\"site\">juejin.cn</span></li>\n    <li><a href=\"https://news.zol.com.cn/1165/11659768.html\" target=\"_blank\" rel=\"noopener\">2026年企业级智能体开发平台推荐:优选全栈标杆蚂蚁数科Agentar_业界资讯-中关村在线</a><span class=\"site\">news.zol.com.cn</span></li>\n    <li><a href=\"https://blog.csdn.net/Python_cocola/article/details/161462056\" target=\"_blank\" rel=\"noopener\">面试官:Agent 落地会遇到哪些坑?-CSDN博客</a><span class=\"site\">blog.csdn.net</span></li>\n    <li><a href=\"https://juejin.cn/post/7650030764784861220\" target=\"_blank\" rel=\"noopener\">重塑企业级 Agent 的可靠性边界目录 一、引言:为什么 Agent 可靠性是核心命题 二、Agent 可靠性威胁模型 - 掘金</a><span class=\"site\">juejin.cn</span></li>\n    <li><a href=\"https://www.woshipm.com/ai/6404011.html\" target=\"_blank\" rel=\"noopener\">企业 Agent 落地为什么这么难?一文讲透问题与破局思路 | 人人都是产品经理</a><span class=\"site\">woshipm.com</span></li>\n  </ol>\n\n  <footer>报告生成时间：2026-09-10</footer>\n\n</div>\n</body>\n</html>",
+  "sources": [
+    {
+      "url": "https://juejin.cn/post/7651426279837171764",
+      "title": "AI Agent 开发实战:2026年主流框架与MCP协议深度解析AI Agent 开发实战:2026年主流框架与MCP - 掘金",
+      "site_name": "掘金",
+      "snippet": "AI\nAgent\n开发实战:2026年主流框架与MCP协议深度解析\n2026年,AI\nAgent\n已经从\n\"概念热词\"\n变成了真正的生产力工具。但如果你打开\nGitHub\n搜索\n\"AI\nAgent\nf",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7627327134639390760",
+      "title": "2026 年 AI Agent 框架选型:8 大主流框架,看完这篇就够了2026 年 AI Agent 框架选型:8 大 - 掘金",
+      "site_name": "掘金",
+      "snippet": "2026\n年\nAI\nAgent\n框架选型:8\n大主流框架,看完这篇就够了\n版本:\nV1.0\n创作日期:\n2026\n年\n4\n月\n11\n日\n创作者:\nhollisken@163.com\nAI\n辅助:\nQW",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/qcx23/article/details/161533823",
+      "title": "【系统学AI】11 Agent开发框架选型(2026版):最新的11大框架地图“-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "Agent开发框架选型(2026版):从五大到十一大的框架地图\n2024年Agent框架\"四大金刚\"(LangChain/LlamaIndex/AutoGen/CrewAI),2026年已经扩展到11",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/wenzhangli/article/details/160145705",
+      "title": "Java Agent 开源框架全景对比:2026年选型指南与客观评测_java agent框架-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "随着大语言模型(LLM)在应用层的加速落地,Java\n生态中涌现出多款各具特色的\nAgent\n开发框架。本文从企业级特性、生态成熟度、功能丰富度、易用性及扩展性五个维度,对六款主流\nJava\nAgen",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.cnblogs.com/qiniushanghai/p/19664826",
+      "title": "AI Agent 完全指南:2026 年核心概念、主流框架、开发实践与选型建议 - 七牛云行业应用 - 博客园",
+      "site_name": "博客园",
+      "snippet": "AI\nAgent\n是能够自主感知环境、规划决策并执行多步任务的\nAI\n系统,本文系统梳理\n2026\n年\nAgent\n核心概念、主流框架对比与实际部署建议\nAI\nAgent\n是能够自主感知环境、规划决策",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://devpress.csdn.net/aibjcy/690d68e90e4c466a32e57bbf.html",
+      "title": "大模型Agent框架终极对比:17种主流框架全方位解析与选型指南(建议收藏)_人工智能_大模型玩家-北京朝阳AI社区",
+      "site_name": "CSDN",
+      "snippet": "本文把目前主流\nagent\n框架进行快速对比,关注它们各自的:\n基本思想\n技术风格\n定位\n成熟度与\n关注度(含业界背书)\n涉及的\nagent\n框架:\n1.LangGraph,\n2.\nPydanticA",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.toutiao.com/article/7493495109405770277/",
+      "title": "Agent框架对比:从技术原理到行业应用的深度解析 - 今日头条",
+      "site_name": "今日头条",
+      "snippet": "2025-04-15 19:08 · 积极的花猫 ——大模型时代下,如何选择最适合你的Agent开发工具? 随着大模型技术的突破,AI Agent(智能体)已成为推动人工智能落地的核心载体",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://m.blog.csdn.net/Jailman/article/details/146064966",
+      "title": "2025年主流AI agent编排框架",
+      "site_name": "CSDN",
+      "snippet": "在AI Agent编排领域,2025年主流的框架主要包括以下七种,它们各有独特优势和适用场景:\n一、LangChain\n特点 :作为生态最完善的基础框架,提供模块化组件支持工具集成、记忆管理和多Age",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://m.blog.csdn.net/wyj20082004/article/details/145095673",
+      "title": "26个开源Agent开发框架调研总结（2）",
+      "site_name": "CSDN",
+      "snippet": "根据Markets & Markets的预测,到2030年,AI Agent的市场规模将从2024年的50亿美元激增至 470亿 美元,年均复合增长率为44.8%。\nGartner预计到2028年,至",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "http://www.coloradmin.cn/o/2237420.html",
+      "title": "Agent框架调研：19种Agent架构对比分析",
+      "site_name": "www.coloradmin.cn",
+      "snippet": "代理(Agent)指能自主感知环境并采取行动实现目标的智能体,即AI作为一个人或一个组织的代表,进行某种特定行为和交易,降低一个人或组织的工作复杂程度,减少工作量和沟通成本。\n背景\n目前,我们在探索A",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/2401_86326742/article/details/159888195",
+      "title": "AutoGen vs CrewAI vs LangGraph:2026年 Agent 框架怎么选?_2026agent最新开发框架比较-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "三个最火的\nAI\nAgent\n框架,各有千秋。本文从架构设计、上手难度、适用场景三个维度全面对比,帮你做出正确的技术选型。\n一、三大框架概览\n框架开发者首次发布GitHub\nStars核心理念Auto",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7621783594668245035",
+      "title": "2026 AI Agent 框架终极对比:LangGraph、CrewAI、AutoGen 谁才是真·编排之王? - 掘金",
+      "site_name": "掘金",
+      "snippet": "导读:老板让我三天内搭一个多\nAgent\n客服系统,该选\nLangGraph\n还是\nCrewAI?花了一周学的框架,结果团队说不用了——因为我选错了。如果你也在纠结这个问题,这篇文章就是为你准备的。\n",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7626210940011790390",
+      "title": "2026 Agent 框架终极对比!LangGraph、CrewAI、AutoGen 5 维实测,这样选型效率翻倍 - 掘金",
+      "site_name": "掘金",
+      "snippet": "封面图建议:900×383,5\n个框架\nLogo\n横向排列(LangGraph\n绿色、CrewAI\n蓝色、AutoGen\n紫色、LangChain\n橙色、Mastra\n青色),中间大字\"2026\nAg",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/2401_86688088/article/details/157223974",
+      "title": "CrewAI vs AutoGen:谁是2026年最强Python Agent框架?(含完整代码+性能测试)_crewai、autogen-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "引言:AI\nAgent时代的框架之争\n2026年,AI\nAgent已从概念走向大规模应用。随着GPT-4.5、Claude\n4.5等大模型能力的飞跃,开发者急需高效的框架来构建多Agent协作系统。在",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.cnblogs.com/leonPersevere/p/19601057",
+      "title": "hello_agent_ch6_answer - Leon_LL - 博客园",
+      "site_name": "博客园",
+      "snippet": "第六章课后问题解答\n1.\n四大智能体框架深入对比\n1.1\nAutoGen\nvs\nLangGraph\n对比分析\n协作模式:\nAutoGen:基于多角色对话的自然协作模式。智能体在\"群聊\"环境中通过对话交",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://hub.baai.ac.cn/paper/77d983f4-f1e3-4a1f-b94c-80e83fa4acc9",
+      "title": "MASFactory: A Graph-centric Framework for Orchestrating LLM-Based Multi-Agent Systems with Vibe Graphing - 智源社区论文",
+      "site_name": "hub.baai.ac.cn",
+      "snippet": "AutoGen\n(Microsoft,\n2023);\nLangGraph\n(LangChain,\n2024);\nCrewAI\n(2023);\nAgentScope\n(Tsinghua,\n2024);\n",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.cnblogs.com/pass-ion/p/19482714",
+      "title": "技术选型 - wangssd - 博客园",
+      "site_name": "博客园",
+      "snippet": "AutoGen、Dify、coze、langChain、langGraph选型\nLangChain\n/\nLangGraph:\nAI应用的“底层开发框架”。为开发者提供模块化组件和设计模式,需要较强的编",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://evomap.ai/bounty/cm7a2a3d33af7abccf0d2df7c",
+      "title": "What are the key differences between LangGraph and CrewAI for multi-agent orchestration? | EvoMap",
+      "site_name": "evomap.ai",
+      "snippet": "Bounty Detail\nWhat are the key differences between LangGraph and CrewAI for multi-agent orchestratio",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.cnblogs.com/xuexixiaojia2025/p/18985072",
+      "title": "MCP+DeepSeek打造AI Agent智能体 - doudouxuexi2025 - 博客园",
+      "site_name": "博客园",
+      "snippet": "引言(参考文档:/s/1fkmMREO0Mmp4iIhjV9aBZQ\n提取码:0q21\n)\n近年来,人工智能(AI)技术飞速发展,特别是大语言模型(LLM)和智能体(Agent)技术的结合,正在推动A",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://download.csdn.net/blog/column/12343638/146427598",
+      "title": "AI Agent中的MCP详解_搭建本地gpt-CSDN专栏",
+      "site_name": "CSDN文库",
+      "snippet": "一、协议定义与核心价值 MCP(Model Context Protocol,模型上下文协议)是由Anthropic公司于2024年11月推出的开放标准协议,其核心目标是通过建立统一接口规范,解决AI",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://modelengine.csdn.net/690c4f295511483559e2a4f9.html",
+      "title": "告别繁琐流程:5分钟上手MCP-Agent多智能体协作_周屹隽-ModelEngine社区",
+      "site_name": "CSDN",
+      "snippet": "告别繁琐流程:5分钟上手MCP-Agent多智能体协作\n【免费下载链接】mcp-agent\nBuild\neffective\nagents\nusing\nModel\nContext\nProtocol\nan",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/gitblog_00583/article/details/151446419",
+      "title": "告别繁琐流程:5分钟上手MCP-Agent多智能体协作-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "告别繁琐流程:5分钟上手MCP-Agent多智能体协作\n【免费下载链接】mcp-agent\nBuild\neffective\nagents\nusing\nModel\nContext\nProtocol\nan",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://cloud.tencent.com/developer/article/2514267",
+      "title": "三步搭建MCP Agent,腾讯云智能体开发平台上线MCP插件-腾讯云开发者社区-腾讯云",
+      "site_name": "腾讯云",
+      "snippet": "4月14日,腾讯云宣布腾讯云智能体开发平台升级支持MCP协议,用户在搭建应用时,可以通过腾讯云智能体开发平台调用平台精选的MCP插件或插入自定义MCP插件。目前,知识引擎平台已经精选了多款MCP\nSe",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.jdon.com/78336.html",
+      "title": "mcp-agent：开源智能体构建框架",
+      "site_name": "www.jdon.com",
+      "snippet": "mcp-agent是一个使用模型上下文协议构建代理的简单、可组合的框架。\n灵感:Anthropic 为 AI 应用程序开发人员宣布了两项基础更新:\n模型上下文协议 - 一种标准化接口,允许任何软件通过",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://m.blog.csdn.net/huhu2k/article/details/146284932",
+      "title": "第三十个问题-讲讲Agent、MCP、OpenAI Responses API",
+      "site_name": "CSDN",
+      "snippet": "1. Agent(智能体)  136\n定义与核心功能\nAgent 是什么 :能够自主执行复杂任务的智能实体,通常基于大语言模型(LLM)构建,配备指令和工具,可独立完成多步骤任务(如网络搜索、文件处理",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/python123456_/article/details/151970753",
+      "title": "支持持久化知识图谱!多Agent协同的革命性框架_支持远程agent协同的框架-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "Agent-MCP是专为AI开发者设计的多智能体编排框架,解决传统AI开发的上下文混乱、单线程瓶颈等问题。它实现多Agent并行开发,通过持久化知识图谱确保项目上下文不丢失,提供实时可视化协作功能。各",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://shangjinzhu.blog.csdn.net/article/details/148717645",
+      "title": "基于MCP架构的多智能体协同系统设计与实现研究【附代码】_结合mcp搭建multi-agent多智能体协同架构-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "基于MCP架构的多智能体协同系统设计与实现研究\n随着大语言模型(LLMs)与自主智能体(Autonomous\nAgents)技术的飞速发展,如何高效地调度多个异构智能体成为了构建复杂任务系统的关键问题",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7660857644618039332",
+      "title": " Agent 智能体开发实战 · 第六课:MCP 协议 -- 让 Agent 跨进程调用工具本课从基础 Agent - 掘金",
+      "site_name": "掘金",
+      "snippet": "上节回顾:第五课我们用四工具模块\n+\nReAct\n循环手写了\nMini-Cursor,一个最普通、最基本的\nAI\n编程\nAgent——所有工具都在同一进程内定义和运行。\n本课聚焦:基础\nAgent\n有",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/Python_cocola/article/details/161462056",
+      "title": "面试官:Agent 落地会遇到哪些坑?-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "面试现场\nAgent\n落地会遇到哪些坑?\n稳定性、安全、成本、可解释性,这四大挑战。\n能具体说说吗?\n加超时、加权限控制、用小模型降成本、加日志。\n行吧,有结果会打你电话——\n到底怎么理解\n企业落地\n",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.woshipm.com/ai/6293293.html",
+      "title": "攻克Agent规模化落地难题:构建“可信赖”的产品体系 | 人人都是产品经理",
+      "site_name": "人人都是产品经理",
+      "snippet": "Agent\n技术的突破不在于单点创新,而在于能否规模化落地并建立可信赖的体系。本文试图回答一个关键问题:如何在复杂场景中构建可持续的产品框架,让\nAgent\n真正走向应用。\n上周参加了一个行业沙龙,有",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://xie.infoq.cn/article/d282fb1db70c54e2db173e43a",
+      "title": "深度剖析:AI Agent 落地困境,如何破局重生?_Techinsight_InfoQ写作社区",
+      "site_name": "InfoQ",
+      "snippet": "一、AI\nAgent\n落地的重重困境(一)技术瓶颈:模型与工程的双重羁绊模型能力受限:当下主流\nAI\nAgent\n多基于大语言模型(LLM)搭建,在复杂场景中,LLM\n的能力短板尽显。一方面,上下文长",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7650030764784861220",
+      "title": "重塑企业级 Agent 的可靠性边界目录 一、引言:为什么 Agent 可靠性是核心命题 二、Agent 可靠性威胁模型 - 掘金",
+      "site_name": "掘金",
+      "snippet": "本文系统梳理\nAgent\n在生产环境下面临的可靠性挑战,并给出可落地的架构方案与实现模式。\n目录\n一、引言:为什么\nAgent\n可靠性是核心命题\n1.1\n从\nDemo\n到生产的鸿沟\n一个能在演示中流畅",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.woshipm.com/ai/6404011.html",
+      "title": "企业 Agent 落地为什么这么难?一文讲透问题与破局思路 | 人人都是产品经理",
+      "site_name": "人人都是产品经理",
+      "snippet": "Agent技术看似已接近理想中的'数字员工',然而企业实际落地时却频频遭遇不稳定、不安全、难管理的尴尬。本文深入剖析企业级Agent落地的三大体系缺失与四大卡点,揭示为何真正拉开差距的不是模型智商,而",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/qq_35160742/article/details/162348912",
+      "title": "企业级 Agent 产品架构:从技术原型到商业闭环的跨越_企业级agent产品-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "企业级\nAgent\n产品架构:从技术原型到商业闭环的跨越\n一、技术原型与商业交付的断层:Agent\n产品为何难以落地\n当前\nAgent\n产品面临一个普遍困境:技术演示令人印象深刻,但交付到企业客户手中",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://xie.infoq.cn/article/2f3f70253649f081b8b0bd70e",
+      "title": "秒懂 AI Agent:落地局限与产品解析_智能体_Techinsight_InfoQ写作社区",
+      "site_name": "InfoQ",
+      "snippet": "AI\nAgent\n已成为热门话题,但在落地和产品实现方面,有其独特的发展情况、面临的问题以及不同厂商的探索实践。一、AI\nAgent\n的应用演进\n传统数字员工主要基于自动化流程构建,存在诸多局限。搭建",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7644029980893708334",
+      "title": "2026 企业级 Agent 产品落地思考与全流程指南前言 到了 2026 年,随着模型能力越过某个门槛,Agent 产 - 掘金",
+      "site_name": "掘金",
+      "snippet": "前言\n到了\n2026\n年,随着模型能力越过某个门槛,Agent\n产品设计已经不像一年前那样高度依赖基础模型迭代,模型输出也开始达到相对稳定的工程可用状态。\nAgent\n工程师的重心越来越多地从“技术探",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://devpress.csdn.net/wuhan/68a5480a080e555a88db3efb.html",
+      "title": "【Agent专题】关于Agent的12个生产级案例全公开,深入了解其实践应用!_深度学习_程序员王饱饱-武汉城市开发者社区",
+      "site_name": "CSDN",
+      "snippet": "过去一年,我在开发、DevOps\n和数据运维等领域,亲手构建过\n12+\n个真正投入生产的\nAI\nAgent\n系统。也正因为这些一线经验,我对当前铺天盖地的“自主智能体热潮”保持清醒:在数学上,它是不可",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.sohu.com/a/945001286_122063682?scm=10001.709_13-100000-0_922.0-0.0.a2_5X162X1625",
+      "title": "从概念热到落地难:Agent 元年的真实进程_企业_模型_工具",
+      "site_name": "搜狐",
+      "snippet": "内容编辑丨特工小天内容审核丨特工少女如果我们去看国外各种\nVC\n和咨询公司发布的行业报告,都会发现一个共同的结论:几乎所有大型科技公司,以及快速崛起的创业公司,都在积极布局\nAgent\n产品\n——\n这",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7662865139536838707",
+      "title": "一文读懂:企业级 AI Agent 平台(价值、分类、趋势、如何选)企业级 AI Agent 在 2026 年正从技术概 - 掘金",
+      "site_name": "掘金",
+      "snippet": "企业级\nAI\nAgent\n在\n2026\n年正从技术概念,进入规模化落地期,是当前确定性最高的数字化投入方向。\n从全球市场来看,Gartner\n预测:2026\n年底,全球\n40%\n的企业应用将内置任务型",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.cet.com.cn/wzsy/kjzx/cygdzx/10448101.shtml",
+      "title": "一文读懂:企业级 AI Agent 平台(价值、分类、趋势、如何选)--产业资讯--中国经济新闻网",
+      "site_name": "中国经济新闻网",
+      "snippet": "企业级\nAI\nAgent\n在\n2026\n年正从技术概念,进入规模化落地期,是当前确定性最高的数字化投入方向。\n从全球市场来看,Gartner\n预测:2026\n年底,全球\n40%\n的企业应用将内置任务型",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://tech.ifeng.com/c/8wHTDAExUQI",
+      "title": "一文读懂企业级 AI Agent 平台:价值体系、主流分类、技术趋势与选型指南_凤凰网",
+      "site_name": "凤凰网",
+      "snippet": "2026\n年,企业级\nAI\nAgent\n正式从技术概念验证迈入规模化落地的关键阶段,成为当前企业数字化转型中确定性较高的投入方向。从全球市场看,Gartner\n预测,2026\n年底全球\n40%\n的企业",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://news.yesky.com/hotnews/451/353451.shtml",
+      "title": "2026企业级Data Agent开发平台推荐:权威维度评估与主流产品整理_天极网",
+      "site_name": "天极网",
+      "snippet": "一、行业发展趋势:企业级Data\nAgent开发平台迈入规模化落地元年\n随着智能体技术快速迭代,2026年,企业级Data\nAgent开发平台已从技术验证阶段全面进入规模化商业落地周期,成为企业数字化",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7673861180654698532",
+      "title": "2026 年 AI Agent 技术栈与垂直选型落地简略指南本指南旨在为企业决策者、技术架构师及产品负责人提供一份高信息 - 掘金",
+      "site_name": "掘金",
+      "snippet": "\n2026\n年\nAI\nAgent\n技术栈与垂直选型落地简略指南\n本指南旨在为企业决策者、技术架构师及产品负责人提供一份高信息密度、全栈覆盖的\nAI\nAgent\n现代技术栈(Technical\nSta",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.cn486.com/news/4141285/",
+      "title": "2026AI趋势:企业级Agent服务关键机会与新手入局指南-菜鸟下载",
+      "site_name": "www.cn486.com",
+      "snippet": "摘要\nOpenAI推出企业级Agent服务,标志着AI应用进入新阶段。该服务将推动自动化流程、数据分析\n企业级Agent:从概念验证到规模化部署OpenAI近期推出的企业级Agent服务,标志着生成式",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.cnblogs.com/newjpz/p/19472865",
+      "title": "企业智能转型,如何选择AI Agent服务商?2026五大可定制化厂商选型指南 - 资讯焦点 - 企业博客 - 博客园",
+      "site_name": "博客园",
+      "snippet": "序言\n2025\n年全球企业级智能体市场规模将达\n3.3\n万亿美元,中国市场增速更是领跑全球,2023-2027\n年复合增长率高达\n120%,2025\n年应用市场规模突破\n232\n亿元。随着企业数字化进",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "http://www.xnnews.com.cn/kejiao/kejiao/202608/t20260821_5310441.shtml",
+      "title": "2026年AI Agent平台实用指南:如何选择企业级AI Agent解决方案 - 咸宁网",
+      "site_name": "咸宁网",
+      "snippet": "2026年AI\nAgent平台实用指南:如何选择企业级AI\nAgent解决方案\n来源:网络\n时间:2026-08-21\n16:05\n#\n2026年AI\nAgent平台排名实用指南:如何选择企业级AI\n",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://news.zol.com.cn/1165/11659768.html",
+      "title": "2026年企业级智能体开发平台推荐:优选全栈标杆蚂蚁数科Agentar_业界资讯-中关村在线",
+      "site_name": "新闻中心",
+      "snippet": "2026\n年,全球企业级智能体市场已从爆发式增长迈入规模化落地的关键期。回顾\n2025\n年,全球市场规模已达\n3.3\n万亿美元,年复合增长率保持\n28%\n的高位;中国市场更是跑出加速度,企业级\nAI\n",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.ithome.com/0/956/001.htm",
+      "title": "2026企业级Data Agent开发平台选型指南:五大类主流产品全解析 - IT之家",
+      "site_name": "IT之家",
+      "snippet": "在数据驱动决策的时代,Data\nAgent(数据智能体)正成为企业数字化转型的核心引擎。它以自然语言交互、自动化数据处理、智能决策辅助为核心,打通数据治理、分析、应用全链路。2026\n年,企业级\nDa",
+      "accessed_at": "2026-09-10"
+    }
+  ],
+  "draft": [
+    {
+      "round": 1,
+      "keyword": "2026 主流 Agent 框架 对比评测",
+      "text": "2026年，AI Agent已从概念热词转变为实际的生产力工具，围绕其开发框架的选型与评测也成为工程实践中的核心议题。从公开的框架梳理来看，主流框架的数量与格局在两年间发生了明显变化：2024年被称为\"四大金刚\"的LangChain、LlamaIndex、AutoGen与CrewAI，到2026年已被扩展进十一大框架的版图；与此同时，亦有梳理以\"八大主流框架\"为范围展开选型分析。这种数量与覆盖范围上的分歧本身说明，业界对\"主流\"的界定尚未形成统一标准，不同评测者所依据的口径并不一致。\n\n在对比方法上，各类评测普遍尝试建立多维度的评估体系。针对Java生态的评测从企业级特性、生态成熟度、功能丰富度、易用性及扩展性五个维度，对六款主流Java Agent框架进行横向比较；范围更广的框架梳理则关注各框架的基本思想、技术风格、定位、成熟度与关注度，并将业界背书纳入考量，涉及的框架包括LangGraph、PydanticAI等。在编排能力方面，LangChain被视为生态最为完善的基础框架，提供模块化组件以支持工具集成、记忆管理和多Agent协作，这一判断在2025年的框架评述中已被提出。框架层面的竞争也伴随着配套技术路线的演进，2026年的开发实践讨论已将MCP协议与主流框架并列解析，反映出框架能力与协议标准正在同步走向成熟。\n\n选型之外，应用落地同样被纳入评测视野。相关梳理覆盖从核心概念到实际部署建议的完整链条，并将Agent定义为能够自主感知环境、规划决策并执行多步任务的AI系统；选型讨论则进一步延伸到技术原理与行业应用的对应关系，试图回答如何选择最适合自身需求的开发工具这一问题。\n\n市场层面的预测为框架竞争提供了背景。据Markets & Markets测算，AI Agent市场规模将从2024年的50亿美元增长至2030年的470亿美元，年均复合增长率达44.8%。这一增速意味着，框架的成熟度、生态完整性与企业级适配能力将持续成为选型的关键变量；而不同来源在框架数量、评测维度与覆盖范围上的差异，也提示使用者需结合自身技术栈与部署场景作出判断，而非依赖单一榜单或单一年度的梳理结论。"
+    },
+    {
+      "round": 1,
+      "keyword": "LangGraph CrewAI AutoGen 对比 2026",
+      "text": "2026年，围绕多智能体系统的框架选型讨论明显集中在 LangGraph、CrewAI 与 AutoGen 三者之间。多份发布于2026年的技术对比材料均将这三个框架视为当前最受关注的 AI Agent 框架，并指出其各有侧重。其中一类对比从架构设计、上手难度与适用场景三个维度展开，同时梳理了三者的开发者、首次发布时间、GitHub Stars 与核心理念等基本信息；另一类对比则将其置于五个框架的横向实测之中，除 LangGraph、CrewAI、AutoGen 外还纳入了 LangChain 与 Mastra，以多维度实测结果作为选型依据，并提出借助此类对比可提升选型效率。\n\n关于框架的来源与定位，有一份论文相关页面给出简要标注：AutoGen 由 Microsoft 于2023年发布，CrewAI 同样于2023年出现，LangGraph 则由 LangChain 于2024年推出；同一页面还把 AgentScope（清华大学，2024）列为同类框架之一。在技术定位上，有选型资料将 LangChain 与 LangGraph 描述为 AI 应用的“底层开发框架”，认为它们为开发者提供模块化组件与设计模式，因而对使用者的编程能力要求较强。在协作模式方面，一份课程问答材料对 AutoGen 与 LangGraph 进行了对比，指出 AutoGen 采用基于多角色对话的自然协作模式，智能体在“群聊”环境中通过对话完成交互，AutoGen 与 LangGraph 的对照分析也因此成为多个材料反复提及的内容。\n\n在应用驱动层面，有对比文章指出，2026年 AI Agent 已从概念走向大规模应用，GPT-4.5、Claude 4.5 等大模型能力的提升，使开发者更需要高效的框架来构建多 Agent 协作系统。围绕具体落地场景，也有材料以“三天内搭建多 Agent 客服系统”为例，讨论在 LangGraph 与 CrewAI 之间如何取舍，并强调选错框架可能导致学习投入与团队需求不匹配。此外，LangGraph 与 CrewAI 在多智能体编排上的关键差异，也被单独作为问题提出并加以讨论。\n\n整体来看，现有材料在对比维度、纳入框架的范围与侧重场景上存在差异，但均把 LangGraph、CrewAI 与 AutoGen 视为2026年多智能体框架选型的核心选项，并倾向于从架构设计、易用性、协作模式以及与实际场景的匹配度等角度给出建议。对于三者之中“谁更优”，各来源并未形成统一结论，而是依据自身的测试维度与目标场景给出了不同的选择倾向。"
+    },
+    {
+      "round": 1,
+      "keyword": "Agent 框架 多智能体编排 MCP 协议",
+      "text": "大语言模型与智能体技术的结合，被视为当前人工智能应用落地的重要方向，而 MCP（Model Context Protocol，模型上下文协议）在其中承担了关键的连接角色。该协议由 Anthropic 公司于 2024 年 11 月推出，属于开放标准协议，核心目标是通过建立统一的接口规范，解决 AI 应用与外部能力对接的问题。在此基础上，智能体通常被理解为能够自主执行复杂任务的智能实体，一般基于大语言模型构建，配备相应指令与工具，可独立完成网络搜索、文件处理等多步骤任务，而 MCP 则为这类智能体提供了调用外部工具的通用通道。\n\n围绕 MCP 已经出现多种面向智能体开发的框架。其中 mcp-agent 被描述为使用模型上下文协议构建代理的简单、可组合框架，其设计灵感来自 Anthropic 面向 AI 应用开发者发布的基础更新，即将模型上下文协议确立为一种标准化接口，使各类软件能够以统一方式向 AI 应用暴露能力。多份材料以“五分钟上手 MCP-Agent 多智能体协作”为切入点介绍该框架，说明多智能体协作能力是其受到关注的主要特性之一。\n\n在多智能体编排层面，Agent-MCP 被定位为专为 AI 开发者设计的多智能体编排框架，针对传统 AI 开发中上下文混乱与单线程瓶颈等问题，实现多 Agent 并行开发，并通过持久化知识图谱确保项目上下文不丢失，同时提供实时可视化协作功能。另有研究以基于 MCP 架构的多智能体协同系统设计与实现为题，指出随着大语言模型与自主智能体技术的快速发展，如何高效调度多个异构智能体，已经成为构建复杂任务系统的关键问题。这一判断与前述框架所针对的痛点基本一致，即编排效率与上下文管理是 MCP 类方案的核心议题。\n\n从工具调用机制看，基础形态的 Agent 往往将全部工具定义并运行于同一进程之内，例如以四个工具模块配合 ReAct 循环手写编程智能体的做法即属此类；MCP 协议的意义在于让 Agent 能够跨进程调用工具，从而突破单进程环境的限制。在平台侧，腾讯云于 2025 年 4 月 14 日宣布其智能体开发平台升级支持 MCP 协议，用户在搭建应用时可以调用平台精选的 MCP 插件，也可以插入自定义 MCP 插件，其知识引擎平台已精选多款 MCP 服务。\n\n总体而言，MCP 正从一份协议规范逐步走向框架化与平台化落地，多智能体编排则是其最主要的应用方向之一。"
+    },
+    {
+      "round": 1,
+      "keyword": "Agent 框架 生产落地 可靠性 成本 争议",
+      "text": "围绕 Agent 框架的讨论，已从概念热度转向生产落地的现实检验。行业报告显示，几乎所有大型科技公司以及快速崛起的创业公司都在积极布局 Agent 产品，但技术突破的关键并不在于单点创新，而在于能否实现规模化落地并建立可信赖的产品体系。企业实践中的普遍反馈是，Agent 在技术演示环节表现流畅，交付到企业客户手中却出现明显断层，真正拉开差距的往往不是模型智商，而是工程化与体系化能力。\n\n就落地障碍而言，稳定性、安全、成本与可解释性被视为四大核心挑战，对应的常见做法包括增加超时机制、引入权限控制、以更小模型压低成本以及完善日志记录。可靠性被反复强调为核心命题，从 Demo 到生产之间存在鸿沟，需要可落地的架构方案与实现模式来界定其边界。技术层面，主流 Agent 多基于大语言模型搭建，在复杂场景中模型能力短板显现，长上下文等问题构成模型与工程的双重羁绊；企业侧则存在体系缺失与多重卡点，集中表现为不稳定、不安全、难管理。成本压力推动部分团队转向小模型与更严格的工程控制，而早期基于自动化流程构建的传统数字员工同样存在诸多局限。\n\n对于行业所处阶段，目前存在不同判断。一种观点认为，2026 年模型能力已越过某个门槛，模型输出达到相对稳定的工程可用状态，Agent 产品设计不再像一年前那样高度依赖基础模型的迭代，工程师的重心随之发生转移。另一种来自一线实践的声音则对铺天盖地的自主智能体热潮保持清醒，有开发者在开发、DevOps 和数据运维等领域亲手构建过十二个以上真正投入生产的 Agent 系统，并对其可靠性持保留态度。综合来看，Agent 框架的竞争焦点正由模型能力本身，转向可靠性工程、成本控制与规模化交付能力，能否在生产环境中持续稳定运行，已成为衡量其价值的实际标准。"
+    },
+    {
+      "round": 1,
+      "keyword": "企业级 Agent 平台 选型 趋势 2026",
+      "text": "2026年，企业级 AI Agent 正从技术概念验证阶段迈入规模化落地的关键期，被普遍视为当前企业数字化转型中确定性较高的投入方向。Gartner 预测，到2026年底，全球40%的企业应用将内置任务型 Agent，这一判断在多份行业梳理中被反复引用。市场数据则存在不同口径：有资料称2025年全球企业级智能体市场规模将达3.3万亿美元，2023至2027年复合增长率高达120%，中国2025年应用市场规模突破232亿元；也有资料同样给出2025年全球规模已达3.3万亿美元的数值，但将年复合增长率表述为28%的高位，并强调中国市场增速领跑、企业级 AI 相关投入跑出加速度。两种说法在增速上差异明显，选型时对市场规模与增速数据需审慎对待。\n\n在平台定位与选型维度上，相关梳理普遍围绕价值体系、主流分类、技术趋势与选型指南四条主线展开，并出现以排名和实用指南形式呈现的选型参考。Data Agent 被视为其中重要分支，2026年企业级 Data Agent 开发平台已从技术验证阶段全面进入规模化商业落地周期，以自然语言交互、自动化数据处理、智能决策辅助为核心，贯通数据治理、分析与应用全链路；围绕该类平台已形成按五大类主流产品划分的解析，以及从权威维度评估出发的产品整理。面向企业决策者、技术架构师与产品负责人的技术栈与垂直选型指南，则强调全栈覆盖与高信息密度，指向技术栈适配与垂直场景落地。开发者视角的推荐中，蚂蚁数科 Agentar 被列为全栈标杆类的优选对象。与此同时，OpenAI 推出企业级 Agent 服务，被解读为 AI 应用进入新阶段，有望推动自动化流程与数据分析等场景，并进一步带动企业级 Agent 从概念验证走向规模化部署。综合来看，2026年的选型讨论已从单一功能比对，转向对平台价值、分类归属、技术栈适配、厂商可定制化能力与服务商资质的综合权衡，可定制化厂商与 Data Agent 平台的选择成为企业落地过程中的关注重点。"
+    }
+  ],
+  "process": {
+    "plan": [
+      "2026 主流 Agent 框架 对比评测",
+      "LangGraph CrewAI AutoGen 对比 2026",
+      "Agent 框架 多智能体编排 MCP 协议",
+      "Agent 框架 生产落地 可靠性 成本 争议",
+      "企业级 Agent 平台 选型 趋势 2026"
+    ],
+    "search_queries": [
+      "2026 主流 Agent 框架 对比评测",
+      "LangGraph CrewAI AutoGen 对比 2026",
+      "Agent 框架 多智能体编排 MCP 协议",
+      "Agent 框架 生产落地 可靠性 成本 争议",
+      "企业级 Agent 平台 选型 趋势 2026"
+    ],
+    "reviewed_urls": [
+      "https://juejin.cn/post/7651426279837171764",
+      "https://juejin.cn/post/7627327134639390760",
+      "https://blog.csdn.net/qcx23/article/details/161533823",
+      "https://blog.csdn.net/wenzhangli/article/details/160145705",
+      "https://www.cnblogs.com/qiniushanghai/p/19664826",
+      "https://devpress.csdn.net/aibjcy/690d68e90e4c466a32e57bbf.html",
+      "https://www.toutiao.com/article/7493495109405770277/",
+      "https://m.blog.csdn.net/Jailman/article/details/146064966",
+      "https://m.blog.csdn.net/wyj20082004/article/details/145095673",
+      "http://www.coloradmin.cn/o/2237420.html",
+      "https://blog.csdn.net/2401_86326742/article/details/159888195",
+      "https://juejin.cn/post/7621783594668245035",
+      "https://juejin.cn/post/7626210940011790390",
+      "https://blog.csdn.net/2401_86688088/article/details/157223974",
+      "https://www.cnblogs.com/leonPersevere/p/19601057",
+      "https://hub.baai.ac.cn/paper/77d983f4-f1e3-4a1f-b94c-80e83fa4acc9",
+      "https://www.cnblogs.com/pass-ion/p/19482714",
+      "https://evomap.ai/bounty/cm7a2a3d33af7abccf0d2df7c",
+      "https://www.cnblogs.com/xuexixiaojia2025/p/18985072",
+      "https://download.csdn.net/blog/column/12343638/146427598",
+      "https://modelengine.csdn.net/690c4f295511483559e2a4f9.html",
+      "https://blog.csdn.net/gitblog_00583/article/details/151446419",
+      "https://cloud.tencent.com/developer/article/2514267",
+      "https://www.jdon.com/78336.html",
+      "https://m.blog.csdn.net/huhu2k/article/details/146284932",
+      "https://blog.csdn.net/python123456_/article/details/151970753",
+      "https://shangjinzhu.blog.csdn.net/article/details/148717645",
+      "https://juejin.cn/post/7660857644618039332",
+      "https://blog.csdn.net/Python_cocola/article/details/161462056",
+      "https://www.woshipm.com/ai/6293293.html",
+      "https://xie.infoq.cn/article/d282fb1db70c54e2db173e43a",
+      "https://juejin.cn/post/7650030764784861220",
+      "https://www.woshipm.com/ai/6404011.html",
+      "https://blog.csdn.net/qq_35160742/article/details/162348912",
+      "https://xie.infoq.cn/article/2f3f70253649f081b8b0bd70e",
+      "https://juejin.cn/post/7644029980893708334",
+      "https://devpress.csdn.net/wuhan/68a5480a080e555a88db3efb.html",
+      "https://www.sohu.com/a/945001286_122063682?scm=10001.709_13-100000-0_922.0-0.0.a2_5X162X1625",
+      "https://juejin.cn/post/7662865139536838707",
+      "https://www.cet.com.cn/wzsy/kjzx/cygdzx/10448101.shtml",
+      "https://tech.ifeng.com/c/8wHTDAExUQI",
+      "https://news.yesky.com/hotnews/451/353451.shtml",
+      "https://juejin.cn/post/7673861180654698532",
+      "https://www.cn486.com/news/4141285/",
+      "https://www.cnblogs.com/newjpz/p/19472865",
+      "http://www.xnnews.com.cn/kejiao/kejiao/202608/t20260821_5310441.shtml",
+      "https://news.zol.com.cn/1165/11659768.html",
+      "https://www.ithome.com/0/956/001.htm"
+    ],
+    "iterations": 1,
+    "steps": [
+      {
+        "type": "plan",
+        "round": 0,
+        "detail": {
+          "keywords": [
+            "2026 主流 Agent 框架 对比评测",
+            "LangGraph CrewAI AutoGen 对比 2026",
+            "Agent 框架 多智能体编排 MCP 协议",
+            "Agent 框架 生产落地 可靠性 成本 争议",
+            "企业级 Agent 平台 选型 趋势 2026"
+          ]
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "2026 主流 Agent 框架 对比评测",
+          "results": 10
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "2026 主流 Agent 框架 对比评测",
+          "chars": 905
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "LangGraph CrewAI AutoGen 对比 2026",
+          "results": 8
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "LangGraph CrewAI AutoGen 对比 2026",
+          "chars": 1081
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "Agent 框架 多智能体编排 MCP 协议",
+          "results": 10
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "Agent 框架 多智能体编排 MCP 协议",
+          "chars": 1011
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "Agent 框架 生产落地 可靠性 成本 争议",
+          "results": 10
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "Agent 框架 生产落地 可靠性 成本 争议",
+          "chars": 743
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "企业级 Agent 平台 选型 趋势 2026",
+          "results": 10
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "企业级 Agent 平台 选型 趋势 2026",
+          "chars": 829
+        }
+      },
+      {
+        "type": "judge",
+        "round": 1,
+        "detail": {
+          "sufficient": true,
+          "reason": "已覆盖框架对比、关键参与者（LangGraph/CrewAI/AutoGen 等）、MCP 等技术路径、市场规模与趋势、生产落地可靠性与成本争议、企业级选型等主要角度，48 条来源足以支撑一份有实质内容的报告。",
+          "new_keywords": []
+        }
+      }
+    ]
+  },
+  "confidence": {
+    "overall": "高",
+    "info_cutoff": "2026-09-09",
+    "notes": [
+      "共 5 段正文，关联 48 条来源。",
+      "信息截止时间 2026-09-09（取最新来源日期，可能早于当前日期）。",
+      "报告中无来源支撑的结论已标注为「模型推断」，请谨慎采信。"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+# LangChain / LangGraph 技术栈
+langchain>=1.0
+langchain-openai>=1.0
+langgraph>=1.0
+
+# 基础依赖
+python-dotenv>=1.0
+pandas>=2.0
+sqlglot>=25.0
+PyYAML>=6.0
+pydantic>=2.0
+
+# UI / 测试 / 演示
+streamlit>=1.37
+pytest>=7.0
+jupyter
+nbconvert

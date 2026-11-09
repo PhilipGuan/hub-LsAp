@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f6f4ef" />
+    <title>楼道消防巡查</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <script src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="brand-copy">
+          <p class="brand-kicker">楼宇安全工具</p>
+          <p class="brand-name">楼道消防巡查</p>
+        </div>
+        <span class="topbar-status"><i></i> 图片识别</span>
+      </header>
+
+      <main class="main-content">
+        <section class="intro-block" aria-labelledby="page-title">
+          <p class="eyebrow">现场检查 <span>01 / 照片分析</span></p>
+          <h1 id="page-title">让楼道风险<br /><em>一眼可见</em></h1>
+          <p class="intro-copy">拍摄或选择一张楼道照片，识别消防隐患与风险等级。</p>
+        </section>
+
+        <section class="inspection-card" aria-label="照片识别">
+          <div class="card-heading">
+            <div>
+              <p class="section-label">照片来源</p>
+              <h2>添加现场照片</h2>
+            </div>
+            <span class="step-dot" aria-hidden="true">1</span>
+          </div>
+
+          <div id="photo-stage" class="photo-stage">
+            <div id="empty-state" class="empty-state">
+              <div class="empty-icon" aria-hidden="true">
+                <span class="icon-corner top-left"></span>
+                <span class="icon-corner top-right"></span>
+                <span class="icon-corner bottom-left"></span>
+                <span class="icon-corner bottom-right"></span>
+                <span class="icon-lens"></span>
+              </div>
+              <p class="empty-title">拍下楼道现场</p>
+              <p class="empty-caption">尽量拍到通道全景和堆放物</p>
+            </div>
+            <img id="photo-preview" class="photo-preview" alt="待识别的楼道照片" hidden />
+            <div id="camera-panel" class="camera-panel" hidden>
+              <video id="camera-video" autoplay playsinline muted></video>
+              <div class="camera-guides" aria-hidden="true"><span></span></div>
+              <p class="camera-hint">对准楼道通道，尽量保持画面清晰</p>
+            </div>
+            <div id="photo-meta" class="photo-meta" hidden>
+              <span id="photo-name" class="photo-name"></span>
+              <button id="remove-photo" class="text-button" type="button">移除</button>
+            </div>
+          </div>
+
+          <div class="source-actions">
+            <button id="camera-button" class="button button-primary" type="button">
+              <span class="button-icon camera-glyph" aria-hidden="true"></span>
+              拍照
+            </button>
+            <button id="choose-button" class="button button-secondary" type="button">
+              <span class="button-icon upload-glyph" aria-hidden="true"></span>
+              选择本地图片
+            </button>
+          </div>
+
+          <input id="camera-fallback" class="visually-hidden" type="file" accept="image/*" capture="environment" />
+          <input id="image-picker" class="visually-hidden" type="file" accept="image/jpeg,image/png,image/gif,image/webp,image/bmp" />
+
+          <div id="camera-controls" class="camera-controls" hidden>
+            <button id="cancel-camera" class="button button-secondary" type="button">取消</button>
+            <button id="capture-button" class="button button-primary" type="button">
+              <span class="shutter" aria-hidden="true"></span>
+              拍下照片
+            </button>
+          </div>
+
+          <button id="analyze-button" class="button button-analyze" type="button" disabled>
+            <span id="analyze-spinner" class="spinner" aria-hidden="true" hidden></span>
+            <span id="analyze-label">开始风险识别</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </button>
+
+          <p id="error-message" class="error-message" role="alert" hidden></p>
+        </section>
+
+        <section id="result-card" class="result-card" aria-live="polite" hidden>
+          <div class="result-heading">
+            <div>
+              <p class="section-label">识别完成</p>
+              <h2 id="result-title">现场风险</h2>
+            </div>
+            <span id="risk-badge" class="risk-badge"></span>
+          </div>
+          <div id="result-evidence-wrap" class="result-evidence-wrap">
+            <p class="result-label">判断依据</p>
+            <ul id="evidence-list" class="evidence-list"></ul>
+          </div>
+          <div id="recommendation-wrap" class="recommendation-wrap">
+            <p class="result-label">建议</p>
+            <p id="recommendation-text" class="recommendation-text"></p>
+          </div>
+        </section>
+
+        <footer class="privacy-note">
+          <span class="privacy-mark" aria-hidden="true">✓</span>
+          照片仅用于本次分析，不保存在应用中
+        </footer>
+      </main>
+    </div>
+
+    <canvas id="capture-canvas" class="visually-hidden"></canvas>
+  </body>
+</html>

@@ -1,0 +1,2 @@
+[console_scripts]
+sql-agent = sql_agent.cli:main

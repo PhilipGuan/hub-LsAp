@@ -1,0 +1,682 @@
+{
+  "research_id": "9b280fc6f7ce",
+  "topic": "2026 年国产大模型在 Agent 场景的落地进展",
+  "status": "completed",
+  "created_at": "2026-09-10T15:06:23.498130Z",
+  "updated_at": "2026-09-10T15:08:33.952478Z",
+  "error": null,
+  "report": {
+    "title": "2026年国产大模型在Agent场景的落地进展研究报告",
+    "summary": "2026年，国产大模型在Agent场景的落地正从模型能力竞赛转向工程化交付与规模化部署。本报告基于2026年9月前的公开资料，覆盖五个方面：落地案例与行业态势、企业级Agent平台的部署与选型、DeepSeek/Qwen/豆包等国产模型的Agent能力对比、多智能体技术架构与工具调用、以及安全风险与监管政策。核心发现包括：企业级AI Agent已进入规模化落地阶段，沙丘智库数据显示我国企业AI Agent采纳率由2024年底的17.3%升至2026年中的40.3%，Gartner预测2026年底全球40%的企业应用将内置任务型Agent、2028年33%的企业软件应用将包含Agentic AI；制约规模化部署的瓶颈正由模型本身转向工程实现与人才供给；平台选型焦点已从“要不要上”转为云端SaaS、私有化、本地化三类部署模式的选择，全栈国产化与信创环境兼容成为硬性考量。模型层面，Qwen 3与DeepSeek的同任务Agent测试尚未形成明确胜负结论，豆包与DeepSeek在推理机制上呈互补取向，三者缺乏同一Agent基准下的完整横评。技术架构上，多智能体专业化分工被视为应对工具调用激增与上下文膨胀的主要路径。治理层面，国内政策框架已转向“规范发展与安全治理并重”，构成Agent从试点探索走向合规落地的基本边界。",
+    "sections": [
+      {
+        "heading": "2026 国产大模型 Agent 落地案例",
+        "body": "进入2026年，国产大模型在Agent场景的落地呈现出从模型能力竞赛转向工程化交付的明显特征。2026年3月的一份行业深度综述将当时态势概括为\"国产登顶、百万上下文落地、Agent工业化\"，并判断AI实用时代全面来临，这一概括与随后数月的行业动向相互印证。2026年7月，有报道援引数据指出，Gartner预测到2028年33%的企业软件应用将包含Agentic AI，同时提出Agent落地的核心已转向工程能力，围绕国产大模型的培训随之形成新的市场风口。这意味着制约Agent规模化部署的瓶颈正由模型本身转向工程实现与人才供给。在具体场景层面，金融科技是较早出现落地案例的方向，一份金融科技行业AI应用双周报指出，国产大模型加速迭代，DeepSeek与通义千问相继发布最新大模型，飞猪、choice等产品推出Agent，并预期未来Agent或在更多场景逐步落地，带动AI应用加速落地。案例评选方面，《2024中国AI Agent最佳实践案例TOP20》将AI Agent视为大模型落地的\"最后一公里\"，并评出二十个最佳实践案例；更早的2023年，中软国际解放号\"问\"系列AI Agent场景案例曾获软件行业典型示范案例，显示出国产Agent应用已有一定时间跨度。不过，围绕Agent在大模型落地中的角色，业界说法并不一致。2024年4月，已有行业对话以\"Agent是否是大模型落地的必经之路\"为主题，组织多位从业者展开讨论；2025年初的相关观察则提出，2024年Agent崛起的背后既是技术狂飙的产物，也是大模型热度回落的开端，\"大模型的光晕正在逐渐消散\"，并以\"生死竞速\"形容Agent赛道的竞争态势；同一时期另有观点认为，Agent在AI应用中快速崛起并成为企业的高效解决方案，其价值在于快速连接大模型与应用场景，大厂与创业公司的合作共同推动了这一进程。上述判断在Agent究竟是落地的必经之路、还是大模型光环消退后的替代叙事上存在明显分歧，构成观察2026年国产大模型Agent落地进展时值得对照的背景。",
+        "conclusions": []
+      },
+      {
+        "heading": "国产 Agent 平台 企业级应用 2026",
+        "body": "2026年，企业级AI Agent从技术概念验证迈入规模化落地的关键阶段，成为企业数字化转型中确定性较高的投入方向。全球范围内，Gartner预测2026年底全球40%的企业应用将内置任务型Agent。国内方面，艾瑞咨询相关报告系统分析中国企业级AI Agent市场发展现状，基于技术周期视角推演初步探索期、敏捷实践期、规模扩展期演进路径；自主式AI Agent成为行业焦点，推动企业加速拥抱新一代AI技术。沙丘智库调研数据显示，我国企业AI Agent采纳率已从2024年底的17.3%提升至2026年中的40.3%，2026年因此被视为企业级AI智能体从“能说”走向“能干”的关键分水岭。在平台选型上，市场已从“要不要上”转入“怎么选部署模式”，出现云端SaaS、私有化、本地化三类部署模式，并以“数据不出域”等硬性标准进行核验；面向本地化落地，已有分析梳理评估框架、六大主流平台横评、可复制的全链路搭建步骤及私有化Token成本测算脚本。国产化适配方面，相关实测对比主流Agent平台核心能力与适配表现，综合型平台如科大讯飞AstronClaw强调全栈国产化、全场景适配，360智语Agent平台强调信创环境兼容。同时，企业级Data Agent开发平台被描述为从技术验证全面进入规模化商业落地周期，2026年成为规模化落地元年。整体看，2026年国产Agent平台的企业级应用正围绕部署模式选择、国产化适配、成本可控与规模化落地展开，市场进入以落地效果为检验标准的阶段。",
+        "conclusions": []
+      },
+      {
+        "heading": "DeepSeek Qwen 豆包 Agent 能力对比",
+        "body": "在国产大模型Agent能力对比的讨论中，DeepSeek、Qwen与豆包是常被并列考察的对象。Qwen 3发布后，已有测试者采用同一Agent调用不同模型、执行相同任务的方式，比较Qwen 3与DeepSeek对任务的完成情况，测试重点落在Agent实际调用中的任务完成表现；不过二者谁更优尚无明确结论。这一测试设计本身说明，对Qwen与DeepSeek的Agent横向比较已进入实操层面，但可验证的胜负结论仍不充分。\n\n豆包与DeepSeek的对比信息相对更多，且时间跨度从2025年延续至2026年。二者被认为没有绝对强弱之分，在不同方面各有优势。功能定位上，豆包是大众化智能助手，主要面向日常交流和生活服务，能自然流畅聊天；其模型架构由字节跳动基于云雀模型开发，以Transformer架构为基础进行大量技术优化和创新，并具备多模态交互能力。进入2026年，豆包又被描述为采用模块化混合架构，核心由Transformer-XL基座模型、领域适配层和动态知识库三部分构成，长文本处理能力是其技术亮点，通过相对位置编码等技术实现。DeepSeek方面，相关对比强调其在推理机制上与豆包存在根本差异：豆包重任务完成、压缩过程，DeepSeek重思维链展开、强制分步验证；豆包依赖预训练知识，DeepSeek动态检索增强；豆包采软修正容错，DeepSeek硬性归因回溯；豆包短程推理稳定。这些差异会直接影响Agent场景中的任务拆解、工具调用与错误恢复策略：若以任务完成效率为指标，豆包的压缩与容错路径可能更占优势；若以推理可追溯性和分步验证为指标，DeepSeek的思维链展开与动态检索更契合复杂Agent流程。\n\n在功能特性上，截至2025年3月，DeepSeek在文案生成中对专利技术描述精准，并含数据图表建议，在技术文档中可深度解析StyleGAN3等专业架构；豆包则在文案生成中添加emoji表情以营造社交氛围，在技术文档中概述GAN网络。这反映两者在输出专业度与交互风格上取舍不同，也会传导至Agent执行任务时的结果呈现。综合来看，当前信息尚未提供DeepSeek、Qwen、豆包三者在同一Agent基准下的完整横向对比：Qwen与DeepSeek有同任务测试但结论未明，豆包与DeepSeek被描述为定位互补、推理机制分异。因此，对三者Agent能力的判断需结合具体任务类型、工具链与评价指标分别展开，不宜简单以单一强弱排序。",
+        "conclusions": []
+      },
+      {
+        "heading": "AI Agent 多智能体 技术架构 工具调用",
+        "body": "围绕AI Agent的技术架构，现有资料普遍将推理、规划与工具调用视为核心能力环节，并将AI智能体定义为由语言模型驱动、能够在多轮迭代中规划并采取行动以执行目标的实体。在架构层面，智能体系统既可由单个智能体构成，也可由多个协同工作的智能体组成，以解决特定任务。多智能体架构的基本思路是把复杂应用程序分解为多个协同工作的专业化Agent，与依赖单个Agent承载全量任务、全量工具与全量逻辑不同，这种分工方式旨在通过专业化协作降低单体负担。相关材料对多智能体给出更细的界定：系统由多个自主、独立的智能体组成，每个智能体都能感知环境、做出决策并执行任务，且相互之间能够进行信息共享、任务协调与协同行动，以实现整体目标；随着大型语言模型的出现，以其为核心构建Agent成为重要路径。在系统演进过程中，复杂度往往持续攀升，管理与扩展难度显著增加，典型挑战包括工具调用数量激增致使选择机制错误率显著上升，以及上下文信息高度膨胀等问题。这一判断把工具调用从单纯的接口集成问题提升为架构治理问题：当可用工具规模扩大时，Agent需要更可靠的检索、选择与编排机制；当上下文持续膨胀时，则需要通过多智能体分工、信息共享与任务协调来分担单体的认知与执行压力。与此同时，面向多智能体系统的应用场景与架构模式已有专门解析，关注点在于当任务变得复杂、多维度时，如何以多Agent协作替代单一LLM驱动的Agent。从工程实现看，Spring AI Alibaba 1.x系列材料已专门讨论多智能体架构，表明相关框架层面的支持正在跟进。整体而言，现有资料对AI Agent的讨论已从概念介绍深入到推理、规划与工具调用的技术细节，并在单智能体与多智能体之间形成较清晰的架构分层；多智能体的价值主张集中于专业化分工、协同决策与整体目标达成，但其在工具规模、上下文规模和管理扩展性上的挑战仍需通过架构设计加以回应。",
+        "conclusions": []
+      },
+      {
+        "heading": "大模型 Agent 安全风险 监管政策 2026",
+        "body": "2026年，国产大模型在Agent场景的落地推进，正置于一个明显系统化的政策与治理环境之中。行业观察显示，中国AI大模型行业的政策环境已进入高度成熟且系统化的新阶段，与早期侧重鼓励探索、包容试错的基调不同，当前政策框架全面转向“规范发展与安全治理并重、创新激励与风险防控协同”。这一转向并非孤立现象，全球AI大模型行业的政策环境同样从“鼓励探索”全面转向“规范发展与安全治理并重”；经过数年技术狂飙，各国政府普遍认识到大模型技术对经济社会的深远影响已远超预期，因此在政策制定中更强调安全治理与风险防控。在此背景下，Agent作为具有自主性或半自主性的智能实体，能够利用人工智能技术在数字或物理环境中感知、决策并采取行动，其安全风险成为监管与治理关注的重点。围绕大模型Agent的安全保障，相关研究已提出通过自动化风险模拟器保障LLM Agent安全的思路，旨在对LLM Agent的潜在风险进行模拟和防护。与此同时，大模型风险、安全与治理议题在更早阶段已进入研究视野：2024年前沿大模型风险、安全与治理报告即探讨大模型风险、安全与治理问题，为相关研究和政策制定提供参考；2024年大模型安全研究报告亦聚焦安全风险与未来展望；开源大模型应用指南风险治理篇则由可信开源合规计划开源人工智能治理工作组撰写，关注开源大模型的风险治理。大模型行业政策与标准研究也覆盖监管政策解读、行业标准与规范分析、生态建设与合作机制探讨等议题。总体看，2026年Agent场景的落地进展不再仅是技术能力问题，而是与监管政策、标准规范和安全治理框架紧密交织；政策环境的成熟化与安全治理的常态化，正在塑造国产大模型Agent从试点探索走向合规落地的基本边界。",
+        "conclusions": []
+      }
+    ],
+    "key_conclusions": [
+      {
+        "text": "2026年国产大模型Agent落地的核心制约已从模型能力转向工程实现与人才供给，行业态势被概括为“国产登顶、百万上下文落地、Agent工业化”；Gartner预测到2028年33%的企业软件应用将包含Agentic AI。",
+        "sources": [
+          {
+            "url": "https://blog.csdn.net/chen_si_shang_/article/details/159461622",
+            "title": "2026年3月大模型全景深度解析:国产登顶、百万上下文落地、Agent工业化,AI实用时代全面来临[特殊字符]_2026年3月 ai agent应用开发 前沿技术 最新进展-CSDN博客"
+          },
+          {
+            "url": "https://estate.cfi.cn/p20260717002432.html",
+            "title": "Agent落地核心转向工程能力 国产大模型培训迎新风口- CFi.CN 中财网"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "企业级AI Agent在2026年进入规模化落地阶段：沙丘智库调研数据显示我国企业AI Agent采纳率已从2024年底的17.3%提升至2026年中的40.3%，Gartner预测2026年底全球40%的企业应用将内置任务型Agent，2026年被视为企业级智能体从“能说”走向“能干”的关键分水岭。",
+        "sources": [
+          {
+            "url": "https://www.weiyangx.com/475000.html",
+            "title": "2026企业级Agent平台推荐,从落地效果出发的深度横评 | 未央网"
+          },
+          {
+            "url": "https://www.cet.com.cn/wzsy/kjzx/cygdzx/10448101.shtml",
+            "title": "一文读懂:企业级 AI Agent 平台(价值、分类、趋势、如何选)--产业资讯--中国经济新闻网"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "企业Agent平台选型的焦点已从“要不要上”转入“怎么选部署模式”，形成云端SaaS、私有化、本地化三类部署路径，并以“数据不出域”等硬性标准核验；国产化适配方面，综合型平台如科大讯飞AstronClaw强调全栈国产化与全场景适配，360智语Agent平台强调信创环境兼容。",
+        "sources": [
+          {
+            "url": "https://juejin.cn/post/7672323647886737443",
+            "title": "2026年企业Agent平台怎么选?本地化、私有化、云端三类全景对比一、为什么 2026 年必须先厘清\"部署模式\" 很多 - 掘金"
+          },
+          {
+            "url": "https://www.ithome.com/0/961/333.htm",
+            "title": "硬核实测出炉!2026国产化适配的Agent平台多场景选型指南 - IT之家"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "国产模型Agent能力尚无统一的横向排位：Qwen 3与DeepSeek已有“同一Agent调用不同模型执行相同任务”的实操测试但结论未明；豆包与DeepSeek被描述为没有绝对强弱之分，二者在推理机制上分野明显——豆包重任务完成与压缩过程、依赖预训练知识、软修正容错，DeepSeek重思维链展开与强制分步验证、动态检索增强、硬性归因回溯，这直接影响Agent的任务拆解、工具调用与错误恢复策略。",
+        "sources": [
+          {
+            "url": "https://www.sohu.com/a/891587888_121124363",
+            "title": "热乎的:同样的Agent同样的任务,分别调用Qwen 3和DeepSeek对比谁更强?_测试_分析_年数据"
+          },
+          {
+            "url": "https://www.php.cn/faq/2471275.html",
+            "title": "豆包AI对比DeepSeek推理_推理能力对比【详解】-人工智能-PHP中文网"
+          },
+          {
+            "url": "https://caifuhao.eastmoney.com/news/20250223103232599342880",
+            "title": "豆包和 DeepSeek 哪个强哪个弱？"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "Agent技术架构的讨论已从概念介绍深入到推理、规划与工具调用细节，并形成单智能体与多智能体的分层：多智能体架构将复杂应用分解为多个协同工作的专业化Agent，以分工协作替代单体承载全量任务、工具与逻辑，用以应对工具调用数量激增导致选择机制错误率上升、上下文信息高度膨胀等管理与扩展挑战；Spring AI Alibaba 1.x系列已专门讨论多智能体架构，框架层支持正在跟进。",
+        "sources": [
+          {
+            "url": "https://www.chaspark.com/#/hotspots/1232136419919421440",
+            "title": "AI Agent:Multi-Agent架构 #AI技术解析 -黄大年茶思屋"
+          },
+          {
+            "url": "https://blog.csdn.net/qq_43437874/article/details/160474868",
+            "title": "Spring AI Alibaba 1.x 系列【39】多智能体(Multi-agent)架构_spring ai multi agent-CSDN博客"
+          },
+          {
+            "url": "https://agijuejin.feishu.cn/wiki/NyHIwr3o3iNKPRkADaPckNgonBf",
+            "title": "新兴人工智能Agent架构的综述:推理、规划和工具调用 - 飞书云文档"
+          }
+        ],
+        "is_model_inference": false
+      },
+      {
+        "text": "2026年Agent落地已与监管治理深度交织：中国及全球AI大模型政策环境均已从早期的“鼓励探索”全面转向“规范发展与安全治理并重、创新激励与风险防控协同”，Agent因具备自主或半自主的行动能力而成为安全风险关注重点，已有研究提出以自动化风险模拟器（如SafeAgent）保障LLM Agent安全，政策成熟化正在划定Agent合规落地的边界。",
+        "sources": [
+          {
+            "url": "https://www.chinairn.com/news/20260610/113747805.shtml",
+            "title": "2026年中国AI大模型行业政策环境与应用场景展望_中研普华_中研网"
+          },
+          {
+            "url": "https://www.chinairn.com/news/20260610/114312396.shtml",
+            "title": "2026年全球AI大模型行业政策环境与痛点拆解洞察_中研普华_中研网"
+          },
+          {
+            "url": "https://arxiv.org/abs/2505.17735",
+            "title": "[2505.17735] SafeAgent: Safeguarding LLM Agents via an Automated Risk Simulator – arxiv"
+          }
+        ],
+        "is_model_inference": false
+      }
+    ],
+    "open_questions": [
+      "DeepSeek、Qwen、豆包三者在同一Agent基准、同一工具链与同一评价指标下的完整横向对比仍然缺失，如何建立可复现的国产模型Agent能力评测基准？",
+      "“Agent是否是大模型落地的必经之路”在业界仍存明显分歧，Agent崛起究竟属于技术演进主线还是大模型热度回落后的替代叙事，尚缺乏数据层面的验证。",
+      "多智能体架构在工具规模与上下文规模持续膨胀下的工程治理方案（检索、选择、编排与责任边界）尚不成熟，落地最佳实践有待沉淀。",
+      "企业级Agent规模化部署的实际投入产出比、私有化Token成本与运维成本缺乏统一核算口径，选型决策缺少可比数据。",
+      "在信创与国产化适配要求下，各主流Agent平台跨环境的一致性、性能损耗与安全合规边界尚缺少第三方独立测评。"
+    ]
+  },
+  "report_html": "这是把您提供的结构化研究报告直接排版成一份可直接运行的HTML网页，完整呈现摘要、五个分节正文、关键结论、遗留问题与统一编号的来源清单，视觉上走浅色背景、蓝白强调的清爽阅读路线，适合当作独立的报告文档直接双击打开或打印。\n```html\n<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>2026年国产大模型在Agent场景的落地进展研究报告</title>\n<style>\n  :root{\n    --ink:#1f2328;\n    --ink-soft:#525a62;\n    --ink-faint:#7a828a;\n    --line:#e4e8ec;\n    --accent:#1c5f9c;\n    --accent-soft:#f1f7fc;\n    --panel:#f8fafc;\n  }\n  *{box-sizing:border-box;}\n  html{-webkit-text-size-adjust:100%;}\n  body{\n    margin:0;\n    background:#eef1f4;\n    color:var(--ink);\n    font-family:\"Noto Sans SC\",\"PingFang SC\",\"Hiragino Sans GB\",\"Microsoft YaHei\",system-ui,-apple-system,\"Segoe UI\",Roboto,sans-serif;\n    font-size:16.5px;\n    line-height:1.9;\n    letter-spacing:.01em;\n  }\n  .page{\n    max-width:880px;\n    margin:0 auto;\n    padding:56px 34px 64px;\n    background:#fff;\n    min-height:100vh;\n    box-shadow:0 0 0 1px rgba(0,0,0,.04);\n  }\n\n  h1{\n    font-size:1.78rem;\n    line-height:1.45;\n    margin:0 0 26px;\n    font-weight:700;\n    letter-spacing:.01em;\n  }\n\n  /* 摘要 */\n  .summary{\n    background:var(--accent-soft);\n    border-left:4px solid var(--accent);\n    border-radius:0 10px 10px 0;\n    padding:20px 26px 22px;\n    margin:0 0 12px;\n  }\n  .summary-label{\n    margin:0 0 10px;\n    font-size:.82rem;\n    font-weight:700;\n    letter-spacing:.18em;\n    color:var(--accent);\n  }\n  .summary p.body-text{\n    margin:0;\n    font-size:.97rem;\n    line-height:1.95;\n    color:#262c33;\n  }\n\n  /* 小节标题 */\n  h2{\n    font-size:1.26rem;\n    line-height:1.55;\n    font-weight:700;\n    margin:54px 0 18px;\n    padding:2px 0 2px 14px;\n    border-left:4px solid var(--accent);\n  }\n\n  p{\n    margin:0 0 18px;\n    text-align:justify;\n    word-break:break-word;\n  }\n\n  /* 关键结论 */\n  ol.kc-list{\n    list-style:none;\n    margin:0;\n    padding:0;\n  }\n  ol.kc-list > li{\n    background:var(--panel);\n    border-left:3px solid #a9c6e0;\n    border-radius:0 10px 10px 0;\n    padding:18px 22px 16px;\n    margin:0 0 18px;\n  }\n  .kc-text{\n    margin:0;\n    font-size:.97rem;\n    line-height:1.92;\n    text-align:justify;\n  }\n  .kc-src{\n    margin:12px 0 0;\n    padding-top:10px;\n    border-top:1px dashed var(--line);\n    font-size:.85rem;\n    line-height:1.8;\n    color:var(--ink-faint);\n    text-align:left;\n  }\n  .kc-src .src-tag{\n    display:inline-block;\n    margin-right:6px;\n    color:var(--ink-faint);\n  }\n  .kc-src a{\n    display:inline-block;\n    margin:2px 14px 2px 0;\n    font-size:.85rem;\n  }\n\n  a{\n    color:var(--accent);\n    text-decoration:none;\n    border-bottom:1px solid rgba(28,95,156,.28);\n  }\n  a:hover{\n    border-bottom-color:var(--accent);\n    background:rgba(28,95,156,.05);\n  }\n\n  /* 遗留问题 */\n  ul.oq-list{\n    margin:0;\n    padding:0 0 0 4px;\n    list-style:none;\n  }\n  ul.oq-list > li{\n    position:relative;\n    padding-left:24px;\n    margin-bottom:14px;\n    font-size:.97rem;\n    line-height:1.9;\n    text-align:justify;\n  }\n  ul.oq-list > li::before{\n    content:\"\";\n    position:absolute;\n    left:6px;\n    top:.78em;\n    width:6px;\n    height:6px;\n    border-radius:50%;\n    background:var(--accent);\n    opacity:.6;\n  }\n\n  /* 来源列表 */\n  ol.src-list{\n    list-style:none;\n    margin:0;\n    padding:0;\n    counter-reset:none;\n  }\n  ol.src-list > li{\n    display:flex;\n    align-items:flex-start;\n    gap:10px;\n    padding:9px 0;\n    border-bottom:1px solid var(--line);\n    font-size:.88rem;\n    line-height:1.75;\n  }\n  ol.src-list > li:last-child{border-bottom:none;}\n  .src-num{\n    flex:0 0 auto;\n    min-width:34px;\n    color:var(--ink-faint);\n    font-variant-numeric:tabular-nums;\n    font-weight:600;\n  }\n  ol.src-list a{\n    border-bottom:1px solid rgba(28,95,156,.28);\n    word-break:break-word;\n  }\n\n  /* 页脚 */\n  .doc-footer{\n    margin-top:64px;\n    padding-top:20px;\n    border-top:1px solid var(--line);\n    font-size:.84rem;\n    color:var(--ink-faint);\n    text-align:center;\n  }\n\n  @media (max-width:640px){\n    body{font-size:16px;}\n    .page{padding:34px 20px 44px;}\n    h1{font-size:1.42rem;}\n    h2{font-size:1.14rem;margin-top:42px;}\n    .summary{padding:16px 18px 18px;}\n    ol.kc-list > li{padding:15px 16px 13px;}\n    ol.src-list > li{font-size:.84rem;}\n  }\n</style>\n</head>\n<body>\n<main class=\"page\">\n\n  <h1>2026年国产大模型在Agent场景的落地进展研究报告</h1>\n\n  <section class=\"summary\">\n    <p class=\"summary-label\">摘要</p>\n    <p class=\"body-text\">2026年，国产大模型在Agent场景的落地正从模型能力竞赛转向工程化交付与规模化部署。本报告基于2026年9月前的公开资料，覆盖五个方面：落地案例与行业态势、企业级Agent平台的部署与选型、DeepSeek/Qwen/豆包等国产模型的Agent能力对比、多智能体技术架构与工具调用、以及安全风险与监管政策。核心发现包括：企业级AI Agent已进入规模化落地阶段，沙丘智库数据显示我国企业AI Agent采纳率由2024年底的17.3%升至2026年中的40.3%，Gartner预测2026年底全球40%的企业应用将内置任务型Agent、2028年33%的企业软件应用将包含Agentic AI；制约规模化部署的瓶颈正由模型本身转向工程实现与人才供给；平台选型焦点已从“要不要上”转为云端SaaS、私有化、本地化三类部署模式的选择，全栈国产化与信创环境兼容成为硬性考量。模型层面，Qwen 3与DeepSeek的同任务Agent测试尚未形成明确胜负结论，豆包与DeepSeek在推理机制上呈互补取向，三者缺乏同一Agent基准下的完整横评。技术架构上，多智能体专业化分工被视为应对工具调用激增与上下文膨胀的主要路径。治理层面，国内政策框架已转向“规范发展与安全治理并重”，构成Agent从试点探索走向合规落地的基本边界。</p>\n  </section>\n\n  <section>\n    <h2>2026 国产大模型 Agent 落地案例</h2>\n    <p>进入2026年，国产大模型在Agent场景的落地呈现出从模型能力竞赛转向工程化交付的明显特征。2026年3月的一份行业深度综述将当时态势概括为“国产登顶、百万上下文落地、Agent工业化”，并判断AI实用时代全面来临，这一概括与随后数月的行业动向相互印证。2026年7月，有报道援引数据指出，Gartner预测到2028年33%的企业软件应用将包含Agentic AI，同时提出Agent落地的核心已转向工程能力，围绕国产大模型的培训随之形成新的市场风口。这意味着制约Agent规模化部署的瓶颈正由模型本身转向工程实现与人才供给。在具体场景层面，金融科技是较早出现落地案例的方向，一份金融科技行业AI应用双周报指出，国产大模型加速迭代，DeepSeek与通义千问相继发布最新大模型，飞猪、choice等产品推出Agent，并预期未来Agent或在更多场景逐步落地，带动AI应用加速落地。案例评选方面，《2024中国AI Agent最佳实践案例TOP20》将AI Agent视为大模型落地的“最后一公里”，并评出二十个最佳实践案例；更早的2023年，中软国际解放号“问”系列AI Agent场景案例曾获软件行业典型示范案例，显示出国产Agent应用已有一定时间跨度。不过，围绕Agent在大模型落地中的角色，业界说法并不一致。2024年4月，已有行业对话以“Agent是否是大模型落地的必经之路”为主题，组织多位从业者展开讨论；2025年初的相关观察则提出，2024年Agent崛起的背后既是技术狂飙的产物，也是大模型热度回落的开端，“大模型的光晕正在逐渐消散”，并以“生死竞速”形容Agent赛道的竞争态势；同一时期另有观点认为，Agent在AI应用中快速崛起并成为企业的高效解决方案，其价值在于快速连接大模型与应用场景，大厂与创业公司的合作共同推动了这一进程。上述判断在Agent究竟是落地的必经之路、还是大模型光环消退后的替代叙事上存在明显分歧，构成观察2026年国产大模型Agent落地进展时值得对照的背景。</p>\n  </section>\n\n  <section>\n    <h2>国产 Agent 平台 企业级应用 2026</h2>\n    <p>2026年，企业级AI Agent从技术概念验证迈入规模化落地的关键阶段，成为企业数字化转型中确定性较高的投入方向。全球范围内，Gartner预测2026年底全球40%的企业应用将内置任务型Agent。国内方面，艾瑞咨询相关报告系统分析中国企业级AI Agent市场发展现状，基于技术周期视角推演初步探索期、敏捷实践期、规模扩展期演进路径；自主式AI Agent成为行业焦点，推动企业加速拥抱新一代AI技术。沙丘智库调研数据显示，我国企业AI Agent采纳率已从2024年底的17.3%提升至2026年中的40.3%，2026年因此被视为企业级AI智能体从“能说”走向“能干”的关键分水岭。在平台选型上，市场已从“要不要上”转入“怎么选部署模式”，出现云端SaaS、私有化、本地化三类部署模式，并以“数据不出域”等硬性标准进行核验；面向本地化落地，已有分析梳理评估框架、六大主流平台横评、可复制的全链路搭建步骤及私有化Token成本测算脚本。国产化适配方面，相关实测对比主流Agent平台核心能力与适配表现，综合型平台如科大讯飞AstronClaw强调全栈国产化、全场景适配，360智语Agent平台强调信创环境兼容。同时，企业级Data Agent开发平台被描述为从技术验证全面进入规模化商业落地周期，2026年成为规模化落地元年。整体看，2026年国产Agent平台的企业级应用正围绕部署模式选择、国产化适配、成本可控与规模化落地展开，市场进入以落地效果为检验标准的阶段。</p>\n  </section>\n\n  <section>\n    <h2>DeepSeek Qwen 豆包 Agent 能力对比</h2>\n    <p>在国产大模型Agent能力对比的讨论中，DeepSeek、Qwen与豆包是常被并列考察的对象。Qwen 3发布后，已有测试者采用同一Agent调用不同模型、执行相同任务的方式，比较Qwen 3与DeepSeek对任务的完成情况，测试重点落在Agent实际调用中的任务完成表现；不过二者谁更优尚无明确结论。这一测试设计本身说明，对Qwen与DeepSeek的Agent横向比较已进入实操层面，但可验证的胜负结论仍不充分。</p>\n    <p>豆包与DeepSeek的对比信息相对更多，且时间跨度从2025年延续至2026年。二者被认为没有绝对强弱之分，在不同方面各有优势。功能定位上，豆包是大众化智能助手，主要面向日常交流和生活服务，能自然流畅聊天；其模型架构由字节跳动基于云雀模型开发，以Transformer架构为基础进行大量技术优化和创新，并具备多模态交互能力。进入2026年，豆包又被描述为采用模块化混合架构，核心由Transformer-XL基座模型、领域适配层和动态知识库三部分构成，长文本处理能力是其技术亮点，通过相对位置编码等技术实现。DeepSeek方面，相关对比强调其在推理机制上与豆包存在根本差异：豆包重任务完成、压缩过程，DeepSeek重思维链展开、强制分步验证；豆包依赖预训练知识，DeepSeek动态检索增强；豆包采软修正容错，DeepSeek硬性归因回溯；豆包短程推理稳定。这些差异会直接影响Agent场景中的任务拆解、工具调用与错误恢复策略：若以任务完成效率为指标，豆包的压缩与容错路径可能更占优势；若以推理可追溯性和分步验证为指标，DeepSeek的思维链展开与动态检索更契合复杂Agent流程。</p>\n    <p>在功能特性上，截至2025年3月，DeepSeek在文案生成中对专利技术描述精准，并含数据图表建议，在技术文档中可深度解析StyleGAN3等专业架构；豆包则在文案生成中添加emoji表情以营造社交氛围，在技术文档中概述GAN网络。这反映两者在输出专业度与交互风格上取舍不同，也会传导至Agent执行任务时的结果呈现。综合来看，当前信息尚未提供DeepSeek、Qwen、豆包三者在同一Agent基准下的完整横向对比：Qwen与DeepSeek有同任务测试但结论未明，豆包与DeepSeek被描述为定位互补、推理机制分异。因此，对三者Agent能力的判断需结合具体任务类型、工具链与评价指标分别展开，不宜简单以单一强弱排序。</p>\n  </section>\n\n  <section>\n    <h2>AI Agent 多智能体 技术架构 工具调用</h2>\n    <p>围绕AI Agent的技术架构，现有资料普遍将推理、规划与工具调用视为核心能力环节，并将AI智能体定义为由语言模型驱动、能够在多轮迭代中规划并采取行动以执行目标的实体。在架构层面，智能体系统既可由单个智能体构成，也可由多个协同工作的智能体组成，以解决特定任务。多智能体架构的基本思路是把复杂应用程序分解为多个协同工作的专业化Agent，与依赖单个Agent承载全量任务、全量工具与全量逻辑不同，这种分工方式旨在通过专业化协作降低单体负担。相关材料对多智能体给出更细的界定：系统由多个自主、独立的智能体组成，每个智能体都能感知环境、做出决策并执行任务，且相互之间能够进行信息共享、任务协调与协同行动，以实现整体目标；随着大型语言模型的出现，以其为核心构建Agent成为重要路径。在系统演进过程中，复杂度往往持续攀升，管理与扩展难度显著增加，典型挑战包括工具调用数量激增致使选择机制错误率显著上升，以及上下文信息高度膨胀等问题。这一判断把工具调用从单纯的接口集成问题提升为架构治理问题：当可用工具规模扩大时，Agent需要更可靠的检索、选择与编排机制；当上下文持续膨胀时，则需要通过多智能体分工、信息共享与任务协调来分担单体的认知与执行压力。与此同时，面向多智能体系统的应用场景与架构模式已有专门解析，关注点在于当任务变得复杂、多维度时，如何以多Agent协作替代单一LLM驱动的Agent。从工程实现看，Spring AI Alibaba 1.x系列材料已专门讨论多智能体架构，表明相关框架层面的支持正在跟进。整体而言，现有资料对AI Agent的讨论已从概念介绍深入到推理、规划与工具调用的技术细节，并在单智能体与多智能体之间形成较清晰的架构分层；多智能体的价值主张集中于专业化分工、协同决策与整体目标达成，但其在工具规模、上下文规模和管理扩展性上的挑战仍需通过架构设计加以回应。</p>\n  </section>\n\n  <section>\n    <h2>大模型 Agent 安全风险 监管政策 2026</h2>\n    <p>2026年，国产大模型在Agent场景的落地推进，正置于一个明显系统化的政策与治理环境之中。行业观察显示，中国AI大模型行业的政策环境已进入高度成熟且系统化的新阶段，与早期侧重鼓励探索、包容试错的基调不同，当前政策框架全面转向“规范发展与安全治理并重、创新激励与风险防控协同”。这一转向并非孤立现象，全球AI大模型行业的政策环境同样从“鼓励探索”全面转向“规范发展与安全治理并重”；经过数年技术狂飙，各国政府普遍认识到大模型技术对经济社会的深远影响已远超预期，因此在政策制定中更强调安全治理与风险防控。在此背景下，Agent作为具有自主性或半自主性的智能实体，能够利用人工智能技术在数字或物理环境中感知、决策并采取行动，其安全风险成为监管与治理关注的重点。围绕大模型Agent的安全保障，相关研究已提出通过自动化风险模拟器保障LLM Agent安全的思路，旨在对LLM Agent的潜在风险进行模拟和防护。与此同时，大模型风险、安全与治理议题在更早阶段已进入研究视野：2024年前沿大模型风险、安全与治理报告即探讨大模型风险、安全与治理问题，为相关研究和政策制定提供参考；2024年大模型安全研究报告亦聚焦安全风险与未来展望；开源大模型应用指南风险治理篇则由可信开源合规计划开源人工智能治理工作组撰写，关注开源大模型的风险治理。大模型行业政策与标准研究也覆盖监管政策解读、行业标准与规范分析、生态建设与合作机制探讨等议题。总体看，2026年Agent场景的落地进展不再仅是技术能力问题，而是与监管政策、标准规范和安全治理框架紧密交织；政策环境的成熟化与安全治理的常态化，正在塑造国产大模型Agent从试点探索走向合规落地的基本边界。</p>\n  </section>\n\n  <section>\n    <h2>关键结论</h2>\n    <ol class=\"kc-list\">\n      <li>\n        <p class=\"kc-text\">2026年国产大模型Agent落地的核心制约已从模型能力转向工程实现与人才供给，行业态势被概括为“国产登顶、百万上下文落地、Agent工业化”；Gartner预测到2028年33%的企业软件应用将包含Agentic AI。</p>\n        <p class=\"kc-src\"><span class=\"src-tag\">来源：</span><a href=\"https://blog.csdn.net/chen_si_shang_/article/details/159461622\" target=\"_blank\" rel=\"noopener\">[1] 2026年3月大模型全景深度解析:国产登顶、百万上下文落地、Agent工业化,AI实用时代全面来临[特殊字符]_2026年3月 ai agent应用开发 前沿技术 最新进展-CSDN博客</a><a href=\"https://estate.cfi.cn/p20260717002432.html\" target=\"_blank\" rel=\"noopener\">[2] Agent落地核心转向工程能力 国产大模型培训迎新风口- CFi.CN 中财网</a></p>\n      </li>\n      <li>\n        <p class=\"kc-text\">企业级AI Agent在2026年进入规模化落地阶段：沙丘智库调研数据显示我国企业AI Agent采纳率已从2024年底的17.3%提升至2026年中的40.3%，Gartner预测2026年底全球40%的企业应用将内置任务型Agent，2026年被视为企业级智能体从“能说”走向“能干”的关键分水岭。</p>\n        <p class=\"kc-src\"><span class=\"src-tag\">来源：</span><a href=\"https://www.weiyangx.com/475000.html\" target=\"_blank\" rel=\"noopener\">[3] 2026企业级Agent平台推荐,从落地效果出发的深度横评 | 未央网</a><a href=\"https://www.cet.com.cn/wzsy/kjzx/cygdzx/10448101.shtml\" target=\"_blank\" rel=\"noopener\">[4] 一文读懂:企业级 AI Agent 平台(价值、分类、趋势、如何选)--产业资讯--中国经济新闻网</a></p>\n      </li>\n      <li>\n        <p class=\"kc-text\">企业Agent平台选型的焦点已从“要不要上”转入“怎么选部署模式”，形成云端SaaS、私有化、本地化三类部署路径，并以“数据不出域”等硬性标准核验；国产化适配方面，综合型平台如科大讯飞AstronClaw强调全栈国产化与全场景适配，360智语Agent平台强调信创环境兼容。</p>\n        <p class=\"kc-src\"><span class=\"src-tag\">来源：</span><a href=\"https://juejin.cn/post/7672323647886737443\" target=\"_blank\" rel=\"noopener\">[5] 2026年企业Agent平台怎么选?本地化、私有化、云端三类全景对比一、为什么 2026 年必须先厘清\"部署模式\" 很多 - 掘金</a><a href=\"https://www.ithome.com/0/961/333.htm\" target=\"_blank\" rel=\"noopener\">[6] 硬核实测出炉!2026国产化适配的Agent平台多场景选型指南 - IT之家</a></p>\n      </li>\n      <li>\n        <p class=\"kc-text\">国产模型Agent能力尚无统一的横向排位：Qwen 3与DeepSeek已有“同一Agent调用不同模型执行相同任务”的实操测试但结论未明；豆包与DeepSeek被描述为没有绝对强弱之分，二者在推理机制上分野明显——豆包重任务完成与压缩过程、依赖预训练知识、软修正容错，DeepSeek重思维链展开与强制分步验证、动态检索增强、硬性归因回溯，这直接影响Agent的任务拆解、工具调用与错误恢复策略。</p>\n        <p class=\"kc-src\"><span class=\"src-tag\">来源：</span><a href=\"https://www.sohu.com/a/891587888_121124363\" target=\"_blank\" rel=\"noopener\">[7] 热乎的:同样的Agent同样的任务,分别调用Qwen 3和DeepSeek对比谁更强?_测试_分析_年数据</a><a href=\"https://www.php.cn/faq/2471275.html\" target=\"_blank\" rel=\"noopener\">[8] 豆包AI对比DeepSeek推理_推理能力对比【详解】-人工智能-PHP中文网</a><a href=\"https://caifuhao.eastmoney.com/news/20250223103232599342880\" target=\"_blank\" rel=\"noopener\">[9] 豆包和 DeepSeek 哪个强哪个弱？</a></p>\n      </li>\n      <li>\n        <p class=\"kc-text\">Agent技术架构的讨论已从概念介绍深入到推理、规划与工具调用细节，并形成单智能体与多智能体的分层：多智能体架构将复杂应用分解为多个协同工作的专业化Agent，以分工协作替代单体承载全量任务、工具与逻辑，用以应对工具调用数量激增导致选择机制错误率上升、上下文信息高度膨胀等管理与扩展挑战；Spring AI Alibaba 1.x系列已专门讨论多智能体架构，框架层支持正在跟进。</p>\n        <p class=\"kc-src\"><span class=\"src-tag\">来源：</span><a href=\"https://www.chaspark.com/#/hotspots/1232136419919421440\" target=\"_blank\" rel=\"noopener\">[10] AI Agent:Multi-Agent架构 #AI技术解析 -黄大年茶思屋</a><a href=\"https://blog.csdn.net/qq_43437874/article/details/160474868\" target=\"_blank\" rel=\"noopener\">[11] Spring AI Alibaba 1.x 系列【39】多智能体(Multi-agent)架构_spring ai multi agent-CSDN博客</a><a href=\"https://agijuejin.feishu.cn/wiki/NyHIwr3o3iNKPRkADaPckNgonBf\" target=\"_blank\" rel=\"noopener\">[12] 新兴人工智能Agent架构的综述:推理、规划和工具调用 - 飞书云文档</a></p>\n      </li>\n      <li>\n        <p class=\"kc-text\">2026年Agent落地已与监管治理深度交织：中国及全球AI大模型政策环境均已从早期的“鼓励探索”全面转向“规范发展与安全治理并重、创新激励与风险防控协同”，Agent因具备自主或半自主的行动能力而成为安全风险关注重点，已有研究提出以自动化风险模拟器（如SafeAgent）保障LLM Agent安全，政策成熟化正在划定Agent合规落地的边界。</p>\n        <p class=\"kc-src\"><span class=\"src-tag\">来源：</span><a href=\"https://www.chinairn.com/news/20260610/113747805.shtml\" target=\"_blank\" rel=\"noopener\">[13] 2026年中国AI大模型行业政策环境与应用场景展望_中研普华_中研网</a><a href=\"https://www.chinairn.com/news/20260610/114312396.shtml\" target=\"_blank\" rel=\"noopener\">[14] 2026年全球AI大模型行业政策环境与痛点拆解洞察_中研普华_中研网</a><a href=\"https://arxiv.org/abs/2505.17735\" target=\"_blank\" rel=\"noopener\">[15] [2505.17735] SafeAgent: Safeguarding LLM Agents via an Automated Risk Simulator – arxiv</a></p>\n      </li>\n    </ol>\n  </section>\n\n  <section>\n    <h2>遗留问题</h2>\n    <ul class=\"oq-list\">\n      <li>DeepSeek、Qwen、豆包三者在同一Agent基准、同一工具链与同一评价指标下的完整横向对比仍然缺失，如何建立可复现的国产模型Agent能力评测基准？</li>\n      <li>“Agent是否是大模型落地的必经之路”在业界仍存明显分歧，Agent崛起究竟属于技术演进主线还是大模型热度回落后的替代叙事，尚缺乏数据层面的验证。</li>\n      <li>多智能体架构在工具规模与上下文规模持续膨胀下的工程治理方案（检索、选择、编排与责任边界）尚不成熟，落地最佳实践有待沉淀。</li>\n      <li>企业级Agent规模化部署的实际投入产出比、私有化Token成本与运维成本缺乏统一核算口径，选型决策缺少可比数据。</li>\n      <li>在信创与国产化适配要求下，各主流Agent平台跨环境的一致性、性能损耗与安全合规边界尚缺少第三方独立测评。</li>\n    </ul>\n  </section>\n\n  <section>\n    <h2>来源列表</h2>\n    <ol class=\"src-list\">\n      <li><span class=\"src-num\">[1]</span><a href=\"https://blog.csdn.net/chen_si_shang_/article/details/159461622\" target=\"_blank\" rel=\"noopener\">2026年3月大模型全景深度解析:国产登顶、百万上下文落地、Agent工业化,AI实用时代全面来临[特殊字符]_2026年3月 ai agent应用开发 前沿技术 最新进展-CSDN博客</a></li>\n      <li><span class=\"src-num\">[2]</span><a href=\"https://estate.cfi.cn/p20260717002432.html\" target=\"_blank\" rel=\"noopener\">Agent落地核心转向工程能力 国产大模型培训迎新风口- CFi.CN 中财网</a></li>\n      <li><span class=\"src-num\">[3]</span><a href=\"https://www.weiyangx.com/475000.html\" target=\"_blank\" rel=\"noopener\">2026企业级Agent平台推荐,从落地效果出发的深度横评 | 未央网</a></li>\n      <li><span class=\"src-num\">[4]</span><a href=\"https://www.cet.com.cn/wzsy/kjzx/cygdzx/10448101.shtml\" target=\"_blank\" rel=\"noopener\">一文读懂:企业级 AI Agent 平台(价值、分类、趋势、如何选)--产业资讯--中国经济新闻网</a></li>\n      <li><span class=\"src-num\">[5]</span><a href=\"https://juejin.cn/post/7672323647886737443\" target=\"_blank\" rel=\"noopener\">2026年企业Agent平台怎么选?本地化、私有化、云端三类全景对比一、为什么 2026 年必须先厘清\"部署模式\" 很多 - 掘金</a></li>\n      <li><span class=\"src-num\">[6]</span><a href=\"https://www.ithome.com/0/961/333.htm\" target=\"_blank\" rel=\"noopener\">硬核实测出炉!2026国产化适配的Agent平台多场景选型指南 - IT之家</a></li>\n      <li><span class=\"src-num\">[7]</span><a href=\"https://www.sohu.com/a/891587888_121124363\" target=\"_blank\" rel=\"noopener\">热乎的:同样的Agent同样的任务,分别调用Qwen 3和DeepSeek对比谁更强?_测试_分析_年数据</a></li>\n      <li><span class=\"src-num\">[8]</span><a href=\"https://www.php.cn/faq/2471275.html\" target=\"_blank\" rel=\"noopener\">豆包AI对比DeepSeek推理_推理能力对比【详解】-人工智能-PHP中文网</a></li>\n      <li><span class=\"src-num\">[9]</span><a href=\"https://caifuhao.eastmoney.com/news/20250223103232599342880\" target=\"_blank\" rel=\"noopener\">豆包和 DeepSeek 哪个强哪个弱？</a></li>\n      <li><span class=\"src-num\">[10]</span><a href=\"https://www.chaspark.com/#/hotspots/1232136419919421440\" target=\"_blank\" rel=\"noopener\">AI Agent:Multi-Agent架构 #AI技术解析 -黄大年茶思屋</a></li>\n      <li><span class=\"src-num\">[11]</span><a href=\"https://blog.csdn.net/qq_43437874/article/details/160474868\" target=\"_blank\" rel=\"noopener\">Spring AI Alibaba 1.x 系列【39】多智能体(Multi-agent)架构_spring ai multi agent-CSDN博客</a></li>\n      <li><span class=\"src-num\">[12]</span><a href=\"https://agijuejin.feishu.cn/wiki/NyHIwr3o3iNKPRkADaPckNgonBf\" target=\"_blank\" rel=\"noopener\">新兴人工智能Agent架构的综述:推理、规划和工具调用 - 飞书云文档</a></li>\n      <li><span class=\"src-num\">[13]</span><a href=\"https://www.chinairn.com/news/20260610/113747805.shtml\" target=\"_blank\" rel=\"noopener\">2026年中国AI大模型行业政策环境与应用场景展望_中研普华_中研网</a></li>\n      <li><span class=\"src-num\">[14]</span><a href=\"https://www.chinairn.com/news/20260610/114312396.shtml\" target=\"_blank\" rel=\"noopener\">2026年全球AI大模型行业政策环境与痛点拆解洞察_中研普华_中研网</a></li>\n      <li><span class=\"src-num\">[15]</span><a href=\"https://arxiv.org/abs/2505.17735\" target=\"_blank\" rel=\"noopener\">[2505.17735] SafeAgent: Safeguarding LLM Agents via an Automated Risk Simulator – arxiv</a></li>\n    </ol>\n  </section>\n\n  <footer class=\"doc-footer\">报告生成时间：2026-09-10</footer>\n\n</main>\n</body>\n</html>\n```",
+  "sources": [
+    {
+      "url": "https://blog.csdn.net/chen_si_shang_/article/details/159461622",
+      "title": "2026年3月大模型全景深度解析:国产登顶、百万上下文落地、Agent工业化,AI实用时代全面来临[特殊字符]_2026年3月 ai agent应用开发 前沿技术 最新进展-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "个人主页:北极的代码(欢迎来访)\n作者简介:java后端学习者\n❄️个人专栏:苍穹外卖日记,SSM框架深入,JavaWeb\n✨命运的结局尽可永在,不屈的挑战却不可须臾或缺!\n前言:\n2026年3月",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.infoq.cn/article/TbTZmHSARHQXiTmArO1v",
+      "title": "跟黎科峰、焦可、刘琼 、石建平、张俊九五位重量级大咖共话:Agent 是否是大模型落地的必经之路? - InfoQ",
+      "site_name": "InfoQ",
+      "snippet": "随着\nOpenAI\n公司发布\nChatGPT,国产大模型也如雨后春笋般喷涌而出,“百模大战”盛况吸引全球关注,大模型的发展速度日新月异。美东时间周四,OpenAI\n的首席运营官\nBrad\nLightc",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://app.myzaker.com/news/article.php?pk=677e49d08e9f094510397d78",
+      "title": "2025，Agent生死竞速",
+      "site_name": "ZAKER",
+      "snippet": "撰文  | 郝 鑫\n编辑  | 吴先之\n2024 年 Agent 崛起的背后,既是技术狂飙的产物,也是大模型跌落神坛的伊始。\n大模型的光晕正在逐渐消散。\n\"2023 年,大家普遍觉得要买一个大模型,很",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "http://www.sohu.com/a/892188563_121118718",
+      "title": "【国泰海通非银刘欣琦团队】国产大模型加速迭代,AI Agent落地多场景——金融科技行业AI应用双周报第九期_智能",
+      "site_name": "搜狐",
+      "snippet": "读 DeepSeek 及通义千问发布最新大模型,飞猪、 choice 等推出 Agent ,未来 Agent 或在更多场景逐步落地,带动 AI 应用加速落地。 摘 要 国产大模型加速迭代,AI Age",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "http://app.myzaker.com/news/article.php?pk=677e5e51b15ec00b9a5c67ed",
+      "title": "2025，Agent生死竞速",
+      "site_name": "ZAKER",
+      "snippet": "文 | 光子星球\n2024 年 Agent 崛起的背后,既是技术狂飙的产物,也是大模型跌落神坛的伊始。\n大模型的光晕正在逐渐消散。\n\"2023 年,大家普遍觉得要买一个大模型,很多人热衷于训练自己的大",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://m.huxiu.com/article/3884949.html",
+      "title": "2025，Agent生死竞速",
+      "site_name": "虎嗅",
+      "snippet": "文章摘要 \nAgent在AI应用中快速崛起,成为企业高效解决方案。\n•      Agent快速连接大模型与应用场景\n•      大厂与创业公司合作推动Agent发展\n•      未来1-2年“A",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://m.elecfans.com/article/2788683.html",
+      "title": "中软国际AI Agent场景案例荣膺“2023年软件行业典型示范案例”殊荣",
+      "site_name": "电子发烧友网",
+      "snippet": "近日,由中国软件行业协会主办的“第三届中国国际软件发展大会暨中国软件行业协会成立40周年纪念活动”在北京顺利召开。会上,中软国际解放号“问”系列 AI  Agent 场景案例荣膺“2023年软件行业典",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://estate.cfi.cn/p20260717002432.html",
+      "title": "Agent落地核心转向工程能力 国产大模型培训迎新风口- CFi.CN 中财网",
+      "site_name": "中国财经信息网",
+      "snippet": "Agent落地核心转向工程能力\n国产大模型培训迎新风口\n时间:2026年07月17日\n21:45:24\n中财网\n数据显示,Gartner预测到2028年33%的企业软件应用将包含Agentic\nAI,",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.shaqiu.cn/article/4NDrLga8Ymx1",
+      "title": "2024中国AI Agent最佳实践案例TOP20重磅发布",
+      "site_name": "www.shaqiu.cn",
+      "snippet": "引言\n在数字化浪潮中,大模型已成为推动社会进步和商业创新的关键力量。特别是在AI Agent领域,我们见证了技术从概念到实践的飞跃,它们不仅改变了我们的工作方式,也重塑了我们对智能技术的期待。《202",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://max.book118.com/html/2025/0410/5100343344012131.shtm",
+      "title": "【沙丘社区】2024中国AI Agent最佳实践案例TOP20.docx-原创力文档",
+      "site_name": "原创力文档",
+      "snippet": "2|2024中国AIAgent最佳实践案例TOP20 目录 引言3 1.AIAgent,大模型落地的“最后一公里”4 2.2024中国AIAgent最佳实践案例TOP20评选结果8 3.入选案例介绍1",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7669455291915485219",
+      "title": "2026企业AI Agent本地化落地:6平台横评+搭建步骤+成本模板@[toc] 一、问题背景:为什么 2026 要 - 掘金",
+      "site_name": "掘金",
+      "snippet": "摘要:本文面向企业技术负责人与架构师,系统梳理\nAI\nAgent\n本地化落地的评估框架、6\n大主流平台的客观横评、一套可复制的全链路搭建步骤,以及一个可运行的私有化\nToken\n成本测算脚本。基于\n2",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.baogao.com/jigou/1504680.html",
+      "title": "中国企业级AI Agent发展洞察报告 ( 2026 ) _报告网",
+      "site_name": "报告网",
+      "snippet": "中国企业级AI\nAgent发展洞察报告\n(\n2026\n)\n2026-08-04\n08:20:16上传人:水性**y≈\nAa\n小\n中\n大\n本报告系统分析了中国企业级AI\nAgent市场的发展现状。基于技",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://juejin.cn/post/7672323647886737443",
+      "title": "2026年企业Agent平台怎么选?本地化、私有化、云端三类全景对比一、为什么 2026 年必须先厘清\"部署模式\" 很多 - 掘金",
+      "site_name": "掘金",
+      "snippet": "摘要:2026\n年企业\nAgent\n已从\"要不要上\"进入\"怎么选部署模式\"的阶段。本文提出企业\nAgent\n部署三模式框架(云端\nSaaS\n/\n私有化\n/\n本地化),用数据不出域的\"三条硬核验标准\"拆",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.cet.com.cn/wzsy/kjzx/cygdzx/10448101.shtml",
+      "title": "一文读懂:企业级 AI Agent 平台(价值、分类、趋势、如何选)--产业资讯--中国经济新闻网",
+      "site_name": "中国经济新闻网",
+      "snippet": "企业级\nAI\nAgent\n在\n2026\n年正从技术概念,进入规模化落地期,是当前确定性最高的数字化投入方向。\n从全球市场来看,Gartner\n预测:2026\n年底,全球\n40%\n的企业应用将内置任务型",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://report.iresearch.cn/report/202607/4848.shtml",
+      "title": "中国企业级AI Agent发展洞察报告 ( 2026 ) _人工智能_艾瑞网",
+      "site_name": "艾瑞网报告频道",
+      "snippet": "报告简介\n本报告系统分析了中国企业级AI\nAgent市场的发展现状。基于技术周期视角,体系化推演了行业在初步探索期、敏捷实践期、规模扩展期的演进路径,力求为行业提供一份具有参考价值的研究成果。\n目录\n",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.ithome.com/0/961/333.htm",
+      "title": "硬核实测出炉!2026国产化适配的Agent平台多场景选型指南 - IT之家",
+      "site_name": "IT之家",
+      "snippet": "摘要:本文对比分析了国产化场景下主流\nAI\nagent\n平台的核心能力与适配表现。综合型平台如科大讯飞\nAstronClaw(全栈国产化\n/\n全场景适配)、360\n智语\nAgent\n平台(信创环境兼容",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.jiemian.com/article/14922528.html",
+      "title": "2026中国企业级AI Agent发展洞察报告|界面新闻 · JMedia",
+      "site_name": "界面新闻",
+      "snippet": "文|艾瑞咨询\n一、中国企业级AI\nAgent市场洞察\n(一)落地现状及客户需求\n1.\n企业AI采纳率和应用成熟度\n自主式AI\nAgent成行业焦点,推动企业加速拥抱新一代AI技术,大部分企业的AI\nA",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.weiyangx.com/475000.html",
+      "title": "2026企业级Agent平台推荐,从落地效果出发的深度横评 | 未央网",
+      "site_name": "未央网",
+      "snippet": "本文共字,预计阅读时间。\n2026年是企业级AI智能体从“能说”走向“能干”的关键分水岭。沙丘智库调研数据显示,我国企业AI\nAgent采纳率已从2024年底的17.3%提升至2026年中的40.3%",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://news.yesky.com/hotnews/451/353451.shtml",
+      "title": "2026企业级Data Agent开发平台推荐:权威维度评估与主流产品整理_天极网",
+      "site_name": "天极网",
+      "snippet": "一、行业发展趋势:企业级Data\nAgent开发平台迈入规模化落地元年\n随着智能体技术快速迭代,2026年,企业级Data\nAgent开发平台已从技术验证阶段全面进入规模化商业落地周期,成为企业数字化",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://tech.ifeng.com/c/8wHTDAExUQI",
+      "title": "一文读懂企业级 AI Agent 平台:价值体系、主流分类、技术趋势与选型指南_凤凰网",
+      "site_name": "凤凰网",
+      "snippet": "2026\n年,企业级\nAI\nAgent\n正式从技术概念验证迈入规模化落地的关键阶段,成为当前企业数字化转型中确定性较高的投入方向。从全球市场看,Gartner\n预测,2026\n年底全球\n40%\n的企业",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.sohu.com/a/891587888_121124363",
+      "title": "热乎的:同样的Agent同样的任务,分别调用Qwen 3和DeepSeek对比谁更强?_测试_分析_年数据",
+      "site_name": "搜狐",
+      "snippet": "2025-05-03 08:03 今天Qwen 3的发布燃爆朋友圈,笔者也第一时间进行了测试。测试的场景为用一个同样的Agent去调用两个不同的模型,同样的任务,看两个模型对任务的完成情况。 选用",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.toutiao.com/article/7500364030817681959/",
+      "title": "热乎的:同样的Agent同样的任务,分别调用Qwen 3和DeepSeek对比谁更强? - 今日头条",
+      "site_name": "今日头条",
+      "snippet": "2025-05-04 07:24 · opendotnet 今天Qwen 3的发布燃爆朋友圈,笔者也第一时间进行了测试。测试的场景为用一个同样的Agent去调用两个不同的模型,同样的任务,",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/Wnq10072/article/details/146560612",
+      "title": "DeepSeek与豆包的核心区别解析(截至2025年03月)_豆包技术架构-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "点赞数 9 三、功能特性分野 维度 DeepSeek 豆包 文案生成 专利技术描述精准,含数据图表建议 添加emoji表情,营造社交氛围 技术文档 深度解析StyleGAN3等专业架构 概述GAN网络",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://m.yoyou.com/shouji/deeps_266692.html",
+      "title": "DeepSeek",
+      "site_name": "优游手机游戏网",
+      "snippet": "应用大小: 8.37MB 应用平台: Andriod 应用等级: 应用版本: V1.0.1 应用语言: 简体中文 更新时间: 2025-01-16 备案号: 浙ICP备2023025841号-3A D",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://k.sina.com.cn/article_7857201856_1d45362c001902drui.html",
+      "title": "豆包VS DeepSeek:AI工具优缺点深度解析与选型指南|注意力机制|Transformer模型|推理|模型|专家_新浪新闻",
+      "site_name": "新浪网",
+      "snippet": "豆包采用模块化混合架构,核心由Transformer-XL基座模型、领域适配层和动态知识库三部分构成。其技术亮点体现在长文本处理能力上,通过相对位置编码(Relative\nPosition\nEncod",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.toutiao.com/article/7466691722723050019",
+      "title": "豆包和DeepSeek有什么区别? - 今日头条",
+      "site_name": "今日头条",
+      "snippet": "豆包和 DeepSeek 有以下区别: 模型架构与技术 豆包 :是字节跳动基于云雀模型开发的人工智能,以Transformer 架构为基础进行了大量技术优化和创新,具备多模态交互能力。 DeepSee",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://caifuhao.eastmoney.com/news/20250223103232599342880",
+      "title": "豆包和 DeepSeek 哪个强哪个弱？",
+      "site_name": "财富号",
+      "snippet": "$三六零(SH601360)$  豆包和DeepSeek没有绝对的强弱之分,它们在不同方面各有优势,具体如下:\n功能定位\n- 豆包:是大众化智能助手,主要面向日常交流和生活服务,能自然流畅聊天,可进行",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.php.cn/faq/2471275.html",
+      "title": "豆包AI对比DeepSeek推理_推理能力对比【详解】-人工智能-PHP中文网",
+      "site_name": "php中文网",
+      "snippet": "豆包与DeepSeek推理机制存在根本差异:豆包重任务完成、压缩过程,DeepSeek重思维链展开、强制分步验证;前者依赖预训练知识,后者动态检索增强;前者软修正容错,后者硬性归因回溯;前者短程推理稳",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://caifuhao.eastmoney.com/news/20250202212559342528790",
+      "title": "假期爆了!DeepSeek和豆包,哪个更强?_财富号_东方财富网",
+      "site_name": "财富号",
+      "snippet": "来自专栏 楠哥擒妖的专栏 2025年02月02日21:25 广东 返回 上证指数吧> 老铁们啊,春节期间,投资市场最热的话题无疑是属于DeepSeek横空出世后的刷屏,对于全球AI",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://m.blog.csdn.net/2401_84208172/article/details/144905963",
+      "title": "万字长文！AI Agent架构概况：关于推理、规划和工具调用",
+      "site_name": "CSDN",
+      "snippet": "点赞数 5 \n文章标签: 人工智能 大语言模型 AI大模型 语言模型 AI Agent 大模型 LLM\n版权\nAI Agent(智能体)是近来一个火热的话题。我之前也写了几篇文章介绍AI Agent方",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/qq_43437874/article/details/160474868",
+      "title": "Spring AI Alibaba 1.x 系列【39】多智能体(Multi-agent)架构_spring ai multi agent-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "1.\n概述\n多智能体\n(Multi-agent)将复杂的应用程序分解为多个协同工作的专业化\nAgent\n。\n与依赖单个Agent承载全量任务、全量工具、全量逻辑不同,Multi-agent\n架构可以将",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://tianqi.csdn.net/6850dc45eabc61314fc28ac5.html",
+      "title": "万字长文!AI Agent架构概况:关于推理、规划和工具调用_人工智能_爱编程的小辞-天启AI社区",
+      "site_name": "CSDN",
+      "snippet": "AI\nAgent(智能体)是近来一个火热的话题。我之前也写了几篇文章介绍AI\nAgent方面的应用,但并没有深入挖掘其背后的技术细节。今天这篇文章就来聊一聊AI\nAgent背后的故事。这是一篇由IBM",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "http://www.360doc.cn/article/0_1124563842.html",
+      "title": "万字长文！AI Agent架构概况：关于推理、规划和工具调用",
+      "site_name": "360doc个人图书馆",
+      "snippet": "AI Agent(智能体)是近来一个火热的话题。我之前也写了几篇文章介绍AI Agent方面的应用,但并没有深入挖掘其背后的技术细节。今天这篇文章就来聊一聊AI Agent背后的故事。这是一篇由IBM",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://m.blog.csdn.net/l01011_/article/details/146058577",
+      "title": "万字长文！AI Agent架构概况：关于推理、规划和工具调用",
+      "site_name": "CSDN",
+      "snippet": "AI Agent(智能体)是近来一个火热的话题。我之前也写了几篇文章介绍AI Agent方面的应用,但并没有深入挖掘其背后的技术细节。今天这篇文章就来聊一聊AI Agent背后的故事。这是一篇由 IB",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://agijuejin.feishu.cn/wiki/NyHIwr3o3iNKPRkADaPckNgonBf",
+      "title": "新兴人工智能Agent架构的综述:推理、规划和工具调用 - 飞书云文档",
+      "site_name": "飞书官网",
+      "snippet": "AI智能体定义:AI智能体被描述为能够规划和采取行动以在多轮迭代中执行目标的语言模型驱动实体。​单智能体与多智能体架构:AI智能体架构可以由单个智能体构成,也可以由多个协同工作的智能体构成,以解决特定",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://blog.csdn.net/l01011_/article/details/146058577",
+      "title": "万字长文!AI Agent架构概况:关于推理、规划和工具调用_the landscape of emerging ai agent architectures f-CSDN博客",
+      "site_name": "CSDN",
+      "snippet": "AI\nAgent(智能体)是近来一个火热的话题。我之前也写了几篇文章介绍AI\nAgent方面的应用,但并没有深入挖掘其背后的技术细节。今天这篇文章就来聊一聊AI\nAgent背后的故事。这是一篇由IBM",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.chaspark.com/#/hotspots/1232136419919421440",
+      "title": "AI Agent:Multi-Agent架构 #AI技术解析 -黄大年茶思屋",
+      "site_name": "www.chaspark.com",
+      "snippet": "一、引言\n在\nAgent\n系统的构建过程中,随着系统演进,其复杂度往往持续攀升,进而显著增加管理与扩展的难度。典型挑战包括:\n工具调用数量激增‌,致使选择机制的错误率显著上升;\n上下文信息高度膨胀‌,",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.waytoagi.com/question/88586",
+      "title": "多智能体应用搭建",
+      "site_name": "www.waytoagi.com",
+      "snippet": "Answer\n多智能体是由多个自主、独立的智能体组成的系统,每个智能体都能感知环境、决策并执行任务,且相互间能信息共享、任务协调与协同行动以实现整体目标。\n随着大型语言模型的出现,以其为核心构建的 A",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://devpress.csdn.net/aibjcy/68ee02138867235e1391bb94.html",
+      "title": "深入解析多智能体(Multi-Agent)系统的应用场景与架构模式_架构_AI大模型学习官-北京朝阳AI社区",
+      "site_name": "CSDN",
+      "snippet": "深入解析多智能体(Multi-Agent)系统的应用场景与架构模式\n在人工智能应用的开发中,我们常常依赖于强大的大语言模型(LLMs)来构建处理各种任务的AI\nAgent。然而,当任务变得复杂、多维度",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.chinairn.com/news/20260610/113747805.shtml",
+      "title": "2026年中国AI大模型行业政策环境与应用场景展望_中研普华_中研网",
+      "site_name": "中研网",
+      "snippet": "2026年中国AI大模型行业的政策环境已进入一个高度成熟且系统化的新阶段,与早期侧重于鼓励探索和包容试错的政策基调不同,当前的政策框架已全面转向\"规范发展与安全治理并重、创新激励与风险防控协同\"的成熟",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://m.blog.csdn.net/qingkahui24689/article/details/142586685",
+      "title": "AI Agent带来哪些安全风险？如何应对？",
+      "site_name": "CSDN",
+      "snippet": "文章标签: 人工智能 安全 agent 自然语言处理 大语言模型 AI Agent 大模型\nAI Agent是一种具有自主性或半自主性的智能实体,能够利用人工智能技术在数字或物理环境中感知、决策、采取",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://max.book118.com/html/2025/0127/8046117026007026.shtm",
+      "title": "2024前沿大模型的风险、安全与治理报告.pptx-原创力文档",
+      "site_name": "原创力文档",
+      "snippet": "2024前沿大模型的风险、安全与治理报告随着人工智能技术的快速发展,大模型在各个领域展现出巨大潜力,但也带来了新的风险和挑战。本报告将探讨2024年大模型的风险、安全与治理问题,为相关研究和政策制定提",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://arxiv.org/abs/2505.17735",
+      "title": "[2505.17735] SafeAgent: Safeguarding LLM Agents via an Automated Risk Simulator – arxiv",
+      "site_name": "arXiv",
+      "snippet": "Computer Science > Artificial Intelligence\narXiv:2505.17735(cs)\n[Submitted on 23 May 2025 (v1), last",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.chinairn.com/news/20260610/114312396.shtml",
+      "title": "2026年全球AI大模型行业政策环境与痛点拆解洞察_中研普华_中研网",
+      "site_name": "中研网",
+      "snippet": "2026年全球AI大模型行业的政策环境已从早期的\"鼓励探索\"全面转向\"规范发展与安全治理并重\"的新阶段,经过数年的技术狂飙,各国政府普遍认识到大模型技术对经济社会的深远影响已远超预期,因此在政策制定上",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://doc.mbalib.com/view/f49c93a9b5f3fb041f3aaa59314866d7.html",
+      "title": "大模型行业政策与标准研究报告 - MBA智库文档",
+      "site_name": "MBA智库文档",
+      "snippet": "MacroWord. 1 / 8大模型行业政策与标准研究报告目录一、 前言 2二、 大模型行业监管政策解读 2三、 大模型行业标准与规范分析 4四、 大模型行业生态建设与合作机制探讨 6五、 报告结语",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.toutiao.com/article/7424855273824616960/",
+      "title": "2024年大模型安全研究报告:安全风险与未来展望 - 今日头条",
+      "site_name": "今日头条",
+      "snippet": "本次为大家解读的报告是《大模型安全研究报告(2024年)》,更多重要内容、核心观点,请参考报告原文,文末有完整版获取方式。报告核心内容在人工智能的浪潮中,大模型技术以其强大的数据处理能力和多任务处理能",
+      "accessed_at": "2026-09-10"
+    },
+    {
+      "url": "https://www.renrendoc.com/paper/364015203.html",
+      "title": "2024 开源大模型应用指南1.0 -风险治理篇.docx - 人人文库",
+      "site_name": "人人文库",
+      "snippet": "IP属地:山西 上传时间:2024-11-28 II版权声明本指南由云计算开源产业联盟可信开源合规计划开源人工智能治理工作组撰写,限于撰写组时间、知识局限以及技术、社会发展迭代等因素,内容恐有",
+      "accessed_at": "2026-09-10"
+    }
+  ],
+  "draft": [
+    {
+      "round": 1,
+      "keyword": "2026 国产大模型 Agent 落地案例",
+      "text": "进入2026年，国产大模型在Agent场景的落地呈现出从模型能力竞赛转向工程化交付的明显特征。2026年3月的一份行业深度综述将当时态势概括为\"国产登顶、百万上下文落地、Agent工业化\"，并判断AI实用时代全面来临，这一概括与随后数月的行业动向相互印证。2026年7月，有报道援引数据指出，Gartner预测到2028年33%的企业软件应用将包含Agentic AI，同时提出Agent落地的核心已转向工程能力，围绕国产大模型的培训随之形成新的市场风口。这意味着制约Agent规模化部署的瓶颈正由模型本身转向工程实现与人才供给。在具体场景层面，金融科技是较早出现落地案例的方向，一份金融科技行业AI应用双周报指出，国产大模型加速迭代，DeepSeek与通义千问相继发布最新大模型，飞猪、choice等产品推出Agent，并预期未来Agent或在更多场景逐步落地，带动AI应用加速落地。案例评选方面，《2024中国AI Agent最佳实践案例TOP20》将AI Agent视为大模型落地的\"最后一公里\"，并评出二十个最佳实践案例；更早的2023年，中软国际解放号\"问\"系列AI Agent场景案例曾获软件行业典型示范案例，显示出国产Agent应用已有一定时间跨度。不过，围绕Agent在大模型落地中的角色，业界说法并不一致。2024年4月，已有行业对话以\"Agent是否是大模型落地的必经之路\"为主题，组织多位从业者展开讨论；2025年初的相关观察则提出，2024年Agent崛起的背后既是技术狂飙的产物，也是大模型热度回落的开端，\"大模型的光晕正在逐渐消散\"，并以\"生死竞速\"形容Agent赛道的竞争态势；同一时期另有观点认为，Agent在AI应用中快速崛起并成为企业的高效解决方案，其价值在于快速连接大模型与应用场景，大厂与创业公司的合作共同推动了这一进程。上述判断在Agent究竟是落地的必经之路、还是大模型光环消退后的替代叙事上存在明显分歧，构成观察2026年国产大模型Agent落地进展时值得对照的背景。"
+    },
+    {
+      "round": 1,
+      "keyword": "国产 Agent 平台 企业级应用 2026",
+      "text": "2026年，企业级AI Agent从技术概念验证迈入规模化落地的关键阶段，成为企业数字化转型中确定性较高的投入方向。全球范围内，Gartner预测2026年底全球40%的企业应用将内置任务型Agent。国内方面，艾瑞咨询相关报告系统分析中国企业级AI Agent市场发展现状，基于技术周期视角推演初步探索期、敏捷实践期、规模扩展期演进路径；自主式AI Agent成为行业焦点，推动企业加速拥抱新一代AI技术。沙丘智库调研数据显示，我国企业AI Agent采纳率已从2024年底的17.3%提升至2026年中的40.3%，2026年因此被视为企业级AI智能体从“能说”走向“能干”的关键分水岭。在平台选型上，市场已从“要不要上”转入“怎么选部署模式”，出现云端SaaS、私有化、本地化三类部署模式，并以“数据不出域”等硬性标准进行核验；面向本地化落地，已有分析梳理评估框架、六大主流平台横评、可复制的全链路搭建步骤及私有化Token成本测算脚本。国产化适配方面，相关实测对比主流Agent平台核心能力与适配表现，综合型平台如科大讯飞AstronClaw强调全栈国产化、全场景适配，360智语Agent平台强调信创环境兼容。同时，企业级Data Agent开发平台被描述为从技术验证全面进入规模化商业落地周期，2026年成为规模化落地元年。整体看，2026年国产Agent平台的企业级应用正围绕部署模式选择、国产化适配、成本可控与规模化落地展开，市场进入以落地效果为检验标准的阶段。"
+    },
+    {
+      "round": 1,
+      "keyword": "DeepSeek Qwen 豆包 Agent 能力对比",
+      "text": "在国产大模型Agent能力对比的讨论中，DeepSeek、Qwen与豆包是常被并列考察的对象。Qwen 3发布后，已有测试者采用同一Agent调用不同模型、执行相同任务的方式，比较Qwen 3与DeepSeek对任务的完成情况，测试重点落在Agent实际调用中的任务完成表现；不过二者谁更优尚无明确结论。这一测试设计本身说明，对Qwen与DeepSeek的Agent横向比较已进入实操层面，但可验证的胜负结论仍不充分。\n\n豆包与DeepSeek的对比信息相对更多，且时间跨度从2025年延续至2026年。二者被认为没有绝对强弱之分，在不同方面各有优势。功能定位上，豆包是大众化智能助手，主要面向日常交流和生活服务，能自然流畅聊天；其模型架构由字节跳动基于云雀模型开发，以Transformer架构为基础进行大量技术优化和创新，并具备多模态交互能力。进入2026年，豆包又被描述为采用模块化混合架构，核心由Transformer-XL基座模型、领域适配层和动态知识库三部分构成，长文本处理能力是其技术亮点，通过相对位置编码等技术实现。DeepSeek方面，相关对比强调其在推理机制上与豆包存在根本差异：豆包重任务完成、压缩过程，DeepSeek重思维链展开、强制分步验证；豆包依赖预训练知识，DeepSeek动态检索增强；豆包采软修正容错，DeepSeek硬性归因回溯；豆包短程推理稳定。这些差异会直接影响Agent场景中的任务拆解、工具调用与错误恢复策略：若以任务完成效率为指标，豆包的压缩与容错路径可能更占优势；若以推理可追溯性和分步验证为指标，DeepSeek的思维链展开与动态检索更契合复杂Agent流程。\n\n在功能特性上，截至2025年3月，DeepSeek在文案生成中对专利技术描述精准，并含数据图表建议，在技术文档中可深度解析StyleGAN3等专业架构；豆包则在文案生成中添加emoji表情以营造社交氛围，在技术文档中概述GAN网络。这反映两者在输出专业度与交互风格上取舍不同，也会传导至Agent执行任务时的结果呈现。综合来看，当前信息尚未提供DeepSeek、Qwen、豆包三者在同一Agent基准下的完整横向对比：Qwen与DeepSeek有同任务测试但结论未明，豆包与DeepSeek被描述为定位互补、推理机制分异。因此，对三者Agent能力的判断需结合具体任务类型、工具链与评价指标分别展开，不宜简单以单一强弱排序。"
+    },
+    {
+      "round": 1,
+      "keyword": "AI Agent 多智能体 技术架构 工具调用",
+      "text": "围绕AI Agent的技术架构，现有资料普遍将推理、规划与工具调用视为核心能力环节，并将AI智能体定义为由语言模型驱动、能够在多轮迭代中规划并采取行动以执行目标的实体。在架构层面，智能体系统既可由单个智能体构成，也可由多个协同工作的智能体组成，以解决特定任务。多智能体架构的基本思路是把复杂应用程序分解为多个协同工作的专业化Agent，与依赖单个Agent承载全量任务、全量工具与全量逻辑不同，这种分工方式旨在通过专业化协作降低单体负担。相关材料对多智能体给出更细的界定：系统由多个自主、独立的智能体组成，每个智能体都能感知环境、做出决策并执行任务，且相互之间能够进行信息共享、任务协调与协同行动，以实现整体目标；随着大型语言模型的出现，以其为核心构建Agent成为重要路径。在系统演进过程中，复杂度往往持续攀升，管理与扩展难度显著增加，典型挑战包括工具调用数量激增致使选择机制错误率显著上升，以及上下文信息高度膨胀等问题。这一判断把工具调用从单纯的接口集成问题提升为架构治理问题：当可用工具规模扩大时，Agent需要更可靠的检索、选择与编排机制；当上下文持续膨胀时，则需要通过多智能体分工、信息共享与任务协调来分担单体的认知与执行压力。与此同时，面向多智能体系统的应用场景与架构模式已有专门解析，关注点在于当任务变得复杂、多维度时，如何以多Agent协作替代单一LLM驱动的Agent。从工程实现看，Spring AI Alibaba 1.x系列材料已专门讨论多智能体架构，表明相关框架层面的支持正在跟进。整体而言，现有资料对AI Agent的讨论已从概念介绍深入到推理、规划与工具调用的技术细节，并在单智能体与多智能体之间形成较清晰的架构分层；多智能体的价值主张集中于专业化分工、协同决策与整体目标达成，但其在工具规模、上下文规模和管理扩展性上的挑战仍需通过架构设计加以回应。"
+    },
+    {
+      "round": 1,
+      "keyword": "大模型 Agent 安全风险 监管政策 2026",
+      "text": "2026年，国产大模型在Agent场景的落地推进，正置于一个明显系统化的政策与治理环境之中。行业观察显示，中国AI大模型行业的政策环境已进入高度成熟且系统化的新阶段，与早期侧重鼓励探索、包容试错的基调不同，当前政策框架全面转向“规范发展与安全治理并重、创新激励与风险防控协同”。这一转向并非孤立现象，全球AI大模型行业的政策环境同样从“鼓励探索”全面转向“规范发展与安全治理并重”；经过数年技术狂飙，各国政府普遍认识到大模型技术对经济社会的深远影响已远超预期，因此在政策制定中更强调安全治理与风险防控。在此背景下，Agent作为具有自主性或半自主性的智能实体，能够利用人工智能技术在数字或物理环境中感知、决策并采取行动，其安全风险成为监管与治理关注的重点。围绕大模型Agent的安全保障，相关研究已提出通过自动化风险模拟器保障LLM Agent安全的思路，旨在对LLM Agent的潜在风险进行模拟和防护。与此同时，大模型风险、安全与治理议题在更早阶段已进入研究视野：2024年前沿大模型风险、安全与治理报告即探讨大模型风险、安全与治理问题，为相关研究和政策制定提供参考；2024年大模型安全研究报告亦聚焦安全风险与未来展望；开源大模型应用指南风险治理篇则由可信开源合规计划开源人工智能治理工作组撰写，关注开源大模型的风险治理。大模型行业政策与标准研究也覆盖监管政策解读、行业标准与规范分析、生态建设与合作机制探讨等议题。总体看，2026年Agent场景的落地进展不再仅是技术能力问题，而是与监管政策、标准规范和安全治理框架紧密交织；政策环境的成熟化与安全治理的常态化，正在塑造国产大模型Agent从试点探索走向合规落地的基本边界。"
+    }
+  ],
+  "process": {
+    "plan": [
+      "2026 国产大模型 Agent 落地案例",
+      "国产 Agent 平台 企业级应用 2026",
+      "DeepSeek Qwen 豆包 Agent 能力对比",
+      "AI Agent 多智能体 技术架构 工具调用",
+      "大模型 Agent 安全风险 监管政策 2026"
+    ],
+    "search_queries": [
+      "2026 国产大模型 Agent 落地案例",
+      "国产 Agent 平台 企业级应用 2026",
+      "DeepSeek Qwen 豆包 Agent 能力对比",
+      "AI Agent 多智能体 技术架构 工具调用",
+      "大模型 Agent 安全风险 监管政策 2026"
+    ],
+    "reviewed_urls": [
+      "https://blog.csdn.net/chen_si_shang_/article/details/159461622",
+      "https://www.infoq.cn/article/TbTZmHSARHQXiTmArO1v",
+      "https://app.myzaker.com/news/article.php?pk=677e49d08e9f094510397d78",
+      "http://www.sohu.com/a/892188563_121118718",
+      "http://app.myzaker.com/news/article.php?pk=677e5e51b15ec00b9a5c67ed",
+      "https://m.huxiu.com/article/3884949.html",
+      "https://m.elecfans.com/article/2788683.html",
+      "https://estate.cfi.cn/p20260717002432.html",
+      "https://www.shaqiu.cn/article/4NDrLga8Ymx1",
+      "https://max.book118.com/html/2025/0410/5100343344012131.shtm",
+      "https://juejin.cn/post/7669455291915485219",
+      "https://www.baogao.com/jigou/1504680.html",
+      "https://juejin.cn/post/7672323647886737443",
+      "https://www.cet.com.cn/wzsy/kjzx/cygdzx/10448101.shtml",
+      "https://report.iresearch.cn/report/202607/4848.shtml",
+      "https://www.ithome.com/0/961/333.htm",
+      "https://www.jiemian.com/article/14922528.html",
+      "https://www.weiyangx.com/475000.html",
+      "https://news.yesky.com/hotnews/451/353451.shtml",
+      "https://tech.ifeng.com/c/8wHTDAExUQI",
+      "https://www.sohu.com/a/891587888_121124363",
+      "https://www.toutiao.com/article/7500364030817681959/",
+      "https://blog.csdn.net/Wnq10072/article/details/146560612",
+      "https://m.yoyou.com/shouji/deeps_266692.html",
+      "https://k.sina.com.cn/article_7857201856_1d45362c001902drui.html",
+      "https://www.toutiao.com/article/7466691722723050019",
+      "https://caifuhao.eastmoney.com/news/20250223103232599342880",
+      "https://www.php.cn/faq/2471275.html",
+      "https://caifuhao.eastmoney.com/news/20250202212559342528790",
+      "https://m.blog.csdn.net/2401_84208172/article/details/144905963",
+      "https://blog.csdn.net/qq_43437874/article/details/160474868",
+      "https://tianqi.csdn.net/6850dc45eabc61314fc28ac5.html",
+      "http://www.360doc.cn/article/0_1124563842.html",
+      "https://m.blog.csdn.net/l01011_/article/details/146058577",
+      "https://agijuejin.feishu.cn/wiki/NyHIwr3o3iNKPRkADaPckNgonBf",
+      "https://blog.csdn.net/l01011_/article/details/146058577",
+      "https://www.chaspark.com/#/hotspots/1232136419919421440",
+      "https://www.waytoagi.com/question/88586",
+      "https://devpress.csdn.net/aibjcy/68ee02138867235e1391bb94.html",
+      "https://www.chinairn.com/news/20260610/113747805.shtml",
+      "https://m.blog.csdn.net/qingkahui24689/article/details/142586685",
+      "https://max.book118.com/html/2025/0127/8046117026007026.shtm",
+      "https://arxiv.org/abs/2505.17735",
+      "https://www.chinairn.com/news/20260610/114312396.shtml",
+      "https://doc.mbalib.com/view/f49c93a9b5f3fb041f3aaa59314866d7.html",
+      "https://www.toutiao.com/article/7424855273824616960/",
+      "https://www.renrendoc.com/paper/364015203.html"
+    ],
+    "iterations": 1,
+    "steps": [
+      {
+        "type": "plan",
+        "round": 0,
+        "detail": {
+          "keywords": [
+            "2026 国产大模型 Agent 落地案例",
+            "国产 Agent 平台 企业级应用 2026",
+            "DeepSeek Qwen 豆包 Agent 能力对比",
+            "AI Agent 多智能体 技术架构 工具调用",
+            "大模型 Agent 安全风险 监管政策 2026"
+          ]
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "2026 国产大模型 Agent 落地案例",
+          "results": 10
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "2026 国产大模型 Agent 落地案例",
+          "chars": 857
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "国产 Agent 平台 企业级应用 2026",
+          "results": 10
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "国产 Agent 平台 企业级应用 2026",
+          "chars": 639
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "DeepSeek Qwen 豆包 Agent 能力对比",
+          "results": 9
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "DeepSeek Qwen 豆包 Agent 能力对比",
+          "chars": 1020
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "AI Agent 多智能体 技术架构 工具调用",
+          "results": 10
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "AI Agent 多智能体 技术架构 工具调用",
+          "chars": 790
+        }
+      },
+      {
+        "type": "search",
+        "round": 1,
+        "detail": {
+          "keyword": "大模型 Agent 安全风险 监管政策 2026",
+          "results": 8
+        }
+      },
+      {
+        "type": "summarize",
+        "round": 1,
+        "detail": {
+          "keyword": "大模型 Agent 安全风险 监管政策 2026",
+          "chars": 716
+        }
+      },
+      {
+        "type": "judge",
+        "round": 1,
+        "detail": {
+          "sufficient": true,
+          "reason": "现有材料已覆盖落地案例、企业级平台与部署模式、DeepSeek/Qwen/豆包能力对比、多智能体技术架构与工具调用、安全风险与监管政策等主要子角度，来源达47条且包含2026年最新数据，足以支撑一份有实质内容的研究报告。",
+          "new_keywords": []
+        }
+      }
+    ]
+  },
+  "confidence": {
+    "overall": "高",
+    "info_cutoff": "2026-09-09",
+    "notes": [
+      "共 5 段正文，关联 47 条来源。",
+      "信息截止时间 2026-09-09（取最新来源日期，可能早于当前日期）。",
+      "报告中无来源支撑的结论已标注为「模型推断」，请谨慎采信。"
+    ]
+  }
+}

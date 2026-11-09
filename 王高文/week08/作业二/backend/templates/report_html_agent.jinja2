@@ -1,0 +1,34 @@
+你是 HTML 报告渲染 Agent（ReportHtmlAgent）。把下面的结构化研究报告渲染成一份**自包含**的单个 HTML 页面。
+
+研究主题：{{ topic }}
+报告标题：{{ title }}
+报告摘要：{{ summary }}
+
+正文分节：
+{% for s in sections %}
+## {{ s.heading }}
+{{ s.body }}
+
+{% endfor %}
+关键结论：
+{% for c in key_conclusions %}
+- {{ c }}
+{% endfor %}
+
+遗留问题：
+{% for q in open_questions %}
+- {{ q }}
+{% endfor %}
+
+来源列表：
+{% for s in sources %}
+- {{ s.title }}（{{ s.url }}）{% if s.site_name %} · {{ s.site_name }}{% endif %}{% if s.date %} · {{ s.date }}{% endif %}
+{% endfor %}
+
+置信度说明：level={{ confidence.level }}，来源数={{ confidence.source_count }}，检索轮次={{ confidence.iteration_count }}，信息截止={{ confidence.information_cutoff }}。备注：{{ confidence.note }}；关键结论与遗留问题由模型推断生成。
+
+要求：
+- 输出一个完整的 `<DOCTYPE html>` 页面，`<html lang="zh">`，含 viewport meta，内联 CSS（无外部资源），现代简洁排版。
+- 必须包含：标题与摘要；每个正文分节用 `<h2>` + 段落；「关键结论」列表；「遗留问题」列表；底部「来源列表」（可点击链接）；「置信度说明」小节。
+- 中文页面。
+- 只输出完整的 HTML 原文，不要把 HTML 放进 ```html 代码块，不输出任何解释性文字。

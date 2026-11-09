@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(PYTHONPATH=src python3 -m pytest -q)",
+      "Bash(ruff check *)",
+      "Bash(PYTHONPATH=src python3 -m ruff check src tests)",
+      "Bash(python3 -)"
+    ]
+  }
+}

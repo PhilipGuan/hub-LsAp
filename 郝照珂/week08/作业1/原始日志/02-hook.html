@@ -1,0 +1,49 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>02 / Hook · 自动记录执行事件</title><style>
+*{box-sizing:border-box}body{margin:0;background:#eef2f0;color:#243e35;font-family:'Segoe UI','Microsoft YaHei',sans-serif;padding:40px 48px}.top{color:#6b8a7b;font-size:12px;letter-spacing:2px}h1{font-size:30px;margin:14px 0 10px}p{font-size:13px;line-height:1.8;color:#63776a}.meta{background:#deebe2;padding:12px 18px;font-size:12px;border-left:3px solid #58846c;margin:22px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}section{background:white;border:1px solid #dce5dd;border-radius:9px;padding:20px;min-width:0}h2{font-size:14px;margin:0 0 15px}pre{font:12px/1.7 Consolas,'Microsoft YaHei',monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}footer{font:10px/1.8 Consolas,sans-serif;color:#7d8f80;margin-top:22px}strong{color:#276547}</style><div class="top">WEEK 08 / CLAUDE CODE / EXECUTION EVIDENCE</div><h1>02 / Hook · 自动记录执行事件</h1><p>SessionStart 与 PostToolUse 自动触发，只保存事件信息，不保存提示词和密钥。</p><div class="meta"><strong>真实运行日志视图</strong> · Claude Code 2.1.162 (Claude Code) · 模型 deepseek-v4-pro[1m]<br>会话 1dc1e67e-6e5c-43a3-9597-b9d1243a9176</div><div class="grid"><section><h2>.claude/settings.json</h2><pre>{
+  &quot;enabledMcpjsonServers&quot;: [&quot;course_tools&quot;],
+  &quot;hooks&quot;: {
+    &quot;SessionStart&quot;: [{&quot;hooks&quot;: [{&quot;type&quot;: &quot;command&quot;, &quot;command&quot;: &quot;node .claude/hooks/audit.cjs&quot;, &quot;timeout&quot;: 10}]}],
+    &quot;PostToolUse&quot;: [{&quot;matcher&quot;: &quot;Read|Skill|mcp__course_tools__.*&quot;, &quot;hooks&quot;: [{&quot;type&quot;: &quot;command&quot;, &quot;command&quot;: &quot;node .claude/hooks/audit.cjs&quot;, &quot;timeout&quot;: 10}]}]
+  }
+}
+</pre></section><section><h2>evidence/hook-events.jsonl · 实际触发记录</h2><pre>{
+  &quot;time&quot;: &quot;2026-09-11T08:32:28.483Z&quot;,
+  &quot;event&quot;: &quot;SessionStart&quot;,
+  &quot;tool&quot;: null,
+  &quot;message&quot;: &quot;WEEK08_HOOK_OK&quot;
+}
+
+{
+  &quot;time&quot;: &quot;2026-09-11T08:32:32.504Z&quot;,
+  &quot;event&quot;: &quot;PostToolUse&quot;,
+  &quot;tool&quot;: &quot;Skill&quot;,
+  &quot;message&quot;: &quot;WEEK08_HOOK_OK&quot;
+}
+
+{
+  &quot;time&quot;: &quot;2026-09-11T08:32:32.677Z&quot;,
+  &quot;event&quot;: &quot;PostToolUse&quot;,
+  &quot;tool&quot;: &quot;mcp__course_tools__course_checklist&quot;,
+  &quot;message&quot;: &quot;WEEK08_HOOK_OK&quot;
+}
+
+{
+  &quot;time&quot;: &quot;2026-09-11T08:32:35.808Z&quot;,
+  &quot;event&quot;: &quot;PostToolUse&quot;,
+  &quot;tool&quot;: &quot;Read&quot;,
+  &quot;message&quot;: &quot;WEEK08_HOOK_OK&quot;
+}
+
+{
+  &quot;time&quot;: &quot;2026-09-11T08:32:36.254Z&quot;,
+  &quot;event&quot;: &quot;PostToolUse&quot;,
+  &quot;tool&quot;: &quot;Read&quot;,
+  &quot;message&quot;: &quot;WEEK08_HOOK_OK&quot;
+}
+
+{
+  &quot;time&quot;: &quot;2026-09-11T08:32:36.596Z&quot;,
+  &quot;event&quot;: &quot;PostToolUse&quot;,
+  &quot;tool&quot;: &quot;Read&quot;,
+  &quot;message&quot;: &quot;WEEK08_HOOK_OK&quot;
+}</pre></section></div><footer>浏览器对实际 CLI 日志的可读视图截图；不是 Claude Code 原生终端界面。原始日志随作业提交。<br>claude-session.jsonl SHA-256: 72bf76e6a955667a5763f8f36bdb41b7b056a652fd0a6ded89c89ef6459c6bbc</footer></html>

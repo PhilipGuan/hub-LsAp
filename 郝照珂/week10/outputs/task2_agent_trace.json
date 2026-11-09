@@ -1,0 +1,48 @@
+{
+  "query": "请使用对应工具完成以下三件事：1.将25摄氏度换算成华氏度；2.计算体重70千克、身高175厘米的BMI；3.统计文本“你好 OpenAI Agents”的字符数、汉字数和英文单词数。请逐项回答。",
+  "available_tools": [
+    "roll_dice",
+    "get_news",
+    "convert_temperature",
+    "calculate_bmi",
+    "text_statistics"
+  ],
+  "tool_calls": [
+    {
+      "name": "convert_temperature",
+      "arguments": "{\"value\": 25, \"from_unit\": \"C\", \"to_unit\": \"F\"}"
+    },
+    {
+      "name": "calculate_bmi",
+      "arguments": "{\"weight_kg\": 70, \"height_cm\": 175}"
+    },
+    {
+      "name": "text_statistics",
+      "arguments": "{\"text\": \"你好 OpenAI Agents\"}"
+    }
+  ],
+  "tool_outputs": [
+    {
+      "call_id": "call_00_YHLoUoUbTaFxUc7zJ4aF2652",
+      "output": {
+        "type": "text",
+        "text": "{\"input\":25.0,\"from_unit\":\"C\",\"to_unit\":\"F\",\"result\":77.0}"
+      }
+    },
+    {
+      "call_id": "call_01_lFju5QgzBJIGJyVwDVmX5980",
+      "output": {
+        "type": "text",
+        "text": "{\"weight_kg\":70.0,\"height_cm\":175.0,\"bmi\":22.86}"
+      }
+    },
+    {
+      "call_id": "call_02_rKykNDin0zByjeEwl4sz8381",
+      "output": {
+        "type": "text",
+        "text": "{\"characters\":16,\"non_whitespace_characters\":14,\"chinese_characters\":2,\"english_words\":2,\"lines\":1}"
+      }
+    }
+  ],
+  "answer": "以下为三项结果（均来自对应工具）：\n\n**1. 温度换算**\n25 摄氏度 = **77 华氏度**\n\n**2. BMI 计算**\n体重 70 千克、身高 175 厘米 → BMI = **22.86**\n（仅数值结果，不提供健康诊断）\n\n**3. 文本统计**\n文本“你好 OpenAI Agents”：\n- 总字符数（含空白）：**16**\n- 汉字数：**2**\n- 英文单词数：**2**\n\n补充：该文本的非空白字符数为 14，行数为 1。"
+}

@@ -1,0 +1,54 @@
+{
+  "topic": "测试断点续存",
+  "round": 2,
+  "sub_questions": [
+    {
+      "id": "q01",
+      "question": "什么是断点续存？",
+      "keywords": [
+        "断点续存",
+        "checkpoint"
+      ]
+    },
+    {
+      "id": "q02",
+      "question": "为什么需要断点续存？",
+      "keywords": [
+        "必要性",
+        "应用场景"
+      ]
+    }
+  ],
+  "search_results": [
+    {
+      "id": "1",
+      "title": "断点续存技术介绍",
+      "url": "https://example.com/resume1",
+      "display_url": "https://example.com/resume1",
+      "snippet": "断点续存是一种重要的技术...",
+      "summary": "断点续存允许在长时间任务中保存进度，并在中断后恢复。",
+      "site_name": "技术博客",
+      "date_published": "2024-01-15",
+      "query": "什么是断点续存？",
+      "round": 1
+    }
+  ],
+  "contents": [
+    {
+      "id": "1",
+      "title": "断点续存内容",
+      "url": "https://example.com/resume1",
+      "content": "断点续存是一种在长时间运行的任务中保存执行状态的技术。当任务被中断或系统崩溃时，可以从保存的状态继续执行，而无需从头开始。",
+      "extracted_at": 1234567890
+    },
+    {
+      "id": "2",
+      "title": "断点续存应用",
+      "url": "https://example.com/resume2",
+      "content": "断点续存广泛应用于数据库、文件系统和分布式系统中...",
+      "extracted_at": 1234567891
+    }
+  ],
+  "timestamp": "4198",
+  "status": "completed"
+}

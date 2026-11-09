@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chinook SQL Agent · 对话查询</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f5f6fa;
+    --panel: #ffffff;
+    --border: #e2e4ea;
+    --text: #1f2430;
+    --muted: #6b7280;
+    --primary: #3b5bfd;
+    --primary-dark: #2843d8;
+    --bubble-user: #3b5bfd;
+    --bubble-bot: #eef0f6;
+    --error: #d64545;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .app {
+    width: min(760px, 94vw);
+    height: min(860px, 92vh);
+    background: var(--panel);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  header {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 {
+    margin: 0;
+    font-size: 18px;
+  }
+  header p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  #messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .msg {
+    max-width: 82%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    line-height: 1.55;
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .msg.user {
+    align-self: flex-end;
+    background: var(--bubble-user);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .msg.bot {
+    align-self: flex-start;
+    background: var(--bubble-bot);
+    border-bottom-left-radius: 4px;
+  }
+  .msg.bot.error {
+    background: #fdeaea;
+    color: var(--error);
+  }
+  .msg .meta {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px dashed var(--border);
+    padding-top: 6px;
+  }
+  .msg .sql {
+    margin-top: 8px;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    font-family: "JetBrains Mono", Consolas, monospace;
+    font-size: 12.5px;
+    overflow-x: auto;
+  }
+  .typing {
+    align-self: flex-start;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 4px 14px;
+  }
+  form {
+    display: flex;
+    gap: 10px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+  }
+  textarea {
+    flex: 1;
+    resize: none;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    height: 44px;
+    line-height: 1.4;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  button {
+    border: none;
+    background: var(--primary);
+    color: #fff;
+    padding: 0 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  button:hover { background: var(--primary-dark); }
+  button:disabled {
+    background: #a9b2d6;
+    cursor: not-allowed;
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Chinook SQL Agent</h1>
+      <p>用自然语言提问，后端会自动选表、生成并执行 SQL，再把结果汇总成答案。</p>
+    </header>
+    <div id="messages">
+      <div class="msg bot">你好，可以直接问我关于 Chinook 数据库的问题，比如“总共有多少张专辑？”</div>
+    </div>
+    <form id="form">
+      <textarea id="input" placeholder="输入你的问题，Enter 发送，Shift+Enter 换行" rows="1"></textarea>
+      <button id="send" type="submit">发送</button>
+    </form>
+  </div>
+
+  <script>
+    const messages = document.getElementById("messages");
+    const form = document.getElementById("form");
+    const input = document.getElementById("input");
+    const sendBtn = document.getElementById("send");
+
+    function appendMessage(role, text, extra) {
+      const div = document.createElement("div");
+      div.className = "msg " + role + (extra && extra.isError ? " error" : "");
+      div.textContent = text;
+
+      if (extra && extra.sql) {
+        const sqlBlock = document.createElement("div");
+        sqlBlock.className = "sql";
+        sqlBlock.textContent = extra.sql;
+        div.appendChild(sqlBlock);
+      }
+      if (extra && extra.meta) {
+        const metaBlock = document.createElement("div");
+        metaBlock.className = "meta";
+        metaBlock.textContent = extra.meta;
+        div.appendChild(metaBlock);
+      }
+
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+      return div;
+    }
+
+    function appendTyping() {
+      const div = document.createElement("div");
+      div.className = "typing";
+      div.textContent = "正在查询数据库，请稍候…";
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+      return div;
+    }
+
+    async function sendQuestion(question) {
+      appendMessage("user", question);
+      input.value = "";
+      input.style.height = "44px";
+      sendBtn.disabled = true;
+
+      const typingEl = appendTyping();
+
+      try {
+        const resp = await fetch("/api/query", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question }),
+        });
+
+        const data = await resp.json().catch(() => null);
+        typingEl.remove();
+
+        if (!resp.ok) {
+          const detail = (data && data.detail) || `请求失败（HTTP ${resp.status}）`;
+          appendMessage("bot", detail, { isError: true });
+          return;
+        }
+
+        const metaParts = [];
+        if (data.tables && data.tables.length) {
+          metaParts.push("涉及表：" + data.tables.join(", "));
+        }
+        metaParts.push("返回行数：" + data.row_count + (data.truncated ? "（已截断）" : ""));
+        if (data.repair_attempts) {
+          metaParts.push("SQL 修复次数：" + data.repair_attempts);
+        }
+        if (data.caveats && data.caveats.length) {
+          metaParts.push("提示：" + data.caveats.join("；"));
+        }
+
+        appendMessage("bot", data.answer, {
+          isError: Boolean(data.error),
+          sql: data.sql || "",
+          meta: metaParts.join(" · "),
+        });
+      } catch (err) {
+        typingEl.remove();
+        appendMessage("bot", "网络错误：" + err.message, { isError: true });
+      } finally {
+        sendBtn.disabled = false;
+        input.focus();
+      }
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const question = input.value.trim();
+      if (!question) return;
+      sendQuestion(question);
+    });
+
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        form.requestSubmit();
+      }
+    });
+
+    input.addEventListener("input", () => {
+      input.style.height = "44px";
+      input.style.height = Math.min(input.scrollHeight, 120) + "px";
+    });
+
+    input.focus();
+  </script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatBI — SQL Agent (LangGraph)</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --panel-2: #273549;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --user-bubble: #2563eb;
+      --ai-bubble: #334155;
+      --tool-bg: #0b1220;
+      --error: #f87171;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 14px 20px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header h1 {
+      font-size: 18px;
+      margin: 0;
+      font-weight: 600;
+    }
+    header .badge {
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #081018;
+      font-weight: 600;
+    }
+    header .hint { margin-left: auto; font-size: 12px; color: var(--muted); }
+
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 860px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .msg { display: flex; flex-direction: column; max-width: 82%; }
+    .msg.user { align-self: flex-end; align-items: flex-end; }
+    .msg.assistant { align-self: flex-start; align-items: flex-start; }
+    .bubble {
+      padding: 12px 16px;
+      border-radius: 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 15px;
+    }
+    .msg.user .bubble { background: var(--user-bubble); color: #fff; border-bottom-right-radius: 4px; }
+    .msg.assistant .bubble { background: var(--ai-bubble); border-bottom-left-radius: 4px; }
+    .msg.assistant .bubble.error { background: #7f1d1d; color: #fecaca; }
+
+    .tools { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; width: 100%; }
+    .tool {
+      background: var(--tool-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: "Consolas", "Menlo", monospace;
+      overflow: hidden;
+    }
+    .tool .name { color: var(--accent); font-weight: 600; }
+    .tool .args { display: block; margin-top: 2px; max-height: 60px; overflow-y: auto; }
+
+    .typing { color: var(--muted); font-size: 14px; padding: 4px 0; }
+    .cursor { display: inline-block; width: 2px; height: 1em; background: var(--accent); animation: blink 1s steps(1) infinite; vertical-align: text-bottom; margin-left: 2px; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    footer {
+      padding: 14px 20px;
+      background: var(--panel);
+      border-top: 1px solid var(--border);
+    }
+    .composer {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .samples { max-width: 860px; margin: 0 auto 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .samples button {
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .samples button:hover { border-color: var(--accent); color: var(--accent); }
+    textarea {
+      flex: 1;
+      resize: none;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 15px;
+      font-family: inherit;
+      line-height: 1.5;
+      max-height: 140px;
+      outline: none;
+    }
+    textarea:focus { border-color: var(--accent); }
+    #send {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #081018;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    #send:disabled { opacity: 0.5; cursor: not-allowed; }
+    #clear {
+      margin-left: 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    #clear:hover { color: var(--error); border-color: var(--error); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ChatBI · SQL Agent</h1>
+    <span class="badge">LangGraph</span>
+    <span class="hint">数据库：chinook.db（SQLite）</span>
+    <button id="clear">清空对话</button>
+  </header>
+
+  <div id="messages"></div>
+
+  <footer>
+    <div class="samples" id="samples"></div>
+    <div class="composer">
+      <textarea id="input" rows="1" placeholder="输入问题，例如：总销售额最高的客户是谁？"></textarea>
+      <button id="send">发送</button>
+    </div>
+  </footer>
+
+  <script>
+    const messagesEl = document.getElementById('messages');
+    const inputEl = document.getElementById('input');
+    const sendBtn = document.getElementById('send');
+
+    // 多轮对话历史（前端维护，每次请求全量发送）
+    let history = [];
+
+    const SAMPLES = [
+      '统计每个歌手的专辑数量，按数量从高到低列出前 5 位歌手',
+      '总销售额最高的客户是谁？',
+      '数据库里一共有哪些表？',
+      'Queen 出了几张专辑？',
+    ];
+
+    // 示例问题快捷按钮
+    SAMPLES.forEach(q => {
+      const b = document.createElement('button');
+      b.textContent = q;
+      b.onclick = () => { inputEl.value = q; send(); };
+      document.getElementById('samples').appendChild(b);
+    });
+
+    function scrollBottom() {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function addMsg(role) {
+      const wrap = document.createElement('div');
+      wrap.className = 'msg ' + role;
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      wrap.appendChild(bubble);
+      messagesEl.appendChild(wrap);
+      scrollBottom();
+      return { wrap, bubble };
+    }
+
+    function addToolLog(wrap) {
+      const tools = document.createElement('div');
+      tools.className = 'tools';
+      wrap.insertBefore(tools, wrap.firstChild); // 工具日志放气泡上方
+      return tools;
+    }
+
+    // 解析 SSE 流
+    function readSSE(response, handlers) {
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      return (async () => {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          let idx;
+          while ((idx = buffer.indexOf('\n\n')) >= 0) {
+            const frame = buffer.slice(0, idx);
+            buffer = buffer.slice(idx + 2);
+            for (const line of frame.split('\n')) {
+              if (line.startsWith('data: ')) {
+                const data = JSON.parse(line.slice(6));
+                handlers[data.type]?.(data);
+              }
+            }
+          }
+        }
+      })();
+    }
+
+    async function send() {
+      const text = inputEl.value.trim();
+      if (!text || sendBtn.disabled) return;
+      inputEl.value = '';
+      sendBtn.disabled = true;
+
+      // 把当前用户消息追加进历史，作为上下文发送
+      history.push({ role: 'user', content: text });
+
+      // 用户气泡
+      const userMsg = addMsg('user');
+      userMsg.bubble.textContent = text;
+
+      // 助手气泡（流式填充）
+      const ai = addMsg('assistant');
+      let tools = null;
+      let currentTool = null;
+      let errored = false;
+
+      const handlers = {
+        tool_start(d) {
+          if (!tools) tools = addToolLog(ai.wrap);
+          const el = document.createElement('div');
+          el.className = 'tool';
+          el.innerHTML = `🔧 调用 <span class="name">${escapeHtml(d.name)}</span>`;
+          const args = document.createElement('span');
+          args.className = 'args';
+          args.textContent = JSON.stringify(d.args || {});
+          el.appendChild(args);
+          tools.appendChild(el);
+          currentTool = el;
+          scrollBottom();
+        },
+        tool_end(d) {
+          if (currentTool) {
+            const res = document.createElement('span');
+            res.className = 'args';
+            res.textContent = '→ ' + (d.output || '').slice(0, 200);
+            currentTool.appendChild(res);
+          }
+          scrollBottom();
+        },
+        token(d) {
+          ai.bubble.textContent += d.content;
+          scrollBottom();
+        },
+        error(d) {
+          errored = true;
+          ai.bubble.classList.add('error');
+          ai.bubble.textContent = d.content;
+        },
+        done() {
+          if (!ai.bubble.textContent) ai.bubble.textContent = '(无回答)';
+          if (errored) {
+            history.pop(); // 失败轮次回滚，避免污染上下文
+          } else {
+            history.push({ role: 'assistant', content: ai.bubble.textContent });
+          }
+          scrollBottom();
+        },
+      };
+
+      try {
+        const resp = await fetch('/api/chat/stream', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: history }),
+        });
+        if (!resp.ok) {
+          const err = await resp.json().catch(() => ({}));
+          throw new Error(err.error || ('HTTP ' + resp.status));
+        }
+        await readSSE(resp, handlers);
+      } catch (e) {
+        errored = true;
+        ai.bubble.classList.add('error');
+        ai.bubble.textContent = '请求失败：' + e.message;
+        history.pop(); // 网络异常也回滚本轮用户消息
+      } finally {
+        sendBtn.disabled = false;
+        inputEl.focus();
+        scrollBottom();
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    sendBtn.onclick = send;
+    inputEl.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+    });
+    // 输入框自动增高
+    inputEl.addEventListener('input', () => {
+      inputEl.style.height = 'auto';
+      inputEl.style.height = Math.min(inputEl.scrollHeight, 140) + 'px';
+    });
+
+    // 欢迎语
+    function greet() {
+      const m = addMsg('assistant');
+      m.bubble.textContent = '你好，我是 ChatBI 数据分析助手。问我关于数据库的问题，我会自动查询 SQLite 并给出结论。试试下面的示例问题吧。';
+    }
+    greet();
+
+    // 清空对话：重置历史并清空页面
+    document.getElementById('clear').onclick = () => {
+      history = [];
+      messagesEl.innerHTML = '';
+      greet();
+    };
+  </script>
+</body>
+</html>

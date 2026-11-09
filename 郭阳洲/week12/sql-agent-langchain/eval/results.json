@@ -1,0 +1,421 @@
+{
+  "timestamp": "2026-10-29T20:44:26",
+  "fingerprint": {
+    "app_version": "mvp-1",
+    "prompt_version": "prompt-v2",
+    "model": "deepseek-chat",
+    "catalog": "84754dabe43850634c8336c59962d66f",
+    "gold_sha256": "09be7f505a5dda2d"
+  },
+  "config": {
+    "runs": 3,
+    "eval_max_rows": 1000,
+    "truncation_max_rows": 100,
+    "splits": [
+      "dev"
+    ]
+  },
+  "summary": {
+    "cases": 5,
+    "correct": 5,
+    "accuracy": 1.0,
+    "accuracy_ci95": [
+      0.5655,
+      1.0
+    ],
+    "run_correct": [
+      5,
+      5,
+      5
+    ],
+    "run_accuracy": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "median_run_correct": 5,
+    "run_span": 0
+  },
+  "splits": {
+    "dev": {
+      "cases": 5,
+      "correct": 5,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.5655,
+        1.0
+      ],
+      "run_correct": [
+        5,
+        5,
+        5
+      ],
+      "run_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "median_run_correct": 5,
+      "run_span": 0
+    }
+  },
+  "tags": {
+    "dev": {
+      "TopN": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "count": {
+        "cases": 3,
+        "correct": 3,
+        "accuracy": 1.0
+      },
+      "group_by": {
+        "cases": 1,
+        "correct": 1,
+        "accuracy": 1.0
+      },
+      "join": {
+        "cases": 2,
+        "correct": 2,
+        "accuracy": 1.0
+      },
+      "单表": {
+        "cases": 3,
+        "correct": 3,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "selection": {
+    "cases": 15,
+    "precision": 1.0,
+    "recall": 1.0,
+    "forbidden_hits": 0,
+    "fallback_cases": 0,
+    "fallback_precision": null
+  },
+  "grounding": {
+    "cases": 15,
+    "passed": 15,
+    "rate": 1.0,
+    "fallback": 0,
+    "failures": []
+  },
+  "gates": [
+    {
+      "name": "dev_total",
+      "ok": false,
+      "detail": "5/5 (门槛 28)"
+    },
+    {
+      "name": "selection_precision",
+      "ok": true,
+      "detail": "100.0% (门槛 85%)"
+    },
+    {
+      "name": "selection_recall",
+      "ok": true,
+      "detail": "100.0% (门槛 95%)"
+    },
+    {
+      "name": "grounding_100",
+      "ok": true,
+      "detail": "100.0%"
+    },
+    {
+      "name": "regression_correct_drop",
+      "ok": true,
+      "detail": "较基线少正确 0 题 (阻断阈值 2)"
+    },
+    {
+      "name": "regression_core_tags",
+      "ok": true,
+      "detail": "核心标签回退 0 个: -"
+    }
+  ],
+  "passed": false,
+  "baseline_compared": true,
+  "details": [
+    {
+      "id": "d01",
+      "split": "dev",
+      "question": "数据库里一共有多少首歌曲？",
+      "tags": [
+        "单表",
+        "count"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 7176.9,
+      "detail": "",
+      "sql": "SELECT COUNT(DISTINCT TrackId) AS track_count\nFROM tracks;",
+      "answer": "数据库里一共有 3503 首歌曲（按 TrackId 去重统计，全量数据 2009-01-01 至 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d02",
+      "split": "dev",
+      "question": "一共有多少位艺人？",
+      "tags": [
+        "单表",
+        "count"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "artists"
+      ],
+      "required_tables": [
+        "artists"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 14204.4,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS artist_count\nFROM artists;",
+      "answer": "全量数据（2009-01-01 至 2013-12-22）中共有 275 位艺人。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d03",
+      "split": "dev",
+      "question": "一共有多少张专辑？",
+      "tags": [
+        "单表",
+        "count"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": null,
+      "expected_metric": null,
+      "selected_tables": [
+        "albums"
+      ],
+      "required_tables": [
+        "albums"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 2719.2,
+      "detail": "",
+      "sql": "SELECT COUNT(*) AS album_count\nFROM albums;",
+      "answer": "全量数据（2009-01-01 ~ 2013-12-22）中共有 347 张专辑。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d04",
+      "split": "dev",
+      "question": "每个流派有多少首歌曲？按歌曲数量从高到低排序。",
+      "tags": [
+        "join",
+        "group_by"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 5313.2,
+      "detail": "",
+      "sql": "SELECT g.Name AS genre, COUNT(DISTINCT t.TrackId) AS track_count\nFROM genres g\nLEFT JOIN tracks t ON g.GenreId = t.GenreId\nGROUP BY g.GenreId, g.Name\nORDER BY track_count DESC;",
+      "answer": "按歌曲数量从高到低排序，Rock 流派歌曲数最多，为 1297 首；其次是 Latin 579 首、Metal 374 首、Alternative & Punk 332 首。其余流派依次为 Jazz 130 首、TV Shows 93 首、Blues 81 首、Classical 74 首、Drama 64 首、R&B/Soul 61 首、Reggae 58 首、Pop 48 首、Soundtrack 43 首、Alternative 40 首、Hip Hop/Rap 35 首、Electronica/Dance 30 首、Heavy Metal 28 首、World 28 首、Sci Fi & Fantasy 26 首、Easy Listening 24 首。结果共 25 行，此处仅展示前 20 行。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "d05",
+      "split": "dev",
+      "question": "歌曲数量最多的前5个流派是哪些？",
+      "tags": [
+        "join",
+        "TopN"
+      ],
+      "correct": true,
+      "run_correct": [
+        true,
+        true,
+        true
+      ],
+      "status": "ok",
+      "error_code": "",
+      "empty_reason": null,
+      "metric": "track_count",
+      "expected_metric": "track_count",
+      "selected_tables": [
+        "genres",
+        "tracks"
+      ],
+      "required_tables": [
+        "tracks",
+        "genres"
+      ],
+      "selection_precision": 1.0,
+      "selection_recall": 1.0,
+      "fallback_all": false,
+      "grounding_ok": true,
+      "used_fallback": false,
+      "elapsed_ms": 4307.5,
+      "detail": "",
+      "sql": "SELECT g.Name AS genre, COUNT(DISTINCT t.TrackId) AS track_count\nFROM genres g\nJOIN tracks t ON g.GenreId = t.GenreId\nGROUP BY g.GenreId, g.Name\nORDER BY track_count DESC\nLIMIT 5;",
+      "answer": "歌曲数量最多的前5个流派依次为：Rock 1297 首、Latin 579 首、Metal 374 首、Alternative & Punk 332 首、Jazz 130 首（按歌曲数 COUNT(DISTINCT TrackId) 统计，全量数据 2009-01-01 ~ 2013-12-22）。",
+      "runs": [
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        },
+        {
+          "correct": true,
+          "status": "ok",
+          "error_code": "",
+          "detail": ""
+        }
+      ]
+    }
+  ]
+}

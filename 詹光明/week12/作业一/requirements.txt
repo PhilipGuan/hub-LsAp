@@ -1,0 +1,17 @@
+# 后端依赖（week12 作业一）
+# 本地模型推理（默认 local 模式）
+torch>=2.4
+transformers>=4.49
+accelerate>=1.0
+qwen-vl-utils>=0.0.10
+# 4-bit 量化：bf16 权重放不进显存时自动启用（12GB 显存实测推理 114s -> 6s）
+bitsandbytes>=0.45
+
+# Web 服务
+fastapi>=0.110
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pillow>=10.0
+
+# 远程视觉接口（RISK_PROVIDER=remote 时使用）
+openai>=1.40

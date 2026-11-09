@@ -1,0 +1,9 @@
+# 深度研究助手 —— 后端依赖
+# 安装：pip install -r requirements.txt
+
+httpx>=0.27          # 调 Bocha 搜索 API
+openai>=1.40         # 调 DeepSeek（OpenAI 兼容接口）
+pydantic>=2.7        # 数据模型
+fastapi>=0.111       # 极简 HTTP 层
+uvicorn>=0.30        # HTTP 服务器
+python-dotenv>=1.0   # 读 .env

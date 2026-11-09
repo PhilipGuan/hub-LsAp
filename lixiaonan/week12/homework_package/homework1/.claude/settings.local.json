@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m py_compile backend/config.py backend/prompt.py backend/schemas.py backend/vision_client.py backend/main.py tools/test_m1.py)",
+      "Bash(python3 -c ' *)",
+      "Bash(uvicorn backend.main:app --host 127.0.0.1 --port 8000)"
+    ]
+  }
+}

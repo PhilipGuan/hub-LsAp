@@ -1,0 +1,1 @@
+{"time":"2026-09-11T08:32:32.538Z","tool":"course_checklist","arguments":{"week":8},"result":{"week":8,"assignment1":["Claude Code Skill","Hook","MCP","Separate screenshots"],"assignment2":"Deep Research Assistant","pipeline":["plan","search","extract","judge","report"],"required_outputs":["structured_report","sources","process","confidence"],"marker":"WEEK08_MCP_OK"}}

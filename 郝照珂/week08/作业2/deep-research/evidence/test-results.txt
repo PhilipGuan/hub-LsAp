@@ -1,0 +1,13 @@
+test_bad_citations_are_inference (test_research.ResearchTests.test_bad_citations_are_inference) ... ok
+test_demo_full_loop_persistence_and_export (test_research.ResearchTests.test_demo_full_loop_persistence_and_export) ... ok
+test_empty_topic_invalid_mode_rounds (test_research.ResearchTests.test_empty_topic_invalid_mode_rounds) ... ok
+test_max_rounds_is_enforced (test_research.ResearchTests.test_max_rounds_is_enforced) ... ok
+test_missing_config_fails_explicitly (test_research.ResearchTests.test_missing_config_fails_explicitly) ... ok
+test_no_sources_failure_preserves_process (test_research.ResearchTests.test_no_sources_failure_preserves_process) ... ok
+test_provider_failure_retains_draft (test_research.ResearchTests.test_provider_failure_retains_draft) ... ok
+test_recovery_and_path_guard (test_research.ResearchTests.test_recovery_and_path_guard) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.091s
+
+OK

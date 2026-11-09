@@ -1,0 +1,1236 @@
+app:
+  description: 输入研究主题，自动规划检索词，调用博查搜索进行最多三轮检索与补检，输出带来源、过程记录和置信度说明的结构化研究报告。
+  icon: 🔬
+  icon_background: '#EFF1F5'
+  icon_type: emoji
+  mode: workflow
+  name: 李鹏鹏-深度研究助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.24@9e12eef09973667f0eaf4f082af883167e1de88740b22e71e71488d020c3778a
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: 8b4be6d8-4df9-4dc4-b7af-e296f5dbad11
+    name: BOCHA_API_KEY
+    selector:
+    - env
+    - BOCHA_API_KEY
+    value: sk-3d2293ad83aa4823a7c7ce8dd5ff8c72
+    value_type: secret
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: start-source-plan-target
+      source: start
+      sourceHandle: source
+      target: plan
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: plan-source-parse_plan-target
+      source: plan
+      sourceHandle: source
+      target: parse_plan
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: parse_plan-source-round1-target
+      source: parse_plan
+      sourceHandle: source
+      target: round1
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: round1
+        sourceType: iteration-start
+        targetType: http-request
+      id: round1start-source-search1-target
+      source: round1start
+      sourceHandle: source
+      target: search1
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: llm
+      id: round1-source-analyze1-target
+      source: round1
+      sourceHandle: source
+      target: analyze1
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: analyze1-source-judge1-target
+      source: analyze1
+      sourceHandle: source
+      target: judge1
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: judge1-source-parse_judge1-target
+      source: judge1
+      sourceHandle: source
+      target: parse_judge1
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: parse_judge1-source-round2-target
+      source: parse_judge1
+      sourceHandle: source
+      target: round2
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: round2
+        sourceType: iteration-start
+        targetType: http-request
+      id: round2start-source-search2-target
+      source: round2start
+      sourceHandle: source
+      target: search2
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: llm
+      id: round2-source-analyze2-target
+      source: round2
+      sourceHandle: source
+      target: analyze2
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: analyze2-source-judge2-target
+      source: analyze2
+      sourceHandle: source
+      target: judge2
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: judge2-source-parse_judge2-target
+      source: judge2
+      sourceHandle: source
+      target: parse_judge2
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: parse_judge2-source-round3-target
+      source: parse_judge2
+      sourceHandle: source
+      target: round3
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: round3
+        sourceType: iteration-start
+        targetType: http-request
+      id: round3start-source-search3-target
+      source: round3start
+      sourceHandle: source
+      target: search3
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: round3-source-assemble-target
+      source: round3
+      sourceHandle: source
+      target: assemble
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: assemble-source-report-target
+      source: assemble
+      sourceHandle: source
+      target: report
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: report-source-end-target
+      source: report
+      sourceHandle: source
+      target: end
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 输入要调研的主题，例如“2026 年主流 Agent 框架对比”。
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: 研究主题
+          max_length: 500
+          options: []
+          required: true
+          type: paragraph
+          variable: topic
+      height: 153
+      id: start
+      position:
+        x: -86.79278058479451
+        y: 244.6055047021457
+      positionAbsolute:
+        x: -86.79278058479451
+        y: 244.6055047021457
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 将主题拆成 3-5 个覆盖不同角度的可检索关键词。
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 346ead97-ad90-4c74-8739-5f4f195a8c01
+          role: system
+          text: '你是深度研究助手的关键词规划员。请把研究主题拆成 3-5 个具体、可直接用于搜索引擎的关键词，覆盖概念/背景、代表产品或主体、比较数据、趋势风险等不同角度。
+
+            只输出 JSON，不要解释，不要 Markdown 代码块。格式：{"keywords":["关键词1","关键词2","关键词3"]}'
+        - id: f3b41d0c-0a58-4f48-971b-e783fa88b101
+          role: user
+          text: 研究主题：{{#start.topic#}}
+        selected: false
+        title: 规划研究关键词
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 132
+      id: plan
+      position:
+        x: 222
+        y: 257
+      positionAbsolute:
+        x: 222
+        y: 257
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\nimport re\n\ndef main(text: str, topic: str) -> dict:\n\
+          \    raw = (text or '').strip()\n    match = re.search(r'\\{[\\s\\S]*\\\
+          }', raw)\n    try:\n        obj = json.loads(match.group(0) if match else\
+          \ raw)\n        items = obj.get('keywords', [])\n    except Exception:\n\
+          \        items = []\n    cleaned = []\n    for item in items:\n        value\
+          \ = str(item).strip()\n        if value and value not in cleaned:\n    \
+          \        cleaned.append(value)\n    if not cleaned:\n        cleaned = [topic.strip()]\n\
+          \    return {'keywords': cleaned[:5]}"
+        code_language: python3
+        desc: 容错解析规划模型输出；解析失败时直接使用原主题。
+        outputs:
+          keywords:
+            children: null
+            type: array[string]
+        selected: false
+        title: 解析首轮关键词
+        type: code
+        variables:
+        - value_selector:
+          - plan
+          - text
+          variable: text
+        - value_selector:
+          - start
+          - topic
+          variable: topic
+      height: 96
+      id: parse_plan
+      position:
+        x: 535
+        y: 257
+      positionAbsolute:
+        x: 535
+        y: 257
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 对首轮关键词逐个调用博查搜索。
+        error_handle_mode: continue-on-error
+        height: 251
+        is_parallel: false
+        iterator_selector:
+        - parse_plan
+        - keywords
+        output_selector:
+        - search1
+        - body
+        output_type: array[string]
+        parallel_nums: 1
+        selected: false
+        start_node_id: round1start
+        title: 第1轮检索
+        type: iteration
+        width: 500
+      height: 251
+      id: round1
+      position:
+        x: 901.590507541318
+        y: 251.3805903581279
+      positionAbsolute:
+        x: 901.590507541318
+        y: 251.3805903581279
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 500
+      zIndex: 0
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: round1start
+      parentId: round1
+      position:
+        x: 24
+        y: 88
+      positionAbsolute:
+        x: 925.590507541318
+        y: 339.3805903581279
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1001
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.BOCHA_API_KEY#}}'
+            type: bearer
+          type: api-key
+        body:
+          data:
+          - id: c8c29387-c688-46d7-9c38-c4a0c930c101
+            key: ''
+            type: text
+            value: '{"query":"{{#round1.item#}}","summary":true,"count":10}'
+          type: json
+        desc: POST /v1/web-search；响应 body 进入本轮结果数组。
+        headers: Content-Type:application/json
+        isInIteration: true
+        iteration_id: round1
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 2
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 10
+          max_read_timeout: 60
+          max_write_timeout: 10
+        title: 博查搜索-第1轮
+        type: http-request
+        url: https://api.bocha.cn/v1/web-search
+        variables: []
+      height: 182
+      id: search1
+      parentId: round1
+      position:
+        x: 110
+        y: 50
+      positionAbsolute:
+        x: 1011.590507541318
+        y: 301.3805903581279
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 阅读首轮搜索摘要，形成阶段性研究草稿。
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 1f7d3b26-1219-4402-a605-90417e1cf201
+          role: system
+          text: '你是深度研究助手的资料阅读员。阅读搜索 API 返回的 JSON，抽取与主题直接相关的事实、数据、观点和时间信息。
+
+            只使用输入中的资料，不编造；保留来源标题和 URL。用中文输出一份紧凑的阶段性研究笔记。'
+        - id: b866b95d-6cf5-4140-94a6-31194177d201
+          role: user
+          text: '研究主题：{{#start.topic#}}
+
+            首轮关键词：{{#parse_plan.keywords#}}
+
+            搜索结果：{{#round1.output#}}'
+        selected: false
+        title: 阅读抽取-第1轮
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 132
+      id: analyze1
+      position:
+        x: 1500
+        y: 300
+      positionAbsolute:
+        x: 1500
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 判断首轮信息是否充分，不充分则给出第2轮补检词。
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 054373df-269f-403c-88ac-b707aa8ff301
+          role: system
+          text: '你是研究进度评估员。判断现有材料是否覆盖研究主题的主要角度且有足够来源支撑。
+
+            若足够，sufficient=true 且 new_keywords=[]；若不足，给出 2-3 个与已检索词不重复、聚焦缺口的新关键词。
+
+            只输出 JSON，不要解释或代码块。格式：{"sufficient":false,"reason":"一句话原因","new_keywords":["词1","词2"]}'
+        - id: 66fb0b8f-22c3-4a06-a3b3-05ee0c00f301
+          role: user
+          text: '主题：{{#start.topic#}}
+
+            已检索：{{#parse_plan.keywords#}}
+
+            当前研究笔记：
+
+            {{#analyze1.text#}}'
+        selected: false
+        title: 充分性判断-第1轮
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 132
+      id: judge1
+      position:
+        x: 1801.9985232633057
+        y: 300
+      positionAbsolute:
+        x: 1801.9985232633057
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\nimport re\n\ndef main(text: str, searched: list) -> dict:\n\
+          \    match = re.search(r'\\{[\\s\\S]*\\}', text or '')\n    try:\n     \
+          \   obj = json.loads(match.group(0) if match else (text or ''))\n    except\
+          \ Exception:\n        obj = {'sufficient': False, 'new_keywords': []}\n\
+          \    sufficient = bool(obj.get('sufficient', False))\n    known = {str(x).strip()\
+          \ for x in (searched or [])}\n    items = []\n    if not sufficient:\n \
+          \       for item in obj.get('new_keywords', []):\n            value = str(item).strip()\n\
+          \            if value and value not in known and value not in items:\n \
+          \               items.append(value)\n    return {'keywords': items[:3],\
+          \ 'sufficient': sufficient, 'reason': str(obj.get('reason', ''))}"
+        code_language: python3
+        desc: 充分时输出空数组，使下一轮迭代成为无操作。
+        outputs:
+          keywords:
+            children: null
+            type: array[string]
+          reason:
+            children: null
+            type: string
+          sufficient:
+            children: null
+            type: boolean
+        selected: false
+        title: 解析第2轮关键词
+        type: code
+        variables:
+        - value_selector:
+          - judge1
+          - text
+          variable: text
+        - value_selector:
+          - parse_plan
+          - keywords
+          variable: searched
+      height: 96
+      id: parse_judge1
+      position:
+        x: 2100
+        y: 300
+      positionAbsolute:
+        x: 2100
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 信息不足时执行；关键词数组为空时自动跳过实际检索。
+        error_handle_mode: continue-on-error
+        height: 235
+        is_parallel: false
+        iterator_selector:
+        - parse_judge1
+        - keywords
+        output_selector:
+        - search2
+        - body
+        output_type: array[string]
+        parallel_nums: 1
+        selected: false
+        start_node_id: round2start
+        title: 第2轮补充检索
+        type: iteration
+        width: 500
+      height: 235
+      id: round2
+      position:
+        x: 2400
+        y: 240
+      positionAbsolute:
+        x: 2400
+        y: 240
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 500
+      zIndex: 0
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: round2start
+      parentId: round2
+      position:
+        x: 24
+        y: 88
+      positionAbsolute:
+        x: 2424
+        y: 328
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1001
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.BOCHA_API_KEY#}}'
+            type: bearer
+          type: api-key
+        body:
+          data:
+          - id: d580ac38-1c5d-4548-a061-9de4a83bc202
+            key: ''
+            type: text
+            value: '{"query":"{{#round2.item#}}","summary":true,"count":10}'
+          type: json
+        desc: 第2轮博查搜索。
+        headers: 'Content-Type: application/json'
+        isInIteration: true
+        iteration_id: round2
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 2
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        timeout:
+          max_connect_timeout: 10
+          max_read_timeout: 60
+          max_write_timeout: 10
+        title: 博查搜索-第2轮
+        type: http-request
+        url: https://api.bocha.cn/v1/web-search
+        variables: []
+      height: 166
+      id: search2
+      parentId: round2
+      position:
+        x: 110
+        y: 50
+      positionAbsolute:
+        x: 2510
+        y: 290
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 将第2轮结果合入现有研究笔记；没有新结果时保持原笔记。
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 7ab8ce1b-e0be-4140-8c23-2dba34fca402
+          role: system
+          text: '你是资料阅读员。将补充搜索结果合入已有笔记，修补缺口并保留来源标题与 URL。只能使用输入资料，不得编造。
+
+            若补充关键词或结果为空，原样保留已有笔记并说明“第2轮无需补检”。'
+        - id: b890e63b-db87-4bb6-bb34-03f1fd939402
+          role: user
+          text: '主题：{{#start.topic#}}
+
+            已有笔记：{{#analyze1.text#}}
+
+            第2轮关键词：{{#parse_judge1.keywords#}}
+
+            第2轮搜索结果：{{#round2.output#}}'
+        selected: false
+        title: 阅读抽取-第2轮
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 132
+      id: analyze2
+      position:
+        x: 2960
+        y: 300
+      positionAbsolute:
+        x: 2960
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 再次判断是否还存在必须补齐的关键缺口。
+        model:
+          completion_params:
+            temperature: 0.1
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: d09a6192-e72f-4193-af9d-8a82b257a502
+          role: system
+          text: '你是研究进度评估员。这是最多三轮研究中的第二次判断。只在仍缺少重要角度或关键证据时补检。
+
+            若足够，sufficient=true 且 new_keywords=[]；否则给出 1-3 个不重复的新关键词。
+
+            只输出 JSON：{"sufficient":true,"reason":"一句话原因","new_keywords":[]}'
+        - id: 44de690d-af91-44d2-8ae2-49b791d02502
+          role: user
+          text: '主题：{{#start.topic#}}
+
+            首轮关键词：{{#parse_plan.keywords#}}
+
+            二轮关键词：{{#parse_judge1.keywords#}}
+
+            当前研究笔记：{{#analyze2.text#}}'
+        selected: false
+        title: 充分性判断-第2轮
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 132
+      id: judge2
+      position:
+        x: 3260
+        y: 300
+      positionAbsolute:
+        x: 3260
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import json\nimport re\n\ndef main(text: str, searched1: list, searched2:\
+          \ list) -> dict:\n    match = re.search(r'\\{[\\s\\S]*\\}', text or '')\n\
+          \    try:\n        obj = json.loads(match.group(0) if match else (text or\
+          \ ''))\n    except Exception:\n        obj = {'sufficient': True, 'new_keywords':\
+          \ []}\n    sufficient = bool(obj.get('sufficient', True))\n    known = {str(x).strip()\
+          \ for x in (searched1 or []) + (searched2 or [])}\n    items = []\n    if\
+          \ not sufficient:\n        for item in obj.get('new_keywords', []):\n  \
+          \          value = str(item).strip()\n            if value and value not\
+          \ in known and value not in items:\n                items.append(value)\n\
+          \    return {'keywords': items[:3], 'sufficient': sufficient, 'reason':\
+          \ str(obj.get('reason', ''))}"
+        code_language: python3
+        desc: 解析第3轮关键词；模型输出异常时安全停止补检。
+        outputs:
+          keywords:
+            children: null
+            type: array[string]
+          reason:
+            children: null
+            type: string
+          sufficient:
+            children: null
+            type: boolean
+        selected: false
+        title: 解析第3轮关键词
+        type: code
+        variables:
+        - value_selector:
+          - judge2
+          - text
+          variable: text
+        - value_selector:
+          - parse_plan
+          - keywords
+          variable: searched1
+        - value_selector:
+          - parse_judge1
+          - keywords
+          variable: searched2
+      height: 96
+      id: parse_judge2
+      position:
+        x: 3560
+        y: 300
+      positionAbsolute:
+        x: 3560
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 最后一轮补充检索；达到 3 轮上限后不再判断补检。
+        error_handle_mode: continue-on-error
+        height: 235
+        is_parallel: false
+        iterator_selector:
+        - parse_judge2
+        - keywords
+        output_selector:
+        - search3
+        - body
+        output_type: array[string]
+        parallel_nums: 1
+        selected: false
+        start_node_id: round3start
+        title: 第3轮补充检索
+        type: iteration
+        width: 500
+      height: 235
+      id: round3
+      position:
+        x: 3860
+        y: 240
+      positionAbsolute:
+        x: 3860
+        y: 240
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 500
+      zIndex: 0
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: round3start
+      parentId: round3
+      position:
+        x: 24
+        y: 88
+      positionAbsolute:
+        x: 3884
+        y: 328
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1001
+    - data:
+        authorization:
+          config:
+            api_key: '{{#env.BOCHA_API_KEY#}}'
+            type: bearer
+          type: api-key
+        body:
+          data:
+          - id: d6a17e75-7986-4221-92de-765e202ef603
+            key: ''
+            type: text
+            value: '{"query":"{{#round3.item#}}","summary":true,"count":10}'
+          type: json
+        desc: 第3轮博查搜索。
+        headers: 'Content-Type: application/json'
+        isInIteration: true
+        iteration_id: round3
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 2
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        timeout:
+          max_connect_timeout: 10
+          max_read_timeout: 60
+          max_write_timeout: 10
+        title: 博查搜索-第3轮
+        type: http-request
+        url: https://api.bocha.cn/v1/web-search
+        variables: []
+      height: 166
+      id: search3
+      parentId: round3
+      position:
+        x: 110
+        y: 50
+      positionAbsolute:
+        x: 3970
+        y: 290
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1001
+    - data:
+        code: "import json\n\ndef _loads(value):\n    if isinstance(value, dict):\n\
+          \        return value\n    try:\n        return json.loads(value or '{}')\n\
+          \    except Exception:\n        return {}\n\ndef _pages(body):\n    obj\
+          \ = _loads(body)\n    return obj.get('data', {}).get('webPages', {}).get('value',\
+          \ []) or []\n\ndef main(topic: str, keywords1: list, results1: list, notes1:\
+          \ str,\n         judge1: str, keywords2: list, results2: list, notes2: str,\n\
+          \         judge2: str, keywords3: list, results3: list) -> dict:\n    rounds\
+          \ = [\n        (1, keywords1 or [], results1 or []),\n        (2, keywords2\
+          \ or [], results2 or []),\n        (3, keywords3 or [], results3 or []),\n\
+          \    ]\n    sources = []\n    seen = set()\n    material_rounds = []\n \
+          \   searched = []\n    latest_dates = []\n    for number, keywords, bodies\
+          \ in rounds:\n        if not keywords:\n            continue\n        entries\
+          \ = []\n        for index, query in enumerate(keywords):\n            searched.append(str(query))\n\
+          \            body = bodies[index] if index < len(bodies) else '{}'\n   \
+          \         pages = _pages(body)\n            compact = []\n            for\
+          \ page in pages:\n                url = str(page.get('url') or '').strip()\n\
+          \                title = str(page.get('name') or page.get('title') or '').strip()\n\
+          \                snippet = str(page.get('summary') or page.get('snippet')\
+          \ or '').strip()[:1200]\n                site = str(page.get('siteName')\
+          \ or '').strip()\n                date = str(page.get('datePublished') or\
+          \ page.get('dateLastCrawled') or '').strip()\n                compact.append({'title':\
+          \ title, 'url': url, 'site_name': site, 'date': date, 'snippet': snippet})\n\
+          \                if date:\n                    latest_dates.append(date[:10])\n\
+          \                if url and url not in seen:\n                    seen.add(url)\n\
+          \                    sources.append({'id': len(sources) + 1, 'title': title,\
+          \ 'url': url, 'site_name': site, 'date': date})\n            entries.append({'query':\
+          \ str(query), 'results': compact})\n        material_rounds.append({'round':\
+          \ number, 'queries': entries})\n    iterations = sum(1 for _, keys, _ in\
+          \ rounds if keys)\n    level = 'high' if len(sources) >= 12 else ('medium'\
+          \ if len(sources) >= 5 else 'low')\n    cutoff = max(latest_dates) if latest_dates\
+          \ else '本次工作流运行时'\n    materials = {\n        'topic': topic,\n        'research_notes_round1':\
+          \ notes1,\n        'research_notes_round2': notes2,\n        'search_materials':\
+          \ material_rounds,\n        'sources': sources,\n    }\n    process = {\n\
+          \        'plan': keywords1 or [],\n        'search_queries': searched,\n\
+          \        'reviewed_urls': [item['url'] for item in sources],\n        'iterations':\
+          \ iterations,\n        'round1_judgement': judge1,\n        'round2_judgement':\
+          \ judge2,\n    }\n    confidence = {\n        'overall': level,\n      \
+          \  'info_cutoff': cutoff,\n        'notes': [\n            '置信度按去重来源数量确定：12\
+          \ 个及以上为 high，5-11 个为 medium，否则为 low。',\n            '未能关联真实来源 URL 的结论必须标注为“模型推断”。'\n\
+          \        ]\n    }\n    return {\n        'materials': json.dumps(materials,\
+          \ ensure_ascii=False),\n        'sources': json.dumps(sources, ensure_ascii=False),\n\
+          \        'process': json.dumps(process, ensure_ascii=False),\n        'confidence':\
+          \ json.dumps(confidence, ensure_ascii=False),\n    }"
+        code_language: python3
+        desc: 解析三轮搜索响应，来源按 URL 去重，并确定性生成研究过程和置信度。
+        outputs:
+          confidence:
+            children: null
+            type: string
+          materials:
+            children: null
+            type: string
+          process:
+            children: null
+            type: string
+          sources:
+            children: null
+            type: string
+        selected: false
+        title: 汇总资料与过程
+        type: code
+        variables:
+        - value_selector:
+          - start
+          - topic
+          variable: topic
+        - value_selector:
+          - parse_plan
+          - keywords
+          variable: keywords1
+        - value_selector:
+          - round1
+          - output
+          variable: results1
+        - value_selector:
+          - analyze1
+          - text
+          variable: notes1
+        - value_selector:
+          - judge1
+          - text
+          variable: judge1
+        - value_selector:
+          - parse_judge1
+          - keywords
+          variable: keywords2
+        - value_selector:
+          - round2
+          - output
+          variable: results2
+        - value_selector:
+          - analyze2
+          - text
+          variable: notes2
+        - value_selector:
+          - judge2
+          - text
+          variable: judge2
+        - value_selector:
+          - parse_judge2
+          - keywords
+          variable: keywords3
+        - value_selector:
+          - round3
+          - output
+          variable: results3
+      height: 96
+      id: assemble
+      position:
+        x: 4420
+        y: 280
+      positionAbsolute:
+        x: 4420
+        y: 280
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: 生成最终 Markdown 报告，包含四类案例要求的产物。
+        model:
+          completion_params:
+            temperature: 0.2
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: a1064310-f1ba-4360-877e-94b76cd16704
+          role: system
+          text: '你是深度研究助手的首席研究员。请严格依据输入材料生成一份完整的中文 Markdown 研究报告。
+
+
+            报告必须依次包含：
+
+            1. 标题
+
+            2. 执行摘要
+
+            3. 分节正文（按研究主题的逻辑组织，不要机械按搜索词堆砌）
+
+            4. 关键结论（每条使用 [来源编号] 关联真实来源；无来源的必须明确写“模型推断”）
+
+            5. 遗留问题
+
+            6. 来源列表（编号、标题、站点、日期、可点击 URL）
+
+            7. 研究过程记录（检索词、实际轮数、阅读 URL、两次充分性判断）
+
+            8. 置信度说明（overall、信息截止时间、局限性）
+
+
+            规则：
+
+            - 不得添加输入资料中没有的数字、事实、来源或 URL。
+
+            - 搜索摘要只能视为二手材料；遇到来源矛盾要在正文说明。
+
+            - 引用格式统一为 [来源1]、[来源2]。
+
+            - 结论若无法匹配来源，必须写“（模型推断）”，不能伪造引用。
+
+            - 直接输出最终 Markdown，不要 JSON，不要代码块，不要开场白。'
+        - id: 8c572a8a-ae47-4438-a294-2b4351766704
+          role: user
+          text: '研究资料：
+
+            {{#assemble.materials#}}
+
+
+            来源列表：
+
+            {{#assemble.sources#}}
+
+
+            研究过程：
+
+            {{#assemble.process#}}
+
+
+            置信度：
+
+            {{#assemble.confidence#}}'
+        selected: false
+        title: 生成最终研究报告
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 132
+      id: report
+      position:
+        x: 4760
+        y: 290
+      positionAbsolute:
+        x: 4760
+        y: 290
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        desc: 输出最终报告，并额外暴露来源、过程、置信度 JSON，便于 API 调用方分别消费。
+        outputs:
+        - value_selector:
+          - report
+          - text
+          variable: report
+        - value_selector:
+          - assemble
+          - sources
+          variable: sources
+        - value_selector:
+          - assemble
+          - process
+          variable: process
+        - value_selector:
+          - assemble
+          - confidence
+          variable: confidence
+        selected: false
+        title: 结束
+        type: end
+      height: 226
+      id: end
+      position:
+        x: 5100
+        y: 290
+      positionAbsolute:
+        x: 5100
+        y: 290
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -3882.4985232633053
+      y: 131
+      zoom: 0.9999999999999999
+  rag_pipeline_variables: []

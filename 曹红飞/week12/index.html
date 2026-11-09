@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>楼道消防隐患识别</title>
+<style>
+    :root {
+        --high: #dc2626; --medium: #ea580c; --low: #ca8a04;
+        --none: #16a34a; --gray: #6b7280; --brand: #4f46e5;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 20px 60px; color: #1f2937; }
+    h2 { margin-bottom: 4px; }
+    .sub { color: #6b7280; font-size: 14px; margin-top: 0; }
+    .upload-area {
+        border: 2px dashed #d1d5db; border-radius: 12px; padding: 36px 20px;
+        text-align: center; cursor: pointer; transition: .2s; display: block; background: #fafafa;
+    }
+    .upload-area:hover, .upload-area.dragover { border-color: var(--brand); background: #f5f3ff; }
+    #preview { max-width: 100%; max-height: 380px; margin-top: 16px; border-radius: 10px; display: none; }
+    .actions { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    button {
+        padding: 10px 26px; border: none; border-radius: 8px; font-size: 15px;
+        cursor: pointer; background: var(--brand); color: #fff; transition: .2s;
+    }
+    button:disabled { background: #a5b4fc; cursor: not-allowed; }
+    button.ghost { background: #fff; color: #374151; border: 1px solid #d1d5db; }
+    .status { margin-top: 14px; color: #6b7280; font-size: 14px; }
+    .status.error { color: var(--high); }
+    .card { margin-top: 24px; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; display: none; }
+    .card-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; flex-wrap: wrap; }
+    .badge { color: #fff; font-weight: 600; padding: 6px 16px; border-radius: 999px; font-size: 15px; }
+    .badge.high { background: var(--high); }
+    .badge.medium { background: var(--medium); }
+    .badge.low { background: var(--low); }
+    .badge.none { background: var(--none); }
+    .badge.not_corridor, .badge.unknown { background: var(--gray); }
+    .conf { font-size: 13px; color: #6b7280; }
+    .card-body { padding: 0 20px 20px; }
+    .summary { font-size: 15px; line-height: 1.7; margin: 0 0 16px; }
+    .section-title { font-size: 13px; font-weight: 600; color: #374151; margin: 16px 0 8px; letter-spacing: .5px; }
+    ul.hazards { margin: 0; padding-left: 20px; line-height: 1.8; }
+    ul.hazards li::marker { color: var(--high); }
+    .suggestion { background: #f0fdf4; border-left: 3px solid var(--none); padding: 12px 14px; border-radius: 6px; font-size: 14px; line-height: 1.7; }
+    .empty { color: #9ca3af; font-size: 14px; }
+    .hint { font-size: 13px; color: #6b7280; background: #f9fafb; border-radius: 8px; padding: 12px 16px; line-height: 1.8; margin-top: 24px; }
+    .hint b { color: #374151; }
+</style>
+</head>
+<body>
+    <h2>🚨 楼道消防隐患识别</h2>
+    <p class="sub">上传一张楼道 / 楼梯间照片，自动判断是否存在消防隐患及危险程度。</p>
+
+    <label class="upload-area" id="dropArea" for="fileInput">
+        <span id="dropText">点击或拖拽图片到此处（JPEG / PNG / GIF / WebP，≤10MB）</span>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/gif,image/webp" hidden>
+    </label>
+
+    <img id="preview" alt="预览">
+
+    <div class="actions">
+        <button id="analyzeBtn" disabled>开始识别</button>
+        <button id="resetBtn" class="ghost" style="display:none">重新选择</button>
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div class="card" id="card">
+        <div class="card-head">
+            <span class="badge" id="badge">—</span>
+            <span class="conf" id="conf"></span>
+        </div>
+        <div class="card-body">
+            <p class="summary" id="summary"></p>
+            <div class="section-title">隐患点</div>
+            <ul class="hazards" id="hazards"></ul>
+            <div class="section-title">整改建议</div>
+            <div class="suggestion" id="suggestion"></div>
+        </div>
+    </div>
+
+    <div class="hint">
+        <b>判定口径：</b>
+        高风险 = 电动车 / 电瓶 / 飞线充电等起火元素；
+        中等风险 = 大量堆物严重阻碍通行，或堆放大量纸箱、木质家具等可燃物；
+        低风险 = 存在堆物但不严重；
+        无隐患 = 楼道干净无堆放；
+        非楼道 = 与楼道场景无关的图片。
+    </div>
+
+<script>
+const fileInput  = document.getElementById('fileInput');
+const dropArea   = document.getElementById('dropArea');
+const dropText   = document.getElementById('dropText');
+const preview    = document.getElementById('preview');
+const analyzeBtn = document.getElementById('analyzeBtn');
+const resetBtn   = document.getElementById('resetBtn');
+const statusEl   = document.getElementById('status');
+const card       = document.getElementById('card');
+const badge      = document.getElementById('badge');
+const confEl     = document.getElementById('conf');
+const summaryEl  = document.getElementById('summary');
+const hazardsEl  = document.getElementById('hazards');
+const suggestEl  = document.getElementById('suggestion');
+
+let selectedFile = null;
+
+function setStatus(msg, isError = false) {
+    statusEl.textContent = msg;
+    statusEl.className = 'status' + (isError ? ' error' : '');
+}
+
+// 大图先压缩，降低请求体积与耗时
+async function compress(file, maxSide = 1600, quality = 0.85) {
+    if (file.size < 1.5 * 1024 * 1024) return file;
+    try {
+        const bitmap = await createImageBitmap(file);
+        const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+        const canvas = document.createElement('canvas');
+        canvas.width  = Math.round(bitmap.width  * scale);
+        canvas.height = Math.round(bitmap.height * scale);
+        canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', quality));
+        if (!blob) return file;
+        return new File([blob], file.name.replace(/\.\w+$/, '') + '.jpg', { type: 'image/jpeg' });
+    } catch {
+        return file;
+    }
+}
+
+function handleFile(file) {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+        setStatus('请选择图片文件', true);
+        return;
+    }
+    selectedFile = file;
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = 'block';
+    analyzeBtn.disabled = false;
+    resetBtn.style.display = 'inline-block';
+    card.style.display = 'none';
+    setStatus(`已选择：${file.name}（${(file.size / 1024 / 1024).toFixed(1)} MB）`);
+}
+
+fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+
+['dragenter', 'dragover'].forEach(ev =>
+    dropArea.addEventListener(ev, e => { e.preventDefault(); dropArea.classList.add('dragover'); })
+);
+['dragleave', 'drop'].forEach(ev =>
+    dropArea.addEventListener(ev, e => { e.preventDefault(); dropArea.classList.remove('dragover'); })
+);
+dropArea.addEventListener('drop', e => handleFile(e.dataTransfer.files[0]));
+
+resetBtn.addEventListener('click', () => {
+    selectedFile = null;
+    fileInput.value = '';
+    preview.style.display = 'none';
+    preview.src = '';
+    analyzeBtn.disabled = true;
+    resetBtn.style.display = 'none';
+    card.style.display = 'none';
+    dropText.textContent = '点击或拖拽图片到此处（JPEG / PNG / GIF / WebP，≤10MB）';
+    setStatus('');
+});
+
+analyzeBtn.addEventListener('click', async () => {
+    if (!selectedFile) return;
+
+    analyzeBtn.disabled = true;
+    resetBtn.disabled = true;
+    card.style.display = 'none';
+    setStatus('正在上传并识别，请稍候…');
+
+    try {
+        const fileToSend = await compress(selectedFile);
+        const formData = new FormData();
+        formData.append('file', fileToSend);
+
+        const res = await fetch('/analyze', { method: 'POST', body: formData });
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err.detail || `请求失败（HTTP ${res.status}）`);
+        }
+
+        const data = await res.json();
+        render(data);
+        setStatus('✅ 识别完成');
+    } catch (e) {
+        setStatus(`❌ ${e.message}`, true);
+    } finally {
+        analyzeBtn.disabled = false;
+        resetBtn.disabled = false;
+    }
+});
+
+function render(data) {
+    badge.textContent = data.risk_label;
+    badge.className = 'badge ' + data.risk_level;
+    confEl.textContent = `置信度 ${(data.confidence * 100).toFixed(0)}%`;
+    summaryEl.textContent = data.summary;
+
+    hazardsEl.innerHTML = '';
+    if (data.hazards && data.hazards.length) {
+        data.hazards.forEach(h => {
+            const li = document.createElement('li');
+            li.textContent = h;
+            hazardsEl.appendChild(li);
+        });
+    } else {
+        const li = document.createElement('li');
+        li.className = 'empty';
+        li.textContent = '未发现明显隐患点';
+        hazardsEl.appendChild(li);
+    }
+
+    suggestEl.textContent = data.suggestion || '建议现场人工复核。';
+    card.style.display = 'block';
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>

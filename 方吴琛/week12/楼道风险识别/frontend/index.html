@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>楼道消防安全隐患识别</title>
+<style>
+  :root {
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+  header {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: #fff;
+    padding: 22px 18px;
+  }
+  header h1 { margin: 0; font-size: 20px; font-weight: 700; }
+  header p { margin: 6px 0 0; font-size: 13px; opacity: .85; }
+  .container { max-width: 640px; margin: 0 auto; padding: 16px; }
+  .card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(15,23,42,.08);
+    border: 1px solid var(--border);
+  }
+  .card h2 { margin: 0 0 12px; font-size: 16px; }
+  .seg { display: flex; gap: 8px; }
+  .seg button {
+    flex: 1;
+    padding: 12px;
+    border: 1.5px solid var(--border);
+    background: #f8fafc;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .seg button.active {
+    border-color: var(--primary);
+    background: #eff6ff;
+    color: var(--primary);
+  }
+  .seg button:disabled {
+    opacity: .5; cursor: not-allowed;
+  }
+  video {
+    width: 100%;
+    border-radius: 10px;
+    background: #0f172a;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: none;
+  }
+  .preview-wrap {
+    position: relative;
+    display: none;
+    margin-top: 12px;
+  }
+  .preview-wrap img {
+    width: 100%;
+    border-radius: 10px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border: 1px solid var(--border);
+  }
+  .btn-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .btn {
+    flex: 1;
+    min-width: 110px;
+    padding: 13px 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: opacity .15s;
+  }
+  .btn:active { opacity: .75; }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-secondary { background: #e2e8f0; color: var(--text); }
+  .btn-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btn.full { width: 100%; }
+  #uploadInput { display: none; }
+  .file-label {
+    display: block;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 26px;
+    text-align: center;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .file-label:active { background: #f8fafc; }
+  #result {
+    display: none;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  #result .badge {
+    padding: 18px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  #result .badge .risk { font-size: 26px; font-weight: 800; }
+  #result .badge .sev { font-size: 13px; opacity: .92; text-align: right; }
+  #result .body { padding: 16px; }
+  #result .meta {
+    font-size: 12px; color: var(--muted);
+    margin-bottom: 8px;
+  }
+  #result .reason {
+    font-size: 14px; line-height: 1.6;
+    background: #f8fafc; border-radius: 8px; padding: 12px;
+  }
+  #result .raw {
+    margin-top: 10px;
+    font-size: 12px; color: var(--muted);
+    white-space: pre-wrap; word-break: break-all;
+    border-top: 1px dashed var(--border); padding-top: 10px;
+  }
+  .spinner {
+    display: none;
+    width: 20px; height: 20px;
+    border: 3px solid rgba(255,255,255,.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loading { display: none; text-align: center; padding: 14px; color: var(--muted); font-size: 14px; }
+  .toast {
+    position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%);
+    background: #0f172a; color: #fff; padding: 10px 18px; border-radius: 8px;
+    font-size: 14px; max-width: 90vw; z-index: 99;
+    opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚒 楼道消防安全隐患识别</h1>
+  <p>拍照或上传图片，AI 实时判断楼道是否存在火灾隐患及危险程度</p>
+</header>
+
+<div class="container">
+  <!-- 供应商选择 -->
+  <div class="card">
+    <h2>识别模型</h2>
+    <div class="seg" id="providerSeg">
+      <button data-provider="qwen" class="active">Qwen-VL</button>
+      <button data-provider="deepseek">DeepSeek Flash</button>
+    </div>
+    <p id="providerHint" style="display:none; margin:10px 0 0; font-size:13px; color:#dc2626;">
+      ⚠️ 尚未配置 API Key，请在 backend/.env 中填写后重启服务
+    </p>
+  </div>
+
+  <!-- 拍照 -->
+  <div class="card">
+    <h2>📷 拍照识别</h2>
+    <video id="video" autoplay playsinline muted></video>
+    <div class="preview-wrap" id="capturePreviewWrap">
+      <img id="capturePreview" alt="拍摄预览" />
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="openCameraBtn">打开摄像头</button>
+      <button class="btn btn-secondary" id="captureBtn" disabled>拍照</button>
+      <button class="btn btn-danger" id="closeCameraBtn" disabled>关闭</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary full" id="analyzeCaptureBtn" disabled>识别这张照片</button>
+    </div>
+  </div>
+
+  <!-- 上传 -->
+  <div class="card">
+    <h2>⬆️ 上传图片</h2>
+    <label class="file-label" for="uploadInput">
+      点击选择图片（支持手机相册 / 相册拍照）
+    </label>
+    <input type="file" id="uploadInput" accept="image/*" />
+    <div class="preview-wrap" id="uploadPreviewWrap">
+      <img id="uploadPreview" alt="上传预览" />
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary full" id="analyzeUploadBtn" disabled>识别上传图片</button>
+    </div>
+  </div>
+
+  <!-- 结果 -->
+  <div id="loading"><span class="spinner" style="border-color: rgba(37,99,235,.4); border-top-color:#2563eb"></span>正在识别，请稍候…</div>
+
+  <div class="card" id="result">
+    <div class="badge">
+      <span class="risk" id="riskText">—</span>
+      <span class="sev" id="sevText"></span>
+    </div>
+    <div class="body">
+      <div class="meta" id="resultMeta"></div>
+      <div class="reason" id="reasonText"></div>
+      <div class="raw" id="rawText"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  var provider = 'qwen';
+  var currentBlob = null;
+  var stream = null;
+
+  var video = document.getElementById('video');
+  var capturePreview = document.getElementById('capturePreview');
+  var capturePreviewWrap = document.getElementById('capturePreviewWrap');
+  var uploadPreview = document.getElementById('uploadPreview');
+  var uploadPreviewWrap = document.getElementById('uploadPreviewWrap');
+  var uploadInput = document.getElementById('uploadInput');
+  var openBtn = document.getElementById('openCameraBtn');
+  var captureBtn = document.getElementById('captureBtn');
+  var closeBtn = document.getElementById('closeCameraBtn');
+  var analyzeCaptureBtn = document.getElementById('analyzeCaptureBtn');
+  var analyzeUploadBtn = document.getElementById('analyzeUploadBtn');
+  var result = document.getElementById('result');
+  var loading = document.getElementById('loading');
+  var toast = document.getElementById('toast');
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () { toast.classList.remove('show'); }, 3200);
+  }
+  function setLoading(on) {
+    loading.style.display = on ? 'block' : 'none';
+  }
+
+  // ---- 供应商切换 ----
+  document.getElementById('providerSeg').addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-provider]');
+    if (!btn) return;
+    provider = btn.dataset.provider;
+    document.querySelectorAll('#providerSeg button').forEach(function (b) {
+      b.classList.toggle('active', b === btn);
+    });
+  });
+
+  // ---- 摄像头 ----
+  openBtn.addEventListener('click', async function () {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      showToast('当前环境不支持摄像头，请改用上传图片');
+      return;
+    }
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      });
+      video.srcObject = stream;
+      video.style.display = 'block';
+      captureBtn.disabled = false;
+      closeBtn.disabled = false;
+      openBtn.disabled = true;
+    } catch (err) {
+      showToast('无法打开摄像头：' + (err.name || err.message) +
+        '。请使用 localhost 或 HTTPS，或改用上传图片');
+    }
+  });
+
+  function closeCamera() {
+    if (stream) {
+      stream.getTracks().forEach(function (t) { t.stop(); });
+      stream = null;
+    }
+    video.style.display = 'none';
+    captureBtn.disabled = true;
+    closeBtn.disabled = true;
+    openBtn.disabled = false;
+  }
+  closeBtn.addEventListener('click', closeCamera);
+
+  captureBtn.addEventListener('click', function () {
+    var canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    canvas.toBlob(function (blob) {
+      currentBlob = blob;
+      capturePreview.src = URL.createObjectURL(blob);
+      capturePreviewWrap.style.display = 'block';
+      analyzeCaptureBtn.disabled = false;
+    }, 'image/jpeg', 0.92);
+  });
+
+  analyzeCaptureBtn.addEventListener('click', function () { analyze(currentBlob); });
+
+  // ---- 上传 ----
+  uploadInput.addEventListener('change', function (e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    currentBlob = f;
+    uploadPreview.src = URL.createObjectURL(f);
+    uploadPreviewWrap.style.display = 'block';
+    analyzeUploadBtn.disabled = false;
+  });
+
+  analyzeUploadBtn.addEventListener('click', function () { analyze(currentBlob); });
+
+  // ---- 识别 ----
+  async function analyze(blob) {
+    if (!blob) { showToast('请先拍照或选择图片'); return; }
+    setLoading(true);
+    result.style.display = 'none';
+    try {
+      var fd = new FormData();
+      fd.append('file', blob, blob.name || 'capture.jpg');
+      fd.append('provider', provider);
+      var res = await fetch('/api/analyze', { method: 'POST', body: fd });
+      var data = await res.json();
+      if (!res.ok) {
+        showToast(data.detail || '识别失败');
+        return;
+      }
+      renderResult(data);
+    } catch (err) {
+      showToast('请求失败：' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function renderResult(d) {
+    var badge = result.querySelector('.badge');
+    badge.style.background = d.color || '#6b7280';
+    document.getElementById('riskText').textContent = d.risk || '未知';
+    var sevMap = { high: '危险程度：极高', medium: '危险程度：较高', low: '危险程度：较低', none: '危险程度：安全', not_corridor: '与楼道无关', unknown: '无法判断' };
+    document.getElementById('sevText').textContent = sevMap[d.level] || '';
+    document.getElementById('resultMeta').textContent =
+      '模型：' + (d.provider_name || d.provider) + '（' + d.model + '）';
+    document.getElementById('reasonText').textContent = d.reason || '（模型未给出具体依据）';
+    document.getElementById('rawText').textContent = '模型原始输出：' + (d.raw || '');
+    result.style.display = 'block';
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ---- 初始化：标记未配置的供应商 ----
+  fetch('/api/providers')
+    .then(function (r) { return r.json(); })
+    .then(function (list) {
+      var anyConfigured = false;
+      document.querySelectorAll('#providerSeg button').forEach(function (b) {
+        var info = list[b.dataset.provider];
+        if (info && info.configured) {
+          anyConfigured = true;
+        } else {
+          b.disabled = true;
+          b.title = '未配置 API Key';
+        }
+      });
+      // 若默认供应商未配置，自动切到第一个已配置的
+      if (list[provider] && !list[provider].configured) {
+        for (var key in list) {
+          if (list[key].configured) { setProvider(key); break; }
+        }
+      }
+      document.getElementById('providerHint').style.display = anyConfigured ? 'none' : 'block';
+    })
+    .catch(function () { /* 忽略 */ });
+
+  function setProvider(key) {
+    provider = key;
+    document.querySelectorAll('#providerSeg button').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.provider === key);
+    });
+  }
+})();
+</script>
+</body>
+</html>

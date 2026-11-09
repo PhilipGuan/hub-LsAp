@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>楼道消防隐患识别</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(160deg, #1a202c 0%, #2d3748 100%);
+    min-height: 100vh; color: #e2e8f0; padding-bottom: 40px;
+  }
+  header { text-align: center; padding: 28px 16px 16px; }
+  header h1 { font-size: 22px; letter-spacing: 1px; }
+  header p { font-size: 13px; color: #a0aec0; margin-top: 6px; }
+  main { max-width: 520px; margin: 0 auto; padding: 0 16px; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .tab {
+    flex: 1; padding: 12px; border: 1px solid #4a5568; border-radius: 12px;
+    background: rgba(255,255,255,.04); color: #a0aec0; font-size: 15px; cursor: pointer;
+    transition: all .2s;
+  }
+  .tab.active { background: #e53e3e; border-color: #e53e3e; color: #fff; font-weight: 600; }
+
+  .camera-box {
+    position: relative; border-radius: 16px; overflow: hidden;
+    background: #000; aspect-ratio: 3/4; box-shadow: 0 8px 24px rgba(0,0,0,.4);
+  }
+  .camera-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .camera-tip {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    padding: 20px; text-align: center; font-size: 14px; color: #a0aec0; background: rgba(0,0,0,.6);
+  }
+  .camera-controls { display: flex; gap: 12px; margin-top: 16px; align-items: center; justify-content: center; }
+  .btn-capture {
+    width: 74px; height: 74px; border-radius: 50%; border: 4px solid #e53e3e;
+    background: rgba(229,62,62,.25); font-size: 15px; color: #fff; cursor: pointer; transition: all .15s;
+  }
+  .btn-capture:active { transform: scale(.92); background: rgba(229,62,62,.5); }
+  .btn-capture:disabled { opacity: .4; }
+  .btn-switch {
+    padding: 12px 16px; border-radius: 12px; border: 1px solid #4a5568;
+    background: rgba(255,255,255,.06); color: #e2e8f0; font-size: 14px; cursor: pointer;
+  }
+
+  .upload-box {
+    display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center;
+    aspect-ratio: 3/4; border: 2px dashed #4a5568; border-radius: 16px;
+    color: #a0aec0; font-size: 15px; cursor: pointer; transition: border-color .2s;
+  }
+  .upload-box:active { border-color: #e53e3e; }
+  .upload-box .big { font-size: 44px; }
+
+  section { margin-top: 20px; }
+  h2 { font-size: 15px; color: #a0aec0; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  #preview-img {
+    width: 100%; border-radius: 16px; display: block; max-height: 420px; object-fit: contain;
+    background: #000;
+  }
+  .preview-actions { display: flex; gap: 10px; margin-top: 14px; }
+  .btn-primary {
+    flex: 2; padding: 14px; border: none; border-radius: 12px; background: #e53e3e;
+    color: #fff; font-size: 16px; font-weight: 600; cursor: pointer;
+  }
+  .btn-primary:active { opacity: .85; }
+  .btn-ghost {
+    flex: 1; padding: 14px; border-radius: 12px; border: 1px solid #4a5568;
+    background: transparent; color: #a0aec0; font-size: 15px; cursor: pointer;
+  }
+
+  #loading-section { text-align: center; padding: 36px 0; }
+  .spinner {
+    width: 44px; height: 44px; margin: 0 auto 14px; border-radius: 50%;
+    border: 4px solid rgba(255,255,255,.15); border-top-color: #e53e3e;
+    animation: spin .9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loading-section p { font-size: 14px; color: #a0aec0; }
+
+  .result-card {
+    border-radius: 16px; padding: 22px 18px; border: 1px solid #4a5568;
+    background: rgba(255,255,255,.04); animation: pop .35s ease;
+  }
+  @keyframes pop { from { transform: scale(.94); opacity: 0; } }
+  .level-badge {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 24px; font-weight: 700;
+    padding: 8px 18px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .reason { font-size: 15px; line-height: 1.7; color: #e2e8f0; }
+
+  .btn-clear { font-size: 12px; color: #718096; background: none; border: none; cursor: pointer; }
+  .history-item {
+    display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 12px;
+    background: rgba(255,255,255,.04); margin-bottom: 10px; cursor: pointer;
+  }
+  .history-item img { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+  .history-item .info { flex: 1; min-width: 0; }
+  .history-item .lv { font-size: 16px; font-weight: 700; }
+  .history-item .rs { font-size: 12px; color: #a0aec0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .history-item .tm { font-size: 11px; color: #718096; flex-shrink: 0; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%);
+    background: #e53e3e; color: #fff; padding: 10px 22px; border-radius: 999px;
+    font-size: 14px; opacity: 0; transition: opacity .3s; pointer-events: none; max-width: 88vw;
+  }
+  .toast.show { opacity: 1; }
+  footer { text-align: center; font-size: 12px; color: #718096; margin-top: 32px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🔥 楼道消防隐患识别</h1>
+  <p>拍照或上传楼道照片，AI 实时判断消防风险</p>
+</header>
+
+<main>
+  <div class="tabs">
+    <button class="tab active" id="tab-camera">📷 拍照识别</button>
+    <button class="tab" id="tab-upload">🖼 上传图片</button>
+  </div>
+
+  <section id="panel-camera">
+    <div class="camera-box">
+      <video id="video" autoplay playsinline muted></video>
+      <div class="camera-tip" id="camera-tip">正在请求摄像头权限…</div>
+    </div>
+    <div class="camera-controls">
+      <button class="btn-switch" id="btn-switch">🔄 切换镜头</button>
+      <button class="btn-capture" id="btn-capture" disabled>拍照</button>
+    </div>
+  </section>
+
+  <section id="panel-upload" hidden>
+    <label class="upload-box" for="file-input">
+      <span class="big">🖼</span>
+      <span>点击选择图片（相册 / 文件）</span>
+      <span style="font-size:12px;color:#718096">支持 JPG / PNG / WebP，10MB 以内</span>
+      <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" hidden>
+    </label>
+  </section>
+
+  <section id="preview-section" hidden>
+    <h2>照片预览</h2>
+    <img id="preview-img" alt="待识别照片">
+    <div class="preview-actions">
+      <button class="btn-primary" id="btn-recognize">🔍 开始识别</button>
+      <button class="btn-ghost" id="btn-retake">重拍 / 重选</button>
+    </div>
+  </section>
+
+  <section id="loading-section" hidden>
+    <div class="spinner"></div>
+    <p>AI 正在识别隐患，请稍候…</p>
+  </section>
+
+  <section id="result-section" hidden>
+    <h2>识别结果</h2>
+    <div class="result-card" id="result-card">
+      <div class="level-badge" id="level-badge">—</div>
+      <div class="reason" id="reason-text"></div>
+    </div>
+  </section>
+
+  <section id="history-section" hidden>
+    <h2>识别历史 <button class="btn-clear" id="btn-clear">清空</button></h2>
+    <div id="history-list"></div>
+  </section>
+</main>
+
+<footer>Powered by DeepSeek V4.1 Flash 多模态大模型</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const LEVEL_CONFIG = {
+  '高风险': { color: '#fed7d7', bg: 'rgba(229,62,62,.18)', border: '#e53e3e', icon: '🚨' },
+  '中风险': { color: '#feebc8', bg: 'rgba(221,107,32,.18)', border: '#dd6b20', icon: '⚠️' },
+  '低风险': { color: '#fefcbf', bg: 'rgba(214,158,46,.18)', border: '#d69e2e', icon: '⚡' },
+  '无风险': { color: '#c6f6d5', bg: 'rgba(56,161,105,.18)', border: '#38a169', icon: '✅' },
+  '非楼道': { color: '#e2e8f0', bg: 'rgba(160,174,192,.15)', border: '#718096', icon: '🚫' },
+};
+
+const $ = id => document.getElementById(id);
+const video = $('video'), cameraTip = $('camera-tip'), btnCapture = $('btn-capture');
+let stream = null, facingMode = 'environment', currentBlob = null, history = [];
+
+/* ---------- 摄像头 ---------- */
+async function startCamera() {
+  stopCamera();
+  cameraTip.style.display = 'flex';
+  cameraTip.textContent = '正在请求摄像头权限…';
+  btnCapture.disabled = true;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: facingMode }, width: { ideal: 1920 }, height: { ideal: 1080 } },
+      audio: false,
+    });
+    video.srcObject = stream;
+    await video.play();
+    cameraTip.style.display = 'none';
+    btnCapture.disabled = false;
+  } catch (err) {
+    cameraTip.textContent = location.protocol !== 'https:'
+      ? '摄像头不可用：当前非 HTTPS 访问。请通过 https:// 地址打开本页面（localhost 除外）。'
+      : '摄像头不可用：' + err.message + '。请检查浏览器权限设置。';
+  }
+}
+
+function stopCamera() {
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+}
+
+$('btn-switch').addEventListener('click', () => {
+  facingMode = facingMode === 'environment' ? 'user' : 'environment';
+  startCamera();
+});
+
+btnCapture.addEventListener('click', () => {
+  if (!video.videoWidth) return;
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  canvas.toBlob(b => { if (b) setPhoto(b); }, 'image/jpeg', 0.92);
+});
+
+/* ---------- 上传 ---------- */
+$('file-input').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+    return showToast('仅支持 JPG / PNG / WebP 图片');
+  }
+  if (file.size > 10 * 1024 * 1024) return showToast('图片不能超过 10MB');
+  setPhoto(file);
+  e.target.value = '';
+});
+
+/* ---------- Tab 切换 ---------- */
+$('tab-camera').addEventListener('click', () => switchTab('camera'));
+$('tab-upload').addEventListener('click', () => switchTab('upload'));
+
+function switchTab(name) {
+  const isCamera = name === 'camera';
+  $('tab-camera').classList.toggle('active', isCamera);
+  $('tab-upload').classList.toggle('active', !isCamera);
+  $('panel-camera').hidden = !isCamera;
+  $('panel-upload').hidden = isCamera;
+  if (isCamera) startCamera(); else stopCamera();
+}
+
+/* ---------- 预览与识别 ---------- */
+function setPhoto(blob) {
+  currentBlob = blob;
+  $('preview-img').src = URL.createObjectURL(blob);
+  $('preview-section').hidden = false;
+  $('result-section').hidden = true;
+  $('preview-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+$('btn-retake').addEventListener('click', () => {
+  currentBlob = null;
+  $('preview-section').hidden = true;
+  $('result-section').hidden = true;
+});
+
+$('btn-recognize').addEventListener('click', async () => {
+  if (!currentBlob) return;
+  $('preview-section').hidden = true;
+  $('loading-section').hidden = false;
+  const fd = new FormData();
+  fd.append('file', currentBlob, 'photo.jpg');
+  try {
+    const resp = await fetch('/api/recognize', { method: 'POST', body: fd });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.detail || '识别失败');
+    showResult(data);
+    addHistory(data, currentBlob);
+  } catch (err) {
+    showToast('识别失败：' + err.message);
+    $('preview-section').hidden = false;
+  } finally {
+    $('loading-section').hidden = true;
+  }
+});
+
+function showResult(data) {
+  const cfg = LEVEL_CONFIG[data.level] || LEVEL_CONFIG['非楼道'];
+  const badge = $('level-badge');
+  badge.textContent = `${cfg.icon} ${data.level}`;
+  badge.style.color = cfg.color;
+  badge.style.background = cfg.bg;
+  badge.style.border = `1px solid ${cfg.border}`;
+  $('reason-text').textContent = data.reason;
+  $('result-section').hidden = false;
+  $('result-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ---------- 历史 ---------- */
+function addHistory(data, blob) {
+  history.unshift({ ...data, url: URL.createObjectURL(blob), time: new Date() });
+  renderHistory();
+}
+
+function renderHistory() {
+  $('history-section').hidden = history.length === 0;
+  $('history-list').innerHTML = history.map((h, i) => {
+    const cfg = LEVEL_CONFIG[h.level] || LEVEL_CONFIG['非楼道'];
+    return `<div class="history-item">
+      <img src="${h.url}" alt="">
+      <div class="info">
+        <div class="lv" style="color:${cfg.color}">${cfg.icon} ${h.level}</div>
+        <div class="rs">${escapeHtml(h.reason)}</div>
+      </div>
+      <div class="tm">${h.time.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}</div>
+    </div>`;
+  }).join('');
+}
+
+$('btn-clear').addEventListener('click', () => { history = []; renderHistory(); });
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+/* ---------- Toast ---------- */
+let toastTimer;
+function showToast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* 启动摄像头 */
+startCamera();
+</script>
+</body>
+</html>

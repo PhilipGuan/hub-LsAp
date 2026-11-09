@@ -1,0 +1,16 @@
+{
+  "time": "2026-09-11T08:40:51.400Z",
+  "passed": [
+    "demo_submit_and_complete",
+    "two_sources",
+    "two_judgment_rounds",
+    "markdown_download",
+    "json_download",
+    "history_after_reload",
+    "mobile_no_horizontal_overflow",
+    "invalid_input_400",
+    "cross_origin_403",
+    "no_javascript_errors"
+  ],
+  "errors": []
+}

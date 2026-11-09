@@ -1,0 +1,769 @@
+app:
+  description: DeepResearch应用-陈健健
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: DeepResearch-CJJ
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.2.21@d467c6df6876dc5e70ad0b10c14631656ebbc904347eadf48e95b4fca7eda001
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1789640471411--1789640593531-target
+      source: '1789640471411'
+      sourceHandle: source
+      target: '1789640593531'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: iteration
+      id: 1789640593531--1789640667048-target
+      source: '1789640593531'
+      sourceHandle: source
+      target: '1789640667048'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789640667048'
+        sourceType: iteration-start
+        targetType: http-request
+      id: 1789640667048start-source-1789640754579-target
+      source: 1789640667048start
+      sourceHandle: source
+      target: '1789640754579'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789640667048'
+        sourceType: http-request
+        targetType: code
+      id: 1789640754579--1789640889217-target
+      source: '1789640754579'
+      sourceHandle: source
+      target: '1789640889217'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1789641009714--1789641033097-target
+      source: '1789641009714'
+      sourceHandle: source
+      target: '1789641033097'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1789640667048--1789641695614-target
+      source: '1789640667048'
+      sourceHandle: source
+      target: '1789641695614'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1789641695614-source-1789641009714-target
+      source: '1789641695614'
+      sourceHandle: source
+      target: '1789641009714'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789640667048'
+        sourceType: code
+        targetType: code
+      id: 1789640889217--1789649524427-target
+      source: '1789640889217'
+      sourceHandle: source
+      target: '1789649524427'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789640667048'
+        sourceType: code
+        targetType: llm
+      id: 1789649524427-source-1789640939946-target
+      source: '1789649524427'
+      sourceHandle: source
+      target: '1789640939946'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 用户输入的研究问题 / 主题
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: research_topic
+        - default: '2'
+          hint: ''
+          label: 搜索迭代轮次
+          options: []
+          placeholder: ''
+          required: true
+          type: number
+          variable: max_depth
+        - default: '5'
+          hint: ''
+          label: 单次搜索返回网页条数
+          options: []
+          placeholder: ''
+          required: true
+          type: number
+          variable: result_count
+      height: 161
+      id: '1789640471411'
+      position:
+        x: 6.216507775033733
+        y: 246.58392373201622
+      positionAbsolute:
+        x: 6.216507775033733
+        y: 246.58392373201622
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4.1-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 76fe55fa-cdc1-41f7-90cb-462de48cf4c3
+          role: system
+          text: "你是专业的研究助手，负责将用户的研究问题拆解为3-5个可直接搜索的子问题。\n\n严格规则：\n1. 必须输出3-5个子问题，覆盖背景、现状、数据、方案、风险5个维度\n\
+            2. 每个子问题必须具体、可搜索，不能模糊\n3. 绝对不要输出思考过程、解释、Markdown、代码块\n4. 只输出纯JSON，不要任何其他文字，不要用```包裹\n\
+            5. 即使主题不明确，也必须基于主题生成子问题，禁止返回空数组\n\n输出格式：\n{\n  \"sub_queries\": [\n  \
+            \  \"子问题1\",\n    \"子问题2\",\n    \"子问题3\",\n    \"子问题4\",\n    \"子问题5\"\
+            \n  ],\n  \"research_goal\": \"用一句话概括本次研究的核心目标\"\n}\n"
+        - id: b420ccdf-5bc5-4536-a237-17404b30d450
+          role: user
+          text: '用户研究主题：{{#1789640471411.research_topic#}}
+
+            只输出JSON，不要任何解释。
+
+            '
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              research_goal:
+                description: 研究目标总结
+                type: string
+              sub_queries:
+                description: 3-5个可搜索的子问题
+                items:
+                  type: string
+                type: array
+            required:
+            - sub_queries
+            - research_goal
+            type: object
+        structured_output_enabled: true
+        title: 问题拆解
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1789640593531'
+      position:
+        x: 155.70429432617175
+        y: 134.72640027435506
+      positionAbsolute:
+        x: 155.70429432617175
+        y: 134.72640027435506
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        error_handle_mode: terminated
+        flatten_output: false
+        height: 263
+        is_parallel: false
+        iterator_input_type: object
+        iterator_selector:
+        - '1789640593531'
+        - structured_output
+        - sub_queries
+        output_selector:
+        - '1789640939946'
+        - structured_output
+        output_type: array[object]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1789640667048start
+        title: 迭代
+        type: iteration
+        width: 990
+      height: 263
+      id: '1789640667048'
+      position:
+        x: 336.06870734442805
+        y: 249.40189952103668
+      positionAbsolute:
+        x: 336.06870734442805
+        y: 249.40189952103668
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 990
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1789640667048start
+      parentId: '1789640667048'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 360.06870734442805
+        y: 317.4018995210367
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-75
+            key: ''
+            type: text
+            value: "{\n  \"query\": {{#1789640667048.item#}},\n  \"count\": {{#1789640471411.result_count#}},\n\
+              \  \"freshness\": 'noLimit',\n  \"summary\": true\n}\n"
+          type: json
+        headers: 'Content-Type:application/json
+
+          Authorization:Bearer sk-3d2293ad83aa4823a7c7ce8dd5ff8c72'
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789640667048'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: false
+        timeout:
+          connect: 10
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+          read: 30
+          write: 30
+        title: HTTP 请求
+        type: http-request
+        url: https://api.bochaai.com/v1/web-search
+        variables: []
+      height: 137
+      id: '1789640754579'
+      parentId: '1789640667048'
+      position:
+        x: 129.89756471841815
+        y: 65
+      positionAbsolute:
+        x: 465.9662720628462
+        y: 314.4018995210367
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "import json\n\ndef main(search_response: str):\n    try:\n        #\
+          \ 1. 解析JSON字符串\n        if isinstance(search_response, str):\n         \
+          \   data = json.loads(search_response)\n        elif isinstance(search_response,\
+          \ dict):\n            data = search_response\n        else:\n          \
+          \  return {\n                \"search_results\": [],\n                \"\
+          urls\": [],\n                \"total\": 0,\n                \"error\": \"\
+          输入类型错误\"\n            }\n\n        # 2. 兼容两种返回结构：直接返回数据 / 外层包裹code+data\n\
+          \        if \"data\" in data and isinstance(data[\"data\"], dict):\n   \
+          \         response_data = data[\"data\"]\n        else:\n            response_data\
+          \ = data\n\n        # 3. 正确提取网页数组：webPages.value 才是真实的网页列表\n        web_pages_obj\
+          \ = response_data.get(\"webPages\", {})\n        web_pages = web_pages_obj.get(\"\
+          value\", [])\n        \n        # 兜底：确保是数组\n        if not isinstance(web_pages,\
+          \ list):\n            web_pages = []\n\n        formatted = []\n       \
+          \ urls = []\n\n        for idx, page in enumerate(web_pages):\n        \
+          \    # 确保每个元素都是字典\n            if not isinstance(page, dict):\n        \
+          \        continue\n            \n            url = page.get(\"url\", \"\"\
+          )\n            formatted.append({\n                \"index\": idx + 1,\n\
+          \                \"title\": page.get(\"name\", \"\"),\n                \"\
+          url\": url,\n                \"snippet\": page.get(\"snippet\", \"\"),\n\
+          \                \"summary\": page.get(\"summary\", \"\"),\n           \
+          \     \"site\": page.get(\"siteName\", \"\")\n            })\n         \
+          \   if url:\n                urls.append(url)\n\n        return {\n    \
+          \        \"search_results\": formatted,\n            \"urls\": urls,\n \
+          \           \"total\": len(formatted),\n            \"error\": \"\"\n  \
+          \      }\n\n    except Exception as e:\n        return {\n            \"\
+          search_results\": [],\n            \"urls\": [],\n            \"total\"\
+          : 0,\n            \"error\": str(e)\n        }\n"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789640667048'
+        outputs:
+          error:
+            children: null
+            type: string
+          search_results:
+            children: null
+            type: array[object]
+          total:
+            children: null
+            type: number
+          urls:
+            children: null
+            type: array[string]
+        selected: false
+        title: 搜索结果格式化
+        type: code
+        variables:
+        - value_selector:
+          - '1789640754579'
+          - body
+          value_type: string
+          variable: search_response
+      height: 52
+      id: '1789640889217'
+      parentId: '1789640667048'
+      position:
+        x: 430
+        y: 65
+      positionAbsolute:
+        x: 766.068707344428
+        y: 314.4018995210367
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789640667048'
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: deepseek-v4.1-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables:
+          - value_selector:
+            - '1789640889217'
+            - search_results
+            variable: search_results
+          - value_selector:
+            - '1789649524427'
+            - formatted_text
+            variable: formatted_text
+        prompt_template:
+        - id: f7b17760-7d2a-4333-8d03-a18c9a25e929
+          role: system
+          text: '你是信息提炼专家，请基于搜索结果，针对当前子问题，提炼核心信息、关键数据、核心观点。
+
+            要求：
+
+            1. 只保留与子问题直接相关的内容，剔除广告、冗余信息
+
+            2. 每条信息标注来源序号与网站
+
+            3. 输出结构化要点，不超过500字
+
+            '
+        - edition_type: jinja2
+          id: 46cfc167-567b-489a-b314-705600d49cb0
+          jinja2_text: "当前子问题：{{item}}\r\n\r\n搜索结果：\r\n{{ formatted_text }}\r\n\r\n\
+            请基于以上搜索结果，提炼核心结论、关键数据和核心观点，严格输出纯JSON，不要任何解释、思考、Markdown代码块。\r\n输出格式：\r\
+            \n{\r\n  \"summary\": \"200字以内的结构化总结，包含核心数据和结论\",\r\n  \"urls\": [\"本次搜索的所有网页链接，按顺序排列\"\
+            ]\r\n}\r\n"
+          role: user
+          text: '当前子问题：{{#1789640667048.item#}}
+
+            搜索结果：
+
+            {% for item in 搜索结果格式化.search_results %}
+
+            [{{item.index}}] {{item.title}}（{{item.site}}）
+
+            摘要：{{item.summary or item.snippet}}
+
+            链接：{{item.url}}
+
+            {% endfor %}
+
+            请基于以上搜索结果，提炼核心结论、关键数据和核心观点，严格输出纯JSON，不要任何解释、思考、Markdown代码块。 输出格式： { "summary":
+            "200字以内的结构化总结，包含核心数据和结论", "urls": ["本次搜索的所有网页链接，按顺序排列"] }
+
+            '
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              summary:
+                description: 本轮搜索的核心信息总结
+                type: string
+              urls:
+                description: 本轮搜索的所有网页链接
+                items:
+                  type: string
+                type: array
+            required:
+            - summary
+            - urls
+            type: object
+        structured_output_enabled: true
+        title: 单页结果总结
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1789640939946'
+      parentId: '1789640667048'
+      position:
+        x: 732
+        y: 65
+      positionAbsolute:
+        x: 1068.068707344428
+        y: 314.4018995210367
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4.1-flash
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: e3009683-f1d4-41d2-bbe8-a9a224d4c976
+          role: system
+          text: '你是行业研究分析师，基于给定的搜索结果，输出一份精简研究报告。
+
+
+            主题：{{{#1789640471411.research_topic#}}}}
+
+            搜索结论：{{{#1789641695614.all_findings#}}}}
+
+            参考链接：{{{#1789641695614.visited_urls#}}}}
+
+
+            输出结构：
+
+            1. 核心结论（3条）
+
+            2. 市场规模数据
+
+            3. 主要玩家与格局
+
+            4. 核心风险
+
+            5. 参考来源
+
+
+            要求：只输出Markdown，不编造数据，信息不足标注说明，不要多余解释。
+
+            '
+        - id: 9870c8ff-bdfe-47e7-bb84-f413b92362b7
+          role: user
+          text: '研究主题：{{research_topic}}
+
+            研究目标：{{{#1789640593531.structured_output.research_goal#}}}}
+
+            已收集的研究资料：
+
+            {% for finding in all_findings %}
+
+            ## 第{{loop.index}}轮搜索结果
+
+            {{finding}}
+
+            {% endfor %}
+
+            请生成完整的研究报告。
+
+            '
+        selected: false
+        title: 研究报告生成
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1789641009714'
+      position:
+        x: 1368.6836851544022
+        y: 343.37834922249664
+      positionAbsolute:
+        x: 1368.6836851544022
+        y: 343.37834922249664
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1789641009714'
+          - text
+          value_type: string
+          variable: final_report
+        - value_selector:
+          - '1789641695614'
+          - visited_urls
+          value_type: array[string]
+          variable: source_urls
+        - value_selector:
+          - '1789641695614'
+          - search_rounds
+          value_type: number
+          variable: search_rounds
+        selected: false
+        title: 输出
+        type: end
+      height: 140
+      id: '1789641033097'
+      position:
+        x: 1664.1593549989016
+        y: 306.95133968899864
+      positionAbsolute:
+        x: 1664.1593549989016
+        y: 306.95133968899864
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\n\ndef main(iteration_output: list) -> dict:\n    all_findings\
+          \ = []\n    all_urls = []\n\n    # 空输入兜底\n    if not iteration_output or\
+          \ not isinstance(iteration_output, list):\n        return {\n          \
+          \  \"all_findings\": [],\n            \"visited_urls\": [],\n          \
+          \  \"search_rounds\": 0\n        }\n\n    for item in iteration_output:\n\
+          \        # 兼容：元素是 JSON 字符串\n        if isinstance(item, str):\n        \
+          \    try:\n                item = json.loads(item)\n            except Exception:\n\
+          \                # 解析失败则当作纯文本总结\n                if item.strip():\n    \
+          \                all_findings.append(item.strip())\n                continue\n\
+          \n        if not isinstance(item, dict):\n            continue\n\n     \
+          \   # 提取总结文本，兼容 summary / text 两种字段\n        summary = item.get(\"summary\"\
+          ) or item.get(\"text\") or \"\"\n        if summary.strip():\n         \
+          \   all_findings.append(summary.strip())\n\n        # 提取链接并全局去重\n      \
+          \  urls = item.get(\"urls\", [])\n        if isinstance(urls, list):\n \
+          \           for url in urls:\n                if isinstance(url, str) and\
+          \ url and url not in all_urls:\n                    all_urls.append(url)\n\
+          \n    return {\n        \"all_findings\": all_findings,\n        \"visited_urls\"\
+          : all_urls,\n        \"search_rounds\": len(all_findings)\n    }\n"
+        code_language: python3
+        outputs:
+          all_findings:
+            children: null
+            type: array[string]
+          search_rounds:
+            children: null
+            type: number
+          visited_urls:
+            children: null
+            type: array[string]
+        selected: false
+        title: 迭代结果拆分
+        type: code
+        variables:
+        - value_selector:
+          - '1789640667048'
+          - output
+          value_type: array[object]
+          variable: iteration_output
+      height: 52
+      id: '1789641695614'
+      position:
+        x: 1270.9208877877425
+        y: 146.2932800507878
+      positionAbsolute:
+        x: 1270.9208877877425
+        y: 146.2932800507878
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "def main(search_results: list) -> dict:\n    lines = []\n    urls =\
+          \ []\n    for item in search_results:\n        if not isinstance(item, dict):\n\
+          \            continue\n        idx = item.get(\"index\", \"\")\n       \
+          \ title = item.get(\"title\", \"\")\n        site = item.get(\"site\", \"\
+          \")\n        summary = item.get(\"summary\") or item.get(\"snippet\", \"\
+          \")\n        url = item.get(\"url\", \"\")\n        lines.append(f\"[{idx}]\
+          \ {title}（来源：{site}）\\n摘要：{summary}\\n链接：{url}\")\n        if url:\n   \
+          \         urls.append(url)\n    return {\n        \"formatted_text\": \"\
+          \\n\\n\".join(lines),\n        \"urls\": urls\n    }\n"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789640667048'
+        outputs:
+          formatted_text:
+            children: null
+            type: string
+          urls:
+            children: null
+            type: array[string]
+        selected: false
+        title: 搜索结果拼接
+        type: code
+        variables:
+        - value_selector:
+          - '1789640889217'
+          - search_results
+          value_type: array[object]
+          variable: search_results
+      height: 51
+      id: '1789649524427'
+      parentId: '1789640667048'
+      position:
+        x: 434.2109199138681
+        y: 162.69005117262475
+      positionAbsolute:
+        x: 770.2796272582962
+        y: 412.09195069366143
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    viewport:
+      x: 44.055844462682444
+      y: 254.66746224233543
+      zoom: 0.757858283255199
+  rag_pipeline_variables: []

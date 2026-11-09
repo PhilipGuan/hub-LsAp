@@ -1,0 +1,242 @@
+{
+  "id": "d3e7140eb296445a9befce7f34cc3c4c",
+  "topic": "RAG 与微调如何选择",
+  "mode": "demo",
+  "max_rounds": 3,
+  "status": "completed",
+  "created_at": "2026-09-11T08:40:49+00:00",
+  "updated_at": "2026-09-11T08:40:49+00:00",
+  "sources": [
+    {
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "site": "arXiv",
+      "date": "2020",
+      "snippet": "教学样例摘要：RAG 将参数化模型与外部非参数化检索记忆结合。",
+      "id": 1,
+      "accessed_at": "2026-09-11T08:40:49+00:00",
+      "reading_method": "固定教学样例"
+    },
+    {
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "url": "https://arxiv.org/abs/2106.09685",
+      "site": "arXiv",
+      "date": "2021",
+      "snippet": "教学样例摘要：LoRA 冻结预训练模型权重，训练低秩矩阵，减少可训练参数。",
+      "id": 2,
+      "accessed_at": "2026-09-11T08:40:49+00:00",
+      "reading_method": "固定教学样例"
+    }
+  ],
+  "process": [
+    {
+      "kind": "plan",
+      "detail": "子问题：知识更新与引用要求；任务行为与输出风格；成本、评估与组合方案",
+      "round": 0,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "search",
+      "detail": "RAG 知识更新 来源引用",
+      "round": 1,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "read",
+      "detail": "读取 1 条搜索摘要：[1] https://arxiv.org/abs/2005.11401",
+      "round": 1,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "extract",
+      "detail": "提取 1 条结论：RAG 知识更新 来源引用",
+      "round": 1,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "search",
+      "detail": "微调 行为 输出格式",
+      "round": 1,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "read",
+      "detail": "读取 1 条搜索摘要：[1] https://arxiv.org/abs/2005.11401",
+      "round": 1,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "extract",
+      "detail": "提取 1 条结论：微调 行为 输出格式",
+      "round": 1,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "judge",
+      "detail": "缺少参数高效微调的资料，需要补检。",
+      "round": 1,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "search",
+      "detail": "LoRA 参数高效微调 原始论文",
+      "round": 2,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "read",
+      "detail": "读取 1 条搜索摘要：[2] https://arxiv.org/abs/2106.09685",
+      "round": 2,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "extract",
+      "detail": "提取 1 条结论：LoRA 参数高效微调 原始论文",
+      "round": 2,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "judge",
+      "detail": "已有两类方法的样例资料，达到教学演示条件。",
+      "round": 2,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "report",
+      "detail": "综合报告并检查来源编号",
+      "round": 2,
+      "time": "2026-09-11T08:40:49+00:00"
+    },
+    {
+      "kind": "complete",
+      "detail": "报告、来源与研究过程已保存",
+      "round": 2,
+      "time": "2026-09-11T08:40:49+00:00"
+    }
+  ],
+  "questions": [
+    "知识更新与引用要求",
+    "任务行为与输出风格",
+    "成本、评估与组合方案"
+  ],
+  "queries": [
+    "RAG 知识更新 来源引用",
+    "微调 行为 输出格式",
+    "LoRA 参数高效微调 原始论文"
+  ],
+  "draft": [
+    {
+      "heading": "RAG 知识更新 来源引用",
+      "claims": [
+        {
+          "text": "教学样例摘要：RAG 将参数化模型与外部非参数化检索记忆结合。",
+          "source_ids": [
+            1
+          ],
+          "attribution": "来源支持（未逐句人工核实）"
+        }
+      ]
+    },
+    {
+      "heading": "微调 行为 输出格式",
+      "claims": [
+        {
+          "text": "当前轮仅获得 RAG 的教学样例，尚不足以说明微调机制；下一轮需要补充微调来源。",
+          "source_ids": [],
+          "attribution": "模型推断（无有效来源）"
+        }
+      ]
+    },
+    {
+      "heading": "LoRA 参数高效微调 原始论文",
+      "claims": [
+        {
+          "text": "教学样例摘要：LoRA 冻结预训练模型权重，训练低秩矩阵，减少可训练参数。",
+          "source_ids": [
+            2
+          ],
+          "attribution": "来源支持（未逐句人工核实）"
+        }
+      ]
+    }
+  ],
+  "iterations": 2,
+  "report": {
+    "title": "RAG 与微调如何选择",
+    "summary": "这是固定教学数据驱动的流程演示，并未实时检索网页。示例展示如何从知识更新、模型行为及评估成本三个角度组织研究。",
+    "sections": [
+      {
+        "heading": "RAG 知识更新 来源引用",
+        "claims": [
+          {
+            "text": "教学样例摘要：RAG 将参数化模型与外部非参数化检索记忆结合。",
+            "source_ids": [
+              1
+            ],
+            "attribution": "来源支持（未逐句人工核实）"
+          }
+        ]
+      },
+      {
+        "heading": "微调 行为 输出格式",
+        "claims": [
+          {
+            "text": "当前轮仅获得 RAG 的教学样例，尚不足以说明微调机制；下一轮需要补充微调来源。",
+            "source_ids": [],
+            "attribution": "模型推断（无有效来源）"
+          }
+        ]
+      },
+      {
+        "heading": "LoRA 参数高效微调 原始论文",
+        "claims": [
+          {
+            "text": "教学样例摘要：LoRA 冻结预训练模型权重，训练低秩矩阵，减少可训练参数。",
+            "source_ids": [
+              2
+            ],
+            "attribution": "来源支持（未逐句人工核实）"
+          }
+        ]
+      }
+    ],
+    "key_conclusions": [
+      {
+        "text": "RAG 的方法包含外部检索记忆。",
+        "source_ids": [
+          1
+        ],
+        "attribution": "来源支持（未逐句人工核实）"
+      },
+      {
+        "text": "LoRA 通过训练低秩矩阵进行参数高效适配。",
+        "source_ids": [
+          2
+        ],
+        "attribution": "来源支持（未逐句人工核实）"
+      },
+      {
+        "text": "选型前应在同一业务评估集上比较效果、成本与延迟；两种方法也可组合。",
+        "source_ids": [],
+        "attribution": "模型推断（无有效来源）"
+      }
+    ],
+    "open_questions": [
+      "业务数据的更新频率是多少？",
+      "是否必须提供逐条引用？",
+      "真实数据集上的效果、成本与延迟仍需实验验证。"
+    ]
+  },
+  "confidence": {
+    "level": "演示数据，不作事实置信度评估",
+    "explanation": "引用覆盖率仅表示编号可追溯，不是事实正确率；来源摘要可能过时、片面或相互矛盾。",
+    "citation_coverage": "2/3",
+    "cutoff": "2026-09-11T08:40:49+00:00",
+    "limitations": [
+      "仅阅读搜索摘要，未抓取完整网页。",
+      "资料达到规划要求",
+      "截止时间表示本次资料访问时间，不保证来源内容最新。"
+    ]
+  },
+  "stop_reason": "资料达到规划要求"
+}

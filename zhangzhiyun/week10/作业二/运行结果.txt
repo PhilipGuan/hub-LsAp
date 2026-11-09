@@ -1,0 +1,75 @@
+>> stdio 模式：自动拉起 server.py 子进程
+
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│                                                                             │
+│                        ▄▀▀ ▄▀█ █▀▀ ▀█▀ █▀▄▀█ █▀▀ █▀█                        │
+│                        █▀  █▀█ ▄▄█  █  █ ▀ █ █▄▄ █▀▀                        │
+│                                                                             │
+│                                                                             │
+│                                                                             │
+│                                FastMCP 4.1.0                                │
+│                            https://gofastmcp.com                            │
+│                                                                             │
+│                 🖥  Server:      Dice Roller, 4.1.0                          │
+│                 🚀 Deploy free: https://horizon.prefect.io                  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+[10/13/26 14:54:57] INFO     Starting MCP server 'Dice Roller' transport.py:241
+                             with transport 'stdio'
+====================================================================
+[一] MCP Server 已注册的工具清单（共 5 个）
+====================================================================
+
+■ 工具名: roll_dice
+  描述  : Roll `n_dice` 6-sided dice and return the results.
+  参数  :
+          - n_dice (integer, 必填)
+
+■ 工具名: get_news
+  描述  : Get latest news.
+  参数  : 无
+
+■ 工具名: get_weather  <== 本次新增
+  描述  : Get the current weather of a given city (simulated data).
+  参数  :
+          - city (string, 必填) City name in English pinyin, e.g. 'beijing' or 'shanghai'.
+
+■ 工具名: calculate  <== 本次新增
+  描述  : Evaluate a basic arithmetic expression and return the numeric result.
+  参数  :
+          - expression (string, 必填) A math expression, e.g. '(23 + 45) * 2'.
+
+■ 工具名: get_current_time  <== 本次新增
+  描述  : Get the current local date and time.
+  参数  : 无
+
+====================================================================
+[二] 逐个调用工具，观察真实返回值
+====================================================================
+
+▶ 调用 roll_dice({"n_dice": 3})
+  返回: [56,37,11]
+  状态: 调用成功
+
+▶ 调用 get_news({})
+  返回: 最新消息 Qwen4 is coming!
+  状态: 调用成功
+
+▶ 调用 get_weather({"city": "beijing"})
+  返回: beijing 的天气：晴，25°C
+  状态: 调用成功
+
+▶ 调用 calculate({"expression": "(23 + 45) * 2"})
+  返回: 136.0
+  状态: 调用成功
+
+▶ 调用 get_current_time({})
+  返回: 2026-10-13 14:54:58
+  状态: 调用成功
+
+进程已结束，退出代码为 0

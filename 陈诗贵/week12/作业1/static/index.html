@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>消防楼道隐患识别</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    min-height: 100vh; display: flex; justify-content: center; padding: 20px 12px;
+  }
+  .card {
+    width: 100%; max-width: 460px; background: #fff; border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2); overflow: hidden;
+  }
+  .header {
+    padding: 18px 20px; background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    color: #fff; text-align: center;
+  }
+  .header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+  .header p { margin: 4px 0 0; font-size: 12px; opacity: .85; }
+  .body { padding: 16px; }
+
+  .preview-wrap {
+    width: 100%; aspect-ratio: 4/3; background: #f5f5f7;
+    border-radius: 10px; overflow: hidden; display: flex;
+    align-items: center; justify-content: center; position: relative;
+  }
+  .preview-wrap video, .preview-wrap img { width:100%; height:100%; object-fit: cover; }
+  .placeholder { color: #aaa; font-size: 13px; text-align: center; }
+
+  .btns { display: flex; gap: 10px; margin-top: 14px; }
+  button {
+    flex: 1; padding: 12px; border: none; border-radius: 10px;
+    font-size: 15px; font-weight: 500; cursor: pointer; transition: .2s;
+  }
+  .btn-primary { background: #2a5298; color: #fff; }
+  .btn-primary:active { background: #1e3c72; }
+  .btn-secondary { background: #f0f2f5; color: #333; }
+  .btn-secondary:active { background: #e0e0e3; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+
+  .file-input { display: none; }
+  .file-label {
+    flex: 1; padding: 12px; border: 2px dashed #c0c4cc; border-radius: 10px;
+    text-align: center; color: #606266; font-size: 14px; cursor: pointer;
+    transition: .2s;
+  }
+  .file-label:active { border-color: #2a5298; color: #2a5298; }
+
+  .result { margin-top: 16px; padding: 14px; border-radius: 10px; display: none; }
+  .result.show { display: block; }
+  .level {
+    font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 8px;
+  }
+  .confidence { font-size: 12px; text-align: center; opacity: .8; margin-bottom: 10px; }
+  .reason { font-size: 14px; line-height: 1.6; margin-bottom: 8px; }
+  .details { font-size: 13px; color: #555; padding-left: 18px; margin: 0; }
+  .usage { font-size: 11px; color: #999; margin-top: 12px; text-align: right; }
+
+  /* 风险等级配色 */
+  .lvl-高风险 { background: #fff1f0; border: 1px solid #ffccc7; }
+  .lvl-高风险 .level { color: #cf1322; }
+  .lvl-中风险 { background: #fff7e6; border: 1px solid #ffd591; }
+  .lvl-中风险 .level { color: #d46b08; }
+  .lvl-低风险 { background: #fffbe6; border: 1px solid #ffe58f; }
+  .lvl-低风险 .level { color: #d4b106; }
+  .lvl-无风险 { background: #f6ffed; border: 1px solid #b7eb8f; }
+  .lvl-无风险 .level { color: #389e0d; }
+  .lvl-非楼道 { background: #f5f5f5; border: 1px solid #d9d9d9; }
+  .lvl-非楼道 .level { color: #595959; }
+  .lvl-解析失败 { background: #fff0f6; border: 1px solid #ffadd2; }
+  .lvl-解析失败 .level { color: #c41d7f; }
+
+  .loading { text-align: center; padding: 40px 0; color: #666; display: none; }
+  .loading.show { display: block; }
+  .spinner {
+    display: inline-block; width: 28px; height: 28px;
+    border: 3px solid #e0e0e0; border-top-color: #2a5298;
+    border-radius: 50%; animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-msg {
+    color: #cf1322; background: #fff1f0; border: 1px solid #ffa39e;
+    padding: 10px; border-radius: 8px; font-size: 13px; margin-top: 12px;
+    display: none;
+  }
+  .error-msg.show { display: block; }
+
+  .hide { display: none !important; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <h1>🔥 消防楼道隐患识别</h1>
+    <p>拍照或上传楼道照片，AI 自动判断安全等级</p>
+  </div>
+  <div class="body">
+    <!-- 预览区 -->
+    <div class="preview-wrap" id="preview">
+      <div class="placeholder" id="placeholder">📷 点击下方按钮打开摄像头<br>或上传本地图片</div>
+      <video id="video" class="hide" playsinline></video>
+      <img id="snapshot" class="hide" alt="预览">
+    </div>
+
+    <!-- 按钮区 -->
+    <div class="btns">
+      <button class="btn-primary" id="btnCam">📷 拍照</button>
+      <button class="btn-secondary hide" id="btnSnap">🔴 拍摄</button>
+      <button class="btn-secondary hide" id="btnRetry">🔄 重拍</button>
+      <label class="file-label" for="fileInput">🖼 从相册选</label>
+      <input type="file" id="fileInput" class="file-input" accept="image/*">
+    </div>
+
+    <!-- 识别按钮 -->
+    <button class="btn-primary" id="btnDetect" style="margin-top:14px;" disabled>🔍 开始识别</button>
+
+    <!-- Loading -->
+    <div class="loading" id="loading"><div class="spinner"></div><br>AI 正在识别...</div>
+
+    <!-- 错误 -->
+    <div class="error-msg" id="errMsg"></div>
+
+    <!-- 结果 -->
+    <div class="result" id="result">
+      <div class="level" id="level"></div>
+      <div class="confidence" id="confidence"></div>
+      <div class="reason" id="reason"></div>
+      <ul class="details" id="details"></ul>
+      <div class="usage" id="usage"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const video = document.getElementById('video');
+const snapshot = document.getElementById('snapshot');
+const placeholder = document.getElementById('placeholder');
+const btnCam = document.getElementById('btnCam');
+const btnSnap = document.getElementById('btnSnap');
+const btnRetry = document.getElementById('btnRetry');
+const btnDetect = document.getElementById('btnDetect');
+const fileInput = document.getElementById('fileInput');
+const loading = document.getElementById('loading');
+const errMsg = document.getElementById('errMsg');
+const result = document.getElementById('result');
+
+let currentImageData = null;  // base64 (with prefix)
+let stream = null;
+
+function showErr(msg) { errMsg.textContent = msg; errMsg.classList.add('show'); }
+function hideErr() { errMsg.classList.remove('show'); }
+
+// 1. 打开摄像头
+btnCam.addEventListener('click', async () => {
+  hideErr(); hideResult();
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false,
+    });
+    video.srcObject = stream;
+    video.classList.remove('hide'); placeholder.classList.add('hide');
+    btnCam.classList.add('hide'); btnSnap.classList.remove('hide');
+  } catch (e) {
+    showErr('无法打开摄像头: ' + e.message + ' 请检查浏览器权限或改用相册上传');
+  }
+});
+
+// 2. 点击拍摄
+btnSnap.addEventListener('click', () => {
+  const w = video.videoWidth, h = video.videoHeight;
+  if (!w || !h) { showErr('摄像头未就绪'); return; }
+  const canvas = document.createElement('canvas');
+  canvas.width = w; canvas.height = h;
+  canvas.getContext('2d').drawImage(video, 0, 0, w, h);
+  // 压缩到 JPEG 0.8，节省流量
+  currentImageData = canvas.toDataURL('image/jpeg', 0.8);
+  snapshot.src = currentImageData;
+  video.classList.add('hide'); snapshot.classList.remove('hide');
+  btnSnap.classList.add('hide'); btnRetry.classList.remove('hide');
+  stopStream();
+  btnDetect.disabled = false;
+});
+
+// 3. 重拍
+btnRetry.addEventListener('click', async () => {
+  hideErr(); hideResult();
+  snapshot.classList.add('hide'); video.classList.remove('hide');
+  btnRetry.classList.add('hide'); btnSnap.classList.remove('hide');
+  btnDetect.disabled = true; currentImageData = null;
+  stream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: { ideal: 'environment' } }, audio: false,
+  });
+  video.srcObject = stream;
+});
+
+function stopStream() {
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+}
+
+// 4. 相册选择
+fileInput.addEventListener('change', (e) => {
+  hideErr(); hideResult();
+  const f = e.target.files[0];
+  if (!f) return;
+  stopStream();
+  btnCam.classList.remove('hide'); btnSnap.classList.add('hide');
+  snapshot.classList.remove('hide'); video.classList.add('hide');
+  placeholder.classList.add('hide');
+
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    // 压缩大图
+    const img = new Image();
+    img.onload = () => {
+      const maxDim = 1280;
+      let w = img.width, h = img.height;
+      if (w > maxDim || h > maxDim) {
+        if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
+        else { w = Math.round(w * maxDim / h); h = maxDim; }
+      }
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      currentImageData = c.toDataURL('image/jpeg', 0.85);
+      snapshot.src = currentImageData;
+      btnDetect.disabled = false;
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(f);
+});
+
+function hideResult() { result.classList.remove('show'); }
+
+// 5. 调用后端识别
+btnDetect.addEventListener('click', async () => {
+  if (!currentImageData) return;
+  hideErr(); hideResult();
+  btnDetect.disabled = true; loading.classList.add('show');
+
+  try {
+    const resp = await fetch('/api/detect', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ image: currentImageData }),
+    });
+    const data = await resp.json();
+    loading.classList.remove('show');
+
+    if (data.error) { showErr(data.error); }
+    else { showResult(data); }
+  } catch (e) {
+    loading.classList.remove('show');
+    showErr('请求失败: ' + e.message);
+  } finally {
+    btnDetect.disabled = false;
+  }
+});
+
+function showResult(data) {
+  result.className = 'result show lvl-' + (data.level || '解析失败');
+  document.getElementById('level').textContent = data.level || '解析失败';
+  document.getElementById('confidence').textContent =
+    data.confidence != null ? ('置信度 ' + data.confidence + '%') : '';
+  document.getElementById('reason').textContent = data.reason || '';
+  const ul = document.getElementById('details');
+  ul.innerHTML = '';
+  (data.details || []).forEach(d => {
+    const li = document.createElement('li'); li.textContent = d; ul.appendChild(li);
+  });
+  const usage = data.usage;
+  if (usage) {
+    document.getElementById('usage').textContent =
+      `tokens: ${usage.total_tokens || '-'}  (prompt ${usage.prompt_tokens || '-'})`;
+  }
+}
+
+// 页面关闭时停摄像头
+window.addEventListener('beforeunload', stopStream);
+</script>
+</body>
+</html>

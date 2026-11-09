@@ -1,0 +1,36 @@
+2026-09-11 16:30:11 | INFO | 开始规划研究主题: 人工智能的发展趋势
+2026-09-11 16:30:11 | INFO | 规划完成，生成 24 个子问题
+2026-09-11 16:32:04 | INFO | 开始规划研究主题: 新能源汽车技术
+2026-09-11 16:32:04 | INFO | 规划完成，生成 24 个子问题
+2026-09-11 16:32:16 | INFO | 开始规划研究主题: 区块链技术
+2026-09-11 16:32:16 | INFO | 规划完成，生成 24 个子问题
+2026-09-11 16:34:23 | INFO | 开始规划研究主题: AI行业趋势
+2026-09-11 16:34:23 | INFO | 规划完成，生成 24 个子问题
+2026-09-11 16:50:36 | INFO | 开始规划研究主题: 量子计算技术发展
+2026-09-11 16:50:36 | INFO | 规划完成，生成 24 个子问题
+2026-09-11 16:50:36 | INFO | 研究规划已保存: data/sessions/session_20260911_165036_5059_plan.json
+2026-09-11 16:50:36 | INFO | 准备读取 2 个页面
+2026-09-11 16:50:36 | DEBUG | 正在获取页面: https://example.com/关于 各方案的优缺点对比是什么？ 的实际案例和最佳实践
+2026-09-11 16:50:36 | DEBUG | 正在获取页面: https://example.com/社区活跃度和成熟度如何？
+2026-09-11 16:50:37 | WARNING | 第 1 次重试 fetch_page，错误: 400, message='Can not decode content-encoding: brotli (br). Please install `Brotli`', url='https://example.com/%E5%85%B3%E4%BA%8E%20%E5%90%84%E6%96%B9%E6%A1%88%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%AF%B9%E6%AF%94%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%20%E7%9A%84%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E5%92%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5'，0.9秒后重试
+2026-09-11 16:50:37 | WARNING | 第 1 次重试 fetch_page，错误: 400, message='Can not decode content-encoding: brotli (br). Please install `Brotli`', url='https://example.com/%E7%A4%BE%E5%8C%BA%E6%B4%BB%E8%B7%83%E5%BA%A6%E5%92%8C%E6%88%90%E7%86%9F%E5%BA%A6%E5%A6%82%E4%BD%95%EF%BC%9F'，0.8秒后重试
+2026-09-11 16:50:37 | ERROR | 页面读取失败: name 'asyncio' is not defined
+2026-09-11 16:50:37 | ERROR | 页面读取失败: name 'asyncio' is not defined
+2026-09-11 16:50:37 | INFO | 成功读取 0 个页面
+2026-09-11 16:50:37 | INFO | 会话数据已保存: data/sessions/session_20260911_165036_5059.json
+2026-09-11 16:50:37 | INFO | 准备读取 2 个页面
+2026-09-11 16:50:37 | DEBUG | 正在获取页面: https://example.com/的不同观点和争议 最新
+2026-09-11 16:50:37 | DEBUG | 正在获取页面: https://example.com/的最新进展和发展趋势
+2026-09-11 16:50:38 | WARNING | 第 1 次重试 fetch_page，错误: 400, message='Can not decode content-encoding: brotli (br). Please install `Brotli`', url='https://example.com/%E7%9A%84%E4%B8%8D%E5%90%8C%E8%A7%82%E7%82%B9%E5%92%8C%E4%BA%89%E8%AE%AE%20%E6%9C%80%E6%96%B0'，0.8秒后重试
+2026-09-11 16:50:38 | WARNING | 第 1 次重试 fetch_page，错误: 400, message='Can not decode content-encoding: brotli (br). Please install `Brotli`', url='https://example.com/%E7%9A%84%E6%9C%80%E6%96%B0%E8%BF%9B%E5%B1%95%E5%92%8C%E5%8F%91%E5%B1%95%E8%B6%8B%E5%8A%BF'，1.0秒后重试
+2026-09-11 16:50:38 | ERROR | 页面读取失败: name 'asyncio' is not defined
+2026-09-11 16:50:38 | ERROR | 页面读取失败: name 'asyncio' is not defined
+2026-09-11 16:50:38 | INFO | 成功读取 0 个页面
+2026-09-11 16:50:38 | INFO | 会话数据已保存: data/sessions/session_20260911_165036_5059.json
+2026-09-11 16:56:37 | INFO | 开始规划研究主题: 量子计算技术发展
+2026-09-11 16:56:37 | INFO | 规划完成，生成 24 个子问题
+2026-09-11 16:56:37 | ERROR | 评估内容失败: 'SearchResult' object has no attribute 'get'
+2026-09-11 16:58:11 | INFO | 开始规划研究主题: 量子计算技术发展
+2026-09-11 16:58:11 | INFO | 规划完成，生成 24 个子问题
+2026-09-11 16:59:55 | INFO | 开始规划研究主题: 人工智能伦理问题
+2026-09-11 16:59:55 | INFO | 规划完成，生成 9 个子问题

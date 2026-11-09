@@ -1,0 +1,39 @@
+======================================================================
+LangGraph SQL Agent（数据库共 11 张表: albums, artists, customers, employees, genres, invoices, invoice_items, media_types, playlists, playlist_track, tracks）
+======================================================================
+
+>>> 用户提问: 哪个国家的客户数量最多？
+[Agent] 选中表: ['customers']
+[Agent] 生成 SQL: SELECT Country, COUNT(*) AS CustomerCount FROM customers GROUP BY Country ORDER BY CustomerCount DESC LIMIT 1
+[Agent] 校验通过
+[Agent] 执行成功，1 行
+[Agent] 汇总: 客户数量最多的国家是美国（USA），共有 13 位客户。
+    表: ['customers']
+    SQL: SELECT Country, COUNT(*) AS CustomerCount FROM customers GROUP BY Country ORDER BY CustomerCount DESC LIMIT 1
+    行数: 1
+    结论: 客户数量最多的国家是美国（USA），共有 13 位客户。
+
+>>> 用户提问: 销量最高的 5 首歌曲是什么？
+[Agent] 选中表: ['invoice_items', 'tracks']
+[Agent] 生成 SQL: SELECT t.TrackId, t.Name, SUM(ii.Quantity) AS TotalQuantity FROM invoice_items ii JOIN tracks t ON t.TrackId = ii.TrackId GROUP BY t.TrackId, t.Name ORDER BY TotalQuantity DESC LIMIT 5
+[Agent] 校验通过
+[Agent] 执行成功，5 行
+[Agent] 汇总: 销量最高的 5 首歌曲并列第一，每首销量均为 2：Balls to the Wall（TrackId 2）、Inject The Venom（8）、Snowballed（9）、Overdose（20）、Deuces Are Wild（32）。
+    表: ['invoice_items', 'tracks']
+    SQL: SELECT t.TrackId, t.Name, SUM(ii.Quantity) AS TotalQuantity FROM invoice_items ii JOIN tracks t ON t.TrackId = ii.TrackId GROUP BY t.TrackId, t.Name ORDER BY TotalQuantity DESC LIMIT 5
+    行数: 5
+    结论: 销量最高的 5 首歌曲并列第一，每首销量均为 2：Balls to the Wall（TrackId 2）、Inject The Venom（8）、Snowballed（9）、Overdose（20）、Deuces Are Wild（32）。
+
+>>> 用户提问: 2012 年以后每一年的总销售额是多少？
+[Agent] 选中表: ['invoices']
+[Agent] 生成 SQL: SELECT strftime('%Y', InvoiceDate) AS Year, SUM(Total) AS TotalSales FROM invoices WHERE CAST(strftime('%Y', InvoiceDate) AS INTEGER) > 2012 GROUP BY strftime('%Y', InvoiceDate) ORDER BY Year
+[Agent] 校验通过
+[Agent] 执行成功，1 行
+[Agent] 汇总: 查询结果中 2012 年以后仅 2013 年有记录，总销售额为 450.58；其他年份数据缺失（可能无销售记录）。
+    表: ['invoices']
+    SQL: SELECT strftime('%Y', InvoiceDate) AS Year, SUM(Total) AS TotalSales FROM invoices WHERE CAST(strftime('%Y', InvoiceDate) AS INTEGER) > 2012 GROUP BY strftime('%Y', InvoiceDate) ORDER BY Year
+    行数: 1
+    结论: 查询结果中 2012 年以后仅 2013 年有记录，总销售额为 450.58；其他年份数据缺失（可能无销售记录）。
+
+======================================================================
+测试成功率: 3 / 3

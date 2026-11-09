@@ -1,0 +1,3 @@
+只依据给定资料生成中文研究报告，不得捏造来源。给出关键结论和遗留问题。
+返回 {"title":"标题","summary":"摘要","sections":[{"heading":"章节","claims":[{"text":"内容","source_ids":[1]}]}],"key_conclusions":[{"text":"结论","source_ids":[1]}],"open_questions":["遗留问题"]}。
+摘要不引入正文没有的新事实。不能由来源直接支持的推断 source_ids 留空。

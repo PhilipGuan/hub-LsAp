@@ -1,0 +1,249 @@
+version: aliases-v1
+
+entities:
+  # 流派：genres.Name
+  - mention: 摇滚
+    table: genres
+    column: Name
+    value: Rock
+  - mention: 摇滚乐
+    table: genres
+    column: Name
+    value: Rock
+  - mention: 重金属
+    table: genres
+    column: Name
+    value: Heavy Metal
+  - mention: 金属乐
+    table: genres
+    column: Name
+    value: Metal
+  - mention: 爵士
+    table: genres
+    column: Name
+    value: Jazz
+  - mention: 蓝调
+    table: genres
+    column: Name
+    value: Blues
+  - mention: 布鲁斯
+    table: genres
+    column: Name
+    value: Blues
+  - mention: 流行
+    table: genres
+    column: Name
+    value: Pop
+  - mention: 古典
+    table: genres
+    column: Name
+    value: Classical
+  - mention: 雷鬼
+    table: genres
+    column: Name
+    value: Reggae
+  - mention: 拉丁
+    table: genres
+    column: Name
+    value: Latin
+  - mention: 嘻哈
+    table: genres
+    column: Name
+    value: Hip Hop/Rap
+  - mention: 说唱
+    table: genres
+    column: Name
+    value: Hip Hop/Rap
+  - mention: 电子
+    table: genres
+    column: Name
+    value: Electronica/Dance
+  - mention: 另类
+    table: genres
+    column: Name
+    value: Alternative
+  - mention: 朋克
+    table: genres
+    column: Name
+    value: Alternative & Punk
+
+  # 国家：销售类用账单国家，客户类用客户国家
+  - mention: 美国
+    table: invoices
+    column: BillingCountry
+    value: USA
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 美国
+    table: customers
+    column: Country
+    value: USA
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 加拿大
+    table: invoices
+    column: BillingCountry
+    value: Canada
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 加拿大
+    table: customers
+    column: Country
+    value: Canada
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 法国
+    table: invoices
+    column: BillingCountry
+    value: France
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 法国
+    table: customers
+    column: Country
+    value: France
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 德国
+    table: invoices
+    column: BillingCountry
+    value: Germany
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 德国
+    table: customers
+    column: Country
+    value: Germany
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 英国
+    table: invoices
+    column: BillingCountry
+    value: United Kingdom
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 英国
+    table: customers
+    column: Country
+    value: United Kingdom
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 巴西
+    table: invoices
+    column: BillingCountry
+    value: Brazil
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 巴西
+    table: customers
+    column: Country
+    value: Brazil
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 西班牙
+    table: invoices
+    column: BillingCountry
+    value: Spain
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 西班牙
+    table: customers
+    column: Country
+    value: Spain
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 瑞典
+    table: invoices
+    column: BillingCountry
+    value: Sweden
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 瑞典
+    table: customers
+    column: Country
+    value: Sweden
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 荷兰
+    table: invoices
+    column: BillingCountry
+    value: Netherlands
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 荷兰
+    table: customers
+    column: Country
+    value: Netherlands
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 澳大利亚
+    table: invoices
+    column: BillingCountry
+    value: Australia
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 澳大利亚
+    table: customers
+    column: Country
+    value: Australia
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 印度
+    table: invoices
+    column: BillingCountry
+    value: India
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 印度
+    table: customers
+    column: Country
+    value: India
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+  - mention: 意大利
+    table: invoices
+    column: BillingCountry
+    value: Italy
+    applies_to_metrics: [revenue, revenue_line, sales_volume, track_count_sold, customer_count_active]
+  - mention: 意大利
+    table: customers
+    column: Country
+    value: Italy
+    applies_to_metrics: [customer_count, avg_spend_per_customer]
+
+  # 媒体类型：media_types.Name
+  - mention: MPEG
+    table: media_types
+    column: Name
+    value: MPEG audio file
+  - mention: MPEG音频
+    table: media_types
+    column: Name
+    value: MPEG audio file
+  - mention: 受保护AAC
+    table: media_types
+    column: Name
+    value: Protected AAC audio file
+  - mention: 购买AAC
+    table: media_types
+    column: Name
+    value: Purchased AAC audio file
+  - mention: MPEG-4视频
+    table: media_types
+    column: Name
+    value: Protected MPEG-4 video file
+
+  # 歌单：playlists.Name
+  - mention: Grunge
+    table: playlists
+    column: Name
+    value: Grunge
+  - mention: 格朗吉
+    table: playlists
+    column: Name
+    value: Grunge
+  - mention: 电影
+    table: playlists
+    column: Name
+    value: Movies
+  - mention: 电视节目
+    table: playlists
+    column: Name
+    value: TV Shows
+  - mention: 音乐视频
+    table: playlists
+    column: Name
+    value: Music Videos
+  - mention: 有声书
+    table: playlists
+    column: Name
+    value: Audiobooks
+
+dimension_aliases:
+  - mention: 曲风
+    table: genres
+    column: Name
+  - mention: 风格
+    table: genres
+    column: Name
+  - mention: 类型
+    table: media_types
+    column: Name

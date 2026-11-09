@@ -1,0 +1,707 @@
+app:
+  description: '作业2: 使用dify 搭建deepresearch 流程，用户输入问题，对文本进行分解 ，调用bocha 搜索，网页总结，汇总，形成报告。
+
+    并运行截图，提交最终dsl。'
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: deepresearch-田雨晨
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.24@9e12eef09973667f0eaf4f082af883167e1de88740b22e71e71488d020c3778a
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1789673643953-source-1789673808729-target
+      source: '1789673643953'
+      sourceHandle: source
+      target: '1789673808729'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1789673808729-source-1789674021387-target
+      source: '1789673808729'
+      sourceHandle: source
+      target: '1789674021387'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: 1789674021387-source-1789674072257-target
+      source: '1789674021387'
+      sourceHandle: source
+      target: '1789674072257'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789674072257'
+        sourceType: iteration-start
+        targetType: http-request
+      id: 1789674072257start-source-1789674317073-target
+      source: 1789674072257start
+      sourceHandle: source
+      target: '1789674317073'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789674072257'
+        sourceType: http-request
+        targetType: code
+      id: 1789674317073-source-1789674534979-target
+      source: '1789674317073'
+      sourceHandle: source
+      target: '1789674534979'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789674072257'
+        sourceType: code
+        targetType: llm
+      id: 1789674534979-source-1789674614219-target
+      source: '1789674534979'
+      sourceHandle: source
+      target: '1789674614219'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1789674072257-source-1789674752449-target
+      source: '1789674072257'
+      sourceHandle: source
+      target: '1789674752449'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1789674752449-source-1789674859768-target
+      source: '1789674752449'
+      sourceHandle: source
+      target: '1789674859768'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1789674859768-source-1789674998727-target
+      source: '1789674859768'
+      sourceHandle: source
+      target: '1789674998727'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 用户输入
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: question
+      height: 108
+      id: '1789673643953'
+      position:
+        x: 78
+        y: 281
+      positionAbsolute:
+        x: 78
+        y: 281
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - edition_type: basic
+          id: 94661d71-7877-4c50-a026-f942524a4791
+          role: system
+          text: "你是研究规划助手。把用户问题拆成 3~5 个互补、可独立搜索的子问题。\n\n覆盖要求：至少包含「现状/事实」「关键数据」「主要争议或风险」「趋势前景」中的\
+            \ 3 类。\n\n严格按以下 JSON 结构输出，不要输出任何解释文字、不要用 ``` 代码块包裹：\n{\n  \"questions\"\
+            : [\n    { \"id\": 1, \"question\": \"可直接用于搜索引擎的完整子问题，含关键实体\", \"angle\"\
+            : \"覆盖侧面\" }\n  ]\n}\n\n用户问题：{{#1789673643953.question#}}"
+        reasoning_format: separated
+        selected: false
+        structured_output_enabled: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1789673808729'
+      position:
+        x: 379
+        y: 281
+      positionAbsolute:
+        x: 379
+        y: 281
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\nimport re\n\n\ndef _strip(s):\n    try:\n        s = re.sub(r\"\
+          <think[\\s\\S]*?</think\\s*>\", \"\", s, flags=re.I)\n        s = re.sub(r\"\
+          <thinking[\\s\\S]*?</thinking\\s*>\", \"\", s, flags=re.I)\n        s =\
+          \ re.sub(r\"<!--[\\s\\S]*?-->\", \"\", s)\n        s = s.replace(\"```json\"\
+          , \"\").replace(\"```\", \"\")\n    except Exception:\n        pass\n  \
+          \  return s.strip()\n\n\ndef _fragment(s):\n    i, j = s.find(\"{\"), s.rfind(\"\
+          }\")\n    if i != -1 and j > i:\n        return s[i:j + 1]\n    i, j = s.find(\"\
+          [\"), s.rfind(\"]\")\n    if i != -1 and j > i:\n        return s[i:j +\
+          \ 1]\n    return s\n\n\ndef _load(frag):\n    cands = [frag]\n    try:\n\
+          \        cands.append(re.sub(r\",\\s*([}\\]])\", r\"\\1\", frag))      \
+          \    # 去尾逗号\n        cands.append(re.sub(r\",\\s*([}\\]])\", r\"\\1\",\n\
+          \                            frag.replace(\"\\u201c\", '\"').replace(\"\\\
+          u201d\", '\"')))  # 再修中文引号\n    except Exception:\n        pass\n    for\
+          \ c in cands:\n        try:\n            return json.loads(c)\n        except\
+          \ Exception:\n            continue\n    return None\n\n\ndef main(arg1)\
+          \ -> dict:\n    try:\n        raw = arg1 if isinstance(arg1, str) else json.dumps(arg1,\
+          \ ensure_ascii=False)\n    except Exception:\n        raw = str(arg1)\n\n\
+          \    if not raw:\n        return {\"questions\": [\"__EMPTY_INPUT__ 上游未传值\"\
+          ],\n                \"count\": 1, \"status\": \"empty_input\", \"raw_len\"\
+          : 0, \"raw_head\": \"\"}\n\n    text = _strip(raw)\n    data = _load(_fragment(text))\n\
+          \n    if isinstance(data, dict):\n        for k in (\"questions\", \"sub_questions\"\
+          , \"items\", \"list\", \"queries\"):\n            if isinstance(data.get(k),\
+          \ list):\n                data = data[k]\n                break\n      \
+          \  else:\n            data = [v for v in data.values() if isinstance(v,\
+          \ (str, dict))]\n\n    qs = []\n    if isinstance(data, list):\n       \
+          \ for x in data:\n            if isinstance(x, dict):\n                q\
+          \ = x.get(\"question\") or x.get(\"q\") or x.get(\"query\") or \"\"\n  \
+          \          else:\n                q = x\n            q = str(q).strip().strip('\"\
+          \\'-,，•·、')\n            if q:\n                qs.append(q)\n\n    if not\
+          \ qs:                                    # 兜底一：按行切\n        for line in\
+          \ text.splitlines():\n            t = line.strip().lstrip(\"0123456789.、)-•\
+          \ \").strip()\n            if t and not t.startswith((\"{\", \"}\", \"[\"\
+          , \"]\", '\"')):\n                qs.append(t)\n\n    if not qs:       \
+          \                             # 兜底二：给可见标记，绝不空手而归\n        qs = [\"__PARSE_FAIL__\
+          \ \" + text[:60]]\n\n    qs = qs[:5]\n    return {\n        \"questions\"\
+          : qs,\n        \"count\": len(qs),\n        \"status\": \"ok\",\n      \
+          \  \"raw_len\": len(raw),\n        \"raw_head\": text[:80],\n    }"
+        code_language: python3
+        outputs:
+          count:
+            children: null
+            type: number
+          questions:
+            children: null
+            type: array[string]
+          raw_head:
+            children: null
+            type: string
+          raw_len:
+            children: null
+            type: number
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1789673808729'
+          - text
+          value_type: string
+          variable: arg1
+      height: 51
+      id: '1789674021387'
+      position:
+        x: 680
+        y: 281
+      positionAbsolute:
+        x: 680
+        y: 281
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        error_handle_mode: continue-on-error
+        flatten_output: true
+        height: 225
+        is_parallel: true
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1789674021387'
+        - questions
+        output_selector:
+        - '1789674614219'
+        - text
+        output_type: array[string]
+        parallel_nums: 5
+        selected: false
+        start_node_id: 1789674072257start
+        title: 迭代
+        type: iteration
+        width: 990
+      height: 225
+      id: '1789674072257'
+      position:
+        x: 935.4983033709071
+        y: 267.7286361900653
+      positionAbsolute:
+        x: 935.4983033709071
+        y: 267.7286361900653
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 990
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1789674072257start
+      parentId: '1789674072257'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 959.4983033709071
+        y: 335.7286361900653
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-310
+            key: ''
+            type: text
+            value: '{"query": "{{{#1789674072257.item#}}}", "summary": true, "count":
+              10}'
+          type: json
+        headers: 'Authorization:Bearer sk-3d2293ad83aa4823a7c7ce8dd5ff8c72
+
+          Content-Type:application/json'
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789674072257'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          connect: 10
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: https://api.bocha.cn/v1/web-search
+        variables: []
+      height: 137
+      id: '1789674317073'
+      parentId: '1789674072257'
+      position:
+        x: 128.0000000000001
+        y: 66.68049208922713
+      positionAbsolute:
+        x: 1063.4983033709073
+        y: 334.4091282792924
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "import json\n\ndef main(arg1) -> dict:\n    # 兼容 body 是 str / dict\n\
+          \    d = arg1\n    if isinstance(d, str):\n        s = d.strip()\n     \
+          \   if s.startswith(\"```\"):\n            s = s.strip(\"`\").strip()\n\
+          \        try:\n            d = json.loads(s)\n        except Exception:\n\
+          \            return {\"webtext\": s[:8000] or \"解析失败\", \"n_sources\": 0,\
+          \ \"urls\": []}\n    if not isinstance(d, dict):\n        return {\"webtext\"\
+          : str(d)[:8000], \"n_sources\": 0, \"urls\": []}\n\n    # 兼容几种可能的路径\n  \
+          \  pages = []\n    for path in ((\"data\", \"webPages\", \"value\"),\n \
+          \                (\"data\", \"web_pages\", \"value\"),\n               \
+          \  (\"webPages\", \"value\"),\n                 (\"data\", \"value\")):\n\
+          \        cur = d\n        ok = True\n        for k in path:\n          \
+          \  if isinstance(cur, dict) and k in cur:\n                cur = cur[k]\n\
+          \            else:\n                ok = False\n                break\n\
+          \        if ok and isinstance(cur, list):\n            pages = cur\n   \
+          \         break\n\n    buf, urls = [], []\n    for i, p in enumerate(pages[:10],\
+          \ 1):\n        if not isinstance(p, dict):\n            continue\n     \
+          \   title = p.get(\"name\") or p.get(\"title\") or \"\"\n        url   =\
+          \ p.get(\"url\") or p.get(\"link\") or \"\"\n        body  = p.get(\"summary\"\
+          ) or p.get(\"snippet\") or p.get(\"content\") or \"\"\n        date  = p.get(\"\
+          dateLastCrawled\") or p.get(\"datePublished\") or \"\"\n        if url:\n\
+          \            urls.append(url)\n        buf.append(f\"[{i}] {title}\\nURL:\
+          \ {url}\\n时间: {date}\\n内容: {body}\")\n\n    return {\n        \"webtext\"\
+          : \"\\n\\n\".join(buf)[:12000] or \"本子问题无有效搜索结果\",\n        \"n_sources\"\
+          : len(urls),\n        \"urls\": urls,\n    }"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789674072257'
+        outputs:
+          n_sources:
+            children: null
+            type: number
+          urls:
+            children: null
+            type: array[string]
+          webtext:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行 2
+        type: code
+        variables:
+        - value_selector:
+          - '1789674317073'
+          - body
+          value_type: string
+          variable: arg1
+      height: 51
+      id: '1789674534979'
+      parentId: '1789674072257'
+      position:
+        x: 430
+        y: 68
+      positionAbsolute:
+        x: 1365.4983033709073
+        y: 335.7286361900653
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1789674072257'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 981fbea2-a861-4305-88f9-d044f806e448
+          role: system
+          text: '你是资料提炼员。基于给定搜索结果，针对指定子问题产出可复用的事实笔记。
+
+
+            规则：
+
+            1. 只写事实、数据、结论，不写"本文将介绍""综上所述"这类空话
+
+            2. 每条要点结尾用方括号标注来源编号，如 [2][3]，编号必须来自输入里的 [n]
+
+            3. 具体数字、时间、机构名称原样保留，不做四舍五入或改写
+
+            4. 输出 150~300 字，纯文本，不要 markdown 标题
+
+            5. 输入里没有相关信息，就只输出：该子问题无有效结果'
+        - id: 26dce673-8d0b-4d16-91a2-46055a4e3bbf
+          role: user
+          text: '子问题：{{#1789674072257.item#}}
+
+
+            搜索结果：
+
+            {{#1789674534979.webtext#}}'
+        reasoning_format: separated
+        selected: false
+        structured_output_enabled: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1789674614219'
+      parentId: '1789674072257'
+      position:
+        x: 732
+        y: 68
+      positionAbsolute:
+        x: 1667.4983033709073
+        y: 335.7286361900653
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "import json\nimport re\n\n\ndef _to_list(x):\n    if isinstance(x,\
+          \ str):\n        try:\n            x = json.loads(x)\n        except Exception:\n\
+          \            x = [x]\n    if isinstance(x, dict):\n        x = x.get(\"\
+          notes\") or x.get(\"summaries\") or list(x.values())\n    if not isinstance(x,\
+          \ list):\n        x = [x]\n    return x\n\n\ndef main(arg1) -> dict:\n \
+          \   notes = _to_list(arg1)\n\n    parts, total = [], 0\n    for i, n in\
+          \ enumerate(notes, 1):\n        if isinstance(n, dict):\n            n =\
+          \ n.get(\"note\") or n.get(\"text\") or json.dumps(n, ensure_ascii=False)\n\
+          \        s = str(n).strip()\n        if not s:\n            continue\n \
+          \       # 该子问题笔记中最大的来源编号 ≈ 该子问题检索到的网页条数\n        idx = [int(m) for m in\
+          \ re.findall(r\"\\[(\\d+)\\]\", s)]\n        total += max(idx) if idx else\
+          \ 0\n        parts.append(\"### 子问题 {}\\n{}\".format(i, s))\n\n    evidence\
+          \ = \"\\n\\n\".join(parts) or \"（本次未获得有效笔记）\"\n    return {\"evidence\"\
+          : evidence[:60000], \"total_sources\": total}"
+        code_language: python3
+        outputs:
+          evidence:
+            children: null
+            type: string
+          total_sources:
+            children: null
+            type: number
+        selected: false
+        title: 代码执行 3
+        type: code
+        variables:
+        - value_selector:
+          - '1789674072257'
+          - output
+          value_type: array[string]
+          variable: arg1
+      height: 51
+      id: '1789674752449'
+      position:
+        x: 1922.498303370907
+        y: 166.7286361900653
+      positionAbsolute:
+        x: 1922.498303370907
+        y: 166.7286361900653
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ae115e55-1d9b-4a58-ab1f-1cfc9fa81d25
+          role: system
+          text: '你是资深研究报告撰写者。基于给定的分题笔记，产出结构完整的中文研究报告。
+
+
+            输出结构（严格）：
+
+            # <报告标题>
+
+            ## 摘要
+
+            （120 字以内，概括核心结论）
+
+            ## 一、<子问题1的主题>
+
+            ## 二、<子问题2的主题>
+
+            ...（每个子问题一节）
+
+            ## 结论
+
+            （3~5 条要点式判断）
+
+            ## 参考来源
+
+            1. 标题 - URL
+
+            2. ...
+
+
+            硬性规则：
+
+            - 正文中每个事实句后必须带引用编号 [n]，编号与笔记中的编号一致
+
+            - 笔记间出现矛盾时，明确写出"A 方认为…，B 方认为…"，不做调和
+
+            - 不得编造未出现在笔记里的数据、时间、机构
+
+            - 直接输出 Markdown，不要解释你的写作过程'
+        - id: 3745d581-bc25-414e-a097-cdf3310597b9
+          role: user
+          text: '用户原始问题：{{#1789673643953.question#}}
+
+
+            分题笔记：
+
+            {{#1789674752449.evidence#}}
+
+
+            补充：本次共检索到 {{#1789674752449.total_sources#}} 条网页结果。'
+        reasoning_format: separated
+        selected: false
+        title: LLM 3
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1789674859768'
+      position:
+        x: 1983.498303370907
+        y: 255.7286361900653
+      positionAbsolute:
+        x: 1983.498303370907
+        y: 255.7286361900653
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1789674859768'
+          - text
+          value_type: string
+          variable: report
+        selected: false
+        title: 输出
+        type: end
+      height: 88
+      id: '1789674998727'
+      position:
+        x: 2285.498303370907
+        y: 255.7286361900653
+      positionAbsolute:
+        x: 2285.498303370907
+        y: 255.7286361900653
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -1302.9685990942178
+      y: 70.04975097487309
+      zoom: 0.8705505632961242
+  rag_pipeline_variables: []

@@ -1,0 +1,6 @@
+{"time":"2026-09-11T08:32:28.483Z","event":"SessionStart","tool":null,"session_id":"1dc1e67e-6e5c-43a3-9597-b9d1243a9176","message":"WEEK08_HOOK_OK"}
+{"time":"2026-09-11T08:32:32.504Z","event":"PostToolUse","tool":"Skill","session_id":"1dc1e67e-6e5c-43a3-9597-b9d1243a9176","message":"WEEK08_HOOK_OK"}
+{"time":"2026-09-11T08:32:32.677Z","event":"PostToolUse","tool":"mcp__course_tools__course_checklist","session_id":"1dc1e67e-6e5c-43a3-9597-b9d1243a9176","message":"WEEK08_HOOK_OK"}
+{"time":"2026-09-11T08:32:35.808Z","event":"PostToolUse","tool":"Read","session_id":"1dc1e67e-6e5c-43a3-9597-b9d1243a9176","message":"WEEK08_HOOK_OK"}
+{"time":"2026-09-11T08:32:36.254Z","event":"PostToolUse","tool":"Read","session_id":"1dc1e67e-6e5c-43a3-9597-b9d1243a9176","message":"WEEK08_HOOK_OK"}
+{"time":"2026-09-11T08:32:36.596Z","event":"PostToolUse","tool":"Read","session_id":"1dc1e67e-6e5c-43a3-9597-b9d1243a9176","message":"WEEK08_HOOK_OK"}

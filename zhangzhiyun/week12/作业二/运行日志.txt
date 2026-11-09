@@ -1,0 +1,106 @@
+D:\BaiduNetdiskDownload\AI课程\Week12-多模态大模型和RAG应用\Week12作业\作业二-LangChain-SQL-Agent\langchain_sql_agent.py:26: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+  from langchain_community.utilities import SQLDatabase
+[解析] 共 11 张用户表: ['albums', 'artists', 'customers', 'employees', 'genres', 'invoice_items', 'invoices', 'media_types', 'playlist_track', 'playlists', 'tracks']
+
+
+======================================================================
+用户提问: 哪个国家的客户数量最多？
+======================================================================
+
+===== [Table 选择] =====
+选中表: ['customers']
+
+===== [SQL 生成] =====
+SELECT Country, COUNT(*) AS CustomerCount FROM customers GROUP BY Country ORDER BY CustomerCount DESC LIMIT 1
+
+===== [SQL 执行] =====
+返回 1 行:
+Country  CustomerCount
+    USA             13
+
+===== [结果汇总] =====
+客户数量最多的国家是 **USA（美国）**，共有 **13 位客户**，在所有国家中排名第一。
+
+>>> 最终 SQL: SELECT Country, COUNT(*) AS CustomerCount FROM customers GROUP BY Country ORDER BY CustomerCount DESC LIMIT 1
+>>> 最终答案: 客户数量最多的国家是 **USA（美国）**，共有 **13 位客户**，在所有国家中排名第一。
+
+======================================================================
+用户提问: 卖出数量最多的前5首歌曲是什么？
+======================================================================
+
+===== [Table 选择] =====
+选中表: ['invoice_items', 'tracks']
+
+===== [SQL 生成] =====
+SELECT t."Name" AS TrackName, SUM(ii."Quantity") AS TotalQuantity
+FROM invoice_items ii
+JOIN tracks t ON t."TrackId" = ii."TrackId"
+GROUP BY t."TrackId", t."Name"
+ORDER BY TotalQuantity DESC
+LIMIT 5
+
+===== [SQL 执行] =====
+返回 5 行:
+        TrackName  TotalQuantity
+Balls to the Wall              2
+ Inject The Venom              2
+       Snowballed              2
+         Overdose              2
+  Deuces Are Wild              2
+
+===== [结果汇总] =====
+**结论：销量最高的歌曲仅各卖出 2 份，而且并列的歌曲很多。**
+
+前 5 名（各 2 份）：
+1. Balls to the Wall — 2
+2. Inject The Venom — 2
+3. Snowballed — 2
+4. Overdose — 2
+5. Deuces Are Wild — 2
+
+**需要提醒的两点：**
+- **排名不唯一**：最高销量只有 2 份，卖出 2 份的歌曲不止这 5 首，因此这 5 首只是并列第一中的一部分；换一种排序方式，可能出现其他同样卖出 2 份的歌曲。这份“前 5”不宜当作严格的销量排行来解读。
+- **整体销量很低**：头部歌曲也只有 2 份，说明该数据集是一个小样本，单曲销量差异很小，无法据此判断真实的畅销歌曲。
+
+如果业务上需要更有意义的榜单，建议改为按专辑或歌手汇总，或统计总销售额（数量 × 单价），以减少并列的情况。
+
+>>> 最终 SQL: SELECT t."Name" AS TrackName, SUM(ii."Quantity") AS TotalQuantity
+FROM invoice_items ii
+JOIN tracks t ON t."TrackId" = ii."TrackId"
+GROUP BY t."TrackId", t."Name"
+ORDER BY TotalQuantity DESC
+LIMIT 5
+>>> 最终答案: **结论：销量最高的歌曲仅各卖出 2 份，而且并列的歌曲很多。**
+
+前 5 名（各 2 份）：
+1. Balls to the Wall — 2
+2. Inject The Venom — 2
+3. Snowballed — 2
+4. Overdose — 2
+5. Deuces Are Wild — 2
+
+**需要提醒的两点：**
+- **排名不唯一**：最高销量只有 2 份，卖出 2 份的歌曲不止这 5 首，因此这 5 首只是并列第一中的一部分；换一种排序方式，可能出现其他同样卖出 2 份的歌曲。这份“前 5”不宜当作严格的销量排行来解读。
+- **整体销量很低**：头部歌曲也只有 2 份，说明该数据集是一个小样本，单曲销量差异很小，无法据此判断真实的畅销歌曲。
+
+如果业务上需要更有意义的榜单，建议改为按专辑或歌手汇总，或统计总销售额（数量 × 单价），以减少并列的情况。
+
+======================================================================
+用户提问: 2012年以后每一年的销售总额分别是多少？
+======================================================================
+
+===== [Table 选择] =====
+选中表: ['invoices']
+
+===== [SQL 生成] =====
+SELECT strftime('%Y', InvoiceDate) AS Year, SUM(Total) AS TotalSales FROM invoices WHERE strftime('%Y', InvoiceDate) > '2012' GROUP BY strftime('%Y', InvoiceDate) ORDER BY Year
+
+===== [SQL 执行] =====
+返回 1 行:
+Year  TotalSales
+2013      450.58
+
+===== [结果汇总] =====
+2012年之后的销售数据仅覆盖 **2013 年**，该年销售总额为 **450.58**。
+
+

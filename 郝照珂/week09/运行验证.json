@@ -1,0 +1,12 @@
+{
+  "emotion_positive": "SUCCESS",
+  "emotion_negative": "SUCCESS",
+  "research": {
+    "status": "SUCCESS",
+    "elapsed_seconds": 123.075,
+    "tokens": 39619,
+    "started_at": "2026-10-10 10:45:07"
+  },
+  "dsl_validated": true,
+  "secrets_exported": false
+}

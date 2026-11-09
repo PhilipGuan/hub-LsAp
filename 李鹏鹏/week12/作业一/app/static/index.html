@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f1eb">
+  <meta name="description" content="拍摄或上传楼道照片，使用多模态大模型实时识别电动车、飞线充电、可燃堆物与通道堵塞，并给出五级消防安全风险研判。">
+  <title>楼道哨兵 · 楼道消防安全隐患识别</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23e2502a'/%3E%3Cpath d='M33 10c2 10 11 12 11 23a12 12 0 1 1-24 0c0-5 3-9 6-13 1 4 3 6 6 7-3-6-3-11 1-17z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+  <div class="page-grid" aria-hidden="true"></div>
+
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="楼道哨兵首页">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12.4 2.5c.7 3.8 4.2 5.1 4.2 9.2a4.6 4.6 0 1 1-9.2 0c0-2 .9-3.4 2.2-4.8.1 1.7.8 2.7 2 3.3-1.3-3-.8-5.3.8-7.7Z" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>楼道哨兵</strong>
+          <small>Corridor Fire-Safety Vision</small>
+        </span>
+      </a>
+
+      <div class="topbar-tools">
+        <label class="model-picker" for="providerSelect">
+          <span class="model-picker-label">识别模型</span>
+          <span class="select-wrap">
+            <select id="providerSelect" aria-label="选择识别模型" disabled>
+              <option>正在读取…</option>
+            </select>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </label>
+        <span class="conn-pill is-loading" id="connPill"><i></i><span id="connText">连接中</span></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-kicker"><span></span>MULTIMODAL VISION · 多模态视觉研判</div>
+        <h1>拍一张照片，<br>看清楼道的<span class="accent">消防风险</span></h1>
+        <p class="hero-lede">电动车、电瓶、飞线充电、可燃堆物、通道堵塞——交给视觉大模型。拍完即检，给出风险等级与可执行的处置建议。</p>
+        <div class="hero-stats" aria-label="能力概览">
+          <div><strong>5</strong><span>级风险分类</span></div>
+          <div><strong>秒级</strong><span>自动研判</span></div>
+          <div><strong>0</strong><span>照片落盘</span></div>
+        </div>
+      </section>
+
+      <div class="workspace">
+        <section class="card capture-card" id="captureCard">
+          <div class="card-head">
+            <div class="card-title">
+              <span class="step-num">01</span>
+              <div>
+                <h2>现场画面</h2>
+                <p>拍摄或上传一张楼道照片</p>
+              </div>
+            </div>
+            <span class="format-hint">JPG · PNG · WebP · HEIC</span>
+          </div>
+
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="选择要识别的楼道照片">
+            <div class="drop-empty" id="dropEmpty">
+              <div class="capture-visual" aria-hidden="true">
+                <span class="orbit orbit-a"></span>
+                <span class="orbit orbit-b"></span>
+                <span class="capture-visual-icon">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4.8 8.2h2.3L8.5 6h7l1.4 2.2h2.3A1.8 1.8 0 0 1 21 10v7.2a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 17.2V10a1.8 1.8 0 0 1 1.8-1.8Z" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="12" cy="13.4" r="3.2" stroke="currentColor" stroke-width="1.5"/>
+                  </svg>
+                </span>
+              </div>
+              <h3>把楼道画面交给我</h3>
+              <p>拖拽照片到这里，或点击从相册选择</p>
+              <span class="pick-link">
+                选择图片
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m-4.5-4.5L16 10l-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+
+            <div class="preview-wrap" id="previewWrap" hidden>
+              <img id="previewImage" alt="待识别的楼道照片">
+              <div class="preview-chip" id="previewChip">照片预览</div>
+              <div class="scan-overlay" id="scanOverlay" hidden aria-hidden="true">
+                <span class="corner tl"></span>
+                <span class="corner tr"></span>
+                <span class="corner bl"></span>
+                <span class="corner br"></span>
+                <span class="scan-line"></span>
+                <div class="scan-caption"><span class="mini-spinner"></span><span id="scanText">AI 正在研判</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn btn-primary" id="cameraBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4.8 8.2h2.3L8.5 6h7l1.4 2.2h2.3A1.8 1.8 0 0 1 21 10v7.2a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 17.2V10a1.8 1.8 0 0 1 1.8-1.8Z" stroke="currentColor" stroke-width="1.6"/>
+                <circle cx="12" cy="13.4" r="3.2" stroke="currentColor" stroke-width="1.6"/>
+              </svg>
+              <span>打开相机拍摄</span>
+            </button>
+            <button class="btn btn-secondary" id="uploadBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 15v3.2A1.8 1.8 0 0 0 5.8 20h12.4a1.8 1.8 0 0 0 1.8-1.8V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>上传图片</span>
+            </button>
+            <button class="btn btn-ghost btn-icon-only" id="resetBtn" type="button" aria-label="清除当前照片" title="清除当前照片" hidden>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 7h16M9.5 7V5h5v2M7 7l.7 12.1A1.9 1.9 0 0 0 9.6 21h4.8a1.9 1.9 0 0 0 1.9-1.9L17 7M10 11v6M14 11v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="config-notice" id="configNotice" hidden>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8.5v5M12 17h.01M10.3 3.9 2.7 17.2A2 2 0 0 0 4.4 20h15.2a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span>尚未配置模型 API Key。请复制 <code>.env.example</code> 为 <code>.env</code>，填写 Qwen 或 DeepSeek 的 Key 后重启服务。</span>
+          </div>
+
+          <p class="privacy-note">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5.2c0 4.4 2.9 8.4 7 9.8 4.1-1.4 7-5.4 7-9.8V6l-7-3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            照片仅用于本次识别，不在服务器留存；建议正对通道拍摄，并包含地面与两侧墙面。
+          </p>
+        </section>
+
+        <section class="card result-card" id="resultCard" aria-live="polite" aria-busy="false">
+          <div class="card-head">
+            <div class="card-title">
+              <span class="step-num">02</span>
+              <div>
+                <h2>智能研判</h2>
+                <p>风险等级 · 隐患依据 · 处置建议</p>
+              </div>
+            </div>
+            <span class="model-pill" id="modelPill" hidden></span>
+          </div>
+
+          <div class="result-empty" id="resultEmpty">
+            <div class="radar" aria-hidden="true">
+              <span class="radar-ring ring-a"></span>
+              <span class="radar-ring ring-b"></span>
+              <span class="radar-ring ring-c"></span>
+              <span class="radar-sweep"></span>
+              <span class="radar-core">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12.4 2.5c.7 3.8 4.2 5.1 4.2 9.2a4.6 4.6 0 1 1-9.2 0c0-2 .9-3.4 2.2-4.8.1 1.7.8 2.7 2 3.3-1.3-3-.8-5.3.8-7.7Z" fill="currentColor"/></svg>
+              </span>
+            </div>
+            <h3>等待现场画面</h3>
+            <p>拍摄后自动开始识别，通常需要 5–15 秒</p>
+            <ul class="expect-list">
+              <li><span></span>识别电动车、电池与飞线充电</li>
+              <li><span></span>评估可燃堆物与通道堵塞程度</li>
+              <li><span></span>输出五级风险与处置建议</li>
+            </ul>
+          </div>
+
+          <div class="result-loading" id="resultLoading" hidden>
+            <div class="loading-orbit" aria-hidden="true">
+              <span class="loading-ring"></span>
+              <span class="loading-core"></span>
+              <span class="loading-satellite"></span>
+            </div>
+            <h3 id="loadingTitle">正在研判画面</h3>
+            <p id="loadingStep">正在提取画面结构…</p>
+            <div class="loading-bars" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+
+          <div class="result-error" id="resultError" hidden>
+            <div class="error-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 17h.01M10.3 3.9 2.7 17.2A2 2 0 0 0 4.4 20h15.2a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <h3>识别没有完成</h3>
+            <p id="errorText">请稍后重试。</p>
+            <button class="btn btn-secondary btn-small" id="errorRetryBtn" type="button">重新识别</button>
+          </div>
+
+          <div class="result-content" id="resultContent" hidden>
+            <div class="result-head">
+              <div class="risk-badge" id="riskBadge">
+                <span class="risk-dot"></span>
+                <span id="riskLabel">中风险</span>
+              </div>
+              <div class="confidence" id="confidenceBlock">
+                <div class="confidence-label"><span>模型置信度</span><strong id="confidenceVal">—</strong></div>
+                <div class="confidence-track"><i id="confidenceBar"></i></div>
+              </div>
+            </div>
+
+            <p class="result-summary" id="resultSummary"></p>
+            <div class="meta-line">
+              <span id="metaModel"></span>
+              <span class="meta-dot"></span>
+              <span id="metaElapsed"></span>
+              <span class="meta-dot"></span>
+              <span id="metaTime"></span>
+            </div>
+
+            <div class="action-banner" id="actionBanner" hidden>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8.5v5M12 17h.01M10.3 3.9 2.7 17.2A2 2 0 0 0 4.4 20h15.2a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <span>建议尽快处置，避免隐患升级。</span>
+            </div>
+
+            <section class="result-section" id="hazardsSection">
+              <h3>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 3.8 20h16.4L12 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 9v4.5M12 17h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                识别到的隐患 <span class="count-chip" id="hazardCount"></span>
+              </h3>
+              <div class="hazard-list" id="hazardList"></div>
+            </section>
+
+            <section class="result-section" id="evidenceSection">
+              <h3>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.2" stroke="currentColor" stroke-width="1.5"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                研判依据
+              </h3>
+              <ul class="detail-list" id="evidenceList"></ul>
+            </section>
+
+            <section class="result-section">
+              <h3>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.9v.2h5v-.2c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                处置建议
+              </h3>
+              <ul class="detail-list suggestion-list" id="suggestionList"></ul>
+            </section>
+
+            <div class="result-actions">
+              <button class="text-btn" id="copyBtn" type="button">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                复制研判结果
+              </button>
+              <button class="text-btn" id="reanalyzeBtn" type="button">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                用当前模型重新识别
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="levels" aria-labelledby="levelsTitle">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">RISK TAXONOMY</span>
+            <h2 id="levelsTitle">五级风险判定标准</h2>
+          </div>
+          <p>模型综合场景、堆物数量、可燃性与通道占用程度，给出一个最高风险等级。</p>
+        </div>
+        <div class="level-grid">
+          <article class="level-card level-high">
+            <div class="level-top"><span class="level-index">01</span><h3>高风险</h3><span class="level-dot"></span></div>
+            <p>电动车、电瓶、飞线充电等可能直接起火的元素。</p>
+            <div class="level-tags"><span>电动车</span><span>电池</span><span>飞线</span></div>
+          </article>
+          <article class="level-card level-medium">
+            <div class="level-top"><span class="level-index">02</span><h3>中风险</h3><span class="level-dot"></span></div>
+            <p>大量堆物严重影响通行，或堆放大量纸箱、木质家具等可燃物。</p>
+            <div class="level-tags"><span>可燃堆物</span><span>通道堵塞</span></div>
+          </article>
+          <article class="level-card level-low">
+            <div class="level-top"><span class="level-index">03</span><h3>低风险</h3><span class="level-dot"></span></div>
+            <p>存在楼道堆物现象，但不严重，通道基本畅通。</p>
+            <div class="level-tags"><span>少量堆物</span><span>基本畅通</span></div>
+          </article>
+          <article class="level-card level-none">
+            <div class="level-top"><span class="level-index">04</span><h3>无风险</h3><span class="level-dot"></span></div>
+            <p>楼道干净整洁，无堆放物品，疏散通道畅通。</p>
+            <div class="level-tags"><span>整洁</span><span>畅通</span></div>
+          </article>
+          <article class="level-card level-other">
+            <div class="level-top"><span class="level-index">05</span><h3>非楼道</h3><span class="level-dot"></span></div>
+            <p>与楼道无关的图片，或画面过暗、过糊，无法判断场景。</p>
+            <div class="level-tags"><span>无关画面</span><span>无法判断</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="history" id="historySection" hidden aria-labelledby="historyTitle">
+        <div class="section-heading compact">
+          <div>
+            <span class="section-kicker">SESSION LOG</span>
+            <h2 id="historyTitle">最近研判</h2>
+          </div>
+          <button class="text-btn" id="clearHistoryBtn" type="button">清空记录</button>
+        </div>
+        <div class="history-list" id="historyList"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <span class="brand-mark small" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12.4 2.5c.7 3.8 4.2 5.1 4.2 9.2a4.6 4.6 0 1 1-9.2 0c0-2 .9-3.4 2.2-4.8.1 1.7.8 2.7 2 3.3-1.3-3-.8-5.3.8-7.7Z" fill="currentColor"/></svg>
+        </span>
+        <span><strong>楼道哨兵</strong><small>多模态楼道消防安全识别</small></span>
+      </div>
+      <p>辅助研判工具，不替代现场消防检查。遇紧急火情请立即拨打 <a href="tel:119">119</a>。</p>
+    </footer>
+  </div>
+
+  <dialog class="camera-dialog" id="cameraDialog" aria-label="相机取景">
+    <div class="camera-shell">
+      <div class="camera-head">
+        <div class="camera-title">
+          <span class="live-dot"></span>
+          <div><strong>实时取景</strong><small>正对楼道，保持光线充足</small></div>
+        </div>
+        <button class="round-btn" id="closeCameraBtn" type="button" aria-label="关闭相机">
+          <svg viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="camera-stage">
+        <video id="cameraVideo" autoplay playsinline muted></video>
+        <div class="camera-grid" aria-hidden="true"></div>
+        <div class="camera-message" id="cameraMessage">正在启动摄像头…</div>
+      </div>
+      <div class="camera-controls">
+        <button class="camera-side-btn" id="switchCameraBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.9-4M4 5v6h6m-6-1a8 8 0 0 0 14.9 4M20 19v-6h-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>切换</span>
+        </button>
+        <button class="shutter" id="captureBtn" type="button" aria-label="拍照" disabled><span></span></button>
+        <button class="camera-side-btn" id="fallbackCameraBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.8 8.2h2.3L8.5 6h7l1.4 2.2h2.3A1.8 1.8 0 0 1 21 10v7.2a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 17.2V10a1.8 1.8 0 0 1 1.8-1.8Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="13.4" r="3.2" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span>系统相机</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <input type="file" id="fileInput" accept="image/*,.heic,.heif" hidden>
+  <input type="file" id="cameraInput" accept="image/*,.heic,.heif" capture="environment" hidden>
+  <canvas id="captureCanvas" hidden></canvas>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

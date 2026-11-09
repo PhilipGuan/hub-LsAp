@@ -1,0 +1,50 @@
+{
+  "topic": "AI发展趋势",
+  "round": 2,
+  "sub_questions": [
+    {
+      "id": "q01",
+      "question": "什么是AI？",
+      "keywords": [
+        "AI",
+        "人工智能"
+      ]
+    },
+    {
+      "id": "q02",
+      "question": "AI发展趋势",
+      "keywords": [
+        "趋势",
+        "发展"
+      ]
+    }
+  ],
+  "search_results": [
+    {
+      "id": "1",
+      "title": "AI介绍",
+      "url": "https://example.com/ai",
+      "query": "什么是AI？"
+    },
+    {
+      "id": "2",
+      "title": "AI趋势",
+      "url": "https://example.com/trend",
+      "query": "AI发展趋势"
+    }
+  ],
+  "contents": [
+    {
+      "id": "1",
+      "title": "AI介绍内容",
+      "url": "https://example.com/ai",
+      "content": "AI内容..."
+    },
+    {
+      "id": "2",
+      "title": "趋势内容",
+      "url": "https://example.com/trend",
+      "content": "趋势内容..."
+    }
+  ]
+}
