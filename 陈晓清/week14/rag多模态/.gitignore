@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# 后端密钥与运行数据
+backend/.env
+backend/data/
+backend/models/
+
+# 前端私有配置
+frontend/.env
+.streamlit/secrets.toml
+
+# 日志与临时文件
+*.log
+deploy/kafka_pull.log
+.DS_Store
