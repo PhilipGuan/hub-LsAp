@@ -1,0 +1,33 @@
+data_dir: /workspace/data
+
+mineru:
+  command: [mineru-kit, parse, "{input}", "-o", "{output}/mineru.zip", "--format", zip]
+  timeout_seconds: 1800
+
+kafka:
+  topic: vlm-rag-ingest
+  group_id: vlm-rag-worker
+  options:
+    bootstrap.servers: "127.0.0.1:9092"
+
+redis:
+  url: "redis://127.0.0.1:6379/0"
+  prefix: "vlm-rag"
+
+elasticsearch:
+  url: "http://127.0.0.1:9200"
+  index: "vlm-rag-text-v2"
+  dimensions: 4096
+
+embedding:
+  base_url: "https://api.siliconflow.cn/v1"
+  model: "Qwen/Qwen3-Embedding-8B"
+  api_key: "sk-xxx"
+
+vlm:
+  base_url: "https://api.siliconflow.cn/v1"
+  model: "Qwen/Qwen3-VL-32B-Instruct"
+  api_key: "sk-xxx"
+
+frontend:
+  api_url: "http://127.0.0.1:8000"
