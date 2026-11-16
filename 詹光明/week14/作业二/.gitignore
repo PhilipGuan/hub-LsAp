@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.env
+
+# 运行期产物
+db.db
+db.db-wal
+db.db-shm
+milvus.db
+milvus.db.lock
+uploads/
+processed/
+chat_uploads/

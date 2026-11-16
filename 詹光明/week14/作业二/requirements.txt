@@ -1,0 +1,28 @@
+# Web 前端
+streamlit>=1.49
+
+# Kafka
+kafka-python>=2.0.2
+
+# 向量库（Linux/macOS 默认使用本地 milvus-lite；Windows 请连远程 Milvus）
+pymilvus>=2.4.4
+
+# 向量模型（会自动安装 torch / transformers）
+sentence-transformers>=3.0
+Pillow>=10
+
+# 多模态大模型（OpenAI 兼容接口）
+openai>=1.30
+
+# 元信息存储
+SQLAlchemy>=2.0
+
+# PDF 兜底解析（不装 MinerU 时可用）
+pymupdf>=1.24
+
+# 可选：读取 .env
+python-dotenv>=1.0
+
+# MinerU 体积较大且依赖 GPU，建议按官方文档单独安装：
+#   pip install -U "mineru[core]"
+# 或使用 vlm-http-client 后端连接远程 MinerU 服务。
