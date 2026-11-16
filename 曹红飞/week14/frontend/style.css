@@ -1,0 +1,106 @@
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --line: #e2e5ea;
+  --text: #222222;
+  --muted: #888888;
+  --accent: #2563eb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 24px;
+}
+
+header h1 { margin: 0; font-size: 20px; }
+
+main {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.card h2 { margin: 0 0 12px; font-size: 16px; }
+
+.upload-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:disabled { background: #9db4e8; cursor: not-allowed; }
+
+.hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+
+th { color: var(--muted); font-weight: 600; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.badge.pending { background: #f1f3f5; color: #666666; }
+.badge.parsing { background: #e0edff; color: #1d63d0; }
+.badge.done    { background: #e3f6e9; color: #1e7d43; }
+.badge.failed  { background: #fde7e7; color: #c0392b; }
+
+.qa-input textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.qa-row { display: flex; gap: 12px; align-items: center; margin-top: 10px; }
+
+.qa-img-pick { font-size: 13px; color: var(--muted); cursor: pointer; }
+.qa-img-pick input { display: none; }
+
+.answer { margin-top: 14px; line-height: 1.7; font-size: 14px; white-space: pre-wrap; }
+
+.answer img {
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: block;
+  margin: 10px 0;
+}
+
+.answer figcaption { text-align: center; color: var(--muted); font-size: 12px; }
+
+.answer .loading { color: var(--muted); }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>多模态RAG问答</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>📚 多模态RAG问答</h1>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>上传文档</h2>
+      <div class="upload-row">
+        <input type="file" id="file-input" accept=".pdf" multiple>
+        <button id="upload-btn">上传并解析</button>
+      </div>
+      <p id="upload-msg" class="hint"></p>
+    </section>
+
+    <section class="card">
+      <h2>文档状态</h2>
+      <table id="docs-table">
+        <thead>
+          <tr>
+            <th>文件名</th>
+            <th>状态</th>
+            <th>上传时间</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>多模态问答</h2>
+      <div class="qa-input">
+        <textarea id="question" rows="3" placeholder="输入你的问题…（也可以附带一张图片提问）"></textarea>
+        <div class="qa-row">
+          <label class="qa-img-pick">
+            附带图片（可选）
+            <input type="file" id="qa-image" accept="image/*">
+          </label>
+          <span id="qa-img-name" class="hint"></span>
+          <button id="ask-btn">提问</button>
+        </div>
+      </div>
+      <div id="answer" class="answer"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
