@@ -15,7 +15,7 @@ ES_INDEX = os.getenv("ES_INDEX", "pdf_docs")
 
 # ---------- 多模态 LLM（DeepSeek，OpenAI 兼容，支持图片输入）----------
 VLM_BASE_URL = os.getenv("VLM_BASE_URL", "https://api.deepseek.com")
-VLM_API_KEY = os.getenv("VLM_API_KEY", "sk-dba274e5d2564a8c8f13b30c3205fdee")
+VLM_API_KEY = os.getenv("VLM_API_KEY", "sk-dba274e5d2topabu8c8f13b30c3205fdee")
 VLM_MODEL = os.getenv("VLM_MODEL", "deepseek-flash")
 
 # ---------- Embedding（本地 sentence-transformers 模型，不依赖外部 API）----------
