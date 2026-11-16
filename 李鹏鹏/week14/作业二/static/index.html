@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>多模态 RAG 文档问答 · Kafka + MinerU</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/static/vendor/layui/css/layui.css" />
+  <link rel="stylesheet" href="/static/css/app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">RAG</div>
+      <div class="brand-text">
+        <h1>多模态 RAG 文档问答</h1>
+        <p>Kafka 异步解析 · MinerU 版面理解 · 图文混排回答</p>
+      </div>
+    </div>
+    <div class="chips" id="statusChips">
+      <span class="chip" id="chipKafka" title="Kafka 连接状态"><i></i><span>Kafka 检测中</span></span>
+      <span class="chip" id="chipParser" title="PDF 解析引擎"><i></i><span>解析引擎</span></span>
+      <span class="chip" id="chipWorker" title="解析工作进程"><i></i><span>工作进程</span></span>
+      <span class="chip" id="chipModel" title="大模型"><i></i><span>模型</span></span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- ==================== 左：文档库 ==================== -->
+    <section class="panel docs-panel">
+      <div class="panel-head">
+        <div>
+          <h2>文档库</h2>
+          <p class="sub" id="docSummary">0 篇文档 · 待解析 0 · 解析中 0 · 完成 0</p>
+        </div>
+        <button type="button" class="ghost-btn" id="btnRefresh" title="刷新列表">
+          <i class="layui-icon layui-icon-refresh"></i> 刷新
+        </button>
+      </div>
+
+      <div class="upload-zone" id="uploadZone">
+        <div class="upload-icon"><i class="layui-icon layui-icon-upload-drag"></i></div>
+        <div class="upload-title">拖拽 PDF 到这里，或 <span class="link">点击选择</span></div>
+        <div class="upload-hint">支持一次选择多个 PDF · 单个 ≤ <span id="maxUpload">60</span> MB</div>
+        <div class="upload-progress" id="uploadProgress" hidden>
+          <div class="bar"><i id="uploadBar"></i></div>
+          <span id="uploadText">上传中…</span>
+        </div>
+      </div>
+
+      <div class="doc-list" id="docList">
+        <div class="empty">还没有文档，先上传一个 PDF 吧</div>
+      </div>
+      <div class="legend">上传后经 Kafka 投递解析任务，列表每 2 秒自动刷新状态</div>
+    </section>
+
+    <!-- ==================== 右：问答 ==================== -->
+    <section class="panel chat-panel">
+      <div class="panel-head chat-head">
+        <div>
+          <h2>多模态问答</h2>
+          <p class="sub">只发文字，或「图片 + 文字」一起发</p>
+        </div>
+        <div class="scope" id="scope">
+          <button type="button" class="scope-toggle" id="scopeToggle">
+            <i class="layui-icon layui-icon-file"></i>
+            <span id="scopeLabel">检索范围：全部文档</span>
+            <i class="layui-icon layui-icon-down"></i>
+          </button>
+          <div class="scope-menu" id="scopeMenu" hidden>
+            <div class="scope-hint">只有「解析完成」的文档参与检索</div>
+            <div id="scopeOptions"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-log" id="chatLog">
+        <div class="welcome" id="welcome">
+          <div class="welcome-title">把 PDF 交给它，然后开始提问</div>
+          <div class="examples">
+            <button type="button" class="example" data-q="这篇文档的核心内容是什么？请分点说明">这篇文档的核心内容是什么？</button>
+            <button type="button" class="example" data-q="把文档里的架构图找出来，解释它的数据流">架构图的数据流是怎样的？</button>
+            <button type="button" class="example" data-q="文档中的表格给出了哪些关键指标？">表格里有哪些关键指标？</button>
+          </div>
+          <p class="welcome-tip">点击示例可直接提问；也支持 Ctrl+V 粘贴图片提问。</p>
+        </div>
+      </div>
+
+      <div class="composer">
+        <div class="composer-tools">
+          <button type="button" class="tool" id="btnImage">
+            <i class="layui-icon layui-icon-picture"></i> 添加图片
+          </button>
+          <span class="tool-hint">图片会和问题一起送进多模态模型</span>
+          <button type="button" class="tool tool-ghost" id="btnClear">清空对话</button>
+        </div>
+        <div class="image-preview" id="imagePreview" hidden>
+          <img id="imageThumb" alt="待发送图片" />
+          <button type="button" id="btnRemoveImage" title="移除图片">×</button>
+        </div>
+        <div class="composer-row">
+          <textarea id="question" rows="2" placeholder="输入问题，Enter 发送，Shift + Enter 换行"></textarea>
+          <button type="button" class="send-btn" id="btnSend">
+            <i class="layui-icon layui-icon-release"></i>
+            <span>发送</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <input type="file" id="imageInput" accept="image/*" hidden />
+  <script src="/static/vendor/layui/layui.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
