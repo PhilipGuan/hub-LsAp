@@ -1,0 +1,27 @@
+services:
+  api:
+    image: multimodal-rag-backend:local
+    build: .
+    network_mode: host
+    env_file: .env
+    environment:
+      RAG_DATABASE: /data/rag.sqlite3
+    volumes:
+      - rag-data:/data
+    command: [gunicorn, --bind, '127.0.0.1:8081', --workers, '1', --threads, '4', --timeout, '190', 'backend.service:make_app()']
+    restart: unless-stopped
+  worker:
+    image: multimodal-rag-backend:local
+    network_mode: host
+    env_file: .env
+    environment:
+      RAG_DATABASE: /data/rag.sqlite3
+    volumes:
+      - rag-data:/data
+    depends_on:
+      - api
+    command: [python, -m, backend.service, worker]
+    restart: unless-stopped
+
+volumes:
+  rag-data:
