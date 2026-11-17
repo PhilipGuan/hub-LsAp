@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>情感陪伴助手</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(160deg, #e8f0fe, #f7f9fc);
+    min-height: 100vh; color: #333;
+  }
+  .app { max-width: 720px; margin: 0 auto; padding: 16px; display: flex; flex-direction: column; height: 100vh; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 8px 4px 16px; }
+  h1 { font-size: 20px; }
+  .badge { font-size: 12px; background: #fff; border: 1px solid #d8e2f0; color: #5a6b85; padding: 4px 10px; border-radius: 999px; }
+  .error { background: #fde8e8; color: #b42318; border: 1px solid #f5c2c0; padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 8px; }
+  .hidden { display: none; }
+  #chat { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 4px 2px; }
+  .row { display: flex; }
+  .row.user { justify-content: flex-end; }
+  .bubble { max-width: 78%; padding: 10px 14px; border-radius: 14px; line-height: 1.6; font-size: 15px; white-space: pre-wrap; }
+  .row.user .bubble { background: #3b82f6; color: #fff; border-bottom-right-radius: 4px; }
+  .row.bot  .bubble { background: #fff; border: 1px solid #e3eaf3; border-bottom-left-radius: 4px; }
+  .card { max-width: 78%; align-self: flex-start; background: #f2f6fb; border: 1px dashed #c9d7ea;
+          border-radius: 12px; padding: 10px 12px; font-size: 13px; color: #43536e; display: flex; flex-direction: column; gap: 4px; }
+  .card .tag { font-size: 14px; color: #2b3a55; font-weight: 600; margin-bottom: 2px; }
+  .examples { display: flex; align-items: center; gap: 8px; padding: 10px 0; font-size: 13px; color: #6b7a93; flex-wrap: wrap; }
+  .examples button { border: 1px solid #c9d7ea; background: #fff; border-radius: 999px; padding: 5px 12px; cursor: pointer; font-size: 13px; color: #3a4a66; }
+  .examples button:hover { background: #eef4ff; }
+  footer { display: flex; gap: 10px; align-items: flex-end; }
+  textarea { flex: 1; resize: none; border: 1px solid #c9d7ea; border-radius: 12px; padding: 10px 12px;
+             font-size: 15px; font-family: inherit; outline: none; height: 64px; }
+  textarea:focus { border-color: #3b82f6; }
+  #send { background: #3b82f6; color: #fff; border: none; border-radius: 12px; padding: 12px 22px; font-size: 15px; cursor: pointer; }
+  #send:disabled { opacity: .5; cursor: not-allowed; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>🌤 情感陪伴助手</h1>
+    <div class="badge" id="engine-badge">初始化…</div>
+  </header>
+
+  <div id="error" class="error hidden"></div>
+
+  <main id="chat"></main>
+
+  <div class="examples">
+    <span>示例：</span>
+    <button data-text="今天面试通过了，太开心了！">😊 正向</button>
+    <button data-text="被老板骂了一顿，很委屈">😢 负面</button>
+    <button data-text="明天记得带伞">😐 中性</button>
+  </div>
+
+  <footer>
+    <textarea id="input" placeholder="说说你今天的心情…（Enter 发送，Shift+Enter 换行）" maxlength="500"></textarea>
+    <button id="send">发送</button>
+  </footer>
+</div>
+
+<script>
+const LABELS = { positive: ["🌞", "正向"], negative: ["🌧", "负面"], neutral: ["☁️", "中性"] };
+const BRANCH_NAMES = { encourage: "鼓励", comfort: "排解", neutral_chat: "自然接话" };
+
+const chatEl = document.getElementById("chat");
+const inputEl = document.getElementById("input");
+const sendBtn = document.getElementById("send");
+const errorEl = document.getElementById("error");
+let busy = false;
+
+fetch("/api/health")
+  .then(r => r.json())
+  .then(d => { document.getElementById("engine-badge").textContent = `${d.engine} · ${d.model}`; })
+  .catch(() => { document.getElementById("engine-badge").textContent = "未知引擎"; });
+
+function setError(msg) {
+  errorEl.textContent = msg;
+  errorEl.classList.toggle("hidden", !msg);
+}
+
+function addRow(cls) {
+  const r = document.createElement("div");
+  r.className = "row " + cls;
+  chatEl.appendChild(r);
+  chatEl.scrollTop = chatEl.scrollHeight;
+  return r;
+}
+
+function addUser(text) {
+  const b = document.createElement("div");
+  b.className = "bubble";
+  b.textContent = text;  // textContent 插入，避免 XSS
+  addRow("user").appendChild(b);
+}
+
+function addLoading() {
+  const b = document.createElement("div");
+  b.className = "bubble";
+  b.textContent = "对方正在输入…";
+  addRow("bot").appendChild(b);
+  return b;
+}
+
+function addBot(data) {
+  const b = document.createElement("div");
+  b.className = "bubble";
+  b.textContent = data.reply;
+  addRow("bot").appendChild(b);
+
+  const [emoji, cn] = LABELS[data.sentiment.label] || ["❔", data.sentiment.label];
+  const pct = typeof data.sentiment.confidence === "number"
+    ? (data.sentiment.confidence * 100).toFixed(0) + "%" : "-";
+
+  const card = document.createElement("div");
+  card.className = "card";
+  const rows = [
+    [`${emoji} 识别结果：${cn}（置信度 ${pct}%）`, "tag"],
+    ["判断依据", data.sentiment.reason],
+    ["命中分支", BRANCH_NAMES[data.branch] || data.branch],
+    ["引擎", data.engine],
+    ["耗时", `${data.elapsed_ms} ms`],
+  ];
+  for (const [v, k] of rows) {
+    const el = document.createElement("div");
+    if (k) el.className = k;
+    el.textContent = k ? v : `${v[0]}：${v[1]}`;
+    card.appendChild(el);
+  }
+  chatEl.appendChild(card);
+  chatEl.scrollTop = chatEl.scrollHeight;
+}
+
+async function send() {
+  const text = inputEl.value.trim();
+  if (!text || busy) return;
+  busy = true; sendBtn.disabled = true; setError("");
+  addUser(text);
+  inputEl.value = "";
+  const loading = addLoading();
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new Error((data && data.detail) || `请求失败（HTTP ${res.status}）`);
+    loading.remove();
+    addBot(data);
+  } catch (e) {
+    loading.remove();
+    setError(e.message || "网络错误，请重试");
+  } finally {
+    busy = false; sendBtn.disabled = false; inputEl.focus();
+  }
+}
+
+sendBtn.addEventListener("click", send);
+inputEl.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+});
+document.querySelectorAll(".examples button").forEach(btn => {
+  btn.addEventListener("click", () => { inputEl.value = btn.dataset.text; inputEl.focus(); });
+});
+</script>
+</body>
+</html>
