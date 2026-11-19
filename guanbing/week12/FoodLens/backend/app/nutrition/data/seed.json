@@ -1,0 +1,776 @@
+[
+  {
+    "id": "hongshaorou",
+    "name": {"zh": "红烧肉", "en": "Braised Pork Belly"},
+    "aliases": ["红烧五花肉", "Braised Pork", "Braised Pork Belly"],
+    "category": "dish",
+    "per_100g": {"kcal": 472, "protein": 12.0, "fat": 45.0, "carb": 3.0},
+    "standard_servings": [{"label": {"zh": "一份(约150g)", "en": "1 serving (~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "tomato_egg",
+    "name": {"zh": "番茄炒蛋", "en": "Scrambled Eggs with Tomato"},
+    "aliases": ["西红柿炒鸡蛋", "Tomato and Egg", "Tomato Egg"],
+    "category": "dish",
+    "per_100g": {"kcal": 105, "protein": 5.0, "fat": 7.5, "carb": 4.5},
+    "standard_servings": [{"label": {"zh": "一份(约180g)", "en": "1 serving (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "kungpao_chicken",
+    "name": {"zh": "宫保鸡丁", "en": "Kung Pao Chicken"},
+    "aliases": ["宫爆鸡丁", "Kung Pao", "Gongbao Chicken"],
+    "category": "dish",
+    "per_100g": {"kcal": 165, "protein": 12.0, "fat": 9.0, "carb": 9.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "yuxiang_pork",
+    "name": {"zh": "鱼香肉丝", "en": "Yuxiang Shredded Pork"},
+    "aliases": ["鱼香肉丝", "Fish-fragrant Pork"],
+    "category": "dish",
+    "per_100g": {"kcal": 155, "protein": 10.0, "fat": 9.0, "carb": 9.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "mapo_tofu",
+    "name": {"zh": "麻婆豆腐", "en": "Mapo Tofu"},
+    "aliases": ["麻辣豆腐", "Mapo Doufu"],
+    "category": "dish",
+    "per_100g": {"kcal": 130, "protein": 8.0, "fat": 8.0, "carb": 6.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "pepper_pork",
+    "name": {"zh": "青椒肉丝", "en": "Shredded Pork with Green Pepper"},
+    "aliases": ["青椒炒肉", "Pork with Green Pepper"],
+    "category": "dish",
+    "per_100g": {"kcal": 120, "protein": 10.0, "fat": 7.0, "carb": 5.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "stirfry_greens",
+    "name": {"zh": "清炒时蔬", "en": "Stir-fried Greens"},
+    "aliases": ["炒青菜", "青菜", "Stir-fried Vegetables", "Sauteed Greens"],
+    "category": "dish",
+    "per_100g": {"kcal": 60, "protein": 2.0, "fat": 4.0, "carb": 5.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "sweetsour_pork",
+    "name": {"zh": "糖醋里脊", "en": "Sweet and Sour Pork"},
+    "aliases": ["糖醋肉", "Sweet & Sour Pork"],
+    "category": "dish",
+    "per_100g": {"kcal": 220, "protein": 12.0, "fat": 12.0, "carb": 16.0},
+    "standard_servings": [{"label": {"zh": "一份(约180g)", "en": "1 serving (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "huiguorou",
+    "name": {"zh": "回锅肉", "en": "Twice-cooked Pork"},
+    "aliases": ["回锅肉片", "Twice Cooked Pork"],
+    "category": "dish",
+    "per_100g": {"kcal": 350, "protein": 12.0, "fat": 32.0, "carb": 5.0},
+    "standard_servings": [{"label": {"zh": "一份(约180g)", "en": "1 serving (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "boiled_fish",
+    "name": {"zh": "水煮鱼", "en": "Sichuan Boiled Fish"},
+    "aliases": ["水煮鱼片", "Boiled Fish in Chili Oil"],
+    "category": "dish",
+    "per_100g": {"kcal": 150, "protein": 12.0, "fat": 10.0, "carb": 3.0},
+    "standard_servings": [{"label": {"zh": "一份(约250g)", "en": "1 serving (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "xiaolongbao",
+    "name": {"zh": "小笼包", "en": "Xiaolongbao"},
+    "aliases": ["小笼汤包", "Soup Dumplings", "Steamed Soup Buns"],
+    "category": "dish",
+    "per_100g": {"kcal": 240, "protein": 9.0, "fat": 8.0, "carb": 33.0},
+    "standard_servings": [{"label": {"zh": "一笼(6个,约150g)", "en": "1 basket (6 pcs, ~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "dumplings",
+    "name": {"zh": "饺子", "en": "Dumplings"},
+    "aliases": ["水饺", "猪肉白菜饺", "Jiaozi", "Pork Dumplings"],
+    "category": "dish",
+    "per_100g": {"kcal": 240, "protein": 9.0, "fat": 9.0, "carb": 30.0},
+    "standard_servings": [{"label": {"zh": "一份(10个,约250g)", "en": "1 serving (10 pcs, ~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "egg_fried_rice",
+    "name": {"zh": "蛋炒饭", "en": "Egg Fried Rice"},
+    "aliases": ["炒饭", "Fried Rice", "Egg Fried Rice"],
+    "category": "staple",
+    "per_100g": {"kcal": 165, "protein": 4.5, "fat": 5.0, "carb": 25.0},
+    "standard_servings": [{"label": {"zh": "一份(约300g)", "en": "1 serving (~300g)"}, "grams": 300}],
+    "source": "seed"
+  },
+  {
+    "id": "white_rice",
+    "name": {"zh": "白米饭", "en": "Steamed White Rice"},
+    "aliases": ["米饭", "白饭", "Rice", "Steamed Rice"],
+    "category": "staple",
+    "per_100g": {"kcal": 116, "protein": 2.6, "fat": 0.3, "carb": 25.9},
+    "standard_servings": [{"label": {"zh": "一碗(约150g)", "en": "1 bowl (~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "noodles",
+    "name": {"zh": "面条(煮)", "en": "Cooked Noodles"},
+    "aliases": ["面", "煮面", "Noodles"],
+    "category": "staple",
+    "per_100g": {"kcal": 110, "protein": 3.5, "fat": 0.5, "carb": 22.0},
+    "standard_servings": [{"label": {"zh": "一碗(约250g)", "en": "1 bowl (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "mantou",
+    "name": {"zh": "馒头", "en": "Steamed Bun"},
+    "aliases": ["白馒头", "Mantou", "Steamed Bread"],
+    "category": "staple",
+    "per_100g": {"kcal": 223, "protein": 7.0, "fat": 1.1, "carb": 47.0},
+    "standard_servings": [{"label": {"zh": "一个(约100g)", "en": "1 piece (~100g)"}, "grams": 100}],
+    "source": "seed"
+  },
+  {
+    "id": "baozi",
+    "name": {"zh": "包子", "en": "Steamed Pork Bun"},
+    "aliases": ["肉包", "Baozi", "Steamed Stuffed Bun"],
+    "category": "staple",
+    "per_100g": {"kcal": 227, "protein": 8.0, "fat": 7.0, "carb": 32.0},
+    "standard_servings": [{"label": {"zh": "一个(约100g)", "en": "1 piece (~100g)"}, "grams": 100}],
+    "source": "seed"
+  },
+  {
+    "id": "soy_milk",
+    "name": {"zh": "豆浆", "en": "Soy Milk"},
+    "aliases": ["豆奶", "Soybean Milk"],
+    "category": "beverage",
+    "per_100g": {"kcal": 31, "protein": 3.0, "fat": 1.6, "carb": 1.2},
+    "standard_servings": [{"label": {"zh": "一杯(约250g)", "en": "1 cup (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "milk_tea",
+    "name": {"zh": "奶茶", "en": "Milk Tea"},
+    "aliases": ["珍珠奶茶", "Bubble Tea", "Boba Tea"],
+    "category": "beverage",
+    "per_100g": {"kcal": 70, "protein": 1.0, "fat": 2.0, "carb": 12.0},
+    "standard_servings": [{"label": {"zh": "一杯(约500g)", "en": "1 cup (~500g)"}, "grams": 500}],
+    "source": "seed"
+  },
+  {
+    "id": "beef_noodle_soup",
+    "name": {"zh": "红烧牛肉面", "en": "Beef Noodle Soup"},
+    "aliases": ["牛肉面", "Beef Noodles"],
+    "category": "dish",
+    "per_100g": {"kcal": 130, "protein": 6.0, "fat": 4.0, "carb": 17.0},
+    "standard_servings": [{"label": {"zh": "一碗(约500g)", "en": "1 bowl (~500g)"}, "grams": 500}],
+    "source": "seed"
+  },
+  {
+    "id": "hamburger",
+    "name": {"zh": "汉堡", "en": "Hamburger"},
+    "aliases": ["汉堡包", "Burger", "Cheeseburger"],
+    "category": "fast_food",
+    "per_100g": {"kcal": 250, "protein": 12.0, "fat": 11.0, "carb": 26.0},
+    "standard_servings": [{"label": {"zh": "一个(约200g)", "en": "1 piece (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "fried_chicken",
+    "name": {"zh": "炸鸡", "en": "Fried Chicken"},
+    "aliases": ["炸鸡块", "Chicken Nuggets"],
+    "category": "fast_food",
+    "per_100g": {"kcal": 290, "protein": 20.0, "fat": 18.0, "carb": 10.0},
+    "standard_servings": [{"label": {"zh": "一块(约120g)", "en": "1 piece (~120g)"}, "grams": 120}],
+    "source": "seed"
+  },
+  {
+    "id": "french_fries",
+    "name": {"zh": "薯条", "en": "French Fries"},
+    "aliases": ["炸薯条", "Fries", "Chips"],
+    "category": "fast_food",
+    "per_100g": {"kcal": 312, "protein": 3.4, "fat": 15.0, "carb": 41.0},
+    "standard_servings": [{"label": {"zh": "中份(约115g)", "en": "Medium (~115g)"}, "grams": 115}],
+    "source": "seed"
+  },
+  {
+    "id": "pizza",
+    "name": {"zh": "披萨", "en": "Pizza"},
+    "aliases": ["比萨", "Pizza Slice"],
+    "category": "fast_food",
+    "per_100g": {"kcal": 266, "protein": 11.0, "fat": 10.0, "carb": 33.0},
+    "standard_servings": [{"label": {"zh": "一片(约110g)", "en": "1 slice (~110g)"}, "grams": 110}],
+    "source": "seed"
+  },
+  {
+    "id": "green_salad",
+    "name": {"zh": "蔬菜沙拉", "en": "Green Salad"},
+    "aliases": ["沙拉", "Salad", "Veggie Salad"],
+    "category": "dish",
+    "per_100g": {"kcal": 25, "protein": 1.0, "fat": 0.2, "carb": 5.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "pasta",
+    "name": {"zh": "意大利面(煮)", "en": "Cooked Pasta"},
+    "aliases": ["意面", "Spaghetti", "Pasta"],
+    "category": "staple",
+    "per_100g": {"kcal": 131, "protein": 5.0, "fat": 1.1, "carb": 25.0},
+    "standard_servings": [{"label": {"zh": "一份(约250g)", "en": "1 plate (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "steak",
+    "name": {"zh": "牛排", "en": "Steak"},
+    "aliases": ["煎牛排", "Beef Steak"],
+    "category": "dish",
+    "per_100g": {"kcal": 250, "protein": 26.0, "fat": 15.0, "carb": 0.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "sandwich",
+    "name": {"zh": "三明治", "en": "Sandwich"},
+    "aliases": ["三文治", "Sandwich"],
+    "category": "fast_food",
+    "per_100g": {"kcal": 250, "protein": 11.0, "fat": 10.0, "carb": 28.0},
+    "standard_servings": [{"label": {"zh": "一个(约180g)", "en": "1 piece (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "cola",
+    "name": {"zh": "可乐", "en": "Cola"},
+    "aliases": ["汽水", "Soda", "Coke"],
+    "category": "beverage",
+    "per_100g": {"kcal": 42, "protein": 0.0, "fat": 0.0, "carb": 10.6},
+    "standard_servings": [{"label": {"zh": "一罐(约330g)", "en": "1 can (~330g)"}, "grams": 330}],
+    "source": "seed"
+  },
+  {
+    "id": "yogurt",
+    "name": {"zh": "酸奶", "en": "Yogurt"},
+    "aliases": ["优酪乳", "Yoghurt"],
+    "category": "dairy",
+    "per_100g": {"kcal": 72, "protein": 3.2, "fat": 2.7, "carb": 9.3},
+    "standard_servings": [{"label": {"zh": "一杯(约150g)", "en": "1 cup (~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "egg",
+    "name": {"zh": "鸡蛋", "en": "Egg"},
+    "aliases": ["水煮蛋", "Boiled Egg", "Eggs"],
+    "category": "protein",
+    "per_100g": {"kcal": 155, "protein": 13.0, "fat": 11.0, "carb": 1.1},
+    "standard_servings": [{"label": {"zh": "一个(约50g)", "en": "1 egg (~50g)"}, "grams": 50}],
+    "source": "seed"
+  },
+  {
+    "id": "apple",
+    "name": {"zh": "苹果", "en": "Apple"},
+    "aliases": ["苹果", "Apple"],
+    "category": "fruit",
+    "per_100g": {"kcal": 52, "protein": 0.3, "fat": 0.2, "carb": 14.0},
+    "standard_servings": [{"label": {"zh": "一个(约180g)", "en": "1 apple (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "banana",
+    "name": {"zh": "香蕉", "en": "Banana"},
+    "aliases": ["香蕉", "Banana"],
+    "category": "fruit",
+    "per_100g": {"kcal": 89, "protein": 1.1, "fat": 0.3, "carb": 23.0},
+    "standard_servings": [{"label": {"zh": "一根(约120g)", "en": "1 banana (~120g)"}, "grams": 120}],
+    "source": "seed"
+  },
+  {
+    "id": "milk",
+    "name": {"zh": "牛奶", "en": "Milk"},
+    "aliases": ["鲜奶", "Milk"],
+    "category": "dairy",
+    "per_100g": {"kcal": 54, "protein": 3.0, "fat": 3.2, "carb": 3.4},
+    "standard_servings": [{"label": {"zh": "一杯(约250g)", "en": "1 cup (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "disanxian",
+    "name": {"zh": "地三鲜", "en": "Di San Xian"},
+    "aliases": ["地三鲜(土豆茄子青椒)", "Braised Potato Eggplant and Pepper"],
+    "category": "dish",
+    "per_100g": {"kcal": 130, "protein": 2.0, "fat": 8.0, "carb": 13.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "dry_fried_green_beans",
+    "name": {"zh": "干煸四季豆", "en": "Dry-fried Green Beans"},
+    "aliases": ["干煸豆角", "四季豆", "Dry-fried String Beans"],
+    "category": "dish",
+    "per_100g": {"kcal": 145, "protein": 4.0, "fat": 11.0, "carb": 8.0},
+    "standard_servings": [{"label": {"zh": "一份(约180g)", "en": "1 serving (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "braised_eggplant",
+    "name": {"zh": "红烧茄子", "en": "Braised Eggplant"},
+    "aliases": ["烧茄子", "Braised Aubergine"],
+    "category": "dish",
+    "per_100g": {"kcal": 150, "protein": 2.5, "fat": 11.0, "carb": 11.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "vinegar_potato_shreds",
+    "name": {"zh": "醋溜土豆丝", "en": "Shredded Potato with Vinegar"},
+    "aliases": ["酸辣土豆丝", "炒土豆丝", "Potato Shreds"],
+    "category": "dish",
+    "per_100g": {"kcal": 110, "protein": 2.0, "fat": 6.0, "carb": 12.0},
+    "standard_servings": [{"label": {"zh": "一份(约180g)", "en": "1 serving (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "hand_torn_cabbage",
+    "name": {"zh": "手撕包菜", "en": "Hand-torn Cabbage"},
+    "aliases": ["炝炒包菜", "炒圆白菜", "Stir-fried Cabbage"],
+    "category": "dish",
+    "per_100g": {"kcal": 95, "protein": 2.0, "fat": 6.5, "carb": 8.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "baby_cabbage_soup",
+    "name": {"zh": "上汤娃娃菜", "en": "Baby Cabbage in Broth"},
+    "aliases": ["上汤白菜", "娃娃菜", "Baby Bok Choy in Broth"],
+    "category": "dish",
+    "per_100g": {"kcal": 55, "protein": 3.0, "fat": 3.5, "carb": 4.0},
+    "standard_servings": [{"label": {"zh": "一份(约250g)", "en": "1 serving (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "garlic_broccoli",
+    "name": {"zh": "蒜蓉西兰花", "en": "Garlic Broccoli"},
+    "aliases": ["蒜炒西兰花", "清炒西兰花", "Garlic Broccoli Stir-fry"],
+    "category": "dish",
+    "per_100g": {"kcal": 85, "protein": 3.0, "fat": 5.5, "carb": 7.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "cucumber_salad",
+    "name": {"zh": "凉拌黄瓜", "en": "Cucumber Salad"},
+    "aliases": ["拍黄瓜", "凉拌青瓜", "Smashed Cucumber"],
+    "category": "dish",
+    "per_100g": {"kcal": 45, "protein": 1.0, "fat": 3.0, "carb": 3.5},
+    "standard_servings": [{"label": {"zh": "一份(约150g)", "en": "1 serving (~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "tomato_egg_soup",
+    "name": {"zh": "番茄蛋汤", "en": "Tomato Egg Soup"},
+    "aliases": ["西红柿鸡蛋汤", "番茄鸡蛋汤", "Tomato and Egg Soup"],
+    "category": "soup",
+    "per_100g": {"kcal": 35, "protein": 2.5, "fat": 2.0, "carb": 2.0},
+    "standard_servings": [{"label": {"zh": "一碗(约300g)", "en": "1 bowl (~300g)"}, "grams": 300}],
+    "source": "seed"
+  },
+  {
+    "id": "seaweed_egg_soup",
+    "name": {"zh": "紫菜蛋花汤", "en": "Seaweed Egg Drop Soup"},
+    "aliases": ["紫菜汤", "Seaweed Soup"],
+    "category": "soup",
+    "per_100g": {"kcal": 30, "protein": 2.5, "fat": 1.5, "carb": 1.5},
+    "standard_servings": [{"label": {"zh": "一碗(约300g)", "en": "1 bowl (~300g)"}, "grams": 300}],
+    "source": "seed"
+  },
+  {
+    "id": "braised_pork_ribs",
+    "name": {"zh": "红烧排骨", "en": "Braised Pork Ribs"},
+    "aliases": ["烧排骨", "Braised Spare Ribs"],
+    "category": "dish",
+    "per_100g": {"kcal": 260, "protein": 16.0, "fat": 19.0, "carb": 6.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "sweetsour_ribs",
+    "name": {"zh": "糖醋排骨", "en": "Sweet and Sour Ribs"},
+    "aliases": ["糖醋小排", "Sweet and Sour Spare Ribs"],
+    "category": "dish",
+    "per_100g": {"kcal": 290, "protein": 15.0, "fat": 18.0, "carb": 15.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "cola_chicken_wings",
+    "name": {"zh": "可乐鸡翅", "en": "Cola Chicken Wings"},
+    "aliases": ["可乐翅", "Cola Wings"],
+    "category": "dish",
+    "per_100g": {"kcal": 220, "protein": 17.0, "fat": 14.0, "carb": 8.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "braised_chicken_rice",
+    "name": {"zh": "黄焖鸡", "en": "Braised Chicken"},
+    "aliases": ["黄焖鸡块", "Braised Chicken with Rice"],
+    "category": "dish",
+    "per_100g": {"kcal": 165, "protein": 13.0, "fat": 9.0, "carb": 7.0},
+    "standard_servings": [{"label": {"zh": "一份(约300g)", "en": "1 serving (~300g)"}, "grams": 300}],
+    "source": "seed"
+  },
+  {
+    "id": "dapanji",
+    "name": {"zh": "大盘鸡", "en": "Big Plate Chicken"},
+    "aliases": ["新疆大盘鸡", "Da Pan Ji"],
+    "category": "dish",
+    "per_100g": {"kcal": 155, "protein": 11.0, "fat": 8.5, "carb": 9.0},
+    "standard_servings": [{"label": {"zh": "一份(约350g)", "en": "1 serving (~350g)"}, "grams": 350}],
+    "source": "seed"
+  },
+  {
+    "id": "cumin_lamb",
+    "name": {"zh": "孜然羊肉", "en": "Cumin Lamb"},
+    "aliases": ["孜然羊肉片", "Cumin Lamb Stir-fry"],
+    "category": "dish",
+    "per_100g": {"kcal": 235, "protein": 20.0, "fat": 16.0, "carb": 4.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "jingjiang_pork",
+    "name": {"zh": "京酱肉丝", "en": "Shredded Pork in Beijing Sauce"},
+    "aliases": ["京酱肉丝", "Jing Jiang Rou Si"],
+    "category": "dish",
+    "per_100g": {"kcal": 200, "protein": 13.0, "fat": 14.0, "carb": 6.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "mushu_pork",
+    "name": {"zh": "木须肉", "en": "Moo Shu Pork"},
+    "aliases": ["木樨肉", "Mu Xu Rou"],
+    "category": "dish",
+    "per_100g": {"kcal": 130, "protein": 10.0, "fat": 8.0, "carb": 5.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "meicai_pork",
+    "name": {"zh": "梅菜扣肉", "en": "Steamed Pork with Preserved Vegetable"},
+    "aliases": ["扣肉", "梅菜扣肉", "Mei Cai Kou Rou"],
+    "category": "dish",
+    "per_100g": {"kcal": 380, "protein": 13.0, "fat": 34.0, "carb": 6.0},
+    "standard_servings": [{"label": {"zh": "一份(约150g)", "en": "1 serving (~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "steamed_pork_rice_powder",
+    "name": {"zh": "粉蒸肉", "en": "Steamed Pork with Rice Flour"},
+    "aliases": ["粉蒸排骨", "Fen Zheng Rou"],
+    "category": "dish",
+    "per_100g": {"kcal": 300, "protein": 13.0, "fat": 21.0, "carb": 14.0},
+    "standard_servings": [{"label": {"zh": "一份(约150g)", "en": "1 serving (~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "lion_head_meatball",
+    "name": {"zh": "红烧狮子头", "en": "Braised Pork Meatballs"},
+    "aliases": ["狮子头", "四喜丸子", "Lion's Head Meatball"],
+    "category": "dish",
+    "per_100g": {"kcal": 260, "protein": 13.0, "fat": 20.0, "carb": 8.0},
+    "standard_servings": [{"label": {"zh": "一份(约150g)", "en": "1 serving (~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "farmhouse_pork",
+    "name": {"zh": "农家小炒肉", "en": "Stir-fried Pork with Chili"},
+    "aliases": ["小炒肉", "辣椒炒肉", "Hunan Pork Stir-fry"],
+    "category": "dish",
+    "per_100g": {"kcal": 195, "protein": 12.0, "fat": 14.0, "carb": 6.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "potato_beef_stew",
+    "name": {"zh": "土豆炖牛肉", "en": "Beef and Potato Stew"},
+    "aliases": ["土豆烧牛肉", "Beef Stew with Potato"],
+    "category": "dish",
+    "per_100g": {"kcal": 140, "protein": 10.0, "fat": 7.0, "carb": 9.0},
+    "standard_servings": [{"label": {"zh": "一份(约250g)", "en": "1 serving (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "tomato_beef_brisket",
+    "name": {"zh": "番茄牛腩", "en": "Tomato Beef Brisket"},
+    "aliases": ["西红柿牛腩", "牛腩煲", "Tomato Beef Stew"],
+    "category": "dish",
+    "per_100g": {"kcal": 130, "protein": 11.0, "fat": 7.5, "carb": 5.0},
+    "standard_servings": [{"label": {"zh": "一份(约250g)", "en": "1 serving (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "white_cut_chicken",
+    "name": {"zh": "白切鸡", "en": "Poached Chicken"},
+    "aliases": ["白斩鸡", "Poached Chicken, Cantonese"],
+    "category": "dish",
+    "per_100g": {"kcal": 175, "protein": 20.0, "fat": 10.0, "carb": 1.0},
+    "standard_servings": [{"label": {"zh": "一份(约150g)", "en": "1 serving (~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "saliva_chicken",
+    "name": {"zh": "口水鸡", "en": "Mouth-watering Chicken"},
+    "aliases": ["红油鸡", "Kou Shui Ji"],
+    "category": "dish",
+    "per_100g": {"kcal": 195, "protein": 16.0, "fat": 13.0, "carb": 4.0},
+    "standard_servings": [{"label": {"zh": "一份(约180g)", "en": "1 serving (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "sweet_sour_pork_gulao",
+    "name": {"zh": "咕咾肉", "en": "Sweet and Sour Pork"},
+    "aliases": ["咕噜肉", "Gulao Pork", "Cantonese Sweet and Sour Pork"],
+    "category": "dish",
+    "per_100g": {"kcal": 240, "protein": 11.0, "fat": 14.0, "carb": 19.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "boiled_beef_sichuan",
+    "name": {"zh": "水煮牛肉", "en": "Sichuan Boiled Beef"},
+    "aliases": ["水煮牛", "Boiled Beef in Chili Oil"],
+    "category": "dish",
+    "per_100g": {"kcal": 175, "protein": 14.0, "fat": 11.0, "carb": 5.0},
+    "standard_servings": [{"label": {"zh": "一份(约250g)", "en": "1 serving (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "pickled_fish",
+    "name": {"zh": "酸菜鱼", "en": "Fish with Pickled Cabbage"},
+    "aliases": ["酸菜鱼片", "Suan Cai Yu"],
+    "category": "dish",
+    "per_100g": {"kcal": 110, "protein": 12.0, "fat": 5.5, "carb": 3.0},
+    "standard_servings": [{"label": {"zh": "一份(约300g)", "en": "1 serving (~300g)"}, "grams": 300}],
+    "source": "seed"
+  },
+  {
+    "id": "spicy_chicken",
+    "name": {"zh": "辣子鸡", "en": "Spicy Chicken"},
+    "aliases": ["辣子鸡丁", "Chongqing Chicken"],
+    "category": "dish",
+    "per_100g": {"kcal": 245, "protein": 18.0, "fat": 17.0, "carb": 5.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "maoxuewang",
+    "name": {"zh": "毛血旺", "en": "Maoxuewang"},
+    "aliases": ["毛血旺(麻辣)", "Spicy Duck Blood Stew"],
+    "category": "dish",
+    "per_100g": {"kcal": 150, "protein": 10.0, "fat": 11.0, "carb": 4.0},
+    "standard_servings": [{"label": {"zh": "一份(约250g)", "en": "1 serving (~250g)"}, "grams": 250}],
+    "source": "seed"
+  },
+  {
+    "id": "dry_pot_cauliflower",
+    "name": {"zh": "干锅花菜", "en": "Dry Pot Cauliflower"},
+    "aliases": ["干锅菜花", "干锅有机花菜"],
+    "category": "dish",
+    "per_100g": {"kcal": 120, "protein": 4.0, "fat": 8.5, "carb": 8.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "mala_xiangguo",
+    "name": {"zh": "麻辣香锅", "en": "Mala Xiang Guo"},
+    "aliases": ["香锅", "Spicy Stir-fry Pot"],
+    "category": "dish",
+    "per_100g": {"kcal": 185, "protein": 9.0, "fat": 13.0, "carb": 9.0},
+    "standard_servings": [{"label": {"zh": "一份(约300g)", "en": "1 serving (~300g)"}, "grams": 300}],
+    "source": "seed"
+  },
+  {
+    "id": "steamed_bass",
+    "name": {"zh": "清蒸鲈鱼", "en": "Steamed Sea Bass"},
+    "aliases": ["清蒸鱼", "Steamed Fish"],
+    "category": "dish",
+    "per_100g": {"kcal": 105, "protein": 18.0, "fat": 3.0, "carb": 1.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "boiled_shrimp",
+    "name": {"zh": "白灼虾", "en": "Boiled Shrimp"},
+    "aliases": ["白灼基围虾", "水煮虾", "Poached Shrimp"],
+    "category": "dish",
+    "per_100g": {"kcal": 100, "protein": 20.0, "fat": 1.5, "carb": 1.0},
+    "standard_servings": [{"label": {"zh": "一份(约150g)", "en": "1 serving (~150g)"}, "grams": 150}],
+    "source": "seed"
+  },
+  {
+    "id": "char_siu",
+    "name": {"zh": "叉烧", "en": "BBQ Pork"},
+    "aliases": ["叉烧肉", "蜜汁叉烧", "Char Siu"],
+    "category": "dish",
+    "per_100g": {"kcal": 230, "protein": 20.0, "fat": 12.0, "carb": 11.0},
+    "standard_servings": [{"label": {"zh": "一份(约120g)", "en": "1 serving (~120g)"}, "grams": 120}],
+    "source": "seed"
+  },
+  {
+    "id": "roast_goose",
+    "name": {"zh": "烧鹅", "en": "Roast Goose"},
+    "aliases": ["广式烧鹅", "Cantonese Roast Goose"],
+    "category": "dish",
+    "per_100g": {"kcal": 300, "protein": 19.0, "fat": 24.0, "carb": 3.0},
+    "standard_servings": [{"label": {"zh": "一份(约120g)", "en": "1 serving (~120g)"}, "grams": 120}],
+    "source": "seed"
+  },
+  {
+    "id": "yangzhou_fried_rice",
+    "name": {"zh": "扬州炒饭", "en": "Yangzhou Fried Rice"},
+    "aliases": ["扬州蛋炒饭", "Yangzhou Fried Rice"],
+    "category": "staple",
+    "per_100g": {"kcal": 165, "protein": 5.0, "fat": 6.0, "carb": 22.0},
+    "standard_servings": [{"label": {"zh": "一份(约300g)", "en": "1 serving (~300g)"}, "grams": 300}],
+    "source": "seed"
+  },
+  {
+    "id": "lanzhou_noodles",
+    "name": {"zh": "兰州拉面", "en": "Lanzhou Beef Noodles"},
+    "aliases": ["兰州牛肉面", "牛肉拉面", "Lanzhou Beef Noodle Soup"],
+    "category": "staple",
+    "per_100g": {"kcal": 105, "protein": 5.0, "fat": 3.0, "carb": 14.0},
+    "standard_servings": [{"label": {"zh": "一碗(约400g)", "en": "1 bowl (~400g)"}, "grams": 400}],
+    "source": "seed"
+  },
+  {
+    "id": "zhajiang_noodles",
+    "name": {"zh": "炸酱面", "en": "Zhajiang Noodles"},
+    "aliases": ["老北京炸酱面", "Noodles with Soybean Paste"],
+    "category": "staple",
+    "per_100g": {"kcal": 160, "protein": 6.0, "fat": 6.0, "carb": 20.0},
+    "standard_servings": [{"label": {"zh": "一碗(约350g)", "en": "1 bowl (~350g)"}, "grams": 350}],
+    "source": "seed"
+  },
+  {
+    "id": "hot_dry_noodles",
+    "name": {"zh": "热干面", "en": "Hot Dry Noodles"},
+    "aliases": ["武汉热干面", "Wuhan Hot Dry Noodles"],
+    "category": "staple",
+    "per_100g": {"kcal": 190, "protein": 6.0, "fat": 7.0, "carb": 26.0},
+    "standard_servings": [{"label": {"zh": "一碗(约300g)", "en": "1 bowl (~300g)"}, "grams": 300}],
+    "source": "seed"
+  },
+  {
+    "id": "shengjian_bao",
+    "name": {"zh": "生煎包", "en": "Pan-fried Buns"},
+    "aliases": ["生煎", "生煎馒头", "Pan-fried Pork Buns"],
+    "category": "staple",
+    "per_100g": {"kcal": 240, "protein": 7.0, "fat": 12.0, "carb": 26.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "jianbing",
+    "name": {"zh": "煎饼果子", "en": "Jianbing"},
+    "aliases": ["煎饼", "Chinese Crepe", "Jian Bing"],
+    "category": "staple",
+    "per_100g": {"kcal": 230, "protein": 7.0, "fat": 10.0, "carb": 28.0},
+    "standard_servings": [{"label": {"zh": "一个(约180g)", "en": "1 piece (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "roujiamo",
+    "name": {"zh": "肉夹馍", "en": "Roujiamo"},
+    "aliases": ["肉夹馍(腊汁肉)", "Chinese Hamburger"],
+    "category": "staple",
+    "per_100g": {"kcal": 260, "protein": 9.0, "fat": 12.0, "carb": 29.0},
+    "standard_servings": [{"label": {"zh": "一个(约180g)", "en": "1 piece (~180g)"}, "grams": 180}],
+    "source": "seed"
+  },
+  {
+    "id": "hand_pancake",
+    "name": {"zh": "手抓饼", "en": "Hand-pulled Pancake"},
+    "aliases": ["葱抓饼", "Scallion Pancake"],
+    "category": "staple",
+    "per_100g": {"kcal": 320, "protein": 6.0, "fat": 20.0, "carb": 29.0},
+    "standard_servings": [{"label": {"zh": "一张(约100g)", "en": "1 piece (~100g)"}, "grams": 100}],
+    "source": "seed"
+  },
+  {
+    "id": "youtiao",
+    "name": {"zh": "油条", "en": "Fried Dough Stick"},
+    "aliases": ["油炸鬼", "Youtiao", "Chinese Cruller"],
+    "category": "staple",
+    "per_100g": {"kcal": 390, "protein": 7.0, "fat": 22.0, "carb": 42.0},
+    "standard_servings": [{"label": {"zh": "一根(约60g)", "en": "1 stick (~60g)"}, "grams": 60}],
+    "source": "seed"
+  },
+  {
+    "id": "century_egg_pork_congee",
+    "name": {"zh": "皮蛋瘦肉粥", "en": "Century Egg Pork Congee"},
+    "aliases": ["瘦肉粥", "皮蛋粥", "Preserved Egg Congee"],
+    "category": "staple",
+    "per_100g": {"kcal": 65, "protein": 4.0, "fat": 2.0, "carb": 8.0},
+    "standard_servings": [{"label": {"zh": "一碗(约350g)", "en": "1 bowl (~350g)"}, "grams": 350}],
+    "source": "seed"
+  },
+  {
+    "id": "plain_congee",
+    "name": {"zh": "白粥", "en": "Plain Congee"},
+    "aliases": ["稀饭", "米粥", "Rice Porridge"],
+    "category": "staple",
+    "per_100g": {"kcal": 35, "protein": 0.7, "fat": 0.1, "carb": 7.5},
+    "standard_servings": [{"label": {"zh": "一碗(约300g)", "en": "1 bowl (~300g)"}, "grams": 300}],
+    "source": "seed"
+  },
+  {
+    "id": "wonton",
+    "name": {"zh": "馄饨", "en": "Wonton"},
+    "aliases": ["云吞", "抄手", "Wonton Soup"],
+    "category": "staple",
+    "per_100g": {"kcal": 145, "protein": 6.0, "fat": 5.0, "carb": 18.0},
+    "standard_servings": [{"label": {"zh": "一碗(约200g)", "en": "1 bowl (~200g)"}, "grams": 200}],
+    "source": "seed"
+  },
+  {
+    "id": "tea_egg",
+    "name": {"zh": "茶叶蛋", "en": "Tea Egg"},
+    "aliases": ["卤蛋", "Tea Leaf Egg"],
+    "category": "protein",
+    "per_100g": {"kcal": 155, "protein": 13.0, "fat": 11.0, "carb": 1.1},
+    "standard_servings": [{"label": {"zh": "一个(约50g)", "en": "1 egg (~50g)"}, "grams": 50}],
+    "source": "seed"
+  },
+  {
+    "id": "har_gow",
+    "name": {"zh": "虾饺", "en": "Shrimp Dumpling"},
+    "aliases": ["水晶虾饺", "Har Gow", "Shrimp Dumplings"],
+    "category": "dim_sum",
+    "per_100g": {"kcal": 190, "protein": 8.0, "fat": 7.0, "carb": 22.0},
+    "standard_servings": [{"label": {"zh": "三只(约90g)", "en": "3 pieces (~90g)"}, "grams": 90}],
+    "source": "seed"
+  },
+  {
+    "id": "rice_noodle_roll",
+    "name": {"zh": "肠粉", "en": "Rice Noodle Roll"},
+    "aliases": ["布拉肠", "蒸肠粉", "Steamed Rice Rolls"],
+    "category": "dim_sum",
+    "per_100g": {"kcal": 140, "protein": 5.0, "fat": 4.0, "carb": 20.0},
+    "standard_servings": [{"label": {"zh": "一份(约200g)", "en": "1 serving (~200g)"}, "grams": 200}],
+    "source": "seed"
+  }
+]

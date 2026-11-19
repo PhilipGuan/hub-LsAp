@@ -1,0 +1,13 @@
+{
+  "generated_by": "scripts/ingest_usda.py",
+  "source": "USDA FoodData Central",
+  "data_types": "Foundation, SR Legacy",
+  "api": "https://api.nal.usda.gov/fdc/v1/foods/search",
+  "license": "Public domain (USDA FoodData Central)",
+  "generated_at": "2026-11-18T19:57:23+00:00",
+  "count": 138,
+  "data_type_breakdown": {
+    "Foundation": 47,
+    "SR Legacy": 91
+  }
+}

@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+# USDA 原始响应缓存（构建期临时文件，仅 backend/data/ 下）
+/data/

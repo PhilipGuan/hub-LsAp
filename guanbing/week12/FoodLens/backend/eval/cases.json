@@ -1,0 +1,100 @@
+[
+  {
+    "id": "typical_dinner",
+    "desc": "一荤一素一主食：红烧肉 + 白米饭 + 清炒时蔬",
+    "input_text": "红烧肉、白米饭、清炒时蔬",
+    "expect_items": ["红烧肉", "白米饭", "清炒时蔬"],
+    "expect_kcal": 970
+  },
+  {
+    "id": "kungpao_set",
+    "desc": "宫保鸡丁 + 白米饭",
+    "input_text": "宫保鸡丁、白米饭",
+    "expect_items": ["宫保鸡丁", "白米饭"],
+    "expect_kcal": 420
+  },
+  {
+    "id": "tomato_egg_rice",
+    "desc": "番茄炒蛋 + 白米饭",
+    "input_text": "番茄炒蛋、白米饭",
+    "expect_items": ["番茄炒蛋", "白米饭"],
+    "expect_kcal": 330
+  },
+  {
+    "id": "mapo_tofu_rice",
+    "desc": "麻婆豆腐 + 白米饭",
+    "input_text": "麻婆豆腐、白米饭",
+    "expect_items": ["麻婆豆腐", "白米饭"],
+    "expect_kcal": 370
+  },
+  {
+    "id": "fried_rice_only",
+    "desc": "单份蛋炒饭",
+    "input_text": "蛋炒饭",
+    "expect_items": ["蛋炒饭"],
+    "expect_kcal": 250
+  },
+  {
+    "id": "dumplings",
+    "desc": "单份饺子",
+    "input_text": "饺子",
+    "expect_items": ["饺子"],
+    "expect_kcal": 360
+  },
+  {
+    "id": "new_dish_yangzhou",
+    "desc": "新增主食：扬州炒饭",
+    "input_text": "扬州炒饭",
+    "expect_items": ["扬州炒饭"],
+    "expect_kcal": 250
+  },
+  {
+    "id": "new_dish_huangmenji",
+    "desc": "新增菜肴：黄焖鸡",
+    "input_text": "黄焖鸡",
+    "expect_items": ["黄焖鸡"],
+    "expect_kcal": 250
+  },
+  {
+    "id": "new_dish_ribs_cabbage",
+    "desc": "新增菜肴组合：红烧排骨 + 手撕包菜",
+    "input_text": "红烧排骨、手撕包菜",
+    "expect_items": ["红烧排骨", "手撕包菜"],
+    "expect_kcal": 530
+  },
+  {
+    "id": "light_cold_dish",
+    "desc": "低热量冷菜：凉拌黄瓜",
+    "input_text": "凉拌黄瓜",
+    "expect_items": ["凉拌黄瓜"],
+    "expect_kcal": 70
+  },
+  {
+    "id": "light_congee",
+    "desc": "低热量主食：白粥",
+    "input_text": "白粥",
+    "expect_items": ["白粥"],
+    "expect_kcal": 50
+  },
+  {
+    "id": "alias_zh",
+    "desc": "别名归一：西红柿炒鸡蛋 -> 番茄炒蛋",
+    "input_text": "西红柿炒鸡蛋",
+    "expect_items": ["番茄炒蛋"],
+    "expect_kcal": 160
+  },
+  {
+    "id": "english_single_words",
+    "desc": "英文单词名检索（demo 按分隔符切分，需单词可独立命中）",
+    "input_text": "Pizza、Yogurt",
+    "expect_items": ["披萨", "酸奶"],
+    "expect_kcal": 510
+  },
+  {
+    "id": "natural_foods_usda",
+    "desc": "USDA 天然食物命中：三文鱼 + 西兰花",
+    "input_text": "三文鱼、西兰花",
+    "expect_items": ["三文鱼", "西兰花"],
+    "expect_kcal": 320
+  }
+]
