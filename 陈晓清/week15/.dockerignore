@@ -1,0 +1,19 @@
+# 密钥文件绝不进镜像，运行时用 env-file 传入
+.env
+
+# 本地开发产物
+**/__pycache__
+**/*.pyc
+.git
+.gitignore
+.vscode
+
+# 前端依赖和产物由构建阶段生成，不复制宿主机的
+frontend/node_modules
+frontend/dist
+
+test_llm.py
+Dockerfile
+.dockerignore
+README.md
+CLAUDE.md
