@@ -1,0 +1,7 @@
+# 可选：本地微调情感分类模型（SENTIMENT_MODEL_PATH）
+# 只在需要把进程1 换成自己的微调模型时安装。
+transformers>=4.40
+torch>=2.2
+
+# 部分 tokenizer 需要：
+# sentencepiece>=0.2

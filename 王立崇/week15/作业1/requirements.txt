@@ -1,0 +1,13 @@
+# LangGraph 版本
+langgraph>=0.2.0
+
+# OpenAI Agents 版本
+openai-agents>=0.2.0
+
+# 两套实现共用的 OpenAI 兼容客户端与配置
+openai>=1.60.0
+python-dotenv>=1.0.0
+
+# FastAPI + WebSocket 前端（--web 模式）
+fastapi>=0.110
+uvicorn[standard]>=0.29

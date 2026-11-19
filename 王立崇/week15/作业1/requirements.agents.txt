@@ -1,0 +1,10 @@
+# 作业1（openai-agents 版本）运行所需依赖，Docker 镜像使用这份清单，
+# 不安装 LangGraph 版本相关依赖，镜像更小。
+openai-agents>=0.2.0
+openai>=1.60.0
+pydantic>=2.0
+python-dotenv>=1.0.0
+
+# FastAPI + WebSocket 前端（--web 模式）
+fastapi>=0.110
+uvicorn[standard]>=0.29
