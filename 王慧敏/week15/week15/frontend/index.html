@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>情感识别与回应 · 作业1</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --text: #1f2329;
+    --muted: #8a919c;
+    --border: #e4e7eb;
+    --primary: #3b82f6;
+    --pos: #16a34a;
+    --neg: #dc2626;
+    --neu: #6b7280;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px;
+  }
+  .container { width: 100%; max-width: 640px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+  textarea {
+    width: 100%;
+    min-height: 96px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+  }
+  textarea:focus { border-color: var(--primary); }
+  .impl-row { display: flex; gap: 16px; margin: 12px 0; }
+  .impl-row label { color: var(--text); margin: 0; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  button:disabled { opacity: .6; cursor: not-allowed; }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .badge.pos { background: var(--pos); }
+  .badge.neg { background: var(--neg); }
+  .badge.neu { background: var(--neu); }
+  .reply {
+    margin-top: 12px;
+    padding: 14px;
+    background: #f0f6ff;
+    border-left: 4px solid var(--primary);
+    border-radius: 6px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+  .meta { color: var(--muted); font-size: 12px; margin-top: 8px; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>情感识别与回应服务</h1>
+    <p class="sub">作业1：进程1 情感识别 → 进程2 正向鼓励 / 负面排解（后端串联，前端输入）</p>
+
+    <div class="card">
+      <label for="input">请输入你想说的话</label>
+      <textarea id="input" placeholder="例如：今天面试通过了，太开心啦！"></textarea>
+
+      <div class="impl-row">
+        <label><input type="radio" name="impl" value="langgraph" checked /> LangGraph</label>
+        <label><input type="radio" name="impl" value="openai-agents" /> OpenAI Agents</label>
+      </div>
+
+      <button id="btn" onclick="analyze()">分析</button>
+    </div>
+
+    <div class="card" id="result" style="display:none;">
+      <label>识别结果</label>
+      <div><span id="badge" class="badge neu">中性</span></div>
+      <div class="reply" id="reply"></div>
+      <div class="meta" id="meta"></div>
+    </div>
+  </div>
+
+  <script>
+    const SENTIMENT_LABEL = { positive: '正向 😄', negative: '负面 😢', neutral: '中性 😐' };
+    const SENTIMENT_CLASS = { positive: 'pos', negative: 'neg', neutral: 'neu' };
+
+    async function analyze() {
+      const text = document.getElementById('input').value.trim();
+      if (!text) { alert('请先输入内容'); return; }
+      const impl = document.querySelector('input[name="impl"]:checked').value;
+      const btn = document.getElementById('btn');
+      btn.disabled = true;
+      try {
+        // 双击用 file:// 打开时指向本机后端；经 http://localhost:8000 访问时走同源相对路径（Docker 同理）
+        const API_BASE = location.protocol === 'file:' ? 'http://localhost:8000' : '';
+        const res = await fetch(API_BASE + '/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text, impl }),
+        });
+        const data = await res.json();
+        if (data.error) { alert(data.error); return; }
+
+        const badge = document.getElementById('badge');
+        badge.textContent = SENTIMENT_LABEL[data.sentiment] || data.sentiment;
+        badge.className = 'badge ' + (SENTIMENT_CLASS[data.sentiment] || 'neu');
+
+        document.getElementById('reply').textContent = data.response;
+        document.getElementById('meta').textContent =
+          '引擎: ' + (data.engine || data.impl) +
+          (data.reason ? ' · 理由: ' + data.reason : '');
+        document.getElementById('result').style.display = 'block';
+      } catch (e) {
+        alert('请求失败: ' + e.message);
+      } finally {
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
