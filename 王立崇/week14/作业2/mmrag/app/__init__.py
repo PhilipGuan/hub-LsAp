@@ -1,0 +1,1 @@
+"""Mini multimodal RAG demo."""

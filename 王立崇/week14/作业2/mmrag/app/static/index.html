@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>MinerU × Kafka · 多模态 RAG</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230e6b5c'/%3E%3Cpath d='M18 22h28M18 32h20M18 42h24' stroke='%23f6f2e8' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='46' cy='42' r='7' fill='%23e0a96d'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect x="3" y="3" width="34" height="34" rx="11" fill="currentColor"/>
+            <path d="M11 14h18M11 20h13M11 26h16" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="29" cy="27" r="4.5" fill="#e4ad72"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">DocuMind</div>
+          <div class="brand-sub">MinerU × Kafka RAG</div>
+        </div>
+      </div>
+
+      <div class="sidebar-scroll">
+        <section class="upload-panel">
+          <div class="section-kicker">
+            <span>上传文档</span>
+            <span class="tiny-badge">PDF</span>
+          </div>
+          <label class="dropzone" id="dropzone" for="file-input">
+            <input id="file-input" type="file" accept="application/pdf,.pdf" multiple hidden>
+            <div class="drop-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 16V5m0 0L7.5 9.5M12 5l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 15v2.5A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="drop-title">拖入 PDF，或点击选择</div>
+            <div class="drop-hint">支持多个文件 · 单个最大 <span id="max-size-label">100 MB</span></div>
+          </label>
+          <div class="upload-options">
+            <label for="tier-select">解析档位</label>
+            <select id="tier-select" aria-label="MinerU 解析档位">
+              <option value="basic">basic · 基础</option>
+              <option value="flash">flash · 极速</option>
+              <option value="standard">standard · 标准</option>
+              <option value="advanced">advanced · 增强</option>
+            </select>
+          </div>
+          <div class="upload-progress" id="upload-progress" hidden>
+            <div class="upload-progress-head">
+              <span id="upload-progress-label">上传中</span>
+              <span id="upload-progress-value">0%</span>
+            </div>
+            <div class="progress-track"><div id="upload-progress-bar"></div></div>
+          </div>
+        </section>
+
+        <section class="library-panel">
+          <div class="section-kicker">
+            <span>知识库</span>
+            <button class="icon-button" id="refresh-docs" type="button" title="刷新">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="stat-strip">
+            <div class="stat"><strong id="stat-docs">0</strong><span>已完成</span></div>
+            <div class="stat"><strong id="stat-chunks">0</strong><span>文本 / 表格</span></div>
+            <div class="stat"><strong id="stat-images">0</strong><span>图像</span></div>
+          </div>
+          <div class="doc-list" id="doc-list" aria-live="polite"></div>
+          <div class="doc-empty" id="doc-empty">
+            <div class="empty-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+            <p>知识库还是空的</p>
+            <small>上传 PDF 后会在这里显示解析状态</small>
+          </div>
+        </section>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="health-pill is-checking" id="health-pill" title="正在检查服务">
+          <span class="health-dot"></span>
+          <span id="health-label">检查服务中</span>
+        </div>
+        <div class="footer-note">Kafka 异步解析 · MinerU 版面分析 · 多模态问答</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>多模态知识问答</h1>
+          <p id="topbar-subtitle">把 PDF 变成可以看图提问的知识库</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="scope-pill" id="scope-pill" type="button" title="当前检索范围">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M7 12h10M9 17h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span id="scope-label">全部文档</span>
+          </button>
+          <button class="ghost-button" id="clear-chat" type="button">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            清空对话
+          </button>
+        </div>
+      </header>
+
+      <section class="messages" id="messages" aria-live="polite">
+        <div class="thread" id="thread"></div>
+        <div class="welcome" id="welcome">
+          <div class="welcome-art" aria-hidden="true">
+            <div class="art-card art-card-a">
+              <span class="art-line"></span><span class="art-line short"></span>
+              <div class="art-figure">
+                <svg viewBox="0 0 120 62" fill="none">
+                  <rect x="1" y="1" width="118" height="60" rx="8" fill="#fff"/>
+                  <path d="M14 46c13-5 17-17 28-17 12 0 13 12 22 12 9 0 12-19 25-21 7-1 12 2 17 7" stroke="#0e6b5c" stroke-width="2.6" stroke-linecap="round"/>
+                  <path d="M14 46V15m0 31h92" stroke="#dad5c9" stroke-width="1.4"/>
+                  <circle cx="42" cy="29" r="3.2" fill="#df9b5c"/>
+                </svg>
+              </div>
+            </div>
+            <div class="art-card art-card-b">
+              <span class="art-dot"></span>
+              <span class="art-line"></span><span class="art-line short"></span>
+            </div>
+            <div class="art-spark">✦</div>
+          </div>
+          <div class="eyebrow">MULTIMODAL RETRIEVAL</div>
+          <h2>文档里的字与图，<br><em>一起读懂。</em></h2>
+          <p class="welcome-copy">上传 PDF，MinerU 负责拆解版面与图表；Kafka 在后台排队解析。完成后，你可以直接问文字，也可以丢一张图进来，让模型结合知识库回答。</p>
+          <div class="suggestions" id="suggestions">
+            <button type="button" data-question="这份文档主要讲了什么？请分点总结。">
+              <span class="suggestion-icon">∑</span>
+              <span>总结文档核心内容</span>
+              <span class="suggestion-arrow">↗</span>
+            </button>
+            <button type="button" data-question="文档中的图片和表格分别展示了什么？请结合图片说明。">
+              <span class="suggestion-icon">◫</span>
+              <span>图文结合解读图表</span>
+              <span class="suggestion-arrow">↗</span>
+            </button>
+            <button type="button" data-question="五种 QA 问答场景有什么区别？用表格对比。">
+              <span class="suggestion-icon">≋</span>
+              <span>对比文档中的概念</span>
+              <span class="suggestion-arrow">↗</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="composer-wrap">
+        <div class="scope-bar" id="scope-bar" hidden></div>
+        <div class="composer" id="composer">
+          <div class="image-preview" id="image-preview" hidden>
+            <img id="image-preview-img" alt="待发送图片">
+            <button type="button" id="remove-image" title="移除图片">×</button>
+            <span>图片会与问题一起送给模型</span>
+          </div>
+          <textarea id="question" rows="1" placeholder="问问文档里的内容，或贴一张图一起问…" maxlength="4000" aria-label="输入问题"></textarea>
+          <div class="composer-toolbar">
+            <div class="toolbar-left">
+              <button type="button" class="attach-button" id="attach-image" title="添加图片">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="15" rx="3" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="m5.5 17 5-4.5 3.2 2.7 2.2-1.8 3.6 3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <input id="chat-image-input" type="file" accept="image/*" hidden>
+              <span class="key-hint"><kbd>Enter</kbd> 发送 · <kbd>Shift</kbd> + <kbd>Enter</kbd> 换行</span>
+            </div>
+            <button class="send-button" id="send" type="button" title="发送">
+              <span>发送</span>
+              <svg viewBox="0 0 24 24" fill="none"><path d="m5 12 14-7-4.5 14-3.2-5.3L5 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m11.3 13.7 3.8-3.9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <p class="disclaimer">回答仅基于已解析的文档资料；模型可能出错，请核对引用来源。</p>
+      </footer>
+    </main>
+  </div>
+
+  <div class="modal lightbox" id="lightbox" hidden>
+    <button class="modal-close" type="button" data-close="lightbox" aria-label="关闭">×</button>
+    <figure>
+      <img id="lightbox-img" alt="">
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
+
+  <div class="modal doc-modal" id="doc-modal" hidden>
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <div>
+          <div class="eyebrow">PARSED DOCUMENT</div>
+          <h3 id="preview-title">文档预览</h3>
+          <p id="preview-meta"></p>
+        </div>
+        <button class="modal-close static" type="button" data-close="doc-modal" aria-label="关闭">×</button>
+      </div>
+      <div class="preview-scroll">
+        <div id="preview-images" class="preview-images"></div>
+        <div id="preview-markdown" class="markdown preview-markdown"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

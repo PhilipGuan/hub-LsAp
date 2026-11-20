@@ -1,0 +1,9 @@
+fastapi==0.141.1
+uvicorn[standard]==0.53.0
+elasticsearch==9.5.1
+kafka-python==3.0.13
+python-multipart==0.0.32
+sse-starlette==3.4.11
+SQLAlchemy==2.0.52
+pydantic-settings==2.15.0
+zhipuai==2.1.5.20250725
