@@ -1,0 +1,19 @@
+{
+  "company_id": "69169043",
+  "instance_id": "uhost-1xm6kl6y2oam",
+  "instance_state": "Stopped",
+  "image_id": "compshareImage-1xmgwl4qldzx",
+  "image_name": "week14-rag-hzk-verified",
+  "image_status": "Available",
+  "region": "cn-wlcb",
+  "zone": "cn-wlcb-01",
+  "compute_usage_seconds": 11732,
+  "compute_price_cny_per_hour": 2.05,
+  "estimated_compute_cost_cny": 6.68,
+  "compute_budget_cny": 10,
+  "stopped_at": "2026-11-12T22:15:30+08:00",
+  "model": "deepseek-flash",
+  "mineru": "2.7.6 pipeline CPU",
+  "kafka": "4.0.1",
+  "api_configuration_retained_in_private_image": true
+}

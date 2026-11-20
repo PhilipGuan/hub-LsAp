@@ -1,0 +1,3 @@
+# Install in the course image's compatible Python 3.10–3.12 environment.
+# This preserves the CLI used in the course material.
+mineru[core]>=2.5,<3
