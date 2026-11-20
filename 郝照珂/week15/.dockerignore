@@ -1,0 +1,9 @@
+*
+!requirements-agents.txt
+!sentiment/
+sentiment/**
+!sentiment/__init__.py
+!sentiment/contracts.py
+!sentiment/server.py
+!sentiment/agents_workflow.py
+!sentiment/index.html
