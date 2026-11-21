@@ -334,7 +334,7 @@ SQLAlchemy(sqlite/pysqlite) → sqlite3 → SQLite C 库 → 读 chinook.db
 
 ## 9. 相关文档
 
-- [LANGCHAIN-FOR-PM.md](LANGCHAIN-FOR-PM.md) —— **面向零基础 PM 的 LangChain 入门**：用本项目讲清「LangChain 是什么、六大核心概念、怎么举一反三、AI PM 面试高频问题」。
+- [LANGCHAIN-FOR-PM.md](LANGCHAIN-FOR-PM.md) —— **面向零基础 PM 的 LangChain 入门**：用本项目讲清「LangChain 是什么、**三层概念全景（14 个概念，对齐官方框架）**、怎么举一反三、AI PM 面试高频问题」。
 - [MIGRATION.md](MIGRATION.md) —— 逐文件的**搬迁对照表**：原 notebook 的每个 cell 搬到本项目的哪个模块，哪些改了、哪些故意没改。
 - [DESIGN.md](DESIGN.md) —— **设计取舍**：两条路径为何共存、「不是所有东西都该 LangChain 化」的边界、评测装置的选型。
 - `sql-agent-langchain.ipynb` —— 把上述一切**跑给你看**的演示 notebook。

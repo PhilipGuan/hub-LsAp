@@ -4,7 +4,8 @@
 > （2）**对着本项目的代码**指出每个概念在哪；（3）把同一套思路**迁移**到别的 AI 产品上；
 > （4）在 **AI PM 面试**里答得上主流问题。
 >
-> 阅读方式：不必一次看完。**第一部分搞懂心智模型**，第二部分对照本项目代码，第三部分留给面试前刷。
+> 阅读方式：不必一次看完。**第一部分搞懂心智模型**；**第二部分先看「概念全景」总表，再看逐个展开**；
+> 第三部分举一反三；第四部分留给面试前刷。
 
 ---
 
@@ -51,9 +52,71 @@ LangChain v1（当前版本）把**复杂的流程编排**这一块，交给了�
 
 ---
 
-## 第二部分：六大核心概念 × 本项目代码
+## 第二部分：核心概念全景 × 本项目代码
+
+### 先看全景：官方心智模型与概念地图
+
+> 对齐官方文档：[LangChain overview](https://docs.langchain.com/oss/python/langchain/overview)、
+> [Agents](https://docs.langchain.com/oss/python/langchain/agents)、
+> [Middleware](https://docs.langchain.com/oss/python/langchain/middleware/overview)。
+> **本节只立框架**；细节在接下来逐个展开，或后续按需追加。
+
+#### ① 官方的一句话心智模型：`Agent = Model + Harness`
+
+官方定义：**Agent 就是「模型在循环里反复调用工具，直到任务完成」**；而 **Harness（外挂装置）
+就是那个循环之外的一切** —— 提示词、工具，以及塑造模型行为的**中间件**。
+
+> 呼应第一部分：**Model = 大脑；Harness = 手脚 + 记忆 + 流程 + 护栏。**
+> LangChain 交付的 `create_agent` 本体就是一个「**高度可配置的 harness**」：
+> 最小骨架只要 `model` + `tools`，其余能力全靠**中间件**按需加装。
+
+#### ② 官方给的 4 个核心价值（Core benefits）
+
+| 官方价值 | 一句话 | 本项目在哪 |
+|---|---|---|
+| **Standard model interface** 标准模型接口 | 一套接口通吃各家模型 / 嵌入 | `ChatOpenAI` 同一份代码接 DeepSeek & Qwen（概念 1） |
+| **Highly configurable harness** 可配置外挂 | `create_agent` 起步 + 中间件加装 | 路线 B：[agents/sql_agent.py](sqlagent/agents/sql_agent.py) |
+| **Built on top of LangGraph** 底层是 LangGraph | 白拿持久化 / 人工介入 / 断点续跑 | 路线 A：[workflow/graph.py](sqlagent/workflow/graph.py) |
+| **Debug with LangSmith** 可观测 | trace / 工具调用 / 状态流转一处看全 | ➖ **未用**（本项目用 notebook 打印 trace 代替） |
+
+#### ③ 生态定位：四个名字别搞混（官方明确区分）
+
+| 名字 | 是什么 | 什么时候用它 | 本项目 |
+|---|---|---|---|
+| **LangChain** | 高阶 harness（`create_agent`） | 快速搭一个可定制的 Agent | ✅ 路线 B |
+| **LangGraph** | 低阶编排框架 | 确定性流程与 Agent 混合、要精细控制 | ✅ 路线 A |
+| **Deep Agents** | 已「装好电池」的 harness（规划 / 文件系统 / 子 Agent / 记忆） | 不想自管基础设施，直接上生产 | ➖ 未用 |
+| **LangSmith** | 可观测 / 评测 / 调试平台 | trace、调试、评测 | ➖ 未用 |
+
+#### ④ 概念地图（本项目视角：三层 + 状态标记）
+
+标记：✅ = 本文已展开；🔍 = 已列框架、**待后续追加细节**；➖ = 本项目未用（仅备注）。
+
+| 层 | 概念 | 官方文档 | 状态 |
+|---|---|---|---|
+| **① 接入层**<br>怎么跟模型说话 | Chat Model 模型接入 | models | ✅ 概念 1 |
+| | Messages 消息 | messages | ✅ 概念 2 |
+| | Prompt Template 提示词模板 | prompts | ✅ 概念 3 |
+| | Structured Output 结构化输出 | structured-output | ✅ 概念 4 |
+| | Embeddings & Retrieval 嵌入与检索 | retrieval | 🔍 概念 14 |
+| **② 构建块**<br>怎么拼出一个 Agent | Tools 工具 | tools | ✅ 概念 5 |
+| | Agent 智能体 | agents | ✅ 概念 6 |
+| | **Middleware 中间件** | middleware | 🔍 概念 7 |
+| | **Agent State & Memory 状态与记忆** | short-term-memory | 🔍 概念 8 |
+| **③ 运行时与工程**<br>怎么让它稳在生产 | **Streaming 流式** | streaming | 🔍 概念 9 |
+| | **Context Management 上下文管理** | context-engineering | 🔍 概念 10 |
+| | **Fault Tolerance 容错** | middleware/built-in | 🔍 概念 11 |
+| | **Guardrails & HITL 护栏与人工介入** | middleware/built-in | 🔍 概念 12 |
+| | **Observability 可观测性** | langsmith | 🔍 概念 13 |
+| | Runnable / LCEL 组合协议 | lcel | ✅ 文末「附」 |
+
+> **读法**：① 是「怎么跟模型说话」，② 是「怎么拼出一个 Agent」，③ 是「怎么让它稳定跑在生产上」。
+> 先立起这三层，才不会把「一个函数」「一个框架」「一个平台」混为一谈。
+
+---
 
 下面每个概念都给你：**一句话定义 + 本项目它在哪 + 为什么要它**。
+（**概念 1–6 逐个展开**；**概念 7–14 是官方概念地图的其余部分**，本次先立框架、给对照，细节后续按需追加。）
 
 ### 概念 1：Chat Model（模型接入层）—— 「换模型只改一处」
 
@@ -71,6 +134,69 @@ ChatOpenAI(model=..., base_url=..., api_key=..., temperature=0.0)
 
 > 一个小细节值得注意：本项目**没有**把 API Key 写进全局环境变量（重写前的实现要「伪装」成
 > `OPENAI_API_KEY` 才行）。`ChatOpenAI` 支持直接传参——**更干净，也更安全**。
+
+#### 深入一层：为什么叫 `ChatOpenAI`？它能兼容 DeepSeek / Qwen 吗？
+
+**能——而且本项目默认跑的就是 DeepSeek（`deepseek-v4-flash`）。**
+
+关键点：`ChatOpenAI` 里的 "OpenAI" **指的不是「OpenAI 这家公司」，而是「OpenAI 兼容协议」**。
+OpenAI 的 Chat Completions 接口早已成为行业事实标准，DeepSeek、通义千问（DashScope 兼容模式）、
+Moonshot、智谱、vLLM、Ollama…… 都提供了「长得和 OpenAI 一模一样」的端点。
+
+> **类比**：`ChatOpenAI` 不是「只配 OpenAI 门锁的钥匙」，而是
+> **「按 OpenAI 那把锁的规格打造的钥匙」**。只要对方的门是同规格，换个地址、换把钥匙就能开。
+
+**真正实现「换一家模型」的只有 3 个参数**：
+
+| 参数 | 它决定什么 | 本项目（DeepSeek）取值 |
+|---|---|---|
+| `base_url` | **请求发到哪**（换供应商） | `https://api.deepseek.com/v1` |
+| `api_key` | **用谁的密钥**（换账号） | `$DEEPSEEK_API_KEY` |
+| `model` | **调哪一档模型** | `deepseek-v4-flash` |
+
+其余全部沿用 OpenAI 规范——消息格式（`messages`）、返回结构（`choices[0].message.content`）、
+流式、**工具调用**、**JSON 模式**——所以一行代码都不用改。
+
+在 [sqlagent/config.py](sqlagent/config.py) 里能直接看到这一点：`_PROVIDERS` 表把 `deepseek` 和 `qwen`
+并排列出，二者**只是 `base_url` / 环境变量名不同**，走的却是同一个 `ChatOpenAI`：
+
+```python
+_PROVIDERS = {
+    "deepseek": ("DEEPSEEK_API_KEY", "DEEPSEEK_BASE_URL", "DEEPSEEK_MODEL",
+                 "https://api.deepseek.com/v1", "deepseek-v4-flash"),
+    "qwen":     ("QWEN_API_KEY", "QWEN_BASE_URL", "QWEN_MODEL",
+                 "https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-plus"),
+}
+```
+
+> 注意 Qwen 那行的 URL 里有个 `compatible-mode`——**「兼容模式」四个字就是全部秘密**：
+> 阿里专门开了一个「按 OpenAI 规格说话」的入口，所以能直接被 `ChatOpenAI` 接走。
+
+**那如果对方「不是」OpenAI 兼容协议呢？** 那才需要换类：
+
+| 供应商 / 场景 | 该用的类 | 依赖包（本项目**均未安装**，仅作了解） |
+|---|---|---|
+| 一切 OpenAI 兼容端点（OpenAI / DeepSeek / Qwen 兼容模式 / Moonshot / GLM / vLLM …） | **`ChatOpenAI`** | `langchain-openai` ✅ 已装 |
+| Anthropic Claude（原生协议） | `ChatAnthropic` | `langchain-anthropic` |
+| Google Gemini（原生协议） | `ChatGoogleGenerativeAI` | `langchain-google-genai` |
+| 通义千问（DashScope 原生 SDK） | `ChatTongyi` | `langchain-community` + `dashscope` |
+| 本地 Ollama | `ChatOllama` | `langchain-ollama` |
+| DeepSeek 官方封装 | `ChatDeepSeek` | `langchain-deepseek` |
+
+本项目**刻意只用 `ChatOpenAI` + 兼容端点**：依赖最少、切换最省事。
+（LangChain 还有个统一工厂 `init_chat_model()`，能按供应商 / 模型名直接返回对应模型类，思路一样，
+理解即可——本项目没用它，因为显式写 `ChatOpenAI` 更直白、可控。）
+
+**「兼容」的真实边界（PM 必须知道的坑）**：兼容的是**基础接口**（发消息、收消息）；
+**高级能力各家支持度并不一致**——比如某些兼容端点对 tool calling、JSON 模式的支持就不完整。
+本项目为此留了个后门：用环境变量 `STRUCTURED_OUTPUT_METHOD` 在 `json_mode`（`response_format`）
+和 `function_calling`（工具调用）两条路径间切换（见 [sqlagent/llm.py](sqlagent/llm.py#L29-L33)）——
+**这就是「换模型只改一处」在真实世界里的样子：主路径不动，只留一个可控的开关。**
+
+**面试一句话**：
+> `ChatOpenAI` 接的是「OpenAI **兼容协议**」，不是「OpenAI 这家公司」。DeepSeek、Qwen 都提供兼容端点，
+> 所以换 `base_url` / `api_key` / `model` 三个参数即可。它体现的是「**协议标准化 → 供应商可替换**」；
+> 但要注意兼容的只是**基础接口**，高级能力（工具调用、结构化输出）各家仍有差异，必须在测试里覆盖。
 
 ### 概念 2：Messages（消息）—— 「对话是有角色的」
 
@@ -151,6 +277,131 @@ class ScopeJudgement(BaseModel):
 > **这是 AI PM 最该有的一种判断力**：不是所有场景都该上「自主 Agent」。
 > 流程稳定的业务（取数、审批、报表）用「固定流水线」更可靠、更省钱、更好排查。
 > 只有「路径无法预先穷举」的场景才值得交给 Agent 自主决策。
+
+### 概念 7：Middleware（中间件）—— 「在 Agent 循环的钩子上做手脚」🔍
+
+- **是什么**：官方把「Agent 循环」拆成几步（调模型 → 选工具 → 执行工具 → 再调模型……），
+  **中间件就是在这些步骤前后挂的钩子**：改写提示词、裁剪可选工具、加重试 / 兜底、限流、
+  护栏、PII 脱敏、对话摘要压缩、人工介入……官方内置了 `SummarizationMiddleware`、
+  `HumanInTheLoopMiddleware` 等一批现成的。
+- **本项目在哪**：官方路线是「`create_agent` + `middleware=[...]`」；本项目走**等价但手写**的形态 ——
+  三道闸门（[chatbi.py](sqlagent/chatbi.py)）、重试封装（[llm.py](sqlagent/llm.py)）、
+  改写回环（[workflow/graph.py](sqlagent/workflow/graph.py)）。**位置相同，实现方式不同。**
+- **为什么重要**：中间件是官方推荐的「**能力加装点**」——把「重试、护栏、压缩、人工介入」从散落
+  代码收成**可插拔的标准位**。这正是「Agent = Model + Harness」里 harness 的主要形态。
+
+### 概念 8：Agent State & Memory（状态与记忆）🔍
+
+- **是什么**：每个 Agent 自带一个**类型化字典** `AgentState` 装执行上下文；内置字段只有
+  `messages`（整段对话历史，**只追加、不覆盖**）。要加自己的字段（`user_id`、计数器……），
+  就**继承 `AgentState`**，用 `state_schema=` 传进 `create_agent`。
+- **两类记忆**：**短期记忆** = 当前这条对话的历史（靠 `checkpointer` + `thread_id` 持久化与续聊）；
+  **长期记忆** = 跨会话保留的用户偏好等。
+- **本项目在哪**：手写实现了两处 ——
+  - `WorkflowState`（[workflow/graph.py](sqlagent/workflow/graph.py#L44-L55)）就是本项目的「Agent State」；
+  - `ChatBI` 的 `self.history` + `max_history=5` 就是**短期记忆**（[chatbi.py](sqlagent/chatbi.py#L112-L115)）。
+- **为什么重要**：**没有状态，就没有「多轮」**。官方把状态标准化后，持久化 / 断点续跑 / 人工介入
+  才能「免费」拿到（本项目的手写版做不到断点续跑）。
+
+### 概念 9：Streaming（流式）🔍
+
+- **是什么**：不憋一大段再吐，而是**边生成边输出**（`agent.stream(...)` / `astream(...)`）；
+  可只流「最终文本」，也可流「每步事件 + 工具调用 + 状态变化」。
+- **本项目在哪**：➖ **未用**（notebook / CLI 都是一次性返回）。
+- **为什么重要**：**首字延迟**是 AI 产品体验的第一指标；链路越长越要流式，否则用户要干等十几秒。
+  它也是「可观测」的前置。
+
+### 概念 10：Context Management（上下文工程）🔍
+
+- **是什么**：官方一句话——harness 的职责就是「**在对的时间，把对的上下文喂给模型**」；
+  手段包括对话摘要压缩、动态提示词、只给相关工具、检索外部记忆。
+- **本项目在哪**：🔍 部分体现 —— `schema_context(tables)` 只喂**选中表的 schema**（不是全库），
+  `rewrite_followup` 只取最近 5 轮历史，都是「**控制上下文体积**」的做法；
+  但**没有**官方的自动摘要压缩。
+- **为什么重要**：上下文越长 ≠ 越好；**噪声会同时抬高成本、拉低准确率**。
+
+### 概念 11：Fault Tolerance（容错）🔍
+
+- **是什么**：重试（`tool_retry` / `.with_retry`）、模型兜底（`model_fallback`）、调用上限
+  （`model_call_limit`）等；官方把它收进**中间件**与 **Runnable** 两层。
+- **本项目在哪**：`build_chat_model()` 的 `with_retry(stop_after_attempt=3)` 与流水线的
+  **改写回环**（`MAX_REWRITE=3`）——前者防**网络 / 接口**抖动，后者防**模型生成错 SQL**。
+- **为什么重要**：LLM 调用天然不可靠；**没有容错的 Agent 不能上生产**。
+
+### 概念 12：Guardrails & HITL（护栏与人工介入）🔍
+
+- **是什么**：**护栏** = 拦非法 / 越权的输入输出（限流、PII 检测、越界拒绝）；
+  **HITL（Human-in-the-loop）** = 关键动作**暂停等人工批准**（如「发邮件」「退款」「执行写操作」）。
+  官方形态：`HumanInTheLoopMiddleware(interrupt_on={"send_email": True})`。
+- **本项目在哪**：护栏已做（只读守卫 + 三道闸门，且**做进代码结构**，见概念 5 与面试 Q4）；
+  HITL ➖ 未用，但 [workflow/graph.py](sqlagent/workflow/graph.py#L6-L8) 的注释已点明
+  「接 `checkpointer` / `interrupt_before` 即可支持人工介入」。
+- **为什么重要**：**「模型自主」与「业务可控」天生矛盾**，护栏与 HITL 就是那道闸。
+
+### 概念 13：Observability（可观测性 / LangSmith）🔍
+
+- **是什么**：把一次 Agent 运行看成**可回放的 trace** —— 每一步的提示词、模型输出、
+  工具入参出参、状态流转、耗时与成本。官方用 LangSmith（`LANGSMITH_TRACING=true` 即接入）。
+- **本项目在哪**：➖ LangSmith 未用；但项目自己的 **L0–L5 逐层裁判 + trace 字典**就是
+  「不依赖平台的可观测」雏形（见 [README.md](README.md) 第 5 节）。
+- **为什么重要**：Agent 出错时，**「哪一跳错了」比「错了」重要 100 倍**——这正是逐层评测的价值。
+
+### 概念 14：Retrieval / RAG（嵌入与检索增强）🔍
+
+- **是什么**：把外部知识（文档 / 库）先**检索**出来、拼进上下文、再让模型作答；
+  核心件是 **Embeddings（嵌入）+ 向量库 + Retriever**。
+- **本项目在哪**：➖ **本项目不是 RAG，而是 Text-to-SQL** ——它不从文档里「找相似答案」，
+  而是把自然语言**编译成 SQL** 去查结构化数据。两者常被混淆，但一个是「检索相似文本」，
+  一个是「生成并执行查询」。
+- **为什么重要**：这是面试高频对比题；也是本项目后续若要接「表结构说明文档 / 指标口径库」时的自然扩展点。
+
+#### 深入一层：`Embeddings` 抽象类 —— 为什么「实现它几乎零成本」
+
+前面在 [概念 1](#深入一层为什么叫-chatopenai它能兼容-deepseek--qwen-吗) 讲过 `ChatOpenAI`：
+它管的是**文字进、文字出**。而在 RAG 里还有一类角色管**文字进、向量出**——
+它就是 `Embeddings`，LangChain 里与之对位的抽象类。
+
+**它只规定了两个方法**（这就是「几乎零成本」的全部原因）：
+
+```python
+from langchain_core.embeddings import Embeddings
+
+class Embeddings(ABC):
+    def embed_documents(self, texts: list[str]) -> list[list[float]]: ...  # 批量：建库时用
+    def embed_query(self, text: str) -> list[float]: ...                   # 单条：用户提问时用
+```
+
+**为什么只要这两个方法就够了**：所有上层零件——向量库（Chroma、`InMemoryVectorStore`）、
+检索器（Retriever）、混合召回与 RRF 融合、评测脚本——**都只调用这两个方法**，
+它们**从不关心背后是阿里云、OpenAI 还是你手写的假函数**。
+
+> **类比**：抽象类 = **插座规格**（两孔还是三孔），实现 = **具体电器**。
+> 只要插头对得上，家里换台电器不需要改墙上的插座。
+> 所以「能不能换向量服务」这个问题，在代码里的判据就是一句话：
+> **上层有没有只依赖抽象类？** 依赖了，换模型就是换一个构造函数参数。
+
+**在本项目（07）里为什么用不到**：07 是 Text-to-SQL，不向量化，所以全仓库
+**没有一个 `Embeddings` 实现**——这正是它与 RAG 的分界线。
+
+**在隔壁 08 项目（TikTok LIVE RAG）里，这套抽象立刻兑现成两笔收益**：
+
+| 场景 | 实现类 | 收益 |
+|---|---|---|
+| 真实检索、跑评测 | `OpenAIEmbeddings`（把 `base_url` 指向 DashScope 国际站） | 只改 3 个参数就接入 `text-embedding-v4`，零自研代码 |
+| 单元测试 `pytest` | 自己写 ~20 行的 `FakeEmbeddings(Embeddings)`，返回**确定性假向量** | 整条「切块 → 入库 → 召回 → 融合」链路**不打网络、毫秒级、离线可跑、零额度消耗** |
+
+**PM 必须知道的一条「抽象类不保证」的隐形契约**：`embed_query` 与 `embed_documents`
+**必须来自同一个模型、同一维度**。抽象类只管方法签名，**不管语义**——如果文档用 A 模型入库、
+查询用 B 模型编码，两个向量不在同一个空间里，算出来的相似度是纯噪声。
+这是典型的「**接口对得上，语义对不上**」，也是 RAG 效果差最常见的隐藏原因之一。
+
+**面试一句话**：
+> `Embeddings` 是 LangChain 管「文字 → 向量」的抽象类，只要求 `embed_documents` 和 `embed_query`
+> 两个方法；上层全部只依赖这个抽象，所以换向量服务 = 换一个实现类。
+> 它体现的是「**面向接口编程**」：真实后端与测试假后端可以互换，
+> 但要注意查询与文档必须同模型同维度——**接口一致不等于语义一致**。
+
+> 概念 7–14 本次**只立框架、给对照**；后续学习时我们再把每一条**逐个展开**（按你的兴趣挑顺序即可）。
 
 ### 附：Runnable 与 LCEL（一个技术名词，理解即可）
 
