@@ -1,0 +1,13 @@
+# Web 框架
+fastapi>=0.110
+uvicorn[standard]>=0.29
+
+# 两种编排框架
+langgraph>=0.2
+openai-agents>=0.0.7
+
+# LLM 客户端（两个框架底层都依赖 OpenAI 兼容接口）
+openai>=1.40
+
+# 环境变量
+python-dotenv>=1.0
