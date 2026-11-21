@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>情感识别平台</title>
+  <style>
+    body {
+      font-family: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      padding: 48px 16px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      padding: 32px;
+      width: 100%;
+      max-width: 560px;
+      box-sizing: border-box;
+    }
+    h1 { font-size: 24px; margin: 0 0 8px; }
+    .sub { color: #888; margin: 0 0 24px; font-size: 14px; }
+    textarea {
+      width: 100%;
+      height: 120px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 15px;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    textarea:focus { outline: none; border-color: #4a6cf7; }
+    button {
+      margin-top: 16px;
+      background: #4a6cf7;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 28px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:disabled { background: #a9b8f5; cursor: not-allowed; }
+    #result { margin-top: 24px; display: none; }
+    #result.show { display: block; }
+    #emotion { font-weight: 600; margin-bottom: 8px; }
+    #reply {
+      background: #f8f9fd;
+      border-left: 3px solid #4a6cf7;
+      padding: 12px 16px;
+      border-radius: 4px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    #error { color: #d64545; margin-top: 16px; display: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>情感识别平台</h1>
+    <p class="sub">输入一段情感描述，AI 会识别你的情绪并给出回应</p>
+    <textarea id="text" placeholder="例如：今天加班到很晚，项目还出了问题，心情特别低落……"></textarea>
+    <button id="submit">识别情感</button>
+    <div id="error"></div>
+    <div id="result">
+      <div id="emotion"></div>
+      <div id="reply"></div>
+    </div>
+  </div>
+  <script>
+    const POLARITY_TEXT = { positive: '正向', negative: '负向', neutral: '中性' };
+    const btn = document.getElementById('submit');
+    const errorEl = document.getElementById('error');
+    const resultEl = document.getElementById('result');
+
+    btn.onclick = async () => {
+      const text = document.getElementById('text').value.trim();
+      errorEl.style.display = 'none';
+      resultEl.classList.remove('show');
+      if (!text) {
+        errorEl.textContent = '请先输入一段情感描述';
+        errorEl.style.display = 'block';
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = '识别中…';
+      try {
+        const res = await fetch('/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || '服务异常');
+        const polarity = POLARITY_TEXT[data.polarity] || data.polarity;
+        document.getElementById('emotion').textContent = `识别到的情感：${data.emotion}（${polarity}）`;
+        document.getElementById('reply').textContent = data.response;
+        resultEl.classList.add('show');
+      } catch (err) {
+        errorEl.textContent = '识别失败：' + err.message;
+        errorEl.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '识别情感';
+      }
+    };
+  </script>
+</body>
+</html>
