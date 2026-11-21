@@ -1,0 +1,5 @@
+langgraph>=0.2.60
+langchain-openai>=0.2.10
+fastapi>=0.115.0
+uvicorn>=0.32.0
+requests>=2.32.0
