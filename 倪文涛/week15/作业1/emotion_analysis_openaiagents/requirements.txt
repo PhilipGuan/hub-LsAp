@@ -1,0 +1,10 @@
+# Python 3.12 / Conda badou_env3.12; compatible Agents SDK and OpenAI client.
+fastapi==0.139.0
+uvicorn==0.51.0
+aiokafka==0.15.0
+openai-agents==0.20.0
+openai==2.54.0
+httpx==0.28.1
+streamlit==1.59.2
+pydantic-settings==2.14.2
+pydantic==2.13.4
