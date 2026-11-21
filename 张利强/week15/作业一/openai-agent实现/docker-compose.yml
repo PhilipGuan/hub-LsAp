@@ -1,0 +1,87 @@
+# 一套编排同时管理基础设施与三个业务进程：
+#   docker compose up -d --build      # 启动全部（Kafka + Redis + 情感识别 + 响应 + API）
+#   docker compose logs -f api        # 查看某个服务日志
+#   docker compose down               # 停止并删除容器
+# 三个业务进程的公共配置，具体服务通过 <<: *app 复用
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: support-agent:latest
+  env_file:
+    - .env
+  environment:
+    # 让编排层注入的值优先于镜像内（如果有）的 .env
+    DOTENV_OVERRIDE: "false"
+    # 容器内走 compose 网络，不能用 localhost
+    KAFKA_BOOTSTRAP: kafka:29092
+    REDIS_URL: redis://redis:6379/0
+  depends_on:
+    kafka:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+  restart: unless-stopped
+
+services:
+  kafka:
+    image: apache/kafka:3.9.1
+    container_name: support-kafka
+    ports:
+      # 宿主机仍可用 localhost:9092 访问（与本地 python -m backend.xxx 方式兼容）
+      - "9092:9092"
+    environment:
+      # 单节点 KRaft，监听器同时承担 broker 与 controller 角色
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      # PLAINTEXT 给宿主机 / 容器外使用；INTERNAL 给 compose 网络内的容器使用
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,INTERNAL://0.0.0.0:29092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,INTERNAL://kafka:29092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,INTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 3
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  redis:
+    image: redis:7-alpine
+    container_name: support-redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+
+  # 三个业务进程共用同一个镜像与配置，仅 command 不同
+  sentiment:
+    <<: *app
+    command: ["python", "-m", "backend.sentiment_service"]
+
+  response:
+    <<: *app
+    command: ["python", "-m", "backend.response_service"]
+
+  api:
+    <<: *app
+    command: ["uvicorn", "backend.api:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
