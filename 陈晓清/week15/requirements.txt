@@ -1,0 +1,11 @@
+# 直接依赖，版本与本机 py312 环境一致
+fastapi==0.162.5
+uvicorn[standard]==0.54.0
+aiokafka==0.15.0
+pydantic==2.14.3
+python-dotenv==1.2.2
+openai==2.54.0
+langchain==1.4.0
+langgraph==1.2.11
+langchain-openai==1.4.1
+openai-agents==0.20.0
