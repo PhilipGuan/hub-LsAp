@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk -F/ '{indent=\"\"; for\\(i=1;i<NF;i++\\) indent=indent\"    \"; print indent $NF}')",
+      "Bash(python3 -m py_compile main.py config.py schemas.py prompts.py pipelines/__init__.py pipelines/langgraph_impl.py pipelines/agents_impl.py tests/test_pipeline.py)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -m pytest tests/ -v)",
+      "Bash(python3 -m pytest tests/)",
+      "Bash(uvicorn main:app --port 8101)",
+      "Bash(curl -s http://127.0.0.1:8101/api/health)",
+      "Bash(kill %1)",
+      "Bash(fastapi dev *)",
+      "Bash(curl -s http://127.0.0.1:8102/api/health)"
+    ]
+  }
+}

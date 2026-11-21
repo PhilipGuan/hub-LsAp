@@ -1,0 +1,7 @@
+# 作业2 镜像专用依赖：openai-agents 版本
+# 镜像内固定 PIPELINE_ENGINE=openai-agents，无需 langgraph/langchain（减小镜像体积）
+fastapi>=0.110
+uvicorn>=0.29
+pydantic>=2.6
+openai-agents>=0.1
+python-dotenv>=1.0
