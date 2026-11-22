@@ -1,0 +1,25 @@
+# 版本控制 / IDE
+.git
+.gitignore
+.vscode
+__pycache__
+*.py[cod]
+*.egg-info
+
+# 本地密钥与环境，绝不能打进镜像；运行时用 --env-file / -e 注入
+.env
+.env.*
+.venv
+venv
+
+# 与本镜像无关的代码（LangGraph 版本）
+langgraph_app
+run_langgraph.py
+demo.py
+
+# 文档与构建产物
+README.md
+*.md
+*.tar
+dist
+build

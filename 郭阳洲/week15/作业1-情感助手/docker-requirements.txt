@@ -1,0 +1,6 @@
+openai-agents
+fastapi
+uvicorn[standard]
+python-dotenv
+jinja2
+pydantic

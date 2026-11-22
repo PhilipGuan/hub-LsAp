@@ -1,0 +1,96 @@
+{
+  "started": 1794492306.0394897,
+  "checks": {
+    "redis_demo_cross_process": true,
+    "kafka_demo_produce_consume": true,
+    "batch_upload_real_mineru": true,
+    "mineru_preserved_images": true,
+    "text_question_mixed_image_answer": true,
+    "image_and_question_real_llm": true,
+    "redis_restores_multiturn_history": true
+  },
+  "states": {
+    "73e9876ab8404df7a1544e9d0e378676": [
+      "queued",
+      "parsing",
+      "completed"
+    ],
+    "6b625106315541289772b453bc75d0df": [
+      "queued",
+      "parsing",
+      "completed"
+    ]
+  },
+  "documents": [
+    {
+      "id": "73e9876ab8404df7a1544e9d0e378676",
+      "name": "DeepResearch课程样本.pdf",
+      "status": "queued"
+    },
+    {
+      "id": "6b625106315541289772b453bc75d0df",
+      "name": "Agent课程样本.pdf",
+      "status": "queued"
+    }
+  ],
+  "text_answer": {
+    "answer": "## 一、核心差异：RAG 维护“会话”，DeepResearch 维护“研究任务”\n\n资料明确指出，Deep Research 与普通 RAG 的差异不在于是否使用搜索，而在于**是否需要持续维护研究状态**[1]。\n\n- **RAG**：主要完成“检索—上下文构造—生成”，其基本执行单位仍然是一轮 Query；状态管理属于**会话级**[1][2]。\n- **DeepResearch**：需要维护一个**不断演化的状态**，状态管理属于**任务级**，动态规划强、多轮检索、证据验证与研究重规划都是核心能力[1][2]。\n\n从输入输出看，DeepResearch 的输入是 **Research Goal（研究目标）**，输出更适合定义为 **Research Artifact（研究报告）**，而不是一轮问答答案[1]。\n\n| 维度 | Search | RAG | Deep Research |\n|---|---|---|---|\n| 核心对象 | Query | Query | Research Task |\n| 检索轮次 | 一次 | 一次/少量 | 多轮 |\n| 动态规划 | 无 | 弱 | 强 |\n| 状态管理 | 无 | 会话级 | 任务级 |\n| 证据验证 | 无 | 有限 | 核心 |\n| 研究重规划 | 无 | 一般无 | 核心 |\n\n（来源：[2]）\n\n## 二、DeepResearch 需要维护的研究状态\n\n资料直接列出 DeepResearch 需维护的演化状态包括：**Research Plan、Research Task、Evidence、Open Question、Gap**[1]。逐项解释如下：\n\n1. **Research Plan（研究计划）**\n   将开放问题转换为可执行研究问题和任务依赖，属于“研究规划”能力；后续会随第一轮资料发现的新实体、矛盾信息而调整[1][2]。\n\n2. **Research Task（研究任务）**\n   是 DeepResearch 的核心执行对象，区别于 RAG 的 Query；多轮检索由研究任务驱动，而非单次查询[2]。\n\n3. **Evidence（证据）**\n   记录证据与结论的支持关系、来源可信度和冲突判断；证据验证是 DeepResearch 的核心能力，而 RAG 中很有限[1][2]。\n\n4. **Open Question（开放问题）**\n   系统需要持续判断“当前已经知道什么”“哪些信息仍然缺失”，即把未解决问题显式保留在状态中，而不是一次性生成[1]。\n\n5. **Gap（研究缺口）**\n   系统判断“下一步应该从哪里补充”“哪些结论已经具备足够证据”；出现“缺少证据”时回到研究任务继续循环[1]。\n\n此外，研究开始前还需固定若干业务对象，作为研究状态的约束基础[1]：\n\n| 业务对象 | 关键字段 | 设计目的 |\n|---|---|---|\n| Research Goal | objective、scope | 明确研究目标 |\n| Research Scope | entity、time、region | 控制研究边界 |\n| Constraint | source、budget、deadline | 限制资源消耗 |\n| Deliverable | report_type、depth | 明确输出要求 |\n| Decision Boundary | allowed_action | 明确业务责任 |\n\n（来源：[1]）\n\n## 三、资料中的流程图\n\n### 1. Search / RAG / DeepResearch 执行路径对比\n\n下图直观展示了三者的差异：Search 与 RAG 都是单向流程，而 DeepResearch 在 **Plan → Research Tasks → Gap Analysis → Research Report** 之间形成了“缺少证据则回流”的循环，这正是状态维护的体现[1]。\n\n![Search、RAG 与 DeepResearch 执行路径对比](/assets/73e9876ab8404df7a1544e9d0e378676-3nno7ru_/73e9876ab8404df7a1544e9d0e378676/auto/images/0ad708f34187aa53147e5a4d2c407f94e3815165352f34edf99b0686bca04c8a.jpg)\n\n### 2. DeepResearch 七组一级能力流程\n\n下图展示从需求定义到成果生成的能力链路，其中“研究缺口”会回流至“研究规划/信息获取”环节，对应 Gap 与 Open Question 的状态维护[2]。\n\n![DeepResearch 七组一级能力流程](/assets/73e9876ab8404df7a1544e9d0e378676-3nno7ru_/73e9876ab8404df7a1544e9d0e378676/auto/images/18104928ad593eb5e983f768be454b5cfee4f9f23d0c39b17241d7476307fc87.jpg)\n\n七组能力分别为：需求定义、研究规划、信息获取、资料理解、证据判断、研究综合、成果生成[2]。这一链路之所以成立，正是因为 Plan、Task、Evidence、Gap 等研究状态被显式保存并持续更新，而固定 RAG Pipeline 无法承载这种动态研究能力[1]。\n\n## 四、小结\n\n相较 RAG 的“会话级、单轮、弱状态”，DeepResearch 需要维护的是**任务级的演化研究状态**：以 Research Goal 为起点，持续维护 Research Plan、Research Task、Evidence、Open Question 和 Gap，并通过研究规划与缺口分析的循环实现多轮研究与证据验证，最终产出 Research Report[1][2]。\n\n> 说明：资料中关于 Agent 通用循环（Goal → Gap Analysis → Observe → Choose Tool → Act → Verify）的图来自 Agent 课程样本[3]，并非 DeepResearch 专属流程图，故未作为主要图示；如需可另行对照说明。",
+    "sources": [
+      {
+        "id": 1,
+        "document_id": "73e9876ab8404df7a1544e9d0e378676",
+        "name": "DeepResearch课程样本.pdf",
+        "excerpt": "# 01 DeepResearch功能设计\n\nRAG面向的是普通事实问答，DeepResearch面向的是具有开放性、信息分散、多来源、长周期和证据要求的研究任务。DeepResearch系统需要在执行过程中持续判断“当前已经知道什么”“哪些信息仍然缺失”“下一步应该从哪里补充”“哪些结论已经具备足够证据”。\n\nDeep Research 的输入是Research Goal（研究目标），输出更适合定义为 Research Artifact（研究报告）。企业 Deep Research 实践也强调复杂研究需要明确研究过程、任务管理和人工介入，而不是让模型完全自由运行。\n\n<table><tr><td>业务对象</td><td>关键字段</td><td>设计目的</td></tr><tr><td>Research Goal</td><td>objective、scope</td><td>明确研"
+      },
+      {
+        "id": 2,
+        "document_id": "73e9876ab8404df7a1544e9d0e378676",
+        "name": "DeepResearch课程样本.pdf",
+        "excerpt": "# 01 DeepResearch功能设计\n<table><tr><td>维度</td><td>Search</td><td>RAG</td><td>Deep Research</td></tr><tr><td>核心对象</td><td>Query</td><td>Query</td><td>Research Task</td></tr><tr><td>检索轮次</td><td>一次</td><td>一次/少量</td><td>多轮</td></tr><tr><td>动态规划</td><td>无</td><td>弱</td><td>强</td></tr><tr><td>状态管理</td><td>无</td><td>会话级</td><td>任务级</td></tr><tr><td>证据验证</td><td>无</td><td>有限</td><td>核心</td></tr><tr><td>研究"
+      },
+      {
+        "id": 3,
+        "document_id": "6b625106315541289772b453bc75d0df",
+        "name": "Agent课程样本.pdf",
+        "excerpt": "# 01 Agent与外部交互\n\n传统 LLM 的核心模式是“输入文本，生成文本”。即使模型具备很强的推理能力，如果没有连接外部环境，它看到的信息仍然主要来自当前 Context 和模型已有知识。\n\nAgent 的重要变化，是在 LLM 外部加入 Tool、Environment 和 Execution Loop。模型可以根据目标决定是否调用搜索、网页读取、数据库、文件系统或浏览器等工具，并把工具返回的真实环境状态重新放入 Context，继续判断下一步动作。\n\nAgent 能够观察环境、选择动作、执行工具，并根据环境反馈持续调整行为。\n\n![](/assets/6b625106315541289772b453bc75d0df-esxhq4f9/6b625106315541289772b453bc75d0df/auto/images/8eb00166d274138309c1b9da4033"
+      },
+      {
+        "id": 4,
+        "document_id": "6b625106315541289772b453bc75d0df",
+        "name": "Agent课程样本.pdf",
+        "excerpt": "# 01 Agent与外部交互\n<table><tr><td>子任务</td><td>更适合的能力</td><td>主要目标</td></tr><tr><td>找到价格来源</td><td>Search</td><td>发现信息在哪里</td></tr><tr><td>阅读官方价格页</td><td>Fetch</td><td>获取页面原文</td></tr><tr><td>打开业务后台</td><td>Browser</td><td>获取当前页面状态</td></tr><tr><td>设置筛选条件</td><td>Browser Action</td><td>改变页面状态</td></tr><tr><td>检查筛选结果</td><td>Observation</td><td>判断动作结果</td></tr><tr><td>准备导出</td><td>Browser / API</td><t"
+      }
+    ]
+  },
+  "vision_answer": {
+    "answer": "## 结论：DeepResearch 的核心对象是 **Research Task（研究任务）**\n\n对比表中的“核心对象”一行显示：Search 与 RAG 的核心对象都是 **Query**，而 Deep Research 的核心对象是 **Research Task** [2]。\n\n这张图展示的实际上是三条执行路径的对比：Search 走“搜索→搜索结果”，RAG 走“Retrieval→Answer”，而 DeepResearch 走“Plan→Research Tasks→Gap Analysis→Research Report”[1]。\n\n![Search、RAG 与 DeepResearch 执行路径对比](/assets/73e9876ab8404df7a1544e9d0e378676-3nno7ru_/73e9876ab8404df7a1544e9d0e378676/auto/images/0ad708f34187aa53147e5a4d2c407f94e3815165352f34edf99b0686bca04c8a.jpg)\n\n## 结合知识库的说明\n\n### 1. 为什么不能是 Query\n\nRAG 的基本执行单位仍然是一轮 Query，完成“检索—上下文构造—生成”后就结束[1]。而 DeepResearch 面向开放性、信息分散、多来源、长周期和证据要求高的研究任务，需要持续判断“当前已经知道什么”“哪些信息仍然缺失”“下一步应该从哪里补充”“哪些结论已经具备足够证据”[1]。因此，它以**研究任务**为执行单位，不以单次查询为执行单位。\n\n### 2. Research Task 所处的状态体系\n\n图右侧的 DeepResearch 路径中，`Plan` 之后进入 **Research Tasks**，再由 `Gap Analysis` 判断：缺少证据则回流到 Research Tasks 继续研究，完成则输出 Research Report[1]。这说明 Research Task 是会根据证据缺口被反复规划、执行和重规划的任务单元。\n\n与之配套维护的演化状态包括：**Research Plan、Research Task、Evidence、Open Question、Gap** [1]。其中：\n\n- 状态管理是**任务级**，不是 RAG 的会话级；\n- 检索是**多轮**；\n- 动态规划“强”，研究重规划是“核心” [2]。\n\n### 3. 输入与输出也印证“任务”定位\n\nDeep Research 的输入是 **Research Goal（研究目标）**，输出更适合定义为 **Research Artifact（研究报告）**[1]。围绕研究目标固定下来的业务对象包括 Research Goal、Research Scope、Constraint、Deliverable、Decision Boundary[1]，它们约束的正是 Research Task 的边界与产出，而非一次 Query。\n\n### 4. 任务级的七组能力链路\n\n下方流程图进一步展示了支撑 Research Task 的能力链路：需求定义 → 研究规划 → 信息获取 → 资料理解 → 证据判断 → 研究综合 → 成果生成，并且“研究缺口”会回流到研究规划[2]。这正是任务级研究状态的闭环，而非固定 RAG Pipeline 能承载的单轮流程[1]。\n\n![DeepResearch 七组一级能力流程](/assets/73e9876ab8404df7a1544e9d0e378676-3nno7ru_/73e9876ab8404df7a1544e9d0e378676/auto/images/18104928ad593eb5e983f768be454b5cfee4f9f23d0c39b17241d7476307fc87.jpg)\n\n## 一句话总结\n\n图中的 `Research Tasks` 节点就是 DeepResearch 的核心对象；区别于 Search/RAG 的 **Query**，DeepResearch 以 **Research Task** 为单位组织多轮检索、证据验证与研究重规划，最终产出研究报告[1][2]。",
+    "sources": [
+      {
+        "id": 1,
+        "document_id": "73e9876ab8404df7a1544e9d0e378676",
+        "name": "DeepResearch课程样本.pdf",
+        "excerpt": "# 01 DeepResearch功能设计\n\nRAG面向的是普通事实问答，DeepResearch面向的是具有开放性、信息分散、多来源、长周期和证据要求的研究任务。DeepResearch系统需要在执行过程中持续判断“当前已经知道什么”“哪些信息仍然缺失”“下一步应该从哪里补充”“哪些结论已经具备足够证据”。\n\nDeep Research 的输入是Research Goal（研究目标），输出更适合定义为 Research Artifact（研究报告）。企业 Deep Research 实践也强调复杂研究需要明确研究过程、任务管理和人工介入，而不是让模型完全自由运行。\n\n<table><tr><td>业务对象</td><td>关键字段</td><td>设计目的</td></tr><tr><td>Research Goal</td><td>objective、scope</td><td>明确研"
+      },
+      {
+        "id": 2,
+        "document_id": "73e9876ab8404df7a1544e9d0e378676",
+        "name": "DeepResearch课程样本.pdf",
+        "excerpt": "# 01 DeepResearch功能设计\n<table><tr><td>维度</td><td>Search</td><td>RAG</td><td>Deep Research</td></tr><tr><td>核心对象</td><td>Query</td><td>Query</td><td>Research Task</td></tr><tr><td>检索轮次</td><td>一次</td><td>一次/少量</td><td>多轮</td></tr><tr><td>动态规划</td><td>无</td><td>弱</td><td>强</td></tr><tr><td>状态管理</td><td>无</td><td>会话级</td><td>任务级</td></tr><tr><td>证据验证</td><td>无</td><td>有限</td><td>核心</td></tr><tr><td>研究"
+      },
+      {
+        "id": 3,
+        "document_id": "6b625106315541289772b453bc75d0df",
+        "name": "Agent课程样本.pdf",
+        "excerpt": "# 01 Agent与外部交互\n\n传统 LLM 的核心模式是“输入文本，生成文本”。即使模型具备很强的推理能力，如果没有连接外部环境，它看到的信息仍然主要来自当前 Context 和模型已有知识。\n\nAgent 的重要变化，是在 LLM 外部加入 Tool、Environment 和 Execution Loop。模型可以根据目标决定是否调用搜索、网页读取、数据库、文件系统或浏览器等工具，并把工具返回的真实环境状态重新放入 Context，继续判断下一步动作。\n\nAgent 能够观察环境、选择动作、执行工具，并根据环境反馈持续调整行为。\n\n![](/assets/6b625106315541289772b453bc75d0df-esxhq4f9/6b625106315541289772b453bc75d0df/auto/images/8eb00166d274138309c1b9da4033"
+      },
+      {
+        "id": 4,
+        "document_id": "6b625106315541289772b453bc75d0df",
+        "name": "Agent课程样本.pdf",
+        "excerpt": "# 01 Agent与外部交互\n<table><tr><td>子任务</td><td>更适合的能力</td><td>主要目标</td></tr><tr><td>找到价格来源</td><td>Search</td><td>发现信息在哪里</td></tr><tr><td>阅读官方价格页</td><td>Fetch</td><td>获取页面原文</td></tr><tr><td>打开业务后台</td><td>Browser</td><td>获取当前页面状态</td></tr><tr><td>设置筛选条件</td><td>Browser Action</td><td>改变页面状态</td></tr><tr><td>检查筛选结果</td><td>Observation</td><td>判断动作结果</td></tr><tr><td>准备导出</td><td>Browser / API</td><t"
+      }
+    ]
+  },
+  "chat_session": "40b5b551-0a43-43a6-b0f1-8972aa242757",
+  "finished": 1794492466.264735
+}

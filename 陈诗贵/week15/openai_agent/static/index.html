@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>情绪疏导 · OpenAI Agents SDK 版</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-main">
+        <h1>情绪疏导助手 <span class="ver">Agents SDK</span></h1>
+        <p class="subtitle">SentimentAgent → Triage handoff → Encourage / Comfort · 流式输出</p>
+      </div>
+      <span class="badge">:5011 → :5010 → :5012 / :5013</span>
+    </header>
+
+    <main id="chat" class="chat">
+      <div class="welcome">
+        <p class="welcome-title">今天过得怎么样？</p>
+        <p class="welcome-tip">说点什么吧，回复会逐字流出来，上方能看到 Agent 的调度过程。</p>
+        <div class="samples">
+          <button class="sample" type="button">今天面试通过了，好开心</button>
+          <button class="sample" type="button">项目又延期了，真的很崩溃</button>
+          <button class="sample" type="button">今天星期一</button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="composer">
+      <textarea id="input" rows="2" maxlength="2000" placeholder="输入你的心情…（Enter 发送，Shift+Enter 换行）"></textarea>
+      <button id="send" type="button" disabled>发送</button>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
