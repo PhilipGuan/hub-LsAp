@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQL Agent · LangGraph</title>
+<style>
+  :root { --bd:#e3e5e8; --mut:#6b7280; --acc:#2563eb; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+         background:#f7f8fa; color:#111827; height:100vh; display:flex; flex-direction:column; }
+  header { display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+           padding:12px 20px; background:#fff; border-bottom:1px solid var(--bd); }
+  header h1 { font-size:15px; margin:0; font-weight:600; }
+  .tag { font-size:11px; color:#fff; background:var(--acc); border-radius:4px; padding:1px 6px; vertical-align:2px; }
+  .ctl { margin-left:auto; display:flex; align-items:center; gap:12px; font-size:13px; color:var(--mut); }
+  button { font:inherit; padding:5px 12px; border:1px solid var(--bd); background:#fff;
+           border-radius:6px; cursor:pointer; }
+  button:hover { border-color:var(--acc); color:var(--acc); }
+  /* 双语切换按钮：蓝色底（与「新建会话」区分开来，也是需求指定的底色） */
+  #lang { background:var(--acc); border-color:var(--acc); color:#fff; font-weight:600; min-width:56px; }
+  #lang:hover { background:#1d4ed8; border-color:#1d4ed8; color:#fff; }
+  select { font:inherit; padding:4px 8px; border:1px solid var(--bd); border-radius:6px;
+           background:#fff; color:#111827; }
+  #chat { flex:1; overflow-y:auto; padding:20px; max-width:880px; width:100%; margin:0 auto; }
+  .msg { margin-bottom:14px; }
+  .msg.user { text-align:right; }
+  .msg.user > * { display:inline-block; background:var(--acc); color:#fff; padding:8px 14px;
+                  border-radius:12px 12px 2px 12px; max-width:80%; text-align:left; }
+  .msg.bot > * { background:#fff; border:1px solid var(--bd); border-radius:12px 12px 12px 2px;
+                 padding:10px 14px; max-width:100%; }
+  .msg.sys, .msg.err { font-size:12px; color:var(--mut); text-align:center; }
+  .msg.err { color:#b91c1c; }
+  .meta { font-size:12px; color:var(--mut); margin:6px 0 0; }
+  .err-line { color:#b91c1c; }
+  details.sql { margin-top:8px; font-size:12px; }
+  details.sql summary { cursor:pointer; color:var(--mut); }
+  pre { background:#0f172a; color:#e2e8f0; padding:10px; border-radius:8px; overflow-x:auto;
+        font-size:12px; margin:6px 0 0; white-space:pre-wrap; word-break:break-word; }
+  table { border-collapse:collapse; margin-top:10px; font-size:13px; width:100%; }
+  th, td { border:1px solid var(--bd); padding:5px 9px; text-align:left; }
+  th { background:#f3f4f6; font-weight:600; }
+  .card { margin-top:10px; border:1px dashed var(--acc); border-radius:8px; padding:10px 12px; background:#f5f8ff; }
+  .card-t { font-weight:600; color:#1d4ed8; margin-bottom:6px; }
+  .row { display:flex; gap:8px; margin-top:8px; }
+  .row input { flex:1; padding:6px 10px; border:1px solid var(--bd); border-radius:6px; font:inherit; }
+  button.active { background:var(--acc); border-color:var(--acc); color:#fff; }
+  .panel { margin-top:10px; }
+  .panel .p-hint { font-size:12px; color:var(--mut); margin-bottom:4px; }
+  .panel textarea, .panel input { width:100%; padding:8px 10px; border:1px solid var(--bd);
+                                   border-radius:6px; font:inherit; }
+  .panel textarea { min-height:72px; resize:vertical;
+                    font:12px/1.5 ui-monospace,Menlo,Consolas,monospace; }
+  .panel textarea:focus, .panel input:focus { outline:none; border-color:var(--acc); }
+  .panel .p-actions { display:flex; gap:8px; margin-top:8px; }
+  #composer { display:flex; gap:10px; padding:14px 20px; background:#fff; border-top:1px solid var(--bd); }
+  #q { flex:1; padding:10px 14px; border:1px solid var(--bd); border-radius:8px; font:inherit; }
+  #q:focus { outline:none; border-color:var(--acc); }
+  #gate { position:fixed; inset:0; z-index:10; display:none; align-items:center; justify-content:center;
+          background:#f7f8fa; }
+  #gate .box { background:#fff; border:1px solid var(--bd); border-radius:12px; padding:24px; width:320px; }
+  #gate h2 { margin:0 0 6px; font-size:16px; }
+  #gate p { margin:0 0 14px; font-size:12px; color:var(--mut); }
+  #gate input { width:100%; padding:9px 12px; border:1px solid var(--bd); border-radius:8px; font:inherit; }
+  #gate button { width:100%; margin-top:10px; }
+  #gate .g-err { color:#b91c1c; font-size:12px; margin-top:8px; min-height:18px; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span data-i18n="title">SQL Agent · LangGraph</span> <span class="tag">MVP</span></h1>
+  <div class="ctl">
+    <label><span data-i18n="route_label">Route</span>
+      <select id="route">
+        <option value="graph" data-i18n="route_graph"></option>
+        <option value="agent" data-i18n="route_agent"></option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="review" checked> <span data-i18n="review"></span></label>
+    <button id="new" data-i18n="new_session"></button>
+    <!-- 双语切换：文案与当前 UI 语言**相反**（英文态显示「中文」，中文态显示「ENG」） -->
+    <button id="lang" title="Switch language / 切换语言">中文</button>
+    <span id="sid"></span>
+  </div>
+</header>
+
+<main id="chat"></main>
+
+<form id="composer">
+  <input id="q" autocomplete="off">
+  <button type="submit" data-i18n="send"></button>
+</form>
+
+<div id="gate">
+  <div class="box">
+    <h2 data-i18n="gate_title"></h2>
+    <p data-i18n="gate_desc"></p>
+    <input id="passcode" type="password" autocomplete="current-password">
+    <button id="go" data-i18n="gate_enter"></button>
+    <div class="g-err" id="gate-err"></div>
+  </div>
+</div>
+
+<script>
+/* ------------------------------------------------------------------ *
+ * 中英双语（默认英文）
+ *
+ * - 语言是**会话级属性**：建会话时随 `lang` 一起提交并落库（`server/store.py` 的
+ *   `sessions.lang`），所以「界面 + 交互 + 结果展示 + 分析」用的是同一种语言；
+ * - 切换语言会**新建会话** —— 图/Agent 的提示词是建会话时定下的，只有新会话才能
+ *   让「回答与分析」也跟着换语言；
+ * - 选择记在 `localStorage`，下次打开沿用；首次访问默认英文。
+ * ------------------------------------------------------------------ */
+const LANG_KEY = 'sqlagent.lang';
+const DEFAULT_LANG = 'en';
+
+const I18N = {
+  en: {
+    title: 'SQL Agent · LangGraph (Advanced)',
+    route_label: 'Route',
+    route_graph: 'Conversation graph (fixed pipeline)',
+    route_agent: 'Autonomous agent (middleware)',
+    review: 'Human review of SQL',
+    new_session: 'New session',
+    placeholder: 'Ask something, e.g. Who are the top 5 artists by sales, and how many?',
+    send: 'Send',
+    thinking: 'Thinking…',
+    gate_title: 'SQL Agent · LangGraph (Advanced)',
+    gate_desc: 'This is a private preview link. Enter the passcode to continue.',
+    gate_placeholder: 'Passcode',
+    gate_enter: 'Enter',
+    gate_expired: 'Your passcode has expired — please enter it again.',
+    new_session_note: 'New session created · route={route} · thread={thread} · human review={review}',
+    lang_switched: 'Language switched to English · a new session was started',
+    on: 'on', off: 'off',
+    degraded: 'Incomplete result this round (the service degraded)',
+    rewrite: '[follow-up rewrite]',
+    sql_summary: 'Executed SQL (what was counted)',
+    error: 'Error: ',
+    no_output: '(no output)',
+    rows_more: (n) => `${n} rows in total, showing the first 50`,
+    clarify_title: 'Need clarification: ',
+    clarify_fallback: 'Could you be more specific?',
+    clarify_placeholder: 'Add detail and press Enter to submit',
+    submit: 'Submit',
+    review_title: 'Human review: run this SQL?',
+    question: 'Question: ',
+    not_provided: '(not provided)',
+    attempt: (n) => ` · attempt ${n}`,
+    no_sql: '(no SQL provided)',
+    approve: 'Approve',
+    edit: 'Edit',
+    edit_hint: 'Rewrite as:',
+    submit_edit: 'Submit edit',
+    reject: 'Reject',
+    reject_hint: 'Rejection reason (optional):',
+    reject_placeholder: 'e.g. wrong aggregation',
+    submit_reject: 'Submit rejection',
+    unknown_interrupt: 'Unknown pause type: ',
+    hitl_title: (name) => `Human review: the agent wants to run ${name}`,
+    hitl_meta: 'Route: autonomous agent · stopped by HumanInTheLoopMiddleware before the tool runs',
+    no_args: '(no arguments)',
+  },
+  zh: {
+    title: 'SQL Agent · LangGraph 进阶版',
+    route_label: '路线',
+    route_graph: '会话图（固定流水线）',
+    route_agent: '自主 Agent（middleware）',
+    review: '人工复核 SQL',
+    new_session: '新建会话',
+    placeholder: '问点什么，例如：销量最高的前5名歌手是谁？销量多少份？',
+    send: '发送',
+    thinking: '思考中…',
+    gate_title: 'SQL Agent · LangGraph 进阶版',
+    gate_desc: '这是带口令的内测链接，请输入访问口令后进入。',
+    gate_placeholder: '访问口令',
+    gate_enter: '进入',
+    gate_expired: '口令已失效，请重新输入。',
+    new_session_note: '新会话已建立 · 路线={route} · thread={thread} · 人工复核={review}',
+    lang_switched: '已切换为中文 · 已新建会话',
+    on: '开', off: '关',
+    degraded: '本轮结果不完整（系统已降级）',
+    rewrite: '[追问改写]',
+    sql_summary: '执行的 SQL（统计口径）',
+    error: '错误：',
+    no_output: '（无输出）',
+    rows_more: (n) => `共 ${n} 行，此处显示前 50 行`,
+    clarify_title: '需要澄清：',
+    clarify_fallback: '能再具体一点吗？',
+    clarify_placeholder: '补充说明后回车提交',
+    submit: '提交',
+    review_title: '人工复核：确认执行这条 SQL？',
+    question: '问题：',
+    not_provided: '（未提供）',
+    attempt: (n) => ` · 第 ${n} 次尝试`,
+    no_sql: '（未提供 SQL）',
+    approve: '放行',
+    edit: '改写',
+    edit_hint: '改写为：',
+    submit_edit: '提交改写',
+    reject: '驳回',
+    reject_hint: '驳回理由（可空）：',
+    reject_placeholder: '例如：口径不对',
+    submit_reject: '提交驳回',
+    unknown_interrupt: '未知的暂停类型：',
+    hitl_title: (name) => `人工复核：Agent 请求执行 ${name}`,
+    hitl_meta: '路线：自主 Agent · 由 HumanInTheLoopMiddleware 在工具执行前拦下',
+    no_args: '（无参数）',
+  },
+};
+
+let LANG = (() => {
+  const saved = localStorage.getItem(LANG_KEY);
+  return (saved === 'zh' || saved === 'en') ? saved : DEFAULT_LANG;
+})();
+
+/** 取当前语言的文案；带占位符的条目是函数，直接传参调用。 */
+const t = (key) => I18N[LANG][key];
+/** 填充 `{name}` 占位符。 */
+const fmt = (s, vars) => s.replace(/\{(\w+)\}/g, (_, k) => vars[k]);
+
+/** 把静态 DOM（标题 / 标签 / 按钮 / placeholder）刷成当前语言。 */
+function applyI18n() {
+  document.documentElement.lang = LANG === 'zh' ? 'zh-CN' : 'en';
+  document.title = t('title');
+  document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  $('#q').placeholder = t('placeholder');
+  $('#passcode').placeholder = t('gate_placeholder');
+  // 按钮文案与当前语言**相反**：英文态显示「中文」，中文态显示「ENG」
+  $('#lang').textContent = LANG === 'en' ? '中文' : 'ENG';
+}
+
+const $ = (s) => document.querySelector(s);
+let sessionId = null;
+
+const gateVisible = () => $('#gate').style.display === 'flex';
+
+// 口令闸门（D10）：通过后服务端下发 httpOnly cookie，之后每个请求自动带上，
+// 前端不需要（也拿不到）口令本身。
+function showGate(msg) {
+  $('#gate').style.display = 'flex';
+  $('#gate-err').textContent = msg || '';
+  $('#passcode').focus();
+}
+
+function hideGate() { $('#gate').style.display = 'none'; }
+
+async function api(path, body) {
+  const r = await fetch(path, {
+    method: 'POST',
+    // `X-Lang` 只用于「还不知道是哪个会话」的失败话术（口令 / 500 兜底）；
+    // 会话级话术以落库的 `sessions.lang` 为准（见 server/app.py 的 `_request_lang`）。
+    headers: { 'Content-Type': 'application/json', 'X-Lang': LANG },
+    credentials: 'same-origin',
+    body: JSON.stringify(body),
+  });
+  if (r.status === 401) showGate(t('gate_expired'));
+  if (!r.ok) {
+    const d = await r.json().catch(() => ({}));
+    throw new Error(d.detail || r.statusText);
+  }
+  return r.json();
+}
+
+$('#go').onclick = async () => {
+  try {
+    await api('/api/auth', { passcode: $('#passcode').value, lang: LANG });
+    $('#passcode').value = '';
+    hideGate();
+    $('#new').click();
+  } catch (e) {
+    $('#gate-err').textContent = e.message;
+  }
+};
+
+$('#passcode').onkeydown = (e) => { if (e.key === 'Enter') $('#go').click(); };
+
+async function boot() {
+  applyI18n();
+  try {
+    const st = await (await fetch('/api/auth', { credentials: 'same-origin' })).json();
+    if (st.required && !st.ok) { showGate(); return; }
+  } catch (e) { /* 状态拿不到就先照常进入：真没权限，后面的请求还会再拦一次 */ }
+  $('#new').click();
+}
+
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g,
+  (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function bubble(cls, html) {
+  const d = document.createElement('div');
+  d.className = 'msg ' + cls;
+  d.innerHTML = `<div>${html}</div>`;
+  $('#chat').appendChild(d);
+  $('#chat').scrollTop = $('#chat').scrollHeight;
+  return d;
+}
+
+function tableHtml(cols, rows) {
+  const head = `<tr>${(cols || []).map((c) => `<th>${esc(c)}</th>`).join('')}</tr>`;
+  const body = rows.slice(0, 50)
+    .map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('');
+  const more = rows.length > 50 ? `<div class="meta">${esc(t('rows_more')(rows.length))}</div>` : '';
+  return `<table>${head}${body}</table>${more}`;
+}
+
+// 后端返回信封（D15）：{session_id, trace_id, route, status, degraded, events, trace}。
+// 这里只关心 trace 本体 + degraded / trace_id 两个外壳字段。
+function renderTrace(env) {
+  const tr = (env && env.trace) ? env.trace : env;
+  let html = '';
+  if (env && env.degraded) html += `<div class="meta err-line">${esc(t('degraded'))}</div>`;
+  if (tr.standalone_question && tr.standalone_question !== tr.raw_question) {
+    html += `<div class="meta">${esc(t('rewrite'))} ${esc(tr.standalone_question)}</div>`;
+  }
+  if (tr.answer) html += `<div>${esc(tr.answer).replace(/\n/g, '<br>')}</div>`;
+  if (tr.sql) {
+    html += `<details class="sql"><summary>${esc(t('sql_summary'))}</summary><pre>${esc(tr.sql)}</pre></details>`;
+  }
+  if (tr.rows && tr.rows.length) html += tableHtml(tr.columns, tr.rows);
+  if (tr.error) {
+    const last = String(tr.error).trim().split('\n').pop();
+    html += `<div class="meta err-line">${esc(t('error'))}${esc(last)}</div>`;
+  }
+  if (!html && tr.status !== 'interrupted') html = `<div class="meta">${esc(t('no_output'))}</div>`;
+  if (env && env.trace_id) html += `<div class="meta">trace: ${esc(env.trace_id)}</div>`;
+
+  const node = bubble('bot', html);
+  if (tr.status === 'interrupted') renderInterrupt(node, tr.interrupt || {});
+}
+
+function renderInterrupt(node, p) {
+  const box = node.firstElementChild;
+  if (Array.isArray(p.action_requests)) { renderHitl(box, p); return; }
+  if (p.type === 'clarify') {
+    const q = Array.isArray(p.question) ? p.question.join(' ') : (p.question || t('clarify_fallback'));
+    box.insertAdjacentHTML('beforeend',
+      `<div class="card"><div class="card-t">${esc(t('clarify_title'))}${esc(q)}</div>
+       <div class="row"><input class="cin" placeholder="${esc(t('clarify_placeholder'))}"><button class="cok">${esc(t('submit'))}</button></div></div>`);
+    const input = box.querySelector('.cin');
+    const go = () => resumeValue(input.value.trim() || t('clarify_fallback'));
+    box.querySelector('.cok').onclick = go;
+    input.onkeydown = (e) => { if (e.key === 'Enter') go(); };
+    input.focus();
+    return;
+  }
+  if (p.type === 'sql_review') {
+    renderReviewCard(box, {
+      titleHtml: esc(t('review_title')),
+      metaHtml: `${esc(t('question'))}${esc(p.question || t('not_provided'))}${p.attempt ? esc(t('attempt')(p.attempt)) : ''}`,
+      codeText: p.sql || t('no_sql'),
+      actions: [
+        { key: 'approve', label: t('approve') },
+        { key: 'edit', label: t('edit'),
+          input: { hint: t('edit_hint'), multiline: true, value: p.sql || '', ok: t('submit_edit') } },
+        { key: 'reject', label: t('reject'),
+          input: { hint: t('reject_hint'), placeholder: t('reject_placeholder'), ok: t('submit_reject') } },
+      ],
+      onSubmit: (key, value) => {
+        if (key === 'edit') {
+          if (!value.trim()) return;
+          resumeValue({ action: 'edit', sql: value });
+        } else if (key === 'reject') {
+          resumeValue({ action: 'reject', note: value.trim() || null });
+        } else {
+          resumeValue({ action: 'approve' });
+        }
+      },
+    });
+    return;
+  }
+  box.insertAdjacentHTML('beforeend',
+    `<div class="card">${esc(t('unknown_interrupt'))}${esc(p.type)}</div>`);
+}
+
+// 复核卡片的公共渲染：按钮点中后加蓝色底（与未选中的区分），需要附言的（改写 / 驳回）
+// 就地展开一个输入面板 —— **不用 `prompt()`**：预览 webview 里它不可用，点了会报
+// `[Error: prompt() is not supported.]`。
+function renderReviewCard(box, { titleHtml, metaHtml = '', codeText, actions, onSubmit }) {
+  box.insertAdjacentHTML('beforeend',
+    `<div class="card">
+       <div class="card-t">${titleHtml}</div>
+       ${metaHtml ? `<div class="meta">${metaHtml}</div>` : ''}
+       <pre>${esc(codeText)}</pre>
+       <div class="row">${actions.map((a) => `<button data-k="${esc(a.key)}">${esc(a.label)}</button>`).join('')}</div>
+       <div class="panel" hidden></div>
+     </div>`);
+  const card = box.querySelector('.card:last-child');
+  const panel = card.querySelector('.panel');
+  const buttons = [...card.querySelectorAll('button[data-k]')];
+
+  buttons.forEach((b) => {
+    b.onclick = () => {
+      const key = b.dataset.k;
+      buttons.forEach((x) => x.classList.toggle('active', x === b));
+      const spec = actions.find((a) => a.key === key) || {};
+      if (!spec.input) { onSubmit(key, ''); return; }   // 放行：无需输入，直接提交
+      panel.hidden = false;
+      panel.innerHTML =
+        `<div class="p-hint">${esc(spec.input.hint || '')}</div>
+         ${spec.input.multiline
+           ? `<textarea class="p-in">${esc(spec.input.value || '')}</textarea>`
+           : `<input class="p-in" placeholder="${esc(spec.input.placeholder || '')}">`}
+         <div class="p-actions"><button class="p-ok">${esc(spec.input.ok || t('submit'))}</button></div>`;
+      const field = panel.querySelector('.p-in');
+      panel.querySelector('.p-ok').onclick = () => onSubmit(key, field.value);
+      field.focus();
+    };
+  });
+}
+
+// agent 路线：HumanInTheLoopMiddleware 的载荷 {action_requests, review_configs}。
+// 续接值用框架原生格式：{"decisions": [{"type": "approve" | "edit" | "reject", ...}, ...]}
+function renderHitl(box, p) {
+  const reqs = p.action_requests || [];
+  const first = reqs[0] || { name: '?', args: {} };
+  const allowed = ((p.review_configs || [])[0] || {}).allowed_decisions || ['approve', 'reject'];
+  const sql = (first.args && first.args.sql) || '';
+  const labels = { approve: t('approve'), edit: t('edit'), reject: t('reject') };
+  // 把被拦下的工具实参摆出来：`run_sql` 时就是待执行的 SQL（人工复核必须看得见才能验证）
+  const argView = sql || (first.args && Object.keys(first.args).length
+    ? JSON.stringify(first.args, null, 2) : t('no_args'));
+  const decisionsFrom = (key, value) => {
+    if (key === 'edit') {
+      return reqs.map((r, i) => (i === 0
+        ? { type: 'edit', edited_action: { name: r.name, args: { ...r.args, sql: value } } }
+        : { type: 'approve' }));
+    }
+    if (key === 'reject') {
+      const note = value.trim();
+      return reqs.map(() => (note ? { type: 'reject', message: note } : { type: 'reject' }));
+    }
+    return reqs.map(() => ({ type: 'approve' }));
+  };
+
+  renderReviewCard(box, {
+    titleHtml: esc(t('hitl_title')(first.name)),
+    metaHtml: esc(t('hitl_meta')),
+    codeText: argView,
+    actions: allowed.map((a) => ({
+      key: a, label: labels[a] || a,
+      input: a === 'edit' ? { hint: t('edit_hint'), multiline: true, value: sql, ok: t('submit_edit') }
+           : a === 'reject' ? { hint: t('reject_hint'), placeholder: t('reject_placeholder'), ok: t('submit_reject') }
+           : undefined,
+    })),
+    onSubmit: (key, value) => {
+      if (key === 'edit' && !value.trim()) return;
+      resumeValue({ decisions: decisionsFrom(key, value) });
+    },
+  });
+}
+
+async function resumeValue(value) {
+  try {
+    renderTrace(await api('/api/chat/resume', { session_id: sessionId, value }));
+  } catch (e) {
+    bubble('err', esc(e.message));
+  }
+}
+
+$('#composer').onsubmit = async (e) => {
+  e.preventDefault();
+  const q = $('#q').value.trim();
+  if (!q || !sessionId) return;
+  $('#q').value = '';
+  bubble('user', esc(q));
+  const wait = bubble('bot', `<div class="meta">${esc(t('thinking'))}</div>`);
+  try {
+    const tr = await api('/api/chat', { session_id: sessionId, message: q });
+    wait.remove();
+    renderTrace(tr);
+  } catch (err) {
+    wait.remove();
+    bubble('err', esc(err.message));
+  }
+};
+
+/** 新建会话（`note` 非空时在顶部提示一行系统消息）。 */
+async function newSession(note) {
+  $('#chat').innerHTML = '';
+  if (note) bubble('sys', esc(note));
+  try {
+    const r = await api('/api/session', {
+      human_review: $('#review').checked,
+      route: $('#route').value,
+      lang: LANG,                     // 语言随会话落库：进程重启后重建的 bot 仍是这个语言
+    });
+    sessionId = r.session_id;
+    $('#sid').textContent = 'thread: ' + r.thread_id;
+    bubble('sys', esc(fmt(t('new_session_note'), {
+      route: r.route, thread: r.thread_id, review: r.human_review ? t('on') : t('off'),
+    })));
+  } catch (e) {
+    bubble('err', esc(e.message));
+  }
+}
+
+$('#new').onclick = () => newSession();
+
+// 双语切换：立刻换掉整页文案，并新建会话 —— 图 / Agent 的提示词是建会话时定下的，
+// 只有新会话才能让「回答与分析」也用上新语言。
+$('#lang').onclick = async () => {
+  LANG = (LANG === 'en') ? 'zh' : 'en';
+  localStorage.setItem(LANG_KEY, LANG);
+  applyI18n();
+  if (!gateVisible()) await newSession(t('lang_switched'));
+};
+
+boot();
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# 密钥绝不入库
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# 评测与运行产物
+eval_out/
+*.log
+
+# 检查点落盘（会话图的 sqlite 持久化产物）
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

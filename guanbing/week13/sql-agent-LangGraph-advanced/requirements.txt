@@ -1,0 +1,32 @@
+# LangChain 版 SQL Agent 依赖清单
+# 说明：仓库根目录的 .venv（python3.12）已完整具备以下全部依赖，通常无需重新安装。
+#       本文件的意义是「把它拷到别处也能跑」的自包含声明。
+
+# —— LangChain / LangGraph 框架 ——
+langchain>=1.0            # 框架主体：create_agent（自主 Agent 路线）、@tool（工具定义）
+langchain-core>=1.0       # 抽象与协议层：消息类型、Runnable、结构化输出
+langchain-openai>=1.0     # ChatOpenAI（本项目用它接 DeepSeek 的 OpenAI 兼容端点）
+openai                    # 用 openai.OpenAIError 区分「模型侧不可用」与「不可预期失败」（server/app.py，D6）
+                          #   注：它本就是 langchain-openai 的硬依赖，这里显式声明是因为我们直接 import 了它
+langgraph>=1.0            # 显式状态图：StateGraph / 条件边 / 检查点
+langgraph-checkpoint-sqlite>=3.0   # 会话图的 sqlite 持久化（跨进程恢复）。
+                          #   批 3 起，server 默认用它：检查点 + 会话元数据 + 配额 + 审计同库。
+                          #   仅当只跑核心库/单测（InMemorySaver）时才可以不装。
+
+# —— 数据访问 ——
+sqlalchemy>=2.0           # DBParser 的表反射与只读执行
+pandas                    # 结果集渲染、评测集比对
+
+# —— 工具与配置 ——
+python-dotenv             # 读取 .env（配置查找逻辑见 sqlagent/config.py）
+tabulate                  # 表格文本化
+tqdm                      # 评测进度条
+
+# —— 测试与演示 ——
+pytest                    # 离线单测（守卫 / 闸门 / 图路由 / 裁判，零网络）
+jupyterlab                # 演示 notebook
+ipywidgets                # notebook 内的交互界面（包本体不依赖它）
+
+# —— 发布到网页（MVP 骨架，见 server/）——
+fastapi                   # HTTP 层：把 ConversationBI 暴露成 /api/*
+uvicorn                   # ASGI 服务器
